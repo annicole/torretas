@@ -1,3 +1,34 @@
-<p>
-  grafica-evento works!
-</p>
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <select class="custom-select">
+          <option selected>Maquina</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="col">
+        <input type="date" id="fechaInicio" name="fecha" class="form-control" >
+      </div>
+      <div class="col">
+        <input type="date" id="fechaFin" name="fecha" class="form-control" >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="time" name="horaInicio" id="horaInicio" class="form-control">
+      </div>
+      <div class="col">
+        <input type="time" name="horaFin" id="horaFin" class="form-control">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div id="chartdiv" style="width: 100%; height: 500px"></div>
+  </div>
+</div>
