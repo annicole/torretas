@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders,HttpParams} from '@angular/common/http';
 import {Observable,of} from 'rxjs';
+import {Area} from '../models/area';
 import * as environment from '../../environments/environment';
 
 @Injectable({
@@ -8,11 +9,15 @@ import * as environment from '../../environments/environment';
 })
 export class AreaService {
 
-  private url:string = environment.environment.urlEndPoint;
+private url:string = environment.environment.urlEndPoint;
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   constructor(private http:HttpClient) { }
 
   getAreas():Observable<any>{
     return this.http.get(this.url);
+  }
+
+  create(area:Area): Observable<any>{
+  	return this.http.post<any>(this.url,area,{headers:this.httpHeaders});
   }
 }

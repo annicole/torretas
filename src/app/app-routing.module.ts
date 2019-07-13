@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import {RouterModule,Routes} from '@angular/router';
 import {GraficaEventoComponent} from './pages/graficas/grafica-evento/grafica-evento.component';
+import { NuevoMaquinaComponent } from './pages/forms/nuevo-maquina/nuevo-maquina.component';
+import { NuevoSensorComponent } from './pages/forms/nuevo-sensor/nuevo-sensor.component';
 
 const routes:Routes=[
-  {path:'',component:GraficaEventoComponent}
+  {path:'',redirectTo:'/graficas',pathMatch:'full'},
+  {path:'graficas',component:GraficaEventoComponent},
+  {path:'maquina',component:NuevoMaquinaComponent},
+  {path:'sensor',component:NuevoSensorComponent}
 ];
 @NgModule({
   declarations: [],

@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraficaEventoComponent } from './pages/graficas/grafica-evento/grafica-evento.component';
 import { TablaSensorComponent } from './components/tabla-sensor/tabla-sensor.component';
-import { NuevoMaquinaComponent } from './pages/nuevo-maquina/nuevo-maquina.component';
+import { NuevoMaquinaComponent } from './pages/forms/nuevo-maquina/nuevo-maquina.component';
+import { HeaderComponent } from './components/header/header.component';
+import { NuevoSensorComponent } from './pages/forms/nuevo-sensor/nuevo-sensor.component';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { NuevoMaquinaComponent } from './pages/nuevo-maquina/nuevo-maquina.compo
     AppComponent,
     GraficaEventoComponent,
     TablaSensorComponent,
-    NuevoMaquinaComponent
+    NuevoMaquinaComponent,
+    HeaderComponent,
+    NuevoSensorComponent
   ],
   imports: [
     BrowserModule,
