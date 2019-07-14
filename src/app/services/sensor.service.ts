@@ -9,12 +9,12 @@ import {Sensor} from '../models/sensor';
 })
 export class SensorService {
 
-  private url:string = environment.environment.urlEndPoint;
+  private url:string = environment.environment.urlEndPoint+'/sensor';
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   constructor(private http:HttpClient) { }
 
   getSensores():Observable<any>{
-    return this.http.get(this.url);
+    return this.http.get(this.url+'/sensores');
   }
 
   create(sensor:Sensor): Observable<any>{

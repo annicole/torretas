@@ -7,12 +7,12 @@ import * as environment from '../../environments/environment';import { Injectabl
   providedIn: 'root'
 })
 export class ColorService {
-  private url:string = environment.environment.urlEndPoint;
+  private url:string = environment.environment.urlEndPoint+'/color';
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   constructor(private http:HttpClient) { }
 
   getColors():Observable<any>{
-    return this.http.get(this.url);
+    return this.http.get(this.url+'/colores');
   }
 
   create(color:Color): Observable<any>{

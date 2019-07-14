@@ -9,12 +9,12 @@ import * as environment from '../../environments/environment';
 })
 export class MaquinaService {
 
-  private url:string = environment.environment.urlEndPoint;
+  private url:string = environment.environment.urlEndPoint+'/maquina';
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   constructor(private http:HttpClient) { }
 
   getMaquinas():Observable<any>{
-    return this.http.get("url");
+    return this.http.get(this.url+'/maquinas');
   }
 
   create(maquina:Maquina): Observable<any>{
