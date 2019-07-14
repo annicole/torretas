@@ -2,22 +2,22 @@
   <div class="card-body">
     <form [formGroup]="maquinaForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="maquina">Maquina</label>
+        <label for="maquina">Máquina</label>
         <input type="text" class="form-control" id="maquina" nombre="maquina" [(ngModel)]="maquina.maquina"
           formControlName="maquina" [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }">
         <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-          <div *ngIf="f.nombre.errors.required">Nombre es requerido</div>
+          <div *ngIf="f.nombre.errors.required">Máquina es requerido</div>
         </div>
       </div>
       <div class="form-group">
-        <label for="area">Area</label>
+        <label for="area">Área</label>
         <select class="form-control" id="area" nombre="idarea" [(ngModel)]="maquina.idarea" formControlName="idarea"
           [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }">
-          <option value="Seleccione.."></option>
+          <option value="">Seleccione...</option>
           <option *ngFor="let a of areas" [value]="a.idarea">{{a.area}}</option>
         </select>
         <div *ngIf="submitted && f.posicion.errors" class="invalid-feedback">
-          <div *ngIf="f.posicion.errors.required">Posicion es requerido</div>
+          <div *ngIf="f.posicion.errors.required">Área es requerido</div>
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
