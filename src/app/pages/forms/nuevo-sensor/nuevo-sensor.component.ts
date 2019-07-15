@@ -32,7 +32,7 @@ export class NuevoSensorComponent implements OnInit {
       intermitente:['',Validators.required],
       tipo:['',Validators.required]
     }); 
-    this.getAreas();
+    this.getMaquinas();
     this.getColores();
   }
 
@@ -49,7 +49,7 @@ export class NuevoSensorComponent implements OnInit {
     }
   }
 
-  async getAreas(){
+  async getMaquinas(){
       try{
         let resp = await this.maquinaService.getMaquinas().toPromise();
         console.log(resp);
