@@ -46,18 +46,6 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
       }, {
         "country": "Spain",
         "visits": 711
-      }, {
-        "country": "Netherlands",
-        "visits": 665
-      }, {
-        "country": "Russia",
-        "visits": 580
-      }, {
-        "country": "South Korea",
-        "visits": 443
-      }, {
-        "country": "Canada",
-        "visits": 441
       }];
 
       // Create axes
@@ -100,7 +88,7 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
       
       // Cursor
       chart.cursor = new am4charts.XYCursor();
-      
+
       this.chart = chart;
     });
   }
