@@ -1,51 +1,79 @@
-<div class="card my-4">
-  <div class="card-header font-weight-bold" style="font-size: x-large;">
-    Gráfica por evento
+
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+        <div class="card my-4">
+            <div class="card-header font-weight-bold" style="font-size: x-large;">
+              Gráfica por evento
+            </div>
+            <div class="card-body mx-2 my-2">
+              <div class="row pb-1">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="maquina">Máquina</label>
+                    <select class="form-control">
+                      <option selected>Maquina</option>
+                    </select>
+                  </div>
+          
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="fechaInicio">Fecha Inicio:</label>
+                    <input type="date" id="fechaInicio" name="fecha" class="form-control">
+                  </div>
+          
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="fechaFin">Fecha Fin:</label>
+                    <input type="date" id="fechaFin" name="fecha" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row pt-2">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="horaInicio">Hora Inicio:</label>
+                    <input type="time" name="horaInicio" id="horaInicio" class="form-control">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="horaFin">Hora Fin:</label>
+                    <input type="time" name="horaInicio" id="horaFin" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
   </div>
-  <div class="card-body mx-2 my-2">
-    <div class="row pb-1">
-      <div class="col">
-        <div class="form-group">
-          <label for="maquina">Máquina</label>
-          <select class="form-control">
-            <option selected>Maquina</option>
-          </select>
-        </div>
-
-      </div>
-      <div class="col">
-        <div class="form-group">
-          <label for="fechaInicio">Fecha Inicio:</label>
-          <input type="date" id="fechaInicio" name="fecha" class="form-control">
-        </div>
-
-      </div>
-      <div class="col">
-        <div class="form-group">
-          <label for="fechaFin">Fecha Fin:</label>
-          <input type="date" id="fechaFin" name="fecha" class="form-control">
+  <div class="row">
+    <div class="col">
+      <div class="card my-4">
+        <div class="card-body">
+          <div id="chartdiv" style="width: 100%; height: 500px"></div>
         </div>
       </div>
     </div>
-    <div class="row pt-2">
-      <div class="col">
-        <div class="form-group">
-          <label for="horaInicio">Hora Inicio:</label>
-          <input type="time" name="horaInicio" id="horaInicio" class="form-control">
-        </div>
-      </div>
-      <div class="col">
-        <div class="form-group">
-          <label for="horaFin">Hora Fin:</label>
-          <input type="time" name="horaInicio" id="horaFin" class="form-control">
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card my-4">
+        <div class="card-body">
+          <div id="chartdiv1" style="width: 100%; height: 500px"></div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="card my-4">
-  <div class="card-body">
-    <div id="chartdiv" style="width: 100%; height: 500px"></div>
+    <div class="col">
+      <div class="card my-4">
+        <div class="card-body">
+          <div id="chartdiv2" style="width: 100%; height: 500px"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
