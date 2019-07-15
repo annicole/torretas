@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="form-group">
-          <label for="maquina">Maquina</label>
+          <label for="maquina">Máquina</label>
           <select class="form-control" id="maquina" nombre="idmaquina" [(ngModel)]="sensor.idmaquina"
             formControlName="idmaquina" [ngClass]="{ 'is-invalid': submitted && f.idmaquina.errors }">
             <option *ngFor="let m of maquinas" [value]="m.idmaquina">{{m.maquina}} </option>

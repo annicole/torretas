@@ -10,7 +10,7 @@ const routes:Routes=[
   {path:'graficas',component:GraficaEventoComponent},
   {path:'maquina',component:NuevoMaquinaComponent},
   {path:'sensor',component:NuevoSensorComponent},
-  {path:'evento1',component:EventoComponent}
+  {path:'evento',component:EventoComponent}
 ];
 @NgModule({
   declarations: [],
