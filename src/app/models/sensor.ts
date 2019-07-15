@@ -5,4 +5,9 @@ export class Sensor {
     color:number;
     intermitente:number;
     tipo:number;
+    idarea:number;
+
+    constructor(){
+        this.idarea =0;
+    }
 }

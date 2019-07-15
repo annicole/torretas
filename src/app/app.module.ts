@@ -10,6 +10,7 @@ import { TablaSensorComponent } from './components/tabla-sensor/tabla-sensor.com
 import { NuevoMaquinaComponent } from './pages/forms/nuevo-maquina/nuevo-maquina.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NuevoSensorComponent } from './pages/forms/nuevo-sensor/nuevo-sensor.component';
+import { EventoComponent } from './pages/eventos/evento/evento.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { NuevoSensorComponent } from './pages/forms/nuevo-sensor/nuevo-sensor.co
     TablaSensorComponent,
     NuevoMaquinaComponent,
     HeaderComponent,
-    NuevoSensorComponent
+    NuevoSensorComponent,
+    EventoComponent
   ],
   imports: [
     BrowserModule,

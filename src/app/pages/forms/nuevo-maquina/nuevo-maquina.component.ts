@@ -4,7 +4,8 @@ import{ AreaService} from '../../../services/area.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import{Maquina} from '../../../models/maquina';
 import{Area} from '../../../models/area';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-nuevo-maquina',
@@ -17,7 +18,7 @@ export class NuevoMaquinaComponent implements OnInit {
   maquinaForm : FormGroup;
   submitted = false;
   areas:Area[];
-  constructor(private maquinaService:MaquinaService,private areaService:AreaService, private formBuilder: FormBuilder) { }
+  constructor(private maquinaService:MaquinaService,private areaService:AreaService, private formBuilder: FormBuilder,private router:Router) { }
 
   ngOnInit() {
     this.maquinaForm = this.formBuilder.group({
@@ -57,11 +58,13 @@ export class NuevoMaquinaComponent implements OnInit {
       let response = await this.maquinaService.create(this.maquina).toPromise();
       if(response.code = 200){
         Swal.fire('','Máquina guardada correctamente','success');
+        this.router.navigate(['']);
       } 
       else {
        Swal.fire('Error','No fue posible guardar la máquina','error');
       } 
     }catch(e){
+      console.log(e);
       Swal.fire('Error','No fue posible guardar la máquina','error');
     }
   }

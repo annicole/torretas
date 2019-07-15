@@ -18,6 +18,6 @@ export class MaquinaService {
   }
 
   create(maquina:Maquina): Observable<any>{
-  	return this.http.post<any>(this.url,maquina,{headers:this.httpHeaders});
+  	return this.http.post<any>(this.url+'/maquinas',maquina,{headers:this.httpHeaders});
   }
 }

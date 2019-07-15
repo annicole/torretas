@@ -18,6 +18,6 @@ export class SensorService {
   }
 
   create(sensor:Sensor): Observable<any>{
-  	return this.http.post<any>(this.url,sensor,{headers:this.httpHeaders});
+  	return this.http.post<any>(this.url+'/sensores',sensor,{headers:this.httpHeaders});
   }
 }

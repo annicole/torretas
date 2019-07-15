@@ -7,6 +7,7 @@ import{Sensor} from '../../../models/sensor';
 import Swal from 'sweetalert2';
 import {Color} from '../../../models/color';
 import{ ColorService} from '../../../services/color.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-nuevo-sensor',
@@ -21,7 +22,7 @@ export class NuevoSensorComponent implements OnInit {
   maquinas:Maquina[];
   colores:Color[];
   constructor(private maquinaService:MaquinaService,private sensorService:SensorService,
-               private formBuilder: FormBuilder,private colorService:ColorService) { }
+               private formBuilder: FormBuilder,private colorService:ColorService,private router:Router) { }
 
   ngOnInit() {
     this.sensorForm = this.formBuilder.group({
@@ -38,6 +39,7 @@ export class NuevoSensorComponent implements OnInit {
   async getColores(){
     try{
       let resp = await this.colorService.getColors().toPromise();
+      console.log(resp);
     if(resp.code == 200)
        {
        this.colores = resp.color;
@@ -77,6 +79,7 @@ export class NuevoSensorComponent implements OnInit {
       let response = await this.sensorService.create(this.sensor).toPromise();
       if(response.code = 200){
         Swal.fire('','Sensor guardado correctamente','success');
+        this.router.navigate(['']);
       } 
       else {
        Swal.fire('Error','No fue posible guardar el sensor','error');
