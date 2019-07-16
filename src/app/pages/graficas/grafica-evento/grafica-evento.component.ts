@@ -19,11 +19,13 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   private chart2: am4charts.XYChart;
   private chartBar:ChartBar;
   maquinas:Maquina[];
+  private maxDate;
 
   constructor(private zone: NgZone,private maquinaService:MaquinaService) { }
 
   ngOnInit() {
-
+    this.getMaquinas();
+  //  this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
 
   ngAfterViewInit() {
@@ -67,6 +69,7 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   async getMaquinas(){
     try{
       let response= await this.maquinaService.getMaquinas().toPromise();
+      console.log(response);
         if(response.code == 200){
           this.maquinas = response.maquina;
         } 

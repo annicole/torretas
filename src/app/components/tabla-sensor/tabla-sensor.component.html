@@ -14,13 +14,13 @@
   </thead>
   <tbody>
     <tr *ngFor="let evento of eventos">
-      <td>{{evento.hri}}</td>
-      <td>{{evento.hrf}}</td>
+      <td>{{evento.hri |date:'medium'}}</td>
+      <td>{{evento.hrf |date:'medium'}}</td>
       <td>{{evento.tiempoe}}</td>
-      <td>{{evento.paroi}}</td>
-      <td>{{evento.parof}}</td>
+      <td>{{evento.paroi |date:'medium'}}</td>
+      <td>{{evento.parof |date:'medium'}}</td>
       <td>{{evento.tiempop}}</td>
-      <td>{{evento.desbloqueo}}</td>
+      <td>{{evento.desbloqueo | uppercase }}</td>
     </tr>
   </tbody>
 </table>

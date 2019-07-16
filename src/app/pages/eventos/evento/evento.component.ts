@@ -18,6 +18,7 @@ export class EventoComponent implements OnInit {
 
   ngOnInit() {
     this.getMaquinas();
+    this.getEventos();
   }
 
   async getMaquinas(){
@@ -36,7 +37,7 @@ export class EventoComponent implements OnInit {
 
   async getEventos(){
     try{
-      let resp = await this.eventoService.getEvento("e1").toPromise();
+      let resp = await this.eventoService.getEvento("/e1").toPromise();
       if(resp.code ==200){
         this.listEventos = resp.evento;
       }
