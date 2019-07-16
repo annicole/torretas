@@ -34,4 +34,15 @@ export class EventoComponent implements OnInit {
     }
 }
 
+  async getEventos(){
+    try{
+      let resp = await this.eventoService.getEvento("e1").toPromise();
+      if(resp.code ==200){
+        this.listEventos = resp.evento;
+      }
+    }catch(e){
+      console.log(e);
+    }
+  } 
+
 }

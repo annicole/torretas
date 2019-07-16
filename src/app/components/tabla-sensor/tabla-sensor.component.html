@@ -1,15 +1,27 @@
-<table class="table">
-<thead>
-  <tr>
-    <th scope="col">Fecha Inicio Evento</th>
-    <th scope="col">Fecha Fin Evento</th>
-    <th scope="col">Duración</th>
-    <th scope="col">Fecha Inicio Paro</th>
-    <th scope="col">Fecha Fin Paro</th>
-    <th scope="col">Duración Paro</th>
-    <th scope="col">Atiende</th>
-  </tr>
-</thead>
-<tbody>
-</tbody>
+
+<div class="table-responsive-lg">
+<table class="table my-5 px-4">
+  <thead>
+    <tr>
+      <th scope="col">Fecha Inicio Evento</th>
+      <th scope="col">Fecha Fin Evento</th>
+      <th scope="col">Duración</th>
+      <th scope="col">Fecha Inicio Paro</th>
+      <th scope="col">Fecha Fin Paro</th>
+      <th scope="col">Duración Paro</th>
+      <th scope="col">Atiende</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let evento of eventos">
+      <td>{{evento.hri}}</td>
+      <td>{{evento.hrf}}</td>
+      <td>{{evento.tiempoe}}</td>
+      <td>{{evento.paroi}}</td>
+      <td>{{evento.parof}}</td>
+      <td>{{evento.tiempop}}</td>
+      <td>{{evento.desbloqueo}}</td>
+    </tr>
+  </tbody>
 </table>
+</div>

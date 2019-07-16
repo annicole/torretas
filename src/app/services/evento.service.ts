@@ -11,7 +11,7 @@ export class EventoService {
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   constructor(private http:HttpClient) { }
 
-  getParo(endPoint:string):Observable<any>{
+  getEvento(endPoint:string):Observable<any>{
     return this.http.get(this.url+endPoint);
   }
 }

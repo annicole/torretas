@@ -1,15 +1,17 @@
 <div class="card my-4">
   <div class="card-header">
-    <div class="form-group w-25">
-      <label for="maquina">Máquina</label>
-      <select class="form-control" id="maquina">
-            <option selected value=""></option>
-            <option *ngFor="let m of maquinas" [value]="m.idmaquina">{{m.maquina}} </option>
-          </select>
+    <div class="row mt-3 ">
+      <div class="col-sm-2 ml-3"> <label>Máquina:</label></div>
+      <div class="col">
+        <select class="form-control w-25" id="maquina">
+          <option selected value=""></option>
+          <option *ngFor="let m of maquinas" [value]="m.idmaquina">{{m.maquina}} </option>
+        </select>
+      </div>
+      
     </div>
-    <div class="body">
-          <!--<app-evento></app-evento>-->
-    </div>
- 
+  </div>
+  <div class="body">
+    <app-tabla-sensor [eventos]="listEventos"></app-tabla-sensor>
   </div>
 </div>
