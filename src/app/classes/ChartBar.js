@@ -1,11 +1,9 @@
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
-import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 export class ChartBar {
 
-
-    createChart(data,chartDiv) {
+    generateChartData(data, chartDiv) {
         let chart = am4core.create(chartDiv, am4charts.XYChart);
         chart.scrollbarX = new am4core.Scrollbar();
 
@@ -26,6 +24,10 @@ export class ChartBar {
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
         valueAxis.renderer.minWidth = 50;
 
+        return chart;
+    }
+
+    generateSerie(chart) {
         // Create series
         let series = chart.series.push(new am4charts.ColumnSeries());
         series.sequencedInterpolation = true;
@@ -40,20 +42,18 @@ export class ChartBar {
         series.columns.template.column.cornerRadiusTopRight = 10;
         series.columns.template.column.fillOpacity = 0.8;
 
+
+        series.columns.template.adapter.add("fill", function (fill, target) {
+            return chart.colors.getIndex(target.dataItem.index);
+        });
+
         // on hover, make corner radiuses bigger
         let hoverState = series.columns.template.column.states.create("hover");
         hoverState.properties.cornerRadiusTopLeft = 0;
         hoverState.properties.cornerRadiusTopRight = 0;
         hoverState.properties.fillOpacity = 1;
 
-        series.columns.template.adapter.add("fill", function (fill, target) {
-            return chart.colors.getIndex(target.dataItem.index);
-        });
-
-        // Cursor
-        chart.cursor = new am4charts.XYCursor();
-
-        return chart;
+        return series;
     }
 
 }

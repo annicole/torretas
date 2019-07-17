@@ -23,7 +23,8 @@ export class NuevoMaquinaComponent implements OnInit {
   ngOnInit() {
     this.maquinaForm = this.formBuilder.group({
       maquina: ['' , Validators.required],
-      idarea: ['' , Validators.required]
+      idarea: ['' , Validators.required],
+      descripcion:['',Validators.required]
     }); 
     this.getAreas();
   }

@@ -1,5 +1,7 @@
 <div class="card h-100 d-flex">
   <div class="card-body">
+    <h3>Agregar Máquina</h3>
+    <hr>
     <form [formGroup]="maquinaForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="maquina">Máquina</label>
@@ -17,6 +19,14 @@
         </select>
         <div *ngIf="submitted && f.idarea.errors" class="invalid-feedback">
           <div *ngIf="f.idarea.errors.required">Área es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea name="descripcion" id="descripcion" rows="3" [(ngModel)]="maquina.descripcion" formControlName="descripcion"  class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.descripcion.errors }"></textarea>
+        <div *ngIf="submitted && f.descripcion.errors" class="invalid-feedback">
+          <div *ngIf="f.descripcion.errors.required">Descripción es requerido</div>
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Guardar</button>

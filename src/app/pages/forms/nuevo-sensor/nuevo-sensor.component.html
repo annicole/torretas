@@ -1,5 +1,7 @@
 <div class="card mt-3">
   <div class="card-body">
+      <h3>Agregar Sensor</h3>
+      <hr>
       <form [formGroup]="sensorForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="sensor">Sensor</label>
@@ -40,7 +42,7 @@
           <label for="color">Color</label>
           <select class="form-control" id="color" nombre="color" [(ngModel)]="sensor.color" formControlName="color"
             [ngClass]="{ 'is-invalid': submitted && f.color.errors }">
-            <option *ngFor="let c of colores" [value]="c.numcolor">{{c.color}} </option>
+            <option *ngFor="let c of colores" [value]="c.idcolor">{{c.color}} </option>
           </select>
           <div *ngIf="submitted && f.color.errors" class="invalid-feedback">
             <div *ngIf="f.color.errors.required">Color es requerido</div>
