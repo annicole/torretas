@@ -3,7 +3,7 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 
 export class ChartBar {
 
-    generateChartData(data, chartDiv) {
+    generateChartData(data, chartDiv: string) {
         let chart = am4core.create(chartDiv, am4charts.XYChart);
         chart.scrollbarX = new am4core.Scrollbar();
 
@@ -27,7 +27,7 @@ export class ChartBar {
         return chart;
     }
 
-    generateSerie(chart) {
+    generateSerie(chart: am4charts.XYChart) {
         // Create series
         let series = chart.series.push(new am4charts.ColumnSeries());
         series.sequencedInterpolation = true;

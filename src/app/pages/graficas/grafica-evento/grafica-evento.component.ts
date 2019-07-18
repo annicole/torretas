@@ -6,6 +6,7 @@ import { ChartBar } from '../../../classes/ChartBar';
 import { Maquina } from '../../../models/maquina';
 import { MaquinaService } from '../../../services/maquina.service';
 import { ChartPie } from '../../../classes/ChartPie';
+import { DatePipe } from '@angular/common';
 
 am4core.useTheme(am4themes_animated);
 @Component({
@@ -15,12 +16,18 @@ am4core.useTheme(am4themes_animated);
 })
 export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy {
   private chart: am4charts.XYChart;
-  private chart1;
+  private chart1 : am4charts.PieChart;
   private chart2: am4charts.XYChart;
   private chartBar: ChartBar = new ChartBar();
   private chartPie: ChartPie = new ChartPie();
   maquinas: Maquina[];
-  private maxDate;
+  maxDate:string;
+  minDate:string;
+  fechaInicio:Date;
+  fechaFin:Date;
+  horaInicio;
+  horaFin;
+  validDate:boolean=false;
 
   data = [{
     "country": "USA",
@@ -68,11 +75,11 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
     "litres": 60
   }];
 
-  constructor(private zone: NgZone, private maquinaService: MaquinaService) { }
+  constructor(private zone: NgZone, private maquinaService: MaquinaService,private datePipe:DatePipe) { }
 
   ngOnInit() {
     this.getMaquinas();
-    //  this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
 
   ngAfterViewInit() {
@@ -134,6 +141,14 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
     });
   }
 
+  fechaChanged(){
+    this.minDate = this.datePipe.transform(this.fechaInicio, 'yyyy-MM-dd');
+  }
 
+  fechaFinChanged(){
+    if (  this.fechaFin < this.fechaInicio) {
+     this. validDate = true;
+    }
+  }
 
 }

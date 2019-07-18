@@ -3,7 +3,7 @@ import * as am4core from '@amcharts/amcharts4/core';
 
 export class ChartPie {
 
-    generateSeries(chart) {
+    generateSeries(chart: am4charts.PieChart) {
         // Add and configure Series
         let pieSeries = chart.series.push(new am4charts.PieSeries());
         pieSeries.dataFields.value = "litres";

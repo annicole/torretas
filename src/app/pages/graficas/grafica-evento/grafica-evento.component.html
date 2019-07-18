@@ -3,7 +3,7 @@
     <div class="col">
       <div class="card my-4">
         <div class="card-header font-weight-bold" style="font-size: x-large;">
-          Gráfica por evento
+          Gráficas por sensor
         </div>
         <div class="card-body mx-2">
           <div class="row pb-1">
@@ -20,14 +20,16 @@
             <div class="col">
               <div class="form-group">
                 <label for="fechaInicio">Fecha Inicio:</label>
-                <input type="date" id="fechaInicio" name="fecha" class="form-control"  >
+                <input type="date" id="fechaInicio" name="fechaInicio"   [(ngModel)]="fechaInicio" class="form-control" [(max)]="maxDate" (change)="fechaChanged()"
+                >
               </div>
 
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="fechaFin">Fecha Fin:</label>
-                <input type="date" id="fechaFin" name="fecha" class="form-control">
+                <input type="date" id="fechaFin" name="fechaFin" class="form-control" [(max)]="maxDate" [(min)]="minDate"  [(ngModel)]="fechaFin" 
+                (change)="fechaFinChanged()" [ngClass]="{ 'is-invalid': validDate }">
               </div>
             </div>
           </div>
@@ -35,13 +37,13 @@
             <div class="col">
               <div class="form-group">
                 <label for="horaInicio">Hora Inicio:</label>
-                <input type="time" name="horaInicio" id="horaInicio" class="form-control">
+                <input type="time" name="horaInicio" id="horaInicio" class="form-control"  [(ngModel)]="horaInicio">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="horaFin">Hora Fin:</label>
-                <input type="time" name="horaInicio" id="horaFin" class="form-control">
+                <input type="time" name="horaFin" id="horaFin" class="form-control" [(ngModel)]="horaFin">
               </div>
             </div>
           </div>

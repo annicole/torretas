@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { GraficaEventoComponent } from './pages/graficas/grafica-evento/grafica-evento.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 import { TablaSensorComponent } from './components/tabla-sensor/tabla-sensor.component';
 import { NuevoMaquinaComponent } from './pages/forms/nuevo-maquina/nuevo-maquina.component';
@@ -30,7 +31,7 @@ import { EventoComponent } from './pages/eventos/evento/evento.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
