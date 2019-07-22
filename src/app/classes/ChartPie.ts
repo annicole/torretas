@@ -6,8 +6,8 @@ export class ChartPie {
     generateSeries(chart: am4charts.PieChart) {
         // Add and configure Series
         let pieSeries = chart.series.push(new am4charts.PieSeries());
-        pieSeries.dataFields.value = "litres";
-        pieSeries.dataFields.category = "country";
+        pieSeries.dataFields.value = "numEventos";
+        pieSeries.dataFields.category = "sensor";
 
         // Let's cut a hole in our Pie chart the size of 30% the radius
         chart.innerRadius = am4core.percent(30);

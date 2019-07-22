@@ -7,6 +7,7 @@ import { Maquina } from '../../../models/maquina';
 import { MaquinaService } from '../../../services/maquina.service';
 import { ChartPie } from '../../../classes/ChartPie';
 import { DatePipe } from '@angular/common';
+import { GraficaService} from '../../../services/grafica.service';
 
 am4core.useTheme(am4themes_animated);
 @Component({
@@ -28,54 +29,11 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   horaInicio;
   horaFin;
   validDate:boolean=false;
+  
+  dataChart1 = [];
 
-  data = [{
-    "country": "USA",
-    "visits": 3025
-  }, {
-    "country": "China",
-    "visits": 1882
-  }, {
-    "country": "Japan",
-    "visits": 1809
-  }, {
-    "country": "Germany",
-    "visits": 1322
-  }, {
-    "country": "UK",
-    "visits": 1122
-  }, {
-    "country": "France",
-    "visits": 1114
-  }, {
-    "country": "India",
-    "visits": 984
-  }, {
-    "country": "Spain",
-    "visits": 711
-  }];
-
-  types = [{
-    "country": "Lithuania",
-    "litres": 501.9
-  }, {
-    "country": "Germany",
-    "litres": 165.8
-  }, {
-    "country": "Australia",
-    "litres": 139.9
-  }, {
-    "country": "Austria",
-    "litres": 128.3
-  }, {
-    "country": "UK",
-    "litres": 99
-  }, {
-    "country": "Belgium",
-    "litres": 60
-  }];
-
-  constructor(private zone: NgZone, private maquinaService: MaquinaService,private datePipe:DatePipe) { }
+  constructor(private zone: NgZone, private maquinaService: MaquinaService,private datePipe:DatePipe,
+              private graficaService:GraficaService) { }
 
   ngOnInit() {
     this.getMaquinas();
@@ -83,18 +41,38 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit() {
-    this.zone.runOutsideAngular(() => {
       // Add data
-
-      this.llenarGraficaBarras();
-      this.llenarGraficaPie();
-      //this.chart2 = this.chartBar.createChart(data, "chartdiv2");
-
-    });
+      this.getDataGrafica();
+      //this.llenarGraficaBarras();
+      //this.llenarGraficaPie();
   }
 
+  async getDataGrafica(){
+    try{
+      console.log("getDataGrafica");
+      let arreglo=[];
+      let response = await this.graficaService.getGrafica("-1","2019-06-13 13:47:21","2019-06-13 13:47:23").toPromise();
+      if(response.code==200){
+        arreglo = response.grafica[0];
+        Object.keys(arreglo).forEach(key=>{
+          if( key.substring(0,1)==='e'){
+            this.dataChart1.push({
+              sensor: key,
+              numEventos: arreglo[key]
+            });
+          }
+      });       
+        this.llenarGraficaPie();
+      }
+    }catch(e){
+      console.log(e);
+    }
+  }
+
+
+
   llenarGraficaBarras() {
-    this.chart = this.chartBar.generateChartData(this.data, "chartdiv");
+    this.chart = this.chartBar.generateChartData(this.dataChart1, "chartdiv");
     let serie = this.chartBar.generateSerie(this.chart);
 
     serie.columns.template.events.on("hit", this.clickEventBar, this);
@@ -110,7 +88,8 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
 
   llenarGraficaPie() {
     this.chart1 = am4core.create("chartdiv1", am4charts.PieChart);
-    this.chart1.data = this.types;
+    console.log("llenarGraficaPie",this.dataChart1);
+    this.chart1.data = this.dataChart1;
     let serie = this.chartPie.generateSeries(this.chart1);
 
     serie.slices.template.events.on("hit", this.clickEventPie, this);
@@ -124,7 +103,6 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   async getMaquinas() {
     try {
       let response = await this.maquinaService.getMaquinas().toPromise();
-      console.log(response);
       if (response.code == 200) {
         this.maquinas = response.maquina;
       }
@@ -134,21 +112,29 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngOnDestroy() {
-    this.zone.runOutsideAngular(() => {
       if (this.chart) {
         this.chart.dispose();
       }
-    });
   }
 
   fechaChanged(){
     this.minDate = this.datePipe.transform(this.fechaInicio, 'yyyy-MM-dd');
+    console.log(this.fechaInicio);
   }
 
   fechaFinChanged(){
     if (  this.fechaFin < this.fechaInicio) {
      this. validDate = true;
     }
+    console.log(this.fechaFin);
   }
 
+  horaInicioChanged(){
+    
+    console.log(this.horaInicio);
+  }
+
+  horaFinChanged(){
+    console.log(this.horaFin);
+  }
 }

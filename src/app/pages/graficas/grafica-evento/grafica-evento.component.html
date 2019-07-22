@@ -37,13 +37,13 @@
             <div class="col">
               <div class="form-group">
                 <label for="horaInicio">Hora Inicio:</label>
-                <input type="time" name="horaInicio" id="horaInicio" class="form-control"  [(ngModel)]="horaInicio">
+                <input type="time" step="1" name="horaInicio" id="horaInicio" class="form-control"  [(ngModel)]="horaInicio" (change)="horaInicioChanged()">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="horaFin">Hora Fin:</label>
-                <input type="time" name="horaFin" id="horaFin" class="form-control" [(ngModel)]="horaFin">
+                <input type="time" step="1" name="horaFin" id="horaFin" class="form-control" [(ngModel)]="horaFin" (change)="horaFinChanged()">
               </div>
             </div>
           </div>
