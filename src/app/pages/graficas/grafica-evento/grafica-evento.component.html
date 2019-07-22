@@ -62,7 +62,7 @@
     <div class="col">
       <div class="card my-4">
         <div class="card-body">
-          <div id="chartdiv1" style="width: 100%; height: 500px"></div>
+          <app-pie [chartData]="dataChart1" *ngIf="chatFlag"></app-pie>
         </div>
       </div>
     </div>

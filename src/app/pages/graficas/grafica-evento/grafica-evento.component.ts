@@ -31,6 +31,7 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   validDate:boolean=false;
   
   dataChart1 = [];
+  chatFlag = false;
 
   constructor(private zone: NgZone, private maquinaService: MaquinaService,private datePipe:DatePipe,
               private graficaService:GraficaService) { }
@@ -38,11 +39,13 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   ngOnInit() {
     this.getMaquinas();
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.getDataGrafica();
+    
   }
 
   ngAfterViewInit() {
       // Add data
-      this.getDataGrafica();
+//      this.getDataGrafica();
       //this.llenarGraficaBarras();
       //this.llenarGraficaPie();
   }
@@ -61,8 +64,9 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
               numEventos: arreglo[key]
             });
           }
-      });       
-        this.llenarGraficaPie();
+      });
+      this.chatFlag = true;      
+        //this.llenarGraficaPie();
       }
     }catch(e){
       console.log(e);
@@ -86,14 +90,14 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
     console.log(selected);
   }
 
-  llenarGraficaPie() {
-    this.chart1 = am4core.create("chartdiv1", am4charts.PieChart);
-    console.log("llenarGraficaPie",this.dataChart1);
-    this.chart1.data = this.dataChart1;
-    let serie = this.chartPie.generateSeries(this.chart1);
+  //llenarGraficaPie() {
+    //this.chart1 = am4core.create("chartdiv1", am4charts.PieChart);
+    //console.log("llenarGraficaPie",this.dataChart1);
+    //this.chart1.data = this.dataChart1;
+    //let serie = this.chartPie.generateSeries(this.chart1)
 
-    serie.slices.template.events.on("hit", this.clickEventPie, this);
-  }
+    //pieSeries.slices.template.events.on("hit", this.clickEventPie, this);
+  //}
 
   clickEventPie(ev) {
     let selected = ev.target.dataItem.dataContext;
