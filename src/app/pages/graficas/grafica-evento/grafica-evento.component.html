@@ -1,6 +1,7 @@
-<div class="">
+<div class="grafica-evento">
+
   <div class="row">
-    <div class="col">
+    <div class="side-bar col-md-3 col-lg-3">
       <div class="card my-4">
         <div class="card-header font-weight-bold" style="font-size: x-large;">
           Gráficas por sensor
@@ -20,16 +21,17 @@
             <div class="col">
               <div class="form-group">
                 <label for="fechaInicio">Fecha Inicio:</label>
-                <input type="date" id="fechaInicio" name="fechaInicio"   [(ngModel)]="fechaInicio" class="form-control" [(max)]="maxDate" (change)="fechaChanged()"
-                >
+                <input type="date" id="fechaInicio" name="fechaInicio" [(ngModel)]="fechaInicio" class="form-control"
+                  [(max)]="maxDate" (change)="fechaChanged()">
               </div>
 
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="fechaFin">Fecha Fin:</label>
-                <input type="date" id="fechaFin" name="fechaFin" class="form-control" [(max)]="maxDate" [(min)]="minDate"  [(ngModel)]="fechaFin" 
-                (change)="fechaFinChanged()" [ngClass]="{ 'is-invalid': validDate }">
+                <input type="date" id="fechaFin" name="fechaFin" class="form-control" [(max)]="maxDate"
+                  [(min)]="minDate" [(ngModel)]="fechaFin" (change)="fechaFinChanged()"
+                  [ngClass]="{ 'is-invalid': validDate }">
               </div>
             </div>
           </div>
@@ -37,40 +39,44 @@
             <div class="col">
               <div class="form-group">
                 <label for="horaInicio">Hora Inicio:</label>
-                <input type="time" step="1" name="horaInicio" id="horaInicio" class="form-control"  [(ngModel)]="horaInicio" (change)="horaInicioChanged()">
+                <input type="time" step="1" name="horaInicio" id="horaInicio" class="form-control"
+                  [(ngModel)]="horaInicio" (change)="horaInicioChanged()">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="horaFin">Hora Fin:</label>
-                <input type="time" step="1" name="horaFin" id="horaFin" class="form-control" [(ngModel)]="horaFin" (change)="horaFinChanged()">
+                <input type="time" step="1" name="horaFin" id="horaFin" class="form-control" [(ngModel)]="horaFin"
+                  (change)="horaFinChanged()">
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="card my-4">
-        <div class="card-body">
-          <div id="chartdiv" style="width: 100%; height: 500px"></div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card my-4">
-        <div class="card-body">
-          <div id="chartdiv1" style="width: 100%; height: 500px"></div>
-        </div>
-      </div>
+
     </div>
 
-    <div class="col">
-      <div class="card my-4">
-        <div class="card-body">
-          <div id="chartdiv2" style="width: 100%; height: 500px"></div>
+    <div class="cards-section col-md-9 col-lg-9">
+      <div class="col">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div id="chartdiv" style="width: 100%; height: 500px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div id="chartdiv1" style="width: 100%; height: 500px"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div id="chartdiv2" style="width: 100%; height: 500px"></div>
+          </div>
         </div>
       </div>
     </div>
