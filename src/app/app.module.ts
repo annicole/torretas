@@ -6,6 +6,7 @@ import { GraficaEventoComponent } from './pages/graficas/grafica-evento/grafica-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { TablaSensorComponent } from './components/tabla-sensor/tabla-sensor.component';
 import { NuevoMaquinaComponent } from './pages/forms/nuevo-maquina/nuevo-maquina.component';
@@ -33,7 +34,8 @@ import { PaginationBarComponent } from './components/pagination-bar/pagination-b
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
