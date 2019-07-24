@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
@@ -7,7 +7,9 @@ import { Maquina } from '../../../models/maquina';
 import { MaquinaService } from '../../../services/maquina.service';
 import { ChartPie } from '../../../classes/ChartPie';
 import { DatePipe } from '@angular/common';
-import { GraficaService} from '../../../services/grafica.service';
+import { GraficaService } from '../../../services/grafica.service';
+import { AplicacionService } from '../../../services/aplicacion.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 am4core.useTheme(am4themes_animated);
 @Component({
@@ -15,68 +17,89 @@ am4core.useTheme(am4themes_animated);
   templateUrl: './grafica-evento.component.html',
   styleUrls: ['./grafica-evento.component.css']
 })
-export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy {
+export class GraficaEventoComponent implements OnInit, OnDestroy {
   private chart: am4charts.XYChart;
-  private chart1 : am4charts.PieChart;
+  private chart1: am4charts.PieChart;
   private chart2: am4charts.XYChart;
   private chartBar: ChartBar = new ChartBar();
   private chartPie: ChartPie = new ChartPie();
   maquinas: Maquina[];
-  maxDate:string;
-  minDate:string;
-  fechaInicio:Date;
-  fechaFin:Date;
+  maxDate: string;
+  minDate: string;
+  fechaInicio;
+  fechaFin;
   horaInicio;
   horaFin;
-  validDate:boolean=false;
-  
+  validate: boolean = false;
+  validateHour: boolean
+  maquina: number;
+  graficaForm: FormGroup;
+  submitted = false;
+  dataChart = [];
   dataChart1 = [];
+  dataChart2 = [];
   chatFlag = false;
 
-  constructor(private zone: NgZone, private maquinaService: MaquinaService,private datePipe:DatePipe,
-              private graficaService:GraficaService) { }
+  constructor(
+    private zone: NgZone, 
+    private maquinaService: MaquinaService, 
+    private datePipe: DatePipe,
+    private graficaService: GraficaService, 
+    private aplicacionService: AplicacionService,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit() {
+    this.graficaForm = this.formBuilder.group({
+      maquina: ['', Validators.required],
+      horaInicio: ['', Validators.required],
+      horaFin: ['', Validators.required],
+      fechaInicio: ['', Validators.required],
+      fechaFin: ['', Validators.required]
+    },{validator: this.ValidDate('fechaInicio','fechaFin')});
     this.getMaquinas();
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.getDataGrafica();
     
   }
 
-  ngAfterViewInit() {
-      // Add data
-//      this.getDataGrafica();
-      //this.llenarGraficaBarras();
-      //this.llenarGraficaPie();
-  }
-
-  async getDataGrafica(){
-    try{
-      console.log("getDataGrafica");
-      let arreglo=[];
-      let response = await this.graficaService.getGrafica("-1","2019-06-13 13:47:21","2019-06-13 13:47:23").toPromise();
-      if(response.code==200){
+  async getDataGrafica() {
+    try {
+      let arreglo = [];
+      let response = await this.graficaService.getGrafica("-1", "2019-06-13 13:47:21", "2019-06-13 13:47:23").toPromise();
+      if (response.code == 200) {
         arreglo = response.grafica[0];
-        Object.keys(arreglo).forEach(key=>{
-          if( key.substring(0,1)==='e'){
+        Object.keys(arreglo).forEach(key => {
+          if (key.substring(0, 1) === 'e') {
+            this.dataChart.push({
+              sensor: key,
+              numEventos: arreglo[key]
+            });
+          } else if (key.substring(0, 2) === 'te') {
             this.dataChart1.push({
               sensor: key,
               numEventos: arreglo[key]
             });
           }
+          else if (key.substring(0, 2) === 'tp') {
+            this.dataChart2.push({
+              sensor: key,
+              numEventos: arreglo[key]
+            });
+          }
       });
-      this.chatFlag = true;      
-        //this.llenarGraficaPie();
+      this.chatFlag = true;
+      //this.llenarGraficaPie();
+      this.llenarGraficaBarras();
+      this.llenarGraficaBarras2();
       }
-    }catch(e){
+    } catch (e) {
       console.log(e);
     }
   }
 
-
-
   llenarGraficaBarras() {
-    this.chart = this.chartBar.generateChartData(this.dataChart1, "chartdiv");
+    this.chart = this.chartBar.generateChartData(this.dataChart, "chartdiv");
     let serie = this.chartBar.generateSerie(this.chart);
 
     serie.columns.template.events.on("hit", this.clickEventBar, this);
@@ -88,6 +111,24 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   clickEventBar(ev) {
     let selected = ev.target.dataItem.dataContext;
     console.log(selected);
+    this.aplicacionService.sensor = selected.sensor;
+    this.aplicacionService.idMaqina = 1;
+    console.log(this.aplicacionService.sensor, this.aplicacionService.idMaqina);
+    window.open("http://localhost:4200/evento", "_blank");
+  }
+
+  llenarGraficaBarras2() {
+    this.chart2 = this.chartBar.generateChartData(this.dataChart2, "chartdiv2");
+    let serie = this.chartBar.generateSerie(this.chart2);
+
+    serie.columns.template.events.on("hit", this.clickEventBar2, this);
+
+    // Cursor
+    this.chart2.cursor = new am4charts.XYCursor();
+  }
+
+  clickEventBar2(ev) {
+    let selected = ev.target.dataItem.dataContext;
   }
 
   //llenarGraficaPie() {
@@ -116,29 +157,46 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngOnDestroy() {
-      if (this.chart) {
-        this.chart.dispose();
-      }
+    if (this.chart) {
+      this.chart.dispose();
+    }
   }
 
-  fechaChanged(){
+  fechaChanged() {
     this.minDate = this.datePipe.transform(this.fechaInicio, 'yyyy-MM-dd');
+    this.fechaFin = "";
     console.log(this.fechaInicio);
   }
 
-  fechaFinChanged(){
-    if (  this.fechaFin < this.fechaInicio) {
-     this. validDate = true;
+  ValidDate(inicio: string, final: string) {
+    return (formGroup: FormGroup) => {
+      const controlInicio = formGroup.controls[inicio];
+      const controlFinal = formGroup.controls[final];
+
+      if (controlFinal.errors && !controlFinal.errors.mustMatch) {
+        return;
+      }
+
+      if (controlFinal.value < controlInicio.value) {
+        controlFinal.setErrors({ mustMatch: true });
+      } else {
+        controlFinal.setErrors(null);
+      }
     }
-    console.log(this.fechaFin);
   }
 
-  horaInicioChanged(){
-    
-    console.log(this.horaInicio);
+  get f() { return this.graficaForm.controls; }
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.graficaForm.invalid) {
+      return;
+    } else {
+      this.filtrar();
+    }
   }
 
-  horaFinChanged(){
-    console.log(this.horaFin);
+  filtrar() {
+    console.log("filtrar");
   }
 }

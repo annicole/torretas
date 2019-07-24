@@ -3,7 +3,7 @@ import{Maquina} from '../../../models/maquina';
 import{ MaquinaService} from '../../../services/maquina.service';
 import {Evento} from '../../../models/evento';
 import{ EventoService} from '../../../services/evento.service';
-
+import {AplicacionService} from '../../../services/aplicacion.service';
 
 @Component({
   selector: 'app-evento',
@@ -14,21 +14,26 @@ export class EventoComponent implements OnInit {
 
   maquinas:Maquina[];
   listEventos:Evento[];
-  constructor(private maquinaService:MaquinaService,private eventoService:EventoService) { }
+  private idMaquina:number;
+  private sensor:string;
+  constructor(private maquinaService:MaquinaService,private eventoService:EventoService,
+              private aplicacionSerivce:AplicacionService ) { }
 
   ngOnInit() {
-    this.getMaquinas();
-    this.getEventos();
+   // this.getMaquinas();
+
+    //this.getEventos();
+    this.sensor = this.aplicacionSerivce.sensor;
+    this.idMaquina = this.aplicacionSerivce.idMaqina;
+    console.log(this.sensor,this.idMaquina);
   }
 
   async getMaquinas(){
     try{
       let resp = await this.maquinaService.getMaquinas().toPromise();
-      console.log(resp);
     if(resp.code == 200)
        {
        this.maquinas = resp.maquina;
-       console.log(resp);
      }
     }catch(e){
       console.log(e);

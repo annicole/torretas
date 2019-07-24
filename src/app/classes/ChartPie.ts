@@ -26,9 +26,9 @@ export class ChartPie {
             ];
 
         pieSeries.alignLabels = false;
-        pieSeries.labels.template.bent = true;
-        pieSeries.labels.template.radius = 3;
-        pieSeries.labels.template.padding(0, 0, 0, 0);
+        pieSeries.labels.template.bent = false;
+        pieSeries.labels.template.radius = 1;
+        pieSeries.labels.template.padding(0, 0, 0, 1);
 
         pieSeries.ticks.template.disabled = true;
 
