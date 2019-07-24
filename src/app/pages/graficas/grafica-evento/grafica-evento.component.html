@@ -7,50 +7,44 @@
           Gráficas por sensor
         </div>
         <div class="card-body mx-2">
-          <div class="row pb-1">
-            <div class="col">
-              <div class="form-group">
-                <label for="maquina">Máquina:</label>
-                <select class="form-control">
-                  <option selected value=""></option>
-                  <option *ngFor="let m of maquinas" [value]="m.idmaquina">{{m.maquina}} </option>
-                </select>
-              </div>
-
+          <form [formGroup]="graficaForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="maquina">Máquina:</label>
+              <select class="form-control" [(ngModel)]="maquina" name="maquina" id="maquina" formControlName="maquina"
+                [ngClass]="{ 'is-invalid': submitted && f.maquina.errors }">
+                <option selected value="0"></option>
+                <option *ngFor="let m of maquinas" [value]="m.idmaquina">{{m.maquina}} </option>
+              </select>
             </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="fechaInicio">Fecha Inicio:</label>
-                <input type="date" id="fechaInicio" name="fechaInicio" [(ngModel)]="fechaInicio" class="form-control"
-                  [(max)]="maxDate" (change)="fechaChanged()">
-              </div>
-
+            <div class="form-group">
+              <label for="fechaInicio">Fecha Inicio:</label>
+              <input type="date" id="fechaInicio" name="fechaInicio" [(ngModel)]="fechaInicio" class="form-control"
+                [(max)]="maxDate" (change)="fechaChanged()" formControlName="fechaInicio"
+                [ngClass]="{ 'is-invalid': submitted && f.fechaInicio.errors }">
             </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="fechaFin">Fecha Fin:</label>
-                <input type="date" id="fechaFin" name="fechaFin" class="form-control" [(max)]="maxDate"
-                  [(min)]="minDate" [(ngModel)]="fechaFin" (change)="fechaFinChanged()"
-                  [ngClass]="{ 'is-invalid': validDate }">
+            <div class="form-group">
+              <label for="fechaFin">Fecha Fin:</label>
+              <input type="date" id="fechaFin" name="fechaFin" class="form-control" [(max)]="maxDate" [(min)]="minDate"
+                [(ngModel)]="fechaFin" (change)="fechaFinChanged()" formControlName="fechaFin"
+                [ngClass]="{ 'is-invalid': submitted && f.fechaFin.errors }">
+              <div *ngIf="submitted && f.fechaFin.errors" class="invalid-feedback">
+                <div *ngIf="f.fechaFin.errors.mustMatch">Fecha final debe ser mayor a la fecha inicio</div>
               </div>
             </div>
-          </div>
-          <div class="row pt-2">
-            <div class="col">
-              <div class="form-group">
-                <label for="horaInicio">Hora Inicio:</label>
-                <input type="time" step="1" name="horaInicio" id="horaInicio" class="form-control"
-                  [(ngModel)]="horaInicio" (change)="horaInicioChanged()">
-              </div>
+            <div class="form-group">
+              <label for="horaInicio">Hora Inicio:</label>
+              <input type="time" step="1" name="horaInicio" id="horaInicio" class="form-control"
+                [(ngModel)]="horaInicio" (change)="horaInicioChanged()" formControlName="horaInicio"
+                [ngClass]="{ 'is-invalid': submitted && f.horaInicio.errors }">
             </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="horaFin">Hora Fin:</label>
-                <input type="time" step="1" name="horaFin" id="horaFin" class="form-control" [(ngModel)]="horaFin"
-                  (change)="horaFinChanged()">
-              </div>
+            <div class="form-group">
+              <label for="horaFin">Hora Fin:</label>
+              <input type="time" step="1" name="horaFin" id="horaFin" class="form-control" [(ngModel)]="horaFin"
+                (change)="horaFinChanged()" formControlName="horaFin"
+                [ngClass]="{ 'is-invalid': submitted && f.horaFin.errors }">
             </div>
-          </div>
+            <button type="submit" class="btn btn-secondary btn-sm btn-block">Filtrar</button>
+          </form>
         </div>
       </div>
 
@@ -58,14 +52,14 @@
 
     <div class="cards-section col-md-9 col-lg-9">
       <div class="col">
-        <div class="card mb-4">
+        <div class="card mb-4" style="height: 23rem">
           <div class="card-body">
             <div id="chartdiv" style="width: 100%; height: 500px"></div>
           </div>
         </div>
       </div>
       <div class="col">
-        <div class="card mb-4">
+        <div class="card mb-4" style="height: 23rem">
           <div class="card-body">
             <div id="chartdiv1" style="width: 100%; height: 500px"></div>
           </div>
@@ -73,7 +67,7 @@
       </div>
 
       <div class="col">
-        <div class="card mb-4">
+        <div class="card mb-4" style="height: 23rem">
           <div class="card-body">
             <div id="chartdiv2" style="width: 100%; height: 500px"></div>
           </div>
