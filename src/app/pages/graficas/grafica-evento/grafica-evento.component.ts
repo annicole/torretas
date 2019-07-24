@@ -8,6 +8,7 @@ import { MaquinaService } from '../../../services/maquina.service';
 import { ChartPie } from '../../../classes/ChartPie';
 import { DatePipe } from '@angular/common';
 import { GraficaService} from '../../../services/grafica.service';
+import {AplicacionService} from '../../../services/aplicacion.service';
 
 am4core.useTheme(am4themes_animated);
 @Component({
@@ -30,10 +31,11 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   horaFin;
   validDate:boolean=false;
   
-  dataChart1 = [];
-
+  dataChart = [];
+  dataChart1=[];
+  dataChart2=[];
   constructor(private zone: NgZone, private maquinaService: MaquinaService,private datePipe:DatePipe,
-              private graficaService:GraficaService) { }
+              private graficaService:GraficaService,private aplicacionService:AplicacionService) { }
 
   ngOnInit() {
     this.getMaquinas();
@@ -49,19 +51,31 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
 
   async getDataGrafica(){
     try{
-      console.log("getDataGrafica");
       let arreglo=[];
       let response = await this.graficaService.getGrafica("-1","2019-06-13 13:47:21","2019-06-13 13:47:23").toPromise();
       if(response.code==200){
         arreglo = response.grafica[0];
         Object.keys(arreglo).forEach(key=>{
           if( key.substring(0,1)==='e'){
-            this.dataChart1.push({
+            this.dataChart.push({
               sensor: key,
               numEventos: arreglo[key]
             });
+          }else if(key.substring(0,2)==='te'){
+            this.dataChart1.push({
+              sensor: key,
+              numEventos: arreglo[key]
+            })
+          }
+          else if(key.substring(0,2)==='tp'){
+            this.dataChart2.push({
+              sensor: key,
+              numEventos: arreglo[key]
+            })
           }
       });       
+        this.llenarGraficaBarras();
+        this.llenarGraficaBarras2();
         this.llenarGraficaPie();
       }
     }catch(e){
@@ -69,10 +83,8 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
     }
   }
 
-
-
   llenarGraficaBarras() {
-    this.chart = this.chartBar.generateChartData(this.dataChart1, "chartdiv");
+    this.chart = this.chartBar.generateChartData(this.dataChart, "chartdiv");
     let serie = this.chartBar.generateSerie(this.chart);
 
     serie.columns.template.events.on("hit", this.clickEventBar, this);
@@ -84,11 +96,28 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   clickEventBar(ev) {
     let selected = ev.target.dataItem.dataContext;
     console.log(selected);
+    this.aplicacionService.sensor = selected.sensor;
+    this.aplicacionService.idMaqina = 1;
+    console.log(this.aplicacionService.sensor,this.aplicacionService.idMaqina);
+     window.open("http://localhost:4200/evento", "_blank");
+  }
+
+  llenarGraficaBarras2() {
+    this.chart2 = this.chartBar.generateChartData(this.dataChart2, "chartdiv2");
+    let serie = this.chartBar.generateSerie(this.chart2);
+
+    serie.columns.template.events.on("hit", this.clickEventBar2, this);
+
+    // Cursor
+    this.chart2.cursor = new am4charts.XYCursor();
+  }
+
+  clickEventBar2(ev) {
+    let selected = ev.target.dataItem.dataContext;
   }
 
   llenarGraficaPie() {
     this.chart1 = am4core.create("chartdiv1", am4charts.PieChart);
-    console.log("llenarGraficaPie",this.dataChart1);
     this.chart1.data = this.dataChart1;
     let serie = this.chartPie.generateSeries(this.chart1);
 
