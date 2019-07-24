@@ -2,6 +2,9 @@ import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+import { NgxSpinnerService } from "ngx-spinner";
+import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
+
 import { ChartBar } from '@app/classes/ChartBar';
 import { Maquina } from '@app/models/maquina';
 import { MaquinaService } from '@app/services/maquina.service';
@@ -46,7 +49,8 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     private datePipe: DatePipe,
     private graficaService: GraficaService, 
     private aplicacionService: AplicacionService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -190,6 +194,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.submitted = true;
     if (this.graficaForm.invalid) {
+      this.filtrar(); // just to test the spinner, Delete
       return;
     } else {
       this.filtrar();
@@ -197,6 +202,30 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   }
 
   filtrar() {
+    const opt1: Spinner = {
+      bdColor: "rgba(51,51,51,0.8)",
+      size: "medium",
+      color: "#fff",
+      type: "square-jelly-box"
+    };
+    const opt2: Spinner = {
+      bdColor: "rgba(100,149,237, .8)",
+      size: "large",
+      color: "white",
+      type: "line-scale-party"
+    };
+    const opt3: Spinner = {
+      bdColor: "rgba(156,220,145, .8)",
+      size: "large",
+      color: "white",
+      type: "ball-clip-rotate-multiple"
+    };
+
     console.log("filtrar");
+    this.spinner.show("mySpinner", opt3);
+
+    setTimeout(() => { // just to test the spinner, Delete 
+      this.spinner.hide("mySpinner");
+    }, 5000);
   }
 }
