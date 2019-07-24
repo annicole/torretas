@@ -13,7 +13,42 @@ import {AplicacionService} from '../../../services/aplicacion.service';
 export class EventoComponent implements OnInit {
 
   maquinas:Maquina[];
-  listEventos:Evento[];
+  date = new Date();
+  listEventos:Evento[] = [
+    {
+      desbloqueo: 'desbloqueo',
+      hrf: this.date,
+      hri: this.date,
+      maquina: "maquina",
+      parof: this.date,
+      paroi: this.date,
+      sesnor: "sensor",
+      tiempoe: 1,
+      tiempop: 2,
+    },
+    {
+      desbloqueo: 'desbloqueo2',
+      hrf: this.date,
+      hri: this.date,
+      maquina: "maquina2",
+      parof: this.date,
+      paroi: this.date,
+      sesnor: "sensor2",
+      tiempoe: 12,
+      tiempop: 22,
+    },
+    {
+      desbloqueo: 'desbloqueo3',
+      hrf: this.date,
+      hri: this.date,
+      maquina: "maquina3",
+      parof: this.date,
+      paroi: this.date,
+      sesnor: "sensor3",
+      tiempoe: 13,
+      tiempop: 23,
+    },
+  ];
   private idMaquina:number;
   private sensor:string;
   constructor(private maquinaService:MaquinaService,private eventoService:EventoService,
@@ -50,5 +85,10 @@ export class EventoComponent implements OnInit {
       console.log(e);
     }
   } 
+
+  selectPage(page) {
+    console.log('Page from pagination bar: ', page);
+    // do a call with this page
+  }
 
 }
