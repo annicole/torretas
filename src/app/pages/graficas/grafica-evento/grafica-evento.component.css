@@ -1,3 +1,9 @@
+.grafica-evento {
+    height: 100%;
+    position: relative;
+    margin-top: 5rem;
+}
+
 .card { 
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
@@ -8,3 +14,12 @@
     background-color: #ffff;
 }
 
+.side-bar {
+    position: fixed;
+    top: 55px;
+    left: 0;
+}
+
+.cards-section {
+    margin-left: 330px;
+}
