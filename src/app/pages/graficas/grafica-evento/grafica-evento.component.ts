@@ -1,14 +1,14 @@
-import { Component, OnInit, NgZone, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-import { ChartBar } from '../../../classes/ChartBar';
-import { Maquina } from '../../../models/maquina';
-import { MaquinaService } from '../../../services/maquina.service';
-import { ChartPie } from '../../../classes/ChartPie';
+import { ChartBar } from '@app/classes/ChartBar';
+import { Maquina } from '@app/models/maquina';
+import { MaquinaService } from '@app/services/maquina.service';
+import { ChartPie } from '@app/classes/ChartPie';
 import { DatePipe } from '@angular/common';
-import { GraficaService } from '../../../services/grafica.service';
-import { AplicacionService } from '../../../services/aplicacion.service';
+import { GraficaService } from '@app/services/grafica.service';
+import { AplicacionService } from '@app/services/aplicacion.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 am4core.useTheme(am4themes_animated);
@@ -17,7 +17,7 @@ am4core.useTheme(am4themes_animated);
   templateUrl: './grafica-evento.component.html',
   styleUrls: ['./grafica-evento.component.css']
 })
-export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy {
+export class GraficaEventoComponent implements OnInit, OnDestroy {
   private chart: am4charts.XYChart;
   private chart1: am4charts.PieChart;
   private chart2: am4charts.XYChart;
@@ -38,9 +38,16 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   dataChart = [];
   dataChart1 = [];
   dataChart2 = [];
-  constructor(private zone: NgZone, private maquinaService: MaquinaService, private datePipe: DatePipe,
-    private graficaService: GraficaService, private aplicacionService: AplicacionService,
-    private formBuilder: FormBuilder) { }
+  chatFlag = false;
+
+  constructor(
+    private zone: NgZone, 
+    private maquinaService: MaquinaService, 
+    private datePipe: DatePipe,
+    private graficaService: GraficaService, 
+    private aplicacionService: AplicacionService,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit() {
     this.graficaForm = this.formBuilder.group({
@@ -52,10 +59,8 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
     },{validator: this.ValidDate('fechaInicio','fechaFin')});
     this.getMaquinas();
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
-  }
-
-  ngAfterViewInit() {
     this.getDataGrafica();
+    
   }
 
   async getDataGrafica() {
@@ -74,18 +79,19 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
             this.dataChart1.push({
               sensor: key,
               numEventos: arreglo[key]
-            })
+            });
           }
           else if (key.substring(0, 2) === 'tp') {
             this.dataChart2.push({
               sensor: key,
               numEventos: arreglo[key]
-            })
+            });
           }
-        });
-        this.llenarGraficaBarras();
-        this.llenarGraficaBarras2();
-        this.llenarGraficaPie();
+      });
+      this.chatFlag = true;
+      //this.llenarGraficaPie();
+      this.llenarGraficaBarras();
+      this.llenarGraficaBarras2();
       }
     } catch (e) {
       console.log(e);
@@ -105,9 +111,9 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
   clickEventBar(ev) {
     let selected = ev.target.dataItem.dataContext;
     console.log(selected);
-    this.aplicacionService.sensor = selected.sensor;
-    this.aplicacionService.idMaqina = 1;
-    console.log(this.aplicacionService.sensor, this.aplicacionService.idMaqina);
+    this.aplicacionService['sensor'] = selected.sensor;
+    this.aplicacionService['idMaqina'] = 1;
+    console.log(this.aplicacionService['sensor'], this.aplicacionService['idMaqina']);
     window.open("http://localhost:4200/evento", "_blank");
   }
 
@@ -125,13 +131,14 @@ export class GraficaEventoComponent implements OnInit, AfterViewInit, OnDestroy 
     let selected = ev.target.dataItem.dataContext;
   }
 
-  llenarGraficaPie() {
-    this.chart1 = am4core.create("chartdiv1", am4charts.PieChart);
-    this.chart1.data = this.dataChart1;
-    let serie = this.chartPie.generateSeries(this.chart1);
+  //llenarGraficaPie() {
+    //this.chart1 = am4core.create("chartdiv1", am4charts.PieChart);
+    //console.log("llenarGraficaPie",this.dataChart1);
+    //this.chart1.data = this.dataChart1;
+    //let serie = this.chartPie.generateSeries(this.chart1)
 
-    serie.slices.template.events.on("hit", this.clickEventPie, this);
-  }
+    //pieSeries.slices.template.events.on("hit", this.clickEventPie, this);
+  //}
 
   clickEventPie(ev) {
     let selected = ev.target.dataItem.dataContext;

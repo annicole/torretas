@@ -23,8 +23,8 @@ export class EventoComponent implements OnInit {
    // this.getMaquinas();
 
     //this.getEventos();
-    this.sensor = this.aplicacionSerivce.sensor;
-    this.idMaquina = this.aplicacionSerivce.idMaqina;
+    this.sensor = this.aplicacionSerivce['sensor'];
+    this.idMaquina = this.aplicacionSerivce['idMaqina'];
     console.log(this.sensor,this.idMaquina);
   }
 

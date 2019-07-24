@@ -12,6 +12,7 @@ import { NuevoMaquinaComponent } from './pages/forms/nuevo-maquina/nuevo-maquina
 import { HeaderComponent } from './components/header/header.component';
 import { NuevoSensorComponent } from './pages/forms/nuevo-sensor/nuevo-sensor.component';
 import { EventoComponent } from './pages/eventos/evento/evento.component';
+import { PieComponent } from './components/charts/pie/pie.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { EventoComponent } from './pages/eventos/evento/evento.component';
     NuevoMaquinaComponent,
     HeaderComponent,
     NuevoSensorComponent,
-    EventoComponent
+    EventoComponent,
+    PieComponent
   ],
   imports: [
     BrowserModule,
