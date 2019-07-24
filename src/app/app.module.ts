@@ -13,6 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { NuevoSensorComponent } from './pages/forms/nuevo-sensor/nuevo-sensor.component';
 import { EventoComponent } from './pages/eventos/evento/evento.component';
 import { PieComponent } from './components/charts/pie/pie.component';
+import { PaginationBarComponent } from './components/pagination-bar/pagination-bar.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { PieComponent } from './components/charts/pie/pie.component';
     HeaderComponent,
     NuevoSensorComponent,
     EventoComponent,
-    PieComponent
+    PieComponent,
+    PaginationBarComponent
   ],
   imports: [
     BrowserModule,

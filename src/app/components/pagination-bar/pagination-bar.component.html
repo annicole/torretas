@@ -1,0 +1,21 @@
+<div class="pagination-bar">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item" [ngClass]="{'disabled': prevDisabled }" (click)="selectPrevPage()">
+        <a class="page-link"> <i class="material-icons">keyboard_arrow_left</i> </a>
+      </li>
+      <li class="page-item" (click)="selectPage(pageNumber)" [ngClass]="{'active': pageActive1 }">
+        <a class="page-link">{{ pageNumber }}</a>
+      </li>
+      <li class="page-item" (click)="selectPage(pageNumber + 1)" [ngClass]="{'active': pageActive2 }">
+        <a class="page-link">{{ pageNumber + 1 }}</a>
+      </li>
+      <li class="page-item" (click)="selectPage(pageNumber + 2)" [ngClass]="{'active': pageActive3 }">
+        <a class="page-link">{{ pageNumber + 2 }}</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': nextDisabled }" (click)="selectNextPage()">
+        <a class="page-link"> <i class="material-icons">keyboard_arrow_right</i> </a>
+      </li>
+    </ul>
+  </nav>
+</div>

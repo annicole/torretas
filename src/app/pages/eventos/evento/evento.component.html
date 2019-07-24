@@ -1,4 +1,4 @@
-<div class="evento card my-4">
+<div class="evento card mb-4">
  <!-- <div class="card-header">
     <div class="row mt-3 ">
       <div class="col-sm-2 ml-3"> <label>Máquina:</label></div>
@@ -11,7 +11,6 @@
       
     </div>
   </div>-->
-  <div class="body">
     <app-tabla-sensor [eventos]="listEventos"></app-tabla-sensor>
   </div>
-</div>
+  <app-pagination-bar (selectPageOut)="selectPage($event)"></app-pagination-bar>
