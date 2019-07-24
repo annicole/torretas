@@ -111,9 +111,9 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   clickEventBar(ev) {
     let selected = ev.target.dataItem.dataContext;
     console.log(selected);
-    this.aplicacionService.sensor = selected.sensor;
-    this.aplicacionService.idMaqina = 1;
-    console.log(this.aplicacionService.sensor, this.aplicacionService.idMaqina);
+    this.aplicacionService['sensor'] = selected.sensor;
+    this.aplicacionService['idMaqina'] = 1;
+    console.log(this.aplicacionService['sensor'], this.aplicacionService['idMaqina']);
     window.open("http://localhost:4200/evento", "_blank");
   }
 
