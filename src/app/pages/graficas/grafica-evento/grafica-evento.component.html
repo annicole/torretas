@@ -14,7 +14,6 @@
               <select class="form-control"
                 [(ngModel)]="maquina" name="maquina" id="maquina" formControlName="maquina"
                 [ngClass]="{ 'is-invalid': submitted && f.maquina.errors }">
-                <option selected value="0"></option>
                 <option *ngFor="let m of maquinas" [value]="m.idmaquina">{{m.maquina}} </option>
               </select>
             </div>

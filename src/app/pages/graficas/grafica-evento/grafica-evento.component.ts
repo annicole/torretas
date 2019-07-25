@@ -116,10 +116,12 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   clickEventBar(ev) {
     let selected = ev.target.dataItem.dataContext;
-    console.log(selected);
-    this.aplicacionService['sensor'] = selected.sensor;
-    this.aplicacionService['idMaqina'] = 1;
-    console.log(this.aplicacionService['sensor'], this.aplicacionService['idMaqina']);
+    let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+    let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+    localStorage.setItem('maquina', this.maquina);
+    localStorage.setItem('fechaInicio', fechaI);
+    localStorage.setItem('fechaFin', fechaF);
+    localStorage.setItem('sensor', '1');
     window.open("http://localhost:4200/evento", "_blank");
   }
 
@@ -202,8 +204,15 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   }
 
   filtrar() {
-    this.showSpinner();
-    this.getDataGrafica();
+    //this.showSpinner();
+    //this.getDataGrafica();
+    let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+    let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+    localStorage.setItem('maquina', this.maquina);
+    localStorage.setItem('fechaInicio', fechaI);
+    localStorage.setItem('fechaFin', fechaF);
+    localStorage.setItem('sensor', '1');
+    window.open("http://localhost:4200/evento", "_blank");
   }
 
   showSpinner() {

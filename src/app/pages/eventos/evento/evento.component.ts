@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import{Maquina} from '../../../models/maquina';
-import{ MaquinaService} from '../../../services/maquina.service';
-import {Evento} from '../../../models/evento';
-import{ EventoService} from '../../../services/evento.service';
-import {AplicacionService} from '../../../services/aplicacion.service';
+
+import { Evento } from '../../../models/evento';
+import { EventoService } from '../../../services/evento.service';
 
 @Component({
   selector: 'app-evento',
@@ -12,9 +10,12 @@ import {AplicacionService} from '../../../services/aplicacion.service';
 })
 export class EventoComponent implements OnInit {
 
-  maquinas:Maquina[];
   date = new Date();
-  listEventos:Evento[] = [
+  private idMaquina: string;
+  private sensor: string;
+  private fechaInicio: string;
+  private fechaFin: string;
+  listEventos: Evento[] = [
     {
       desbloqueo: 'desbloqueo',
       hrf: this.date,
@@ -49,42 +50,35 @@ export class EventoComponent implements OnInit {
       tiempop: 23,
     },
   ];
-  private idMaquina:number;
-  private sensor:string;
-  constructor(private maquinaService:MaquinaService,private eventoService:EventoService,
-              private aplicacionSerivce:AplicacionService ) { }
+  constructor(private eventoService: EventoService) { }
 
   ngOnInit() {
-   // this.getMaquinas();
-
-    //this.getEventos();
-    this.sensor = this.aplicacionSerivce['sensor'];
-    this.idMaquina = this.aplicacionSerivce['idMaqina'];
-    console.log(this.sensor,this.idMaquina);
+    try {
+      this.idMaquina = localStorage.getItem('maquina');
+      this.fechaInicio = localStorage.getItem('fechaInicio');
+      this.fechaFin = localStorage.getItem('fechaFin');
+      this.sensor = localStorage.getItem('sensor');
+      console.log(this.idMaquina,this.fechaFin,this.fechaInicio,this.sensor);
+      localStorage.removeItem('maquina');
+      localStorage.removeItem('fechaInicio');
+      localStorage.removeItem('fechaFin');
+      localStorage.removeItem('sensor');
+      this.getEventos();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  async getMaquinas(){
-    try{
-      let resp = await this.maquinaService.getMaquinas().toPromise();
-    if(resp.code == 200)
-       {
-       this.maquinas = resp.maquina;
-     }
-    }catch(e){
-      console.log(e);
-    }
-}
-
-  async getEventos(){
-    try{
-      let resp = await this.eventoService.getEvento("/e1").toPromise();
-      if(resp.code ==200){
+  async getEventos() {
+    try {
+      let resp = await this.eventoService.getEvento("/e1", this.idMaquina, this.fechaInicio, this.fechaFin).toPromise();
+      if (resp.code == 200) {
         this.listEventos = resp.evento;
       }
-    }catch(e){
+    } catch (e) {
       console.log(e);
     }
-  } 
+  }
 
   selectPage(page) {
     console.log('Page from pagination bar: ', page);
