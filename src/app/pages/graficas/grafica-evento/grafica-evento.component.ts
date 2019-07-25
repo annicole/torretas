@@ -35,7 +35,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   horaFin;
   validate: boolean = false;
   validateHour: boolean
-  maquina: number;
+  maquina: string;
   graficaForm: FormGroup;
   submitted = false;
   dataChart = [];
@@ -44,10 +44,10 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   chatFlag = false;
 
   constructor(
-    private zone: NgZone, 
-    private maquinaService: MaquinaService, 
+    private zone: NgZone,
+    private maquinaService: MaquinaService,
     private datePipe: DatePipe,
-    private graficaService: GraficaService, 
+    private graficaService: GraficaService,
     private aplicacionService: AplicacionService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService
@@ -60,19 +60,20 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       horaFin: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required]
-    },{validator: this.ValidDate('fechaInicio','fechaFin')});
+    }, { validator: this.ValidDate('fechaInicio', 'fechaFin') });
     this.getMaquinas();
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
-    this.getDataGrafica();
-    
   }
 
   async getDataGrafica() {
     try {
       let arreglo = [];
-      let response = await this.graficaService.getGrafica("-1", "2019-06-13 13:47:21", "2019-06-13 13:47:23").toPromise();
+      let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+      let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+      let response = await this.graficaService.getGrafica(this.maquina, fechaI, fechaF).toPromise();
       if (response.code == 200) {
-        arreglo = response.grafica[0];
+        console.log(response);
+        arreglo = response.grafica;
         Object.keys(arreglo).forEach(key => {
           if (key.substring(0, 1) === 'e') {
             this.dataChart.push({
@@ -91,11 +92,14 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
               numEventos: arreglo[key]
             });
           }
-      });
-      this.chatFlag = true;
-      //this.llenarGraficaPie();
-      this.llenarGraficaBarras();
-      this.llenarGraficaBarras2();
+        });
+        this.chatFlag = true;
+        this.llenarGraficaBarras();
+        this.llenarGraficaBarras2();
+        this.spinner.hide("mySpinner");
+      } else {
+        this.chatFlag = false;
+        this.spinner.hide("mySpinner");
       }
     } catch (e) {
       console.log(e);
@@ -105,9 +109,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   llenarGraficaBarras() {
     this.chart = this.chartBar.generateChartData(this.dataChart, "chartdiv");
     let serie = this.chartBar.generateSerie(this.chart);
-
     serie.columns.template.events.on("hit", this.clickEventBar, this);
-
     // Cursor
     this.chart.cursor = new am4charts.XYCursor();
   }
@@ -136,12 +138,12 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   }
 
   //llenarGraficaPie() {
-    //this.chart1 = am4core.create("chartdiv1", am4charts.PieChart);
-    //console.log("llenarGraficaPie",this.dataChart1);
-    //this.chart1.data = this.dataChart1;
-    //let serie = this.chartPie.generateSeries(this.chart1)
+  //this.chart1 = am4core.create("chartdiv1", am4charts.PieChart);
+  //console.log("llenarGraficaPie",this.dataChart1);
+  //this.chart1.data = this.dataChart1;
+  //let serie = this.chartPie.generateSeries(this.chart1)
 
-    //pieSeries.slices.template.events.on("hit", this.clickEventPie, this);
+  //pieSeries.slices.template.events.on("hit", this.clickEventPie, this);
   //}
 
   clickEventPie(ev) {
@@ -169,7 +171,6 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   fechaChanged() {
     this.minDate = this.datePipe.transform(this.fechaInicio, 'yyyy-MM-dd');
     this.fechaFin = "";
-    console.log(this.fechaInicio);
   }
 
   ValidDate(inicio: string, final: string) {
@@ -194,7 +195,6 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.submitted = true;
     if (this.graficaForm.invalid) {
-      this.filtrar(); // just to test the spinner, Delete
       return;
     } else {
       this.filtrar();
@@ -202,6 +202,11 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   }
 
   filtrar() {
+    this.showSpinner();
+    this.getDataGrafica();
+  }
+
+  showSpinner() {
     const opt1: Spinner = {
       bdColor: "rgba(51,51,51,0.8)",
       size: "medium",
@@ -221,11 +226,6 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       type: "ball-clip-rotate-multiple"
     };
 
-    console.log("filtrar");
     this.spinner.show("mySpinner", opt3);
-
-    setTimeout(() => { // just to test the spinner, Delete 
-      this.spinner.hide("mySpinner");
-    }, 5000);
   }
 }
