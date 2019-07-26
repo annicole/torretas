@@ -2,6 +2,13 @@
   <div class="card-header">
     <label>Máquina:</label> 
     <label>Sensor:</label>
+    <div>
+      <app-dropdown
+        [optionList]="numberOfElemets"
+        [isDropleft]="true"
+        (selectOptionOut)="selectOption($event)"
+      ></app-dropdown>
+    </div>
   </div>
     <app-tabla-sensor [eventos]="listEventos"></app-tabla-sensor>
   </div>

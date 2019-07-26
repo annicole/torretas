@@ -52,6 +52,12 @@ export class EventoComponent implements OnInit {
       tiempop: 23,
     },
   ];
+  numberOfElemets = [
+    { label: 'Ver 1 items', value: '1' },
+    { label: 'Ver 2 items', value: '2' },
+    { label: 'Ver 3 items', value: '3' },
+    { label: 'Ver 4 items', value: '4' }
+  ];
   constructor(private eventoService: EventoService) { }
 
   ngOnInit() {
@@ -86,6 +92,10 @@ export class EventoComponent implements OnInit {
     this.page = page;
     console.log('Page from pagination bar: ', page);
     // do a call with this page
+  }
+
+  selectOption(option) {
+    console.log('Number of elemets: ', option);
   }
 
 }
