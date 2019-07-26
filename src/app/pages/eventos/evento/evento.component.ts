@@ -15,8 +15,8 @@ export class EventoComponent implements OnInit {
   private sensor: string;
   private fechaInicio: string;
   private fechaFin: string;
-  private page;
-  private offset;
+  private page='1';
+  private limit='15';
   listEventos: Evento[] = [
     {
       desbloqueo: 'desbloqueo',
@@ -73,7 +73,7 @@ export class EventoComponent implements OnInit {
 
   async getEventos() {
     try {
-      let resp = await this.eventoService.getEvento("/e1", this.idMaquina, this.fechaInicio, this.fechaFin,this.offset,this.page).toPromise();
+      let resp = await this.eventoService.getEvento("/e1", this.idMaquina, this.fechaInicio, this.fechaFin,this.page,this.limit).toPromise();
       if (resp.code == 200) {
         this.listEventos = resp.evento;
       }
