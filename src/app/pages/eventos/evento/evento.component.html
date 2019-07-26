@@ -10,6 +10,9 @@
       ></app-dropdown>
     </div>
   </div>
-    <app-tabla-sensor [eventos]="listEventos"></app-tabla-sensor>
+    <app-tabla-sensor [eventos]="listEventos" [offset]="page" [limit]="limit" [total]="total"></app-tabla-sensor>
   </div>
   <app-pagination-bar (selectPageOut)="selectPage($event)"></app-pagination-bar>
+
+  <!-- SPINNER -->
+<ngx-spinner name="mySpinner"></ngx-spinner>

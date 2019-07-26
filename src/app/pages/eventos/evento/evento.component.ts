@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from "ngx-spinner";
+import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 
 import { Evento } from '../../../models/evento';
 import { EventoService } from '../../../services/evento.service';
@@ -15,50 +17,17 @@ export class EventoComponent implements OnInit {
   private sensor: string;
   private fechaInicio: string;
   private fechaFin: string;
-  private page='1';
-  private limit='15';
-  listEventos: Evento[] = [
-    {
-      desbloqueo: 'desbloqueo',
-      hrf: this.date,
-      hri: this.date,
-      maquina: "maquina",
-      parof: this.date,
-      paroi: this.date,
-      sesnor: "sensor",
-      tiempoe: 1,
-      tiempop: 2,
-    },
-    {
-      desbloqueo: 'desbloqueo2',
-      hrf: this.date,
-      hri: this.date,
-      maquina: "maquina2",
-      parof: this.date,
-      paroi: this.date,
-      sesnor: "sensor2",
-      tiempoe: 12,
-      tiempop: 22,
-    },
-    {
-      desbloqueo: 'desbloqueo3',
-      hrf: this.date,
-      hri: this.date,
-      maquina: "maquina3",
-      parof: this.date,
-      paroi: this.date,
-      sesnor: "sensor3",
-      tiempoe: 13,
-      tiempop: 23,
-    },
-  ];
+  page:string='1';
+  limit:string='10';
+  total:number; 
+  listEventos: Evento[];
   numberOfElemets = [
-    { label: 'Ver 1 items', value: '1' },
-    { label: 'Ver 2 items', value: '2' },
-    { label: 'Ver 3 items', value: '3' },
-    { label: 'Ver 4 items', value: '4' }
+    { label: '10', value: '10' },
+    { label: '15', value: '15' },
+    { label: '20', value: '20' },
+    { label: '25', value: '25' }
   ];
-  constructor(private eventoService: EventoService) { }
+  constructor(private eventoService: EventoService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     try {
@@ -82,7 +51,10 @@ export class EventoComponent implements OnInit {
       let resp = await this.eventoService.getEvento("/e1", this.idMaquina, this.fechaInicio, this.fechaFin,this.page,this.limit).toPromise();
       if (resp.code == 200) {
         this.listEventos = resp.evento;
+        this.total = resp.total;
+        this.spinner.hide("mySpinner");
       }
+   
     } catch (e) {
       console.log(e);
     }
@@ -95,7 +67,18 @@ export class EventoComponent implements OnInit {
   }
 
   selectOption(option) {
-    console.log('Number of elemets: ', option);
+    this.limit = option.value;
+    this.showSpinner();
+    this.getEventos();
   }
 
+  showSpinner() {
+    const opt1: Spinner = {
+      bdColor: "rgba(51,51,51,0.8)",
+      size: "medium",
+      color: "#fff",
+      type: "square-jelly-box"
+    };
+    this.spinner.show("mySpinner", opt1);
+  }
 }
