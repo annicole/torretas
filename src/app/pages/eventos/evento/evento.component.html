@@ -1,16 +1,18 @@
 <div class="evento card mb-4">
- <!-- <div class="card-header">
-    <div class="row mt-3 ">
-      <div class="col-sm-2 ml-3"> <label>Máquina:</label></div>
-      <div class="col">
-        <select class="form-control w-25" id="maquina">
-          <option selected value=""></option>
-          <option *ngFor="let m of maquinas" [value]="m.idmaquina">{{m.maquina}} </option>
-        </select>
-      </div>
-      
+  <div class="card-header">
+    <label>Máquina:</label> 
+    <label>Sensor:</label>
+    <div>
+      <app-dropdown
+        [optionList]="numberOfElemets"
+        [isDropleft]="true"
+        (selectOptionOut)="selectOption($event)"
+      ></app-dropdown>
     </div>
-  </div>-->
-    <app-tabla-sensor [eventos]="listEventos"></app-tabla-sensor>
+  </div>
+    <app-tabla-sensor [eventos]="listEventos" [offset]="page" [limit]="limit" [total]="total"></app-tabla-sensor>
   </div>
   <app-pagination-bar (selectPageOut)="selectPage($event)"></app-pagination-bar>
+
+  <!-- SPINNER -->
+<ngx-spinner name="mySpinner"></ngx-spinner>

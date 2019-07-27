@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { TablaSensorComponent } from './components/tabla-sensor/tabla-sensor.component';
 import { NuevoMaquinaComponent } from './pages/forms/nuevo-maquina/nuevo-maquina.component';
@@ -15,6 +16,7 @@ import { NuevoSensorComponent } from './pages/forms/nuevo-sensor/nuevo-sensor.co
 import { EventoComponent } from './pages/eventos/evento/evento.component';
 import { PieComponent } from './components/charts/pie/pie.component';
 import { PaginationBarComponent } from './components/pagination-bar/pagination-bar.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { PaginationBarComponent } from './components/pagination-bar/pagination-b
     NuevoSensorComponent,
     EventoComponent,
     PieComponent,
-    PaginationBarComponent
+    PaginationBarComponent,
+    DropdownComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { PaginationBarComponent } from './components/pagination-bar/pagination-b
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxDatatableModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

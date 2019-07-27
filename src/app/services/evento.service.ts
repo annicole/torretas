@@ -11,12 +11,14 @@ export class EventoService {
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   constructor(private http:HttpClient) { }
 
-  getEvento(endPoint:string,maquina:string,inicio:string,fin:string):Observable<any>{
+  getEvento(endPoint:string,maquina:string,inicio:string,fin:string,pagina:string,pageSize:string):Observable<any>{
     let params = new HttpParams();
 
     params = params.append('maquina',maquina);
     params = params.append('inicio',inicio);
     params = params.append('fin',fin);
+    params = params.append('pagina',pagina);
+    params = params.append('paginaL',pageSize);
     return this.http.get(this.url+endPoint,{headers:this.httpHeaders,params:params});
   }
 }

@@ -235,6 +235,6 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       type: "ball-clip-rotate-multiple"
     };
 
-    this.spinner.show("mySpinner", opt3);
+    this.spinner.show("mySpinner", opt1);
   }
 }
