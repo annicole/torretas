@@ -1,4 +1,4 @@
-import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-tabla-sensor',
@@ -8,18 +8,10 @@ import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 export class TablaSensorComponent implements OnInit {
 
   @Input() public eventos;
-  @Input() public total;
-  @Input() public offset;
-  @Input() public limit;
-  @Output() selectPageOut = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
-  }
-
-  setPage(option) {
-    console.log(option);
-    //this.pageChengeOut.emit(option);
   }
 
 }

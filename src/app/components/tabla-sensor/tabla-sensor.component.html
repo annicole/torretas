@@ -1,6 +1,6 @@
 
 <div class="table-responsive-lg">
-<!--<table class="table px-4">
+<table class="table px-4">
   <thead class="thead-dark">
     <tr>
       <th scope="col">Fecha Inicio Evento</th>
@@ -23,8 +23,8 @@
       <td>{{evento.desbloqueo | uppercase }}</td>
     </tr>
   </tbody>
-</table>-->
-<ngx-datatable
+</table>
+<!--<ngx-datatable
         class="material"
         [rows]="eventos"
         [columns]="[{name:'Fecha Inicio Evento'},{name:'Fecha Fin Evento'},{name:'Duración'},{name:'Fecha Inicio Paro'},{name:'Fecha Fin Paro'},
@@ -38,5 +38,5 @@
         [offset]="offset"
         [limit]="limit"
         (page)='setPage($event)'>
-      </ngx-datatable>
+      </ngx-datatable>-->
 </div>

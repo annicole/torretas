@@ -1,7 +1,7 @@
 <div class="evento card mb-4">
   <div class="card-header">
-    <label>Máquina:</label> 
-    <label>Sensor:</label>
+    <label>Máquina: {{idMaquina}}</label> 
+    <label>Sensor: {{sensor}}</label>
     <div>
       <app-dropdown
         [optionList]="numberOfElemets"
@@ -10,9 +10,10 @@
       ></app-dropdown>
     </div>
   </div>
-    <app-tabla-sensor [eventos]="listEventos" [offset]="page" [limit]="limit" [total]="total"></app-tabla-sensor>
+    <app-tabla-sensor [eventos]="listEventos"></app-tabla-sensor>
+    <span class="badge badge-light">Total: {{total}}</span>
   </div>
-  <app-pagination-bar (selectPageOut)="selectPage($event)"></app-pagination-bar>
+  <app-pagination-bar (selectPageOut)="selectPage($event)" [total]="total" [pageSize]="limit"></app-pagination-bar>
 
   <!-- SPINNER -->
 <ngx-spinner name="mySpinner"></ngx-spinner>

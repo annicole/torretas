@@ -35,7 +35,6 @@ export class EventoComponent implements OnInit {
       this.fechaInicio = localStorage.getItem('fechaInicio');
       this.fechaFin = localStorage.getItem('fechaFin');
       this.sensor = localStorage.getItem('sensor');
-      console.log(this.idMaquina,this.fechaFin,this.fechaInicio,this.sensor);
       localStorage.removeItem('maquina');
       localStorage.removeItem('fechaInicio');
       localStorage.removeItem('fechaFin');
@@ -48,7 +47,7 @@ export class EventoComponent implements OnInit {
 
   async getEventos() {
     try {
-      let resp = await this.eventoService.getEvento("/e1", this.idMaquina, this.fechaInicio, this.fechaFin,this.page,this.limit).toPromise();
+      let resp = await this.eventoService.getEvento("/e"+this.sensor, this.idMaquina, this.fechaInicio, this.fechaFin,this.page,this.limit).toPromise();
       if (resp.code == 200) {
         this.listEventos = resp.evento;
         this.total = resp.total;
@@ -62,7 +61,8 @@ export class EventoComponent implements OnInit {
 
   selectPage(page) {
     this.page = page;
-    console.log('Page from pagination bar: ', page);
+    this.showSpinner();
+    this.getEventos();
     // do a call with this page
   }
 

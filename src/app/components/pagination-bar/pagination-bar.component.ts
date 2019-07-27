@@ -9,13 +9,16 @@ export class PaginationBarComponent implements OnInit {
 
   @Input() totalItems: number;
   @Output() selectPageOut = new EventEmitter();
+  @Input() total:number;
+  @Input() pageSize:number;
 
+  totalButtons:number;
   prevDisabled: boolean = true;
   nextDisabled: boolean = false;
   pageNumber: number = 1;
   pageSelected: number = 1;
   lastPage: number = 4;
-
+  botones:any=[];
   pageActive1: boolean = true;
   pageActive2: boolean = false;
   pageActive3: boolean = false;
@@ -23,17 +26,28 @@ export class PaginationBarComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {    
+  }
+
+  ngOnChanges(){
+    this.botones=[];
+    let oper = Math.trunc(this.total/this.pageSize);
+    let resi = this.total % this.pageSize;
+    if(resi > 0){
+      //es entero
+     oper = oper +1;
+    }
+    this.totalButtons = oper;
+    for(let i=0;i<this.totalButtons;i++){
+      this.botones.push({
+        pageNumber: i+1
+      });
+    }
   }
 
   selectPage(page) {
-    this.pageSelected = page;
-
-    this.pageActive1 = (page === this.pageNumber) ? true : false;
-    this.pageActive2 = (page === this.pageNumber + 1) ? true : false;
-    this.pageActive3 = (page === this.pageNumber + 2) ? true : false;
-
-    this.selectPageOut.emit(page);
+    this.pageSelected = page.pageNumber;
+    this.selectPageOut.emit(page.pageNumber);
   }
 
   selectPrevPage() {

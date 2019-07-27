@@ -72,8 +72,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       let fechaF: string = this.fechaFin + ' ' + this.horaFin;
       let response = await this.graficaService.getGrafica(this.maquina, fechaI, fechaF).toPromise();
       if (response.code == 200) {
-        console.log(response);
-        arreglo = response.grafica;
+        arreglo = response.grafica[0];
         Object.keys(arreglo).forEach(key => {
           if (key.substring(0, 1) === 'e') {
             this.dataChart.push({
@@ -115,13 +114,13 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   }
 
   clickEventBar(ev) {
-    let selected = ev.target.dataItem.dataContext;
+    let selected = ev.target.dataItem.dataContext.sensor;
     let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
     let fechaF: string = this.fechaFin + ' ' + this.horaFin;
     localStorage.setItem('maquina', this.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
-    localStorage.setItem('sensor', '1');
+    localStorage.setItem('sensor',selected.substring(1, 2));
     window.open("http://localhost:4200/evento", "_blank");
   }
 
@@ -204,15 +203,8 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   }
 
   filtrar() {
-    //this.showSpinner();
-    //this.getDataGrafica();
-    let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
-    let fechaF: string = this.fechaFin + ' ' + this.horaFin;
-    localStorage.setItem('maquina', this.maquina);
-    localStorage.setItem('fechaInicio', fechaI);
-    localStorage.setItem('fechaFin', fechaF);
-    localStorage.setItem('sensor', '1');
-    window.open("http://localhost:4200/evento", "_blank");
+    this.showSpinner();
+    this.getDataGrafica();
   }
 
   showSpinner() {
