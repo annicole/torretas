@@ -47,6 +47,9 @@
               <input type="time" step="1" name="horaFin" id="horaFin" class="form-control" [(ngModel)]="horaFin"
                  formControlName="horaFin"
                 [ngClass]="{ 'is-invalid': submitted && f.horaFin.errors }">
+                <div *ngIf="submitted && f.horaFin.errors" class="invalid-feedback">
+                  <div *ngIf="f.horaFin.errors.mustMatch">Hora final debe ser mayor a la hora inicio</div>
+                </div>
             </div>
   
             <button type="submit" class="btn btn-secondary btn-sm btn-block">Filtrar</button>
@@ -72,7 +75,8 @@
           <div class="card-body">
               <h5>Gráfica por tiempo</h5>
               <hr>
-            <app-pie [chartData]="dataChart1" *ngIf="chatFlag"></app-pie>
+            <app-pie [chartData]="dataChart1" [fechaInicio]="fechaInicio" [fechaFin]="fechaFin" [maquina]="maquina" [horaInicio]="horaInicio" 
+            [horaFin]="horaFin" *ngIf="chatFlag"></app-pie>
           </div>
         </div>
       </div>

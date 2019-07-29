@@ -60,7 +60,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       horaFin: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required]
-    }, { validator: this.ValidDate('fechaInicio', 'fechaFin') });
+    }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'),this.ValidDate('horaInicio', 'horaFin') ]});
     this.getMaquinas();
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
@@ -127,15 +127,20 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   llenarGraficaBarras2() {
     this.chart2 = this.chartBar.generateChartData(this.dataChart2, "chartdiv2");
     let serie = this.chartBar.generateSerie(this.chart2);
-
     serie.columns.template.events.on("hit", this.clickEventBar2, this);
-
     // Cursor
     this.chart2.cursor = new am4charts.XYCursor();
   }
 
   clickEventBar2(ev) {
-    let selected = ev.target.dataItem.dataContext;
+    let selected = ev.target.dataItem.dataContext.sensor;
+    let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+    let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+    localStorage.setItem('maquina', this.maquina);
+    localStorage.setItem('fechaInicio', fechaI);
+    localStorage.setItem('fechaFin', fechaF);
+    localStorage.setItem('sensor',selected.substring(1, 2));
+    window.open("http://localhost:4200/evento", "_blank");
   }
 
   //llenarGraficaPie() {
@@ -205,6 +210,15 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   filtrar() {
     this.showSpinner();
     this.getDataGrafica();
+    // let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+    // let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+    // console.log("hora",this.horaInicio, ' ',this.horaFin);
+    // console.log(fechaI,fechaF);
+    // localStorage.setItem('maquina', this.maquina);
+    // localStorage.setItem('fechaInicio', fechaI);
+    // localStorage.setItem('fechaFin', fechaF);
+    // localStorage.setItem('sensor','1');
+    // window.open("http://localhost:4200/evento", "_blank");
   }
 
   showSpinner() {

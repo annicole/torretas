@@ -15,14 +15,9 @@ export class PaginationBarComponent implements OnInit {
   totalButtons:number;
   prevDisabled: boolean = true;
   nextDisabled: boolean = false;
-  pageNumber: number = 1;
   pageSelected: number = 1;
-  lastPage: number = 4;
+  lastPage: number;
   botones:any=[];
-  pageActive1: boolean = true;
-  pageActive2: boolean = false;
-  pageActive3: boolean = false;
-
 
   constructor() { }
 
@@ -37,7 +32,7 @@ export class PaginationBarComponent implements OnInit {
       //es entero
      oper = oper +1;
     }
-    this.totalButtons = oper;
+    this.lastPage = oper;
     for(let i=0;i<this.totalButtons;i++){
       this.botones.push({
         pageNumber: i+1
@@ -53,7 +48,7 @@ export class PaginationBarComponent implements OnInit {
   selectPrevPage() {
     if (!this.prevDisabled) {
       this.pageSelected = this.pageSelected - 1;
-      this.pageNumber = this.pageNumber - 1 ;
+      console.log(this.pageSelected);
       this.selectPageOut.emit(this.pageSelected);
       this.validatePagination();
     }
@@ -62,15 +57,15 @@ export class PaginationBarComponent implements OnInit {
   selectNextPage() {
     if (!this.nextDisabled) {
       this.pageSelected = this.pageSelected + 1;
-      this.pageNumber = this.pageNumber + 1;
+      console.log(this.pageSelected);
       this.selectPageOut.emit(this.pageSelected);
       this.validatePagination();
     }
   }
 
   validatePagination() {
-    this.prevDisabled = (this.pageNumber === 1) ? true : false;
-    this.nextDisabled = (this.pageNumber + 2 === this.lastPage) ? true : false;
+    this.prevDisabled = (this.pageSelected === 1) ? true : false;
+    this.nextDisabled = (this.pageSelected === this.lastPage) ? true : false;
   }
 
 }

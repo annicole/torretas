@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
+import Swal from 'sweetalert2';
 
 import { Evento } from '../../../models/evento';
 import { EventoService } from '../../../services/evento.service';
@@ -17,8 +18,8 @@ export class EventoComponent implements OnInit {
   private sensor: string;
   private fechaInicio: string;
   private fechaFin: string;
-  page:string='1';
-  limit:string='10';
+  page:number=1;
+  limit:number=10;
   total:number; 
   listEventos: Evento[];
   numberOfElemets = [
@@ -47,8 +48,9 @@ export class EventoComponent implements OnInit {
 
   async getEventos() {
     try {
-      let resp = await this.eventoService.getEvento("/e"+this.sensor, this.idMaquina, this.fechaInicio, this.fechaFin,this.page,this.limit).toPromise();
+      let resp = await this.eventoService.getEvento("/e"+this.sensor, this.idMaquina, this.fechaInicio, this.fechaFin,String(this.page),String(this.limit)).toPromise();
       if (resp.code == 200) {
+        console.log(resp);
         this.listEventos = resp.evento;
         this.total = resp.total;
         this.spinner.hide("mySpinner");
@@ -68,6 +70,7 @@ export class EventoComponent implements OnInit {
 
   selectOption(option) {
     this.limit = option.value;
+    this.page =1;
     this.showSpinner();
     this.getEventos();
   }

@@ -4,6 +4,7 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { ChartPie } from '../../../classes/ChartPie';
 import { GraficaService} from '../../../services/grafica.service';
+import { Maquina } from '@app/models/maquina';
 
 @Component({
   selector: 'app-pie',
@@ -17,7 +18,11 @@ export class PieComponent implements OnInit {
   dataChart1;
 
   @Input() chartData;
-
+  @Input() fechaInicio;
+  @Input() horaInicio;
+  @Input() horaFin;
+  @Input() fechaFin;
+  @Input() maquina;
   constructor() { }
 
   ngOnInit() {
@@ -31,7 +36,14 @@ export class PieComponent implements OnInit {
 
   
   clickEventPie(ev) {
-    let selected = ev.target.dataItem.dataContext;
+    let selected = ev.target.dataItem.dataContext.sensor;
+    let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+    let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+    localStorage.setItem('maquina', this.maquina);
+    localStorage.setItem('fechaInicio', fechaI);
+    localStorage.setItem('fechaFin', fechaF);
+    localStorage.setItem('sensor',selected.substring(1, 2));
+    window.open("http://localhost:4200/evento", "_blank");
     
   }
 

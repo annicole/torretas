@@ -4,10 +4,10 @@
       <li class="page-item" [ngClass]="{'disabled': prevDisabled }" (click)="selectPrevPage()">
         <a class="page-link"> <i class="material-icons">keyboard_arrow_left</i> </a>
       </li>
-      <li class="page-item" (click)="selectPage(b)" *ngFor="let b of botones" 
+   <!--   <li class="page-item" (click)="selectPage(b)" *ngFor="let b of botones" 
         [ngClass]="{'active': b.pageNumber ==pageSelected }">
         <a class="page-link">{{ b.pageNumber }}</a>
-      </li>
+      </li>-->
       <li class="page-item" [ngClass]="{'disabled': nextDisabled }" (click)="selectNextPage()">
         <a class="page-link"> <i class="material-icons">keyboard_arrow_right</i> </a>
       </li>
