@@ -1,0 +1,27 @@
+<div class="nuevo-area card h-100 d-flex">
+  <div class="card-body">
+    <h3>Agregar Área</h3>
+    <hr>
+    <form [formGroup]="areaForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="area">Área</label>
+        <input type="text" class="form-control" id="area" nombre="area" [(ngModel)]="area.area"
+          formControlName="area" [ngClass]="{ 'is-invalid': submitted && f.area.errors }">
+        <div *ngIf="submitted && f.area.errors" class="invalid-feedback">
+          <div *ngIf="f.area.errors.required">Área es requerida</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cia">Cia</label>
+        <select class="form-control" id="cia" nombre="idcia" [(ngModel)]="area.idcia" formControlName="idcia"
+          [ngClass]="{ 'is-invalid': submitted && f.idcia.errors }">
+          <option *ngFor="let c of cias" [value]="c.idcia">{{c.nombre}}</option>
+        </select>
+        <div *ngIf="submitted && f.idcia.errors" class="invalid-feedback">
+          <div *ngIf="f.idcia.errors.required">Cia es requerido</div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-secondary">Guardar</button>
+    </form>
+  </div>
+</div>

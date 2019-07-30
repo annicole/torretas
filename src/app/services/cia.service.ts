@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders,HttpParams} from '@angular/common/http';
 import {Observable,of} from 'rxjs';
-import {Area} from '../models/area';
+import {Cia} from '../models/cia';
 import * as environment from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AreaService {
+export class CiaService {
 
-private url:string = environment.environment.urlEndPoint+'/area';
+  private url:string = environment.environment.urlEndPoint+'/cia';
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   constructor(private http:HttpClient) { }
 
-  getAreas():Observable<any>{
-    return this.http.get(this.url+'/areas');
+  getCias():Observable<any>{
+    return this.http.get(this.url+'/cias');
   }
 
-  create(area:Area): Observable<any>{
-  	return this.http.post<any>(this.url+'/areas',area,{headers:this.httpHeaders});
+  create(cia:Cia): Observable<any>{
+  	return this.http.post<any>(this.url+'/cias',cia,{headers:this.httpHeaders});
   }
 }

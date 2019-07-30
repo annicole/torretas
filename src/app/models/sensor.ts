@@ -3,7 +3,7 @@ export class Sensor {
     sensor:string;
     idmaquina:number;
     color:number;
-    intermitente:number;
+    intermitente:number=1;
     tipo:number;
 
 }

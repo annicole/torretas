@@ -20,6 +20,9 @@ import { EventoComponent } from './pages/eventos/evento/evento.component';
 import { PieComponent } from './components/charts/pie/pie.component';
 import { PaginationBarComponent } from './components/pagination-bar/pagination-bar.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { NuevoAreaComponent } from './pages/forms/nuevo-area/nuevo-area.component';
+import { NuevoDepartamentoComponent } from './pages/forms/nuevo-departamento/nuevo-departamento.component';
+import { NuevoCiaComponent } from './pages/forms/nuevo-cia/nuevo-cia.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -35,7 +38,10 @@ registerLocaleData(localeEsMX, 'es-Mx');
     EventoComponent,
     PieComponent,
     PaginationBarComponent,
-    DropdownComponent
+    DropdownComponent,
+    NuevoAreaComponent,
+    NuevoDepartamentoComponent,
+    NuevoCiaComponent
   ],
   imports: [
     BrowserModule,
