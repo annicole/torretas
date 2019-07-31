@@ -210,15 +210,15 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   filtrar() {
     this.showSpinner();
     this.getDataGrafica();
-    // let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
-    // let fechaF: string = this.fechaFin + ' ' + this.horaFin;
-    // console.log("hora",this.horaInicio, ' ',this.horaFin);
-    // console.log(fechaI,fechaF);
-    // localStorage.setItem('maquina', this.maquina);
-    // localStorage.setItem('fechaInicio', fechaI);
-    // localStorage.setItem('fechaFin', fechaF);
-    // localStorage.setItem('sensor','1');
-    // window.open("http://localhost:4200/evento", "_blank");
+   /* let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+    let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+    console.log("hora",this.horaInicio, ' ',this.horaFin);
+    console.log(fechaI,fechaF);
+    localStorage.setItem('maquina', this.maquina);
+    localStorage.setItem('fechaInicio', fechaI);
+    localStorage.setItem('fechaFin', fechaF);
+    localStorage.setItem('sensor','1');
+    window.open("http://localhost:4200/evento", "_blank");*/
   }
 
   showSpinner() {

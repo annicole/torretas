@@ -9,7 +9,7 @@ export class ChartBar {
 
         // Add data
         chart.data = data;
-
+        chart.responsive.enabled = true;
         // Create axes
         let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
         categoryAxis.dataFields.category = "sensor";

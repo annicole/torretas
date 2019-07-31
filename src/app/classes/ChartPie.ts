@@ -11,7 +11,7 @@ export class ChartPie {
 
         // Let's cut a hole in our Pie chart the size of 30% the radius
         chart.innerRadius = am4core.percent(30);
-
+        chart.responsive.enabled = true;
         // Put a thick white border around each Slice
         pieSeries.slices.template.stroke = am4core.color("#fff");
         pieSeries.slices.template.strokeWidth = 2;

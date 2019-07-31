@@ -6,6 +6,7 @@ import { NuevoSensorComponent } from './pages/forms/nuevo-sensor/nuevo-sensor.co
 import {EventoComponent} from './pages/eventos/evento/evento.component';
 import {NuevoAreaComponent  } from './pages/forms/nuevo-area/nuevo-area.component';
 import { NuevoDepartamentoComponent } from './pages/forms/nuevo-departamento/nuevo-departamento.component';
+import { NuevoCiaComponent } from './pages/forms/nuevo-cia/nuevo-cia.component';
 
 const routes:Routes=[
   {path:'',redirectTo:'/graficas',pathMatch:'full'},
@@ -14,7 +15,8 @@ const routes:Routes=[
   {path:'sensor',component:NuevoSensorComponent},
   {path:'evento',component:EventoComponent},
   {path:'departamento',component:NuevoDepartamentoComponent},
-  {path:'area',component:NuevoAreaComponent}
+  {path:'area',component:NuevoAreaComponent},
+  {path:'cia',component:NuevoCiaComponent}
 ];
 @NgModule({
   declarations: [],
