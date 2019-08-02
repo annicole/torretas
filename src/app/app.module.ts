@@ -23,6 +23,8 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { NuevoAreaComponent } from './pages/forms/nuevo-area/nuevo-area.component';
 import { NuevoDepartamentoComponent } from './pages/forms/nuevo-departamento/nuevo-departamento.component';
 import { NuevoCiaComponent } from './pages/forms/nuevo-cia/nuevo-cia.component';
+import { NuevoUsuarioComponent } from './pages/forms/nuevo-usuario/nuevo-usuario.component';
+import { HomeComponent } from './pages/home/home.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -41,7 +43,9 @@ registerLocaleData(localeEsMX, 'es-Mx');
     DropdownComponent,
     NuevoAreaComponent,
     NuevoDepartamentoComponent,
-    NuevoCiaComponent
+    NuevoCiaComponent,
+    NuevoUsuarioComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

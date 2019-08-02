@@ -38,6 +38,7 @@ export class PaginationBarComponent implements OnInit {
         pageNumber: i+1
       });
     }
+    this.validatePagination();
   }
 
   selectPage(page) {
