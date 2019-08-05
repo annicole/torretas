@@ -1,3 +1,62 @@
-<p>
-  nuevo-usuario works!
-</p>
+<div class="nuevo-usuario card h-100 d-flex">
+  <div class="card-body">
+    <h3>Agregar Usuario</h3>
+    <hr>
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="username">Nombre Usuario:</label>
+          <input type="text" class="form-control" id="username" nombre="username" [(ngModel)]="usuario.username"
+            formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Usuario es requerida</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="correo">Correo</label>
+          <input type="text" class="form-control" id="correo" nombre="correo" [(ngModel)]="usuario.correo"
+            formControlName="correo" [ngClass]="{ 'is-invalid': submitted && f.correo.errors }">
+          <div *ngIf="submitted && f.correo.errors" class="invalid-feedback">
+            <div *ngIf="f.correo.errors.required">Correo es requerido</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="password">Contraseña</label>
+          <input type="text" class="form-control" id="password" nombre="password" [(ngModel)]="usuario.password"
+            formControlName="rfc" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Contraseña es requerida</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="password2">Confirma Contraseña</label>
+          <input type="text" class="form-control" id="password2" nombre="password2" [(ngModel)]="usuario.password2"
+            formControlName="password2" [ngClass]="{ 'is-invalid': submitted && f.password2.errors }">
+            <div *ngIf="submitted && f.password2.errors" class="invalid-feedback">
+              <div *ngIf="f.password2.errors.required">Contraseña es requerido</div>
+              <div *ngIf="f.password2.errors.mustMatch">Contraseña no coincide</div>
+         </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="celular">Celular</label>
+          <input type="text" class="form-control" id="celular" nombre="celular" [(ngModel)]="usuario.celular"
+            formControlName="celular" [ngClass]="{ 'is-invalid': submitted && f.celular.errors }">
+          <div *ngIf="submitted && f.celular.errors" class="invalid-feedback">
+            <div *ngIf="f.celular.errors.required">Celular es requerido</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="departamento">Departamento</label>
+          <select class="form-control" id="departamento" nombre="iddep" [(ngModel)]="usuario.iddep"
+            formControlName="iddep" [ngClass]="{ 'is-invalid': submitted && f.iddep.errors }">
+            <option *ngFor="let d of departamentos" [value]="d.iddep">{{d.departamento}} </option>
+          </select>
+          <div *ngIf="submitted && f.iddep.errors" class="invalid-feedback">
+            <div *ngIf="f.iddep.errors.required">Departamento es requerido</div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-secondary">Guardar</button>
+    </form>
+  </div>
+</div>

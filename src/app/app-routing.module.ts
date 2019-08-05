@@ -7,6 +7,8 @@ import {EventoComponent} from './pages/eventos/evento/evento.component';
 import {NuevoAreaComponent  } from './pages/forms/nuevo-area/nuevo-area.component';
 import { NuevoDepartamentoComponent } from './pages/forms/nuevo-departamento/nuevo-departamento.component';
 import { NuevoCiaComponent } from './pages/forms/nuevo-cia/nuevo-cia.component';
+import {NuevoUsuarioComponent} from './pages/forms/nuevo-usuario/nuevo-usuario.component';
+import {HomeComponent} from './pages/home/home.component';
 
 const routes:Routes=[
   {path:'',redirectTo:'/graficas',pathMatch:'full'},
@@ -16,7 +18,9 @@ const routes:Routes=[
   {path:'evento',component:EventoComponent},
   {path:'departamento',component:NuevoDepartamentoComponent},
   {path:'area',component:NuevoAreaComponent},
-  {path:'cia',component:NuevoCiaComponent}
+  {path:'cia',component:NuevoCiaComponent},
+  {path:'usuario',component:NuevoUsuarioComponent},
+  {path:'home',component:HomeComponent}
 ];
 @NgModule({
   declarations: [],

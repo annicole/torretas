@@ -7,26 +7,22 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/maquina']">Máquina <span class="sr-only">(current)</span></a>
+        <a class="nav-link" [routerLink]="['/graficas']">Gráficas <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/sensor']">Sensor</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Nuevo
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="['/maquina']">Máquina </a>
+          <a class="dropdown-item" [routerLink]="['/sensor']">Sensor</a>
+          <a class="dropdown-item" [routerLink]="['/departamento']">Departamento</a>
+          <a class="dropdown-item" [routerLink]="['/area']">Área</a>
+          <a class="dropdown-item" [routerLink]="['/cia']">Cia</a>
+          <a class="dropdown-item" [routerLink]="['/usuario']">Usuario</a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/graficas']">Gráficas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/departamento']">Departamento</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/area']">Área</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/cia']">Cia</a>
-      </li>
-      <!--<li class="nav-item">
-          <a class="nav-link" [routerLink]="['/evento']">Evento</a>
-        </li>-->
     </ul>
   </div>
 </nav>

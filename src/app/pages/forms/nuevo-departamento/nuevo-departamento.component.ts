@@ -56,7 +56,7 @@ async guardar(){
   try{
     let response = await this.deptoService.create(this.departamento).toPromise();
     if(response.code = 200){
-      Swal.fire('','Área guardada correctamente','success');
+      Swal.fire('','Departamento guardado correctamente','success');
       this.router.navigate(['']);
     } 
     else {
