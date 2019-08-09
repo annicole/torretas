@@ -23,7 +23,7 @@
         <div class="form-group col-md-6">
           <label for="password">Contraseña</label>
           <input type="text" class="form-control" id="password" nombre="password" [(ngModel)]="usuario.password"
-            formControlName="rfc" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+            formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
             <div *ngIf="f.password.errors.required">Contraseña es requerida</div>
           </div>

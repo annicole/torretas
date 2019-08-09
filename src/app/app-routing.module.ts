@@ -11,7 +11,7 @@ import {NuevoUsuarioComponent} from './pages/forms/nuevo-usuario/nuevo-usuario.c
 import {HomeComponent} from './pages/home/home.component';
 
 const routes:Routes=[
-  {path:'',redirectTo:'/graficas',pathMatch:'full'},
+  {path:'',redirectTo:'/home',pathMatch:'full'},
   {path:'graficas',component:GraficaEventoComponent},
   {path:'maquina',component:NuevoMaquinaComponent},
   {path:'sensor',component:NuevoSensorComponent},
