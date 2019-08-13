@@ -1,7 +1,7 @@
 <div class="evento card mb-4">
   <div class="card-header">
-    <label>Máquina: {{idMaquina}}</label> 
-    <label>Sensor: {{sensor}}</label>
+    <label class="text-justify font-weight-bold">Máquina: {{idMaquina}}</label> 
+    <label class="text-justify font-weight-bold">Sensor: {{sensor}}</label>
     <div>
       <app-dropdown
         [optionList]="numberOfElemets"
@@ -11,8 +11,10 @@
     </div>
   </div>
     <app-tabla-sensor [eventos]="listEventos"></app-tabla-sensor>
+    <div class="footer" >
     <span class="badge badge-light">Total: {{total}}</span>
     <span class="badge badge-light">Página: {{page}}</span>
+    </div>
   </div>
   <app-pagination-bar (selectPageOut)="selectPage($event)" [total]="total" [pageSize]="limit"></app-pagination-bar>
 

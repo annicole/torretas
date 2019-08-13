@@ -9,6 +9,7 @@ import { NuevoDepartamentoComponent } from './pages/forms/nuevo-departamento/nue
 import { NuevoCiaComponent } from './pages/forms/nuevo-cia/nuevo-cia.component';
 import {NuevoUsuarioComponent} from './pages/forms/nuevo-usuario/nuevo-usuario.component';
 import {HomeComponent} from './pages/home/home.component';
+import {DepartamentosComponent} from './pages/filtro/departamentos/departamentos.component'
 
 const routes:Routes=[
   {path:'',redirectTo:'/home',pathMatch:'full'},
@@ -16,7 +17,7 @@ const routes:Routes=[
   {path:'maquina',component:NuevoMaquinaComponent},
   {path:'sensor',component:NuevoSensorComponent},
   {path:'evento',component:EventoComponent},
-  {path:'departamento',component:NuevoDepartamentoComponent},
+  {path:'departamento',component:DepartamentosComponent},
   {path:'area',component:NuevoAreaComponent},
   {path:'cia',component:NuevoCiaComponent},
   {path:'usuario',component:NuevoUsuarioComponent},
