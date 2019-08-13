@@ -1,13 +1,14 @@
 <div class="home card card-shadow h-100 d-flex">
-  <div class="card-body">
-    <div class="card-empresa mx-5 my-5">
+  <div class="card-body-custom">
+
+    <div class="card-empresa">
       <div class="row">
         <div class="col-md-4 col-4">
-          <img [src]="urlImg" alt="Empresa" >
+          <img [src]="urlImg" alt="Empresa">
         </div>
         <div class="col-md-2 col-2">
-          <p class="text-justify font-weight-bold"> Empresa:</p> 
-          <p class="text-justify font-weight-bold"> Razón:</p> 
+          <p class="text-justify font-weight-bold"> Empresa:</p>
+          <p class="text-justify font-weight-bold"> Razón:</p>
           <p class="text-justify font-weight-bold">Eslogan:</p>
         </div>
         <div class="col-md-2 col-2">
@@ -17,39 +18,15 @@
         </div>
       </div>
     </div>
+
     <div class="section-cards">
-      <div class="row">
-        <div class="item-container col-md-3 col-6" (click)="navigateTo('graficas')">
-          <i class="material-icons"> assessment </i>
-          <div> Graficas</div>
-        </div>
-        <div class="item-container col-md-3 col-6" (click)="cia">
-          <i class="material-icons"> store </i>
-          <div> Agregar Cia</div>
-        </div>
-        <div class="item-container col-md-3 col-6" (click)="area">
-          <i class="material-icons"> build </i>
-          <div> Agregar Máquina</div>
-        </div>
-        <div class="item-container col-md-3 col-6" (click)="area">
-          <i class="material-icons"> work </i>
-          <div> Agregar Área</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="item-container col-md-3 col-6" (click)="departamento">
-          <i class="material-icons"> group </i>
-          <div> Agregar Departamento</div>
-        </div>
-        <div class="item-container col-md-3 col-6" (click)="sensor">
-          <i class="material-icons"> schedule </i>
-          <div> Agregar Sensor</div>
-        </div>
-        <div class="item-container col-md-3 col-6" (click)="usuario">
-          <i class="material-icons"> person_add </i>
-          <div> Agregar Usuario</div>
+      <div class="cards-row">
+        <div class="item-container {{card.class}}" [routerLink]="card.function" *ngFor="let card of homeCards">
+          <i class="material-icons"> {{ card.icon }} </i>
+          <div> {{ card.text }}</div>
         </div>
       </div>
     </div>
+
   </div>
 </div>
