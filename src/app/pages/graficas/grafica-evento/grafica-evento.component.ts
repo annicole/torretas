@@ -143,15 +143,6 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     window.open("http://localhost:4200/evento", "_blank");
   }
 
-  //llenarGraficaPie() {
-  //this.chart1 = am4core.create("chartdiv1", am4charts.PieChart);
-  //console.log("llenarGraficaPie",this.dataChart1);
-  //this.chart1.data = this.dataChart1;
-  //let serie = this.chartPie.generateSeries(this.chart1)
-
-  //pieSeries.slices.template.events.on("hit", this.clickEventPie, this);
-  //}
-
   clickEventPie(ev) {
     let selected = ev.target.dataItem.dataContext;
     console.log(selected);
@@ -208,9 +199,9 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   }
 
   filtrar() {
-   // this.showSpinner();
-  //  this.getDataGrafica();
-    let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+    this.showSpinner();
+    this.getDataGrafica();
+   /* let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
     let fechaF: string = this.fechaFin + ' ' + this.horaFin;
     console.log("hora",this.horaInicio, ' ',this.horaFin);
     console.log(fechaI,fechaF);
@@ -218,7 +209,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
     localStorage.setItem('sensor','1');
-    window.open("http://localhost:4200/evento", "_blank");
+    window.open("http://localhost:4200/evento", "_blank");*/
   }
 
   showSpinner() {

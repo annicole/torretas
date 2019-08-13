@@ -25,6 +25,7 @@ export class PaginationBarComponent implements OnInit {
   }
 
   ngOnChanges(){
+    this.pageSelected = 1;
     this.botones=[];
     let oper = Math.trunc(this.total/this.pageSize);
     let resi = this.total % this.pageSize;
@@ -38,6 +39,7 @@ export class PaginationBarComponent implements OnInit {
         pageNumber: i+1
       });
     }
+    console.log("changes pagination");
     this.validatePagination();
   }
 

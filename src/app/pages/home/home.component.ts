@@ -16,7 +16,8 @@ export class HomeComponent implements OnInit {
   constructor(private router:Router,private ciaService:CiaService) { }
 
   ngOnInit() {
-    this.urlImg = "img/ICMA_AUTOMATION-01.png"
+    this.urlImg = "../../../assets/img/ICMA_AUTOMATION-01.png";
+    this.getCia();
   }
 
   async getCia(){

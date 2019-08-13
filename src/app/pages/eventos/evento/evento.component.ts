@@ -71,6 +71,7 @@ export class EventoComponent implements OnInit {
   selectOption(option) {
     this.limit = option.value;
     this.page =1;
+    console.log("selectOption");
     this.showSpinner();
     this.getEventos();
   }

@@ -25,6 +25,7 @@ import { NuevoDepartamentoComponent } from './pages/forms/nuevo-departamento/nue
 import { NuevoCiaComponent } from './pages/forms/nuevo-cia/nuevo-cia.component';
 import { NuevoUsuarioComponent } from './pages/forms/nuevo-usuario/nuevo-usuario.component';
 import { HomeComponent } from './pages/home/home.component';
+import { DepartamentosComponent } from './pages/filtro/departamentos/departamentos.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -45,7 +46,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoDepartamentoComponent,
     NuevoCiaComponent,
     NuevoUsuarioComponent,
-    HomeComponent
+    HomeComponent,
+    DepartamentosComponent
   ],
   imports: [
     BrowserModule,
