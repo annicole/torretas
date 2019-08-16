@@ -2,16 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { DepartamentoService } from '../../../services/departamento.service';
 import { Departamento } from '../../../models/departamento';
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
+import { NuevoDepartamentoComponent } from '@app/pages/forms/nuevo-departamento/nuevo-departamento.component';
 
 @Component({
   selector: 'app-departamentos',
   templateUrl: './departamentos.component.html',
-  styleUrls: ['./departamentos.component.css']
+  styleUrls: ['./departamentos.component.scss']
 })
 export class DepartamentosComponent implements OnInit {
 
   departamentos: Departamento[];
-  constructor(private deptoService: DepartamentoService) { }
+  constructor(private deptoService: DepartamentoService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.getDeptos();
@@ -27,6 +31,41 @@ export class DepartamentosComponent implements OnInit {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  addDepto() {
+    const dialogRef = this.dialog.open(NuevoDepartamentoComponent, {
+      width: '40rem',
+      data: {
+        title: 'Agregar departamento',
+        btnText: 'Agregar',
+        alertSuccesText: 'Departamento creado!',
+        alertErrorText: "No se puedo crear el departamento",
+        modalMode: 'create'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.getDeptos();
+    });
+  }
+
+  updateDepto(depto) {
+    const dialogRef = this.dialog.open(NuevoDepartamentoComponent, {
+      width: '40rem',
+      data: {
+        title: 'Editar departamento',
+        btnText: 'Editar',
+        alertSuccesText: 'Departamento modificado correctamente',
+        alertErrorText: "No se puedo modificar el departamento",
+        modalMode: 'edit',
+        depto
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.getDeptos();
+    });
   }
 
   delete(id: string) {

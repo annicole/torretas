@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
       },
       {
         icon: 'group',
-        text: 'Agregar Departamento',
+        text: 'Ver Departamentos',
         function: '/departamento',
         class: 'green-bg'
       },
@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
 
   async getCia(){
     try{
-      let resp = await this.ciaService.readCia(1).toPromise();
+      let resp = await this.ciaService.readCia(3).toPromise();
       if (resp.code == 200) {
         this.cia = resp.cia;
         console.log(resp);

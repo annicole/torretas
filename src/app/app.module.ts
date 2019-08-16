@@ -7,8 +7,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { registerLocaleData } from '@angular/common';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import localeEsMX from '@angular/common/locales/es-MX';
 
@@ -26,6 +27,8 @@ import { NuevoCiaComponent } from './pages/forms/nuevo-cia/nuevo-cia.component';
 import { NuevoUsuarioComponent } from './pages/forms/nuevo-usuario/nuevo-usuario.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DepartamentosComponent } from './pages/filtro/departamentos/departamentos.component';
+import { FilePickerComponent } from './components/file-picker/file-picker.component';
+import { LoginComponent } from './pages/login/login.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -47,7 +50,9 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoCiaComponent,
     NuevoUsuarioComponent,
     HomeComponent,
-    DepartamentosComponent
+    DepartamentosComponent,
+    FilePickerComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -56,9 +61,13 @@ registerLocaleData(localeEsMX, 'es-Mx');
     ReactiveFormsModule,
     HttpClientModule,
     NgxSpinnerModule,
-    NgxDatatableModule
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [DatePipe,{ provide: LOCALE_ID, useValue: 'es-Mx' }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    NuevoDepartamentoComponent,
+  ]
 })
 export class AppModule { }
