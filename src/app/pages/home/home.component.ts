@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
 
   async getCia(){
     try{
-      let resp = await this.ciaService.readCia(5).toPromise();
+      let resp = await this.ciaService.readCia(2).toPromise();
       if (resp.code == 200) {
         this.cia = resp.cia;
         console.log(this.cia.logotipo);
