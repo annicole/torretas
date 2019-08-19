@@ -19,6 +19,7 @@ export class NuevoCiaComponent implements OnInit {
   constructor(private ciaService: CiaService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
+    this.cia.logotipo = new FormData();
     this.ciaForm = this.formBuilder.group({
       razon: ['', Validators.required],
       nombre: ['', Validators.required],

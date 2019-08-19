@@ -69,10 +69,16 @@ export class HomeComponent implements OnInit {
 
   async getCia(){
     try{
-      let resp = await this.ciaService.readCia(3).toPromise();
+      let resp = await this.ciaService.readCia(5).toPromise();
       if (resp.code == 200) {
         this.cia = resp.cia;
-        console.log(resp);
+        console.log(this.cia.logotipo);
+        var uints = new Uint8Array([91,111,98,106,101,99,116,32,79,98,106,101,99,116,93]);
+        console.log(uints);
+        var decoder = new TextDecoder('utf8');
+        var base64 = btoa(decoder.decode(uints));
+        var url = 'data:image/jpg;base64,' + base64;
+       // console.log(this.urlImg);
       }
     }catch(e){
       console.log(e);

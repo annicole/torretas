@@ -9,7 +9,8 @@ import { NuevoDepartamentoComponent } from './pages/forms/nuevo-departamento/nue
 import { NuevoCiaComponent } from './pages/forms/nuevo-cia/nuevo-cia.component';
 import {NuevoUsuarioComponent} from './pages/forms/nuevo-usuario/nuevo-usuario.component';
 import {HomeComponent} from './pages/home/home.component';
-import {DepartamentosComponent} from './pages/filtro/departamentos/departamentos.component'
+import {DepartamentosComponent} from './pages/filtro/departamentos/departamentos.component';
+import {LoginComponent} from './pages/login/login.component';
 
 const routes:Routes=[
   {path:'',redirectTo:'/home',pathMatch:'full'},
@@ -21,7 +22,8 @@ const routes:Routes=[
   {path:'area',component:NuevoAreaComponent},
   {path:'cia',component:NuevoCiaComponent},
   {path:'usuario',component:NuevoUsuarioComponent},
-  {path:'home',component:HomeComponent}
+  {path:'home',component:HomeComponent},
+  {path:'login',component:LoginComponent}
 ];
 @NgModule({
   declarations: [],

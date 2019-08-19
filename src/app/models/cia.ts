@@ -10,8 +10,5 @@ export class Cia {
     oais:string;
     cp:string;
     eslogan:string;
-    logotipo:FormData;
-    constructor(){
-        this.logotipo = new FormData();
-    }
+    logotipo:any;
 }
