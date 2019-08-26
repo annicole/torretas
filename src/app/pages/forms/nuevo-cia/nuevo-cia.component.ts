@@ -15,7 +15,6 @@ export class NuevoCiaComponent implements OnInit {
   cia: Cia = new Cia();
   ciaForm: FormGroup;
   submitted = false;
-  fileToUpload: File = null;
   constructor(private ciaService: CiaService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
@@ -30,7 +29,7 @@ export class NuevoCiaComponent implements OnInit {
       ciudad: ['', Validators.required],
       pais: ['', Validators.required],
       cp: ['', Validators.required],
-      eslogan:['',Validators.nullValidator]
+      eslogan: ['', Validators.nullValidator]
     });
   }
 
@@ -47,9 +46,6 @@ export class NuevoCiaComponent implements OnInit {
 
   async guardar() {
     try {
-      if(this.fileToUpload){
-      this.cia.logotipo.append('image',this.fileToUpload,this.fileToUpload.name);
-      }
       let response = await this.ciaService.create(this.cia).toPromise();
       if (response.code = 200) {
         Swal.fire('', 'Cia guardado correctamente', 'success');
@@ -64,8 +60,7 @@ export class NuevoCiaComponent implements OnInit {
     }
   }
 
-  selectFile(file){
-    this.fileToUpload = file;
-    console.log(file);
+  selectFile(file) {
+    this.cia.logotipo.append('image', file, file.name);
   }
 }

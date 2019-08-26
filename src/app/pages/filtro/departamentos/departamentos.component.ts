@@ -68,13 +68,22 @@ export class DepartamentosComponent implements OnInit {
     });
   }
 
-  delete(id: string) {
+  delete(id: number) {
     Swal.fire({
       title: '¿Estas seguro?', text: "Desea eliminar el departamento",
       type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
-
+      if (result.value) {
+        this.deptoService.delete(id).subscribe(res => {
+          if (res.code == 200) {
+            Swal.fire('Eliminado', 'El Equipo ha sido eliminado correctamente', 'success');
+            this.getDeptos();
+          } else {
+            Swal.fire('Error', 'No fue posible eliminar el equipo', 'error');
+          }
+        });
+      }
     });
   }
 }

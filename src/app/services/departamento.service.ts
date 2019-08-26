@@ -25,8 +25,8 @@ export class DepartamentoService {
     return this.http.get(`${this.url+'/read'}/${id}`);
   }
 
-  delete(id:number){
-    return this.http.delete(`${this.url+'/read'}/${id}`);
+  delete(id:number):Observable<any>{
+    return this.http.delete<any>(`${this.url+'/read'}/${id}`);
   }
 
   update(departamento:Departamento){
