@@ -4,6 +4,8 @@ import { Departamento } from '../../../models/departamento';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { NuevoDepartamentoComponent } from '@app/pages/forms/nuevo-departamento/nuevo-departamento.component';
+import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-departamentos',
@@ -13,8 +15,18 @@ import { NuevoDepartamentoComponent } from '@app/pages/forms/nuevo-departamento/
 export class DepartamentosComponent implements OnInit {
 
   departamentos: Departamento[];
+  page:number=1;
+  limit:number=10;
+  total:number; 
+  numberOfElemets = [
+    { label: '20', value: '20' },
+    { label: '25', value: '25' },
+    { label: '30', value: '30' },
+    { label: '35', value: '35' },
+    { label: '40', value: '40' },
+  ];
   constructor(private deptoService: DepartamentoService,
-    private dialog: MatDialog
+    private dialog: MatDialog, private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -31,6 +43,19 @@ export class DepartamentosComponent implements OnInit {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  selectPage(page) {
+    this.page = page;
+    this.showSpinner();
+    this.getDeptos();
+  }
+
+  selectOption(option) {
+    this.limit = option.value;
+    this.page =1;
+    this.showSpinner();
+    this.getDeptos();
   }
 
   addDepto() {
@@ -85,5 +110,15 @@ export class DepartamentosComponent implements OnInit {
         });
       }
     });
+  }
+
+  showSpinner() {
+    const opt1: Spinner = {
+      bdColor: "rgba(51,51,51,0.8)",
+      size: "medium",
+      color: "#fff",
+      type: "square-jelly-box"
+    };
+    this.spinner.show("mySpinner", opt1);
   }
 }
