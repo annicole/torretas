@@ -9,18 +9,21 @@ import { NuevoDepartamentoComponent } from './pages/forms/nuevo-departamento/nue
 import { NuevoCiaComponent } from './pages/forms/nuevo-cia/nuevo-cia.component';
 import {NuevoUsuarioComponent} from './pages/forms/nuevo-usuario/nuevo-usuario.component';
 import {HomeComponent} from './pages/home/home.component';
+import {DepartamentosComponent} from './pages/filtro/departamentos/departamentos.component';
+import {LoginComponent} from './pages/login/login.component';
 
 const routes:Routes=[
-  {path:'',redirectTo:'/graficas',pathMatch:'full'},
+  {path:'',redirectTo:'/home',pathMatch:'full'},
   {path:'graficas',component:GraficaEventoComponent},
   {path:'maquina',component:NuevoMaquinaComponent},
   {path:'sensor',component:NuevoSensorComponent},
   {path:'evento',component:EventoComponent},
-  {path:'departamento',component:NuevoDepartamentoComponent},
+  {path:'departamento',component:DepartamentosComponent},
   {path:'area',component:NuevoAreaComponent},
   {path:'cia',component:NuevoCiaComponent},
   {path:'usuario',component:NuevoUsuarioComponent},
-  {path:'home',component:HomeComponent}
+  {path:'home',component:HomeComponent},
+  {path:'login',component:LoginComponent}
 ];
 @NgModule({
   declarations: [],

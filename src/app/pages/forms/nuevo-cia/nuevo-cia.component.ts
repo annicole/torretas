@@ -18,6 +18,7 @@ export class NuevoCiaComponent implements OnInit {
   constructor(private ciaService: CiaService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
+    this.cia.logotipo = new FormData();
     this.ciaForm = this.formBuilder.group({
       razon: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -27,7 +28,8 @@ export class NuevoCiaComponent implements OnInit {
       colonia: ['', Validators.required],
       ciudad: ['', Validators.required],
       pais: ['', Validators.required],
-      cp: ['', Validators.required]
+      cp: ['', Validators.required],
+      eslogan: ['', Validators.nullValidator]
     });
   }
 
@@ -56,5 +58,9 @@ export class NuevoCiaComponent implements OnInit {
       console.log(e);
       Swal.fire('Error', 'No fue posible guardar el cia', 'error');
     }
+  }
+
+  selectFile(file) {
+    this.cia.logotipo.append('image', file, file.name);
   }
 }

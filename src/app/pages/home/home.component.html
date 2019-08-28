@@ -1,13 +1,32 @@
-<div class="home card h-100 d-flex">
-   <div class="card-body">
-       <div class="row">
-            <div class="card text-white bg-info mb-3 colmd-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Info card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                  </div>
-       </div>
-   </div>
+<div class="home card card-shadow h-100 d-flex mx-5">
+  <div class="card-body-custom">
+
+    <div class="card-empresa">
+      <div class="row">
+        <div class="col-md-4 col-4">
+          <img [src]="urlImg" alt="Empresa">
+        </div>
+        <div class="col-md-2 col-2">
+          <p class="text-justify font-weight-bold"> Empresa:</p>
+          <p class="text-justify font-weight-bold"> Razón:</p>
+          <p class="text-justify font-weight-bold">Eslogan:</p>
+        </div>
+        <div class="col-md-2 col-2">
+          <p>{{cia.nombre}}</p>
+          <p>{{cia.razon}}</p>
+          <p> {{cia.eslogan}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-cards">
+      <div class="cards-row">
+        <div class="item-container {{card.class}}" [routerLink]="card.function" *ngFor="let card of homeCards">
+          <i class="material-icons"> {{ card.icon }} </i>
+          <div> {{ card.text }}</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>

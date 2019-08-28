@@ -148,15 +148,6 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     window.open("http://localhost:4200/evento", "_blank");
   }
 
-  //llenarGraficaPie() {
-  //this.chart1 = am4core.create("chartdiv1", am4charts.PieChart);
-  //console.log("llenarGraficaPie",this.dataChart1);
-  //this.chart1.data = this.dataChart1;
-  //let serie = this.chartPie.generateSeries(this.chart1)
-
-  //pieSeries.slices.template.events.on("hit", this.clickEventPie, this);
-  //}
-
   clickEventPie(ev) {
     let selected = ev.target.dataItem.dataContext;
     console.log(selected);

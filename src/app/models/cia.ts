@@ -10,4 +10,5 @@ export class Cia {
     oais:string;
     cp:string;
     eslogan:string;
+    logotipo:any;
 }

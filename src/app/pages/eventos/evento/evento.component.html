@@ -1,20 +1,19 @@
-<div class="evento card mb-4">
+<div class="evento card mb-4 mx-5">
   <div class="card-header">
-    <label>Máquina: {{idMaquina}}</label> 
-    <label>Sensor: {{sensor}}</label>
+    <h4 class="text-justify">Máquina: {{idMaquina}}</h4>
+    <h4 class="text-justify">Sensor: {{sensor}}</h4>
     <div>
-      <app-dropdown
-        [optionList]="numberOfElemets"
-        [isDropleft]="true"
-        (selectOptionOut)="selectOption($event)"
-      ></app-dropdown>
+      <app-dropdown [optionList]="numberOfElemets" [isDropleft]="true" (selectOptionOut)="selectOption($event)">
+      </app-dropdown>
     </div>
   </div>
-    <app-tabla-sensor [eventos]="listEventos"></app-tabla-sensor>
+  <app-tabla-sensor [eventos]="listEventos"></app-tabla-sensor>
+  <div class="footer">
     <span class="badge badge-light">Total: {{total}}</span>
     <span class="badge badge-light">Página: {{page}}</span>
   </div>
-  <app-pagination-bar (selectPageOut)="selectPage($event)" [total]="total" [pageSize]="limit"></app-pagination-bar>
+</div>
+<app-pagination-bar (selectPageOut)="selectPage($event)" [total]="total" [pageSize]="limit"></app-pagination-bar>
 
-  <!-- SPINNER -->
+<!-- SPINNER -->
 <ngx-spinner name="mySpinner"></ngx-spinner>

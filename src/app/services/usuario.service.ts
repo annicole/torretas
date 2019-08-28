@@ -19,4 +19,8 @@ export class UsuarioService {
   create(usuario:Usuario): Observable<any>{
   	return this.http.post<any>(this.url+'/usuarios',usuario,{headers:this.httpHeaders});
   }
+
+  readUsuario(id:number):Observable<any>{
+    return this.http.get(`${this.url+'/read'}/${id}`);
+  }
 }

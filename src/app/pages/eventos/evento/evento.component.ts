@@ -9,7 +9,7 @@ import { EventoService } from '../../../services/evento.service';
 @Component({
   selector: 'app-evento',
   templateUrl: './evento.component.html',
-  styleUrls: ['./evento.component.css']
+  styleUrls: ['./evento.component.scss']
 })
 export class EventoComponent implements OnInit {
 
@@ -23,10 +23,11 @@ export class EventoComponent implements OnInit {
   total:number; 
   listEventos: Evento[];
   numberOfElemets = [
-    { label: '10', value: '10' },
-    { label: '15', value: '15' },
     { label: '20', value: '20' },
-    { label: '25', value: '25' }
+    { label: '25', value: '25' },
+    { label: '30', value: '30' },
+    { label: '35', value: '35' },
+    { label: '40', value: '40' },
   ];
   constructor(private eventoService: EventoService, private spinner: NgxSpinnerService) { }
 
@@ -71,6 +72,7 @@ export class EventoComponent implements OnInit {
   selectOption(option) {
     this.limit = option.value;
     this.page =1;
+    console.log("selectOption");
     this.showSpinner();
     this.getEventos();
   }

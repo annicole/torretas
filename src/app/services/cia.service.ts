@@ -20,4 +20,8 @@ export class CiaService {
   create(cia:Cia): Observable<any>{
   	return this.http.post<any>(this.url+'/cias',cia,{headers:this.httpHeaders});
   }
+
+  readCia(id:number):Observable<any>{
+    return this.http.get(`${this.url+'/read'}/${id}`);
+  }
 }

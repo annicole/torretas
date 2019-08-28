@@ -20,4 +20,16 @@ export class DepartamentoService {
   create(departamento:Departamento): Observable<any>{
   	return this.http.post<any>(this.url+'/departamentos',departamento,{headers:this.httpHeaders});
   }
+
+  read(id:number):Observable<any>{
+    return this.http.get(`${this.url+'/read'}/${id}`);
+  }
+
+  delete(id:number):Observable<any>{
+    return this.http.delete<any>(`${this.url+'/read'}/${id}`);
+  }
+
+  update(departamento:Departamento){
+    return this.http.put(`${this.url+'/read'}/${departamento.iddep}`,departamento,{headers:this.httpHeaders});
+  }
 }

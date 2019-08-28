@@ -1,7 +1,9 @@
-<div class="nuevo-departamento card h-100 d-flex">
-  <div class="card-body">
-    <h3>Agregar Departamento</h3>
-    <hr>
+<div class="departamento-modal">
+  <div class="header">
+    <h4>{{title}}</h4>
+    <h2> <i class="material-icons pointer" (click)="closeModal()"> clear </i> </h2>
+  </div>
+  <div class="body">
     <form [formGroup]="departamentoForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="depto">Departamento</label>
@@ -11,7 +13,7 @@
           <div *ngIf="f.departamento.errors.required">Departamento es requerido</div>
         </div>
       </div>
-      <div class="form-group">
+      <!--<div class="form-group">
         <label for="cia">Cia</label>
         <select class="form-control" id="cia" nombre="idcia" [(ngModel)]="departamento.idcia" formControlName="idcia"
           [ngClass]="{ 'is-invalid': submitted && f.idcia.errors }">
@@ -20,8 +22,13 @@
         <div *ngIf="submitted && f.idcia.errors" class="invalid-feedback">
           <div *ngIf="f.idcia.errors.required">Cia es requerido</div>
         </div>
-      </div>
-      <button type="submit" class="btn btn-secondary">Guardar</button>
+      </div>-->
+      <button type="submit" class="btn custom">{{btnText}}</button>
     </form>
+
+    <div class="alert animated fadeIn" *ngIf="alertMessage"
+      [ngClass]="{'alert-danger': !alertSuccess, 'alert-success': alertSuccess }">
+      {{ alertMessage }}
+    </div>
   </div>
 </div>
