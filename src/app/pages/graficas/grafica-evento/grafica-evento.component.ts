@@ -70,6 +70,9 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       let arreglo = [];
       let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
       let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+      this.dataChart = [];
+      this.dataChart1 = [];
+      this.dataChart2 = [];
       let response = await this.graficaService.getGrafica(this.maquina, fechaI, fechaF).toPromise();
       if (response.code == 200) {
         arreglo = response.grafica[0];
@@ -107,7 +110,8 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   llenarGraficaBarras() {
     this.chart = this.chartBar.generateChartData(this.dataChart, "chartdiv");
-    let serie = this.chartBar.generateSerie(this.chart);
+    let serie = null;
+    serie = this.chartBar.generateSerie(this.chart);
     serie.columns.template.events.on("hit", this.clickEventBar, this);
     // Cursor
     this.chart.cursor = new am4charts.XYCursor();
@@ -126,7 +130,8 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   llenarGraficaBarras2() {
     this.chart2 = this.chartBar.generateChartData(this.dataChart2, "chartdiv2");
-    let serie = this.chartBar.generateSerie(this.chart2);
+    let serie = null;
+    serie = this.chartBar.generateSerie(this.chart2);
     serie.columns.template.events.on("hit", this.clickEventBar2, this);
     // Cursor
     this.chart2.cursor = new am4charts.XYCursor();
