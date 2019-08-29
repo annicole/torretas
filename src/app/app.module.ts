@@ -30,6 +30,8 @@ import { DepartamentosComponent } from './pages/filtro/departamentos/departament
 import { FilePickerComponent } from './components/file-picker/file-picker.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AreasComponent } from './pages/filtro/areas/areas.component';
+import { MaquinasComponent } from './pages/filtro/maquinas/maquinas.component';
+import { SensoresComponent } from './pages/filtro/sensores/sensores.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -54,7 +56,9 @@ registerLocaleData(localeEsMX, 'es-Mx');
     DepartamentosComponent,
     FilePickerComponent,
     LoginComponent,
-    AreasComponent
+    AreasComponent,
+    MaquinasComponent,
+    SensoresComponent
   ],
   imports: [
     BrowserModule,
