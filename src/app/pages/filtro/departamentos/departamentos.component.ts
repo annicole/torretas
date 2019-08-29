@@ -102,10 +102,10 @@ export class DepartamentosComponent implements OnInit {
       if (result.value) {
         this.deptoService.delete(id).subscribe(res => {
           if (res.code == 200) {
-            Swal.fire('Eliminado', 'El Equipo ha sido eliminado correctamente', 'success');
+            Swal.fire('Eliminado', 'El departamento ha sido eliminado correctamente', 'success');
             this.getDeptos();
           } else {
-            Swal.fire('Error', 'No fue posible eliminar el equipo', 'error');
+            Swal.fire('Error', 'No fue posible eliminar el departamento', 'error');
           }
         });
       }
@@ -120,5 +120,9 @@ export class DepartamentosComponent implements OnInit {
       type: "square-jelly-box"
     };
     this.spinner.show("mySpinner", opt1);
+  }
+
+  async onSearchChange(searchValue : string ) {  
+    
   }
 }

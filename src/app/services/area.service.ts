@@ -20,4 +20,16 @@ private url:string = environment.environment.urlEndPoint+'/area';
   create(area:Area): Observable<any>{
   	return this.http.post<any>(this.url+'/areas',area,{headers:this.httpHeaders});
   }
+
+  read(id:number):Observable<any>{
+    return this.http.get(`${this.url+'/read'}/${id}`);
+  }
+
+  delete(id:number):Observable<any>{
+    return this.http.delete<any>(`${this.url+'/read'}/${id}`);
+  }
+
+  update(area:Area){
+    return this.http.put(`${this.url+'/read'}/${area.idarea}`,area,{headers:this.httpHeaders});
+  }
 }

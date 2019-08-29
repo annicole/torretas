@@ -29,6 +29,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { DepartamentosComponent } from './pages/filtro/departamentos/departamentos.component';
 import { FilePickerComponent } from './components/file-picker/file-picker.component';
 import { LoginComponent } from './pages/login/login.component';
+import { AreasComponent } from './pages/filtro/areas/areas.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -52,7 +53,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
     HomeComponent,
     DepartamentosComponent,
     FilePickerComponent,
-    LoginComponent
+    LoginComponent,
+    AreasComponent
   ],
   imports: [
     BrowserModule,

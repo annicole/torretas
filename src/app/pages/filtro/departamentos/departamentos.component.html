@@ -1,13 +1,10 @@
 <div class="departamento card mb-4 mx-5">
   <div class="card-header header">
     <h4>Departamentos</h4>
-    <button class="btn btn-custom" (click)="addDepto()">
-        <i class="material-icons"> add </i>
-      </button>
-    <div class="header-options">
-      <app-dropdown [optionList]="numberOfElemets" [isDropleft]="true" (selectOptionOut)="selectOption($event)">
-      </app-dropdown>
-    </div>
+        <input type="text" class="form-control input-search" placeholder="Buscar.." (input)="onSearchChange($event.target.value)">
+        <button class="btn btn-custom" (click)="addDepto()">
+          <i class="material-icons"> add </i>
+        </button>
   </div>
   <div class="table-responsive-lg">
     <table class="table table-hover">
@@ -35,4 +32,3 @@
     <span class="badge badge-light">Página: {{page}}</span>
   </div>
 </div>
-<app-pagination-bar (selectPageOut)="selectPage($event)" [total]="total" [pageSize]="limit"></app-pagination-bar>
