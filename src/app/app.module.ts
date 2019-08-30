@@ -32,6 +32,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AreasComponent } from './pages/filtro/areas/areas.component';
 import { MaquinasComponent } from './pages/filtro/maquinas/maquinas.component';
 import { SensoresComponent } from './pages/filtro/sensores/sensores.component';
+import { UsuariosComponent } from './pages/filtro/usuarios/usuarios.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -58,7 +59,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
     LoginComponent,
     AreasComponent,
     MaquinasComponent,
-    SensoresComponent
+    SensoresComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,

@@ -25,7 +25,7 @@ export class AreasComponent implements OnInit {
     try {
       let resp = await this.areaService.getAreas().toPromise();
       if (resp.code == 200) {
-        this.areas= resp.area
+        this.areas = resp.area
       }
     } catch (e) {
       console.log(e);

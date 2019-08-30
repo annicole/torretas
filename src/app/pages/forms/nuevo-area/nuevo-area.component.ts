@@ -81,17 +81,23 @@ export class NuevoAreaComponent implements OnInit {
 
   async guardar() {
     try {
-      let response = await this.areaService.create(this.area).toPromise();
+      let response;
+      switch (this.modalMode) {
+        case 'create': response = await this.areaService.create(this.area).toPromise();
+          break;
+        case 'edit': response = await this.areaService.update(this.area).toPromise();
+          break;
+      }
       if (response.code = 200) {
-        Swal.fire('', 'Área guardada correctamente', 'success');
-        this.router.navigate(['']);
+        this.showAlert(this.alertSuccesText, true);
+        this.closeModal();
       }
       else {
-        Swal.fire('Error', 'No fue posible guardar el área', 'error');
+        this.showAlert(this.alertErrorText, false);
       }
     } catch (e) {
       console.log(e);
-      Swal.fire('Error', 'No fue posible guardar el área', 'error');
+      this.showAlert(this.alertErrorText, false);
     }
   }
 

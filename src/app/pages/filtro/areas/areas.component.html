@@ -1,35 +1,36 @@
 <div class="area card mb-4 mx-5">
-    <div class="card-header header">
-      <h4>Áreas</h4>
-          <input type="text" class="form-control input-search" placeholder="Buscar.." (input)="onSearchChange($event.target.value)">
-          <button class="btn btn-custom" (click)="addArea()">
-            <i class="material-icons"> add </i>
-          </button>
-    </div>
-    <div class="table-responsive-lg">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Área</th>
-            <th scope="col">Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let d of areas">
-            <td>{{d.area}}</td>
-            <td>
-              <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="updateArea(d)"><i
-                  class="material-icons">create</i></a>
-              <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " (click)="delete(d.idarea)"><i
-                  class="material-icons">delete</i></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="footer">
-      <span class="badge badge-light">Total: </span>
-      <span class="badge badge-light">Página: {{page}}</span>
-    </div>
+  <div class="card-header header">
+    <h4>Áreas</h4>
+    <input type="text" class="form-control input-search" placeholder="Buscar.."
+      (input)="onSearchChange($event.target.value)">
+    <button class="btn btn-custom" (click)="addArea()">
+      <i class="material-icons"> add </i>
+    </button>
   </div>
-  <app-pagination-bar (selectPageOut)="selectPage($event)" [total]="total" [pageSize]="limit"></app-pagination-bar>
+  <div class="table-responsive-lg">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Área</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of areas">
+          <td>{{d.area}}</td>
+          <td>
+            <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="updateArea(d)"><i
+                class="material-icons">create</i></a>
+            <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " (click)="delete(d.idarea)"><i
+                class="material-icons">delete</i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="footer">
+    <span class="badge badge-light">Total: </span>
+    <span class="badge badge-light">Página: {{page}}</span>
+  </div>
+</div>
+<app-pagination-bar (selectPageOut)="selectPage($event)" [total]="total" [pageSize]="limit"></app-pagination-bar>
