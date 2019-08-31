@@ -12,7 +12,7 @@ export class UsuarioService {
   private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   constructor(private http: HttpClient) { }
 
-  getUsuario(): Observable<any> {
+  getUsuarios(): Observable<any> {
     return this.http.get(this.url + '/usuarios');
   }
 
