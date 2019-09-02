@@ -1,35 +1,42 @@
-<div class="nuevo-maquina card h-100 d-flex mx-5">
-  <div class="card-body">
-    <h3>Agregar Máquina</h3>
-    <hr>
-    <form [formGroup]="maquinaForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="maquina">Máquina</label>
-        <input type="text" class="form-control" id="maquina" nombre="maquina" [(ngModel)]="maquina.maquina"
-          formControlName="maquina" [ngClass]="{ 'is-invalid': submitted && f.maquina.errors }">
-        <div *ngIf="submitted && f.maquina.errors" class="invalid-feedback">
-          <div *ngIf="f.maquina.errors.required">Máquina es requerido</div>
-        </div>
+<div class="maquina-modal">
+<div class="header">
+  <h4>{{title}}</h4>
+  <h2> <i class="material-icons pointer" (click)="closeModal()"> clear </i> </h2>
+</div>
+<div class="body">
+  <form [formGroup]="maquinaForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="maquina">Máquina</label>
+      <input type="text" class="form-control" id="maquina" nombre="maquina" [(ngModel)]="maquina.maquina"
+        formControlName="maquina" [ngClass]="{ 'is-invalid': submitted && f.maquina.errors }">
+      <div *ngIf="submitted && f.maquina.errors" class="invalid-feedback">
+        <div *ngIf="f.maquina.errors.required">Máquina es requerido</div>
       </div>
-      <div class="form-group">
-        <label for="area">Área</label>
-        <select class="form-control" id="area" nombre="idarea" [(ngModel)]="maquina.idarea" formControlName="idarea"
-          [ngClass]="{ 'is-invalid': submitted && f.idarea.errors }">
-          <option *ngFor="let a of areas" [value]="a.idarea">{{a.area}}</option>
-        </select>
-        <div *ngIf="submitted && f.idarea.errors" class="invalid-feedback">
-          <div *ngIf="f.idarea.errors.required">Área es requerido</div>
-        </div>
+    </div>
+    <div class="form-group">
+      <label for="area">Área</label>
+      <select class="form-control" id="area" nombre="idarea" [(ngModel)]="maquina.idarea" formControlName="idarea"
+        [ngClass]="{ 'is-invalid': submitted && f.idarea.errors }">
+        <option *ngFor="let a of areas" [value]="a.idarea">{{a.area}}</option>
+      </select>
+      <div *ngIf="submitted && f.idarea.errors" class="invalid-feedback">
+        <div *ngIf="f.idarea.errors.required">Área es requerido</div>
       </div>
-      <div class="form-group">
-        <label for="descripcion">Descripción</label>
-        <textarea name="descripcion" id="descripcion" rows="3" [(ngModel)]="maquina.descripcion" formControlName="descripcion"  class="form-control"
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <textarea name="descripcion" id="descripcion" rows="3" [(ngModel)]="maquina.descripcion"
+        formControlName="descripcion" class="form-control"
         [ngClass]="{ 'is-invalid': submitted && f.descripcion.errors }"></textarea>
-        <div *ngIf="submitted && f.descripcion.errors" class="invalid-feedback">
-          <div *ngIf="f.descripcion.errors.required">Descripción es requerido</div>
-        </div>
+      <div *ngIf="submitted && f.descripcion.errors" class="invalid-feedback">
+        <div *ngIf="f.descripcion.errors.required">Descripción es requerido</div>
       </div>
-      <button type="submit" class="btn btn-secondary">Guardar</button>
-    </form>
+    </div>
+    <button type="submit" class="btn btn-secondary">Guardar</button>
+  </form>
+  <div class="alert animated fadeIn" *ngIf="alertMessage"
+    [ngClass]="{'alert-danger': !alertSuccess, 'alert-success': alertSuccess }">
+    {{ alertMessage }}
   </div>
+</div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DepartamentoService } from '../../../services/departamento.service';
 import { UsuarioService } from '../../../services/usuario.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,19 +6,28 @@ import { Departamento } from '../../../models/departamento';
 import { Usuario } from '../../../models/usuario';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ViewEncapsulation } from '@angular/core';
+import { Dialog } from '@app/classes/Dialog';
 
 @Component({
   selector: 'app-nuevo-usuario',
   templateUrl: './nuevo-usuario.component.html',
-  styleUrls: ['./nuevo-usuario.component.css']
+  styleUrls: ['./nuevo-usuario.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class NuevoUsuarioComponent implements OnInit {
+export class NuevoUsuarioComponent extends Dialog implements OnInit {
 
   usuario: Usuario = new Usuario();
   usuarioForm: FormGroup;
   submitted = false;
   departamentos: Departamento[];
-  constructor(private deptoService: DepartamentoService, private formBuilder: FormBuilder, private router: Router, private usuarioService: UsuarioService) { }
+  constructor(private deptoService: DepartamentoService, private formBuilder: FormBuilder,
+    private router: Router, private usuarioService: UsuarioService,
+    public dialogRef: MatDialogRef<NuevoUsuarioComponent>,
+    @Inject(MAT_DIALOG_DATA) public data) {
+    super();
+  }
 
   ngOnInit() {
     this.usuarioForm = this.formBuilder.group({
@@ -87,6 +96,28 @@ export class NuevoUsuarioComponent implements OnInit {
         matchingControl.setErrors(null);
       }
     }
+  }
+
+  loadModalTexts() {
+    const { title, btnText, alertErrorText, alertSuccesText, modalMode, usuario } = this.data;
+    this.title = title;
+    this.btnText = btnText;
+    this.alertSuccesText = alertSuccesText;
+    this.alertErrorText = alertErrorText;
+    this.modalMode = modalMode;
+
+    if (usuario) {
+      const { username, id, email, password, celular, iddep } = usuario;
+      this.usuario.iddep = iddep;
+      this.usuario.username = username;
+      this.usuario.celular = celular;
+      this.usuario.email = email;
+      this.usuario.id = id;
+    }
+  }
+
+  closeModal() {
+    this.dialogRef.close();
   }
 
 }
