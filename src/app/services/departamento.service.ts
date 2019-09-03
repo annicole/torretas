@@ -13,8 +13,10 @@ export class DepartamentoService {
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   constructor(private http:HttpClient) { }
 
-  getDepartamentos():Observable<any>{
-    return this.http.get(this.url+'/departamentos');
+  getDepartamentos(name:string):Observable<any>{
+    let params = new HttpParams();
+    params = params.append('busqueda',name);
+    return this.http.get(this.url+'/departamentos',{headers:this.httpHeaders,params:params});
   }
 
   create(departamento:Departamento): Observable<any>{

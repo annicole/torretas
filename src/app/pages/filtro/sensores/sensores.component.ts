@@ -20,6 +20,7 @@ export class SensoresComponent implements OnInit {
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.getSensores();
   }
 
   async getSensores() {
@@ -36,7 +37,7 @@ export class SensoresComponent implements OnInit {
 
   addSensor() {
     const dialogRef = this.dialog.open(NuevoSensorComponent, {
-      width: '40rem',
+      width: '70rem',
       data: {
         title: 'Agregar sensor',
         btnText: 'Agregar',
@@ -53,7 +54,7 @@ export class SensoresComponent implements OnInit {
 
   updateSensor(sensor) {
     const dialogRef = this.dialog.open(NuevoSensorComponent, {
-      width: '40rem',
+      width: '70rem',
       data: {
         title: 'Editar sensor',
         btnText: 'Editar',

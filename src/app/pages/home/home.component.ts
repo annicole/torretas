@@ -30,19 +30,19 @@ export class HomeComponent implements OnInit {
       },
       {
         icon: 'store',
-        text: 'Agregar Cia',
+        text: 'Editar Cia',
         function: '/cia',
         class: 'blue-bg'
       },
       {
         icon: 'build',
-        text: 'Agregar Máquina',
+        text: 'Ver Máquinas',
         function: '/maquina',
         class: 'pink-bg'
       },
       {
         icon: 'work',
-        text: 'Agregar Área',
+        text: 'Ver Áreas',
         function: '/area',
         class: 'red-bg'
       },
@@ -54,13 +54,13 @@ export class HomeComponent implements OnInit {
       },
       {
         icon: 'schedule',
-        text: 'Agregar Sensor',
+        text: 'Ver Sensores',
         function: '/sensor',
         class: 'yellow-bg'
       },
       {
         icon: 'person_add',
-        text: 'Agregar Usuario',
+        text: 'Ver Usuarios',
         function: '/usuario',
         class: 'orange-bg'
       }

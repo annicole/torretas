@@ -12,7 +12,8 @@ import { ViewEncapsulation } from '@angular/core';
 @Component({
   selector: 'app-nuevo-area',
   templateUrl: './nuevo-area.component.html',
-  styleUrls: ['./nuevo-area.component.scss']
+  styleUrls: ['./nuevo-area.component.scss'],
+  encapsulation: ViewEncapsulation.None 
 })
 export class NuevoAreaComponent implements OnInit {
 
@@ -43,17 +44,17 @@ export class NuevoAreaComponent implements OnInit {
   }
 
   loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode, area } = this.data;
+    const { title, btnText, alertErrorText, alertSuccesText, modalMode, _area } = this.data;
     this.title = title;
     this.btnText = btnText;
     this.alertSuccesText = alertSuccesText;
     this.alertErrorText = alertErrorText;
     this.modalMode = modalMode;
 
-    if (area) {
-      const { idarea, _area } = area;
+    if (_area) {
+      const { idarea, area } = _area;
       this.area.idarea = idarea;
-      this.area.area = _area;
+      this.area.area = area;
     }
   }
 

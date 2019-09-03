@@ -19,6 +19,7 @@ export class AreasComponent implements OnInit {
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.getAreas();
   }
 
   async getAreas() {
@@ -49,7 +50,7 @@ export class AreasComponent implements OnInit {
     });
   }
 
-  updateArea(area) {
+  updateArea(_area) {
     const dialogRef = this.dialog.open(NuevoAreaComponent, {
       width: '40rem',
       data: {
@@ -58,7 +59,7 @@ export class AreasComponent implements OnInit {
         alertSuccesText: 'Área modificada correctamente',
         alertErrorText: "No se puedo modificar el departamento",
         modalMode: 'edit',
-        area
+        _area
       }
     });
 

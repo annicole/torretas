@@ -35,6 +35,7 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
       descripcion: ['', Validators.required]
     });
     this.getAreas();
+    this.loadModalTexts();
   }
 
   async getAreas() {
@@ -84,17 +85,17 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
   }
 
   loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode, maquina } = this.data;
+    const { title, btnText, alertErrorText, alertSuccesText, modalMode, _maquina } = this.data;
     this.title = title;
     this.btnText = btnText;
     this.alertSuccesText = alertSuccesText;
     this.alertErrorText = alertErrorText;
     this.modalMode = modalMode;
 
-    if (maquina) {
-      const { idmaquina, _maquina, idarea, area, descripcion } = maquina;
+    if (_maquina) {
+      const { idmaquina, maquina, idarea, area, descripcion } = _maquina;
       this.maquina.idmaquina = idmaquina;
-      this.maquina.maquina = _maquina;
+      this.maquina.maquina = maquina;
       this.maquina.idarea = idarea;
       this.maquina.area = area;
       this.maquina.descripcion = descripcion;

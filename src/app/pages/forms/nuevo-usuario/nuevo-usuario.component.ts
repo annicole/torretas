@@ -39,6 +39,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       iddep: ['', Validators.required]
     }, { validator: this.MustMatch('password', 'password2') });
     this.getDeptos();
+    this.loadModalTexts();
   }
 
   async getDeptos() {

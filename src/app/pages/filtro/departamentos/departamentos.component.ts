@@ -35,7 +35,7 @@ export class DepartamentosComponent implements OnInit {
 
   async getDeptos() {
     try {
-      let resp = await this.deptoService.getDepartamentos().toPromise();
+      let resp = await this.deptoService.getDepartamentos("").toPromise();
       if (resp.code == 200) {
         this.departamentos = resp.depto;
         console.log(resp);

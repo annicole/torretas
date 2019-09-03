@@ -35,7 +35,7 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  addDepto() {
+  addUsuario() {
     const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
       width: '40rem',
       data: {
@@ -52,7 +52,7 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
-  updateDepto(usuario) {
+  updateUsuario(usuario) {
     const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
       width: '40rem',
       data: {

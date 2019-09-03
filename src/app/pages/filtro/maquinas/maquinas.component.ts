@@ -19,6 +19,7 @@ export class MaquinasComponent implements OnInit {
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.getMaquinas();
   }
 
  async getMaquinas(){
@@ -50,7 +51,7 @@ export class MaquinasComponent implements OnInit {
   });
 }
 
-updateMaquina(depto) {
+updateMaquina(_maquina) {
   const dialogRef = this.dialog.open(NuevoMaquinaComponent, {
     width: '40rem',
     data: {
@@ -59,7 +60,7 @@ updateMaquina(depto) {
       alertSuccesText: 'Máquina modificada correctamente',
       alertErrorText: "No se puedo modificar la máquina",
       modalMode: 'edit',
-      depto
+      _maquina
     }
   });
 
