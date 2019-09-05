@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
+import { Dialog } from '@app/classes/Dialog';
 
 @Component({
   selector: 'app-nuevo-area',
@@ -15,24 +16,20 @@ import { ViewEncapsulation } from '@angular/core';
   styleUrls: ['./nuevo-area.component.scss'],
   encapsulation: ViewEncapsulation.None 
 })
-export class NuevoAreaComponent implements OnInit {
+export class NuevoAreaComponent extends Dialog implements OnInit {
 
   area: Area = new Area();
   areaForm: FormGroup;
   submitted = false;
   cias: Cia[];
-  alertMessage: String;
-  alertSuccess: Boolean;
-  title: String;
-  btnText: String;
-  alertSuccesText: String;
-  alertErrorText: String;
-  modalMode: String;
+
   constructor(
     private ciaService: CiaService, private areaService: AreaService,
     private formBuilder: FormBuilder, private router: Router,
     public dialogRef: MatDialogRef<NuevoAreaComponent>,
-    @Inject(MAT_DIALOG_DATA) public data) { }
+    @Inject(MAT_DIALOG_DATA) public data) { 
+      super();
+    }
 
   ngOnInit() {
     this.areaForm = this.formBuilder.group({
@@ -100,11 +97,6 @@ export class NuevoAreaComponent implements OnInit {
       console.log(e);
       this.showAlert(this.alertErrorText, false);
     }
-  }
-
-  showAlert(message, isSuccess) {
-    this.alertMessage = message;
-    this.alertSuccess = isSuccess;
   }
 
   closeModal() {

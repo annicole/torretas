@@ -15,6 +15,7 @@ export class NuevoCiaComponent implements OnInit {
   cia: Cia = new Cia();
   ciaForm: FormGroup;
   submitted = false;
+  formData:FormData= new FormData();
   constructor(private ciaService: CiaService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
@@ -61,6 +62,6 @@ export class NuevoCiaComponent implements OnInit {
   }
 
   selectFile(file) {
-    this.cia.logotipo.append('image', file, file.name);
+     this.cia.logotipo= file;
   }
 }

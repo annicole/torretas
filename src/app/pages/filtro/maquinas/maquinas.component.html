@@ -1,35 +1,42 @@
 <div class="maquina card mb-4 mx-5">
-    <div class="card-header header">
-      <h4>Máquinas</h4>
-          <input type="text" class="form-control input-search" placeholder="Buscar.." (input)="onSearchChange($event.target.value)">
-          <button class="btn btn-custom" (click)="addMaquina()">
-            <i class="material-icons"> add </i>
-          </button>
-    </div>
-    <div class="table-responsive-lg">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Máquina</th>
-            <th scope="col">Área</th>
-            <th scope="col">Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let m of maquinas">
-            <td>{{m.maquina}}</td>
-            <td>{{m.area}}</td>
-            <td>
-              <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="updateMaquina(m)"><i
-                  class="material-icons">create</i></a>
-              <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " (click)="delete(m.idmaquina)"><i
-                  class="material-icons">delete</i></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="footer">
-      <span class="badge badge-light">Total: </span>
-    </div>
+  <div class="card-header header">
+    <h4>Máquinas</h4>
+    <select class="form-control search" id="area" [(ngModel)]="selectedArea" (ngModelChange)="searchByArea()">
+      <option value="">Área</option>
+      <option *ngFor="let a of areas" [value]="a.idarea">{{a.area}}</option>
+    </select>
+    <input type="text" class="form-control search" placeholder="Buscar.."
+      (input)="onSearchChange($event.target.value)">
+    <button class="btn btn-custom" (click)="addMaquina()">
+      <i class="material-icons"> add </i>
+    </button>
   </div>
+  <div class="table-responsive-lg px-4">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Máquina</th>
+          <th scope="col">Área</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of maquinas">
+          <td>{{m.maquina}}</td>
+          <td>{{m.Area.area}}</td>
+          <td>
+            <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="updateMaquina(m)"><i
+                class="material-icons">create</i></a>
+            <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " (click)="delete(m.idmaquina)"><i
+                class="material-icons">delete</i></a>
+            <a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar Sensor "
+              (click)="addSensor(m.idmaquina)"><i class="material-icons">build</i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="footer">
+    <span class="badge badge-light">Total: </span>
+  </div>
+</div>

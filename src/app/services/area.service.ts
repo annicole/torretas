@@ -13,8 +13,10 @@ export class AreaService {
   private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   constructor(private http: HttpClient) { }
 
-  getAreas(): Observable<any> {
-    return this.http.get(this.url + '/areas');
+  getAreas(name:string): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda',name);
+    return this.http.get(this.url + '/areas',{headers:this.httpHeaders,params:params});
   }
 
   create(area: Area): Observable<any> {

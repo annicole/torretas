@@ -20,12 +20,12 @@ export class SensoresComponent implements OnInit {
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    this.getSensores();
+    this.getSensores("");
   }
 
-  async getSensores() {
+  async getSensores(searchValue:string) {
     try {
-      let resp = await this.sensorService.getSensores().toPromise();
+      let resp = await this.sensorService.getSensores(searchValue).toPromise();
       if (resp.code == 200) {
         this.sensores = resp.sensor;
         console.log(resp);
@@ -37,7 +37,7 @@ export class SensoresComponent implements OnInit {
 
   addSensor() {
     const dialogRef = this.dialog.open(NuevoSensorComponent, {
-      width: '70rem',
+      width: '50rem',
       data: {
         title: 'Agregar sensor',
         btnText: 'Agregar',
@@ -48,11 +48,11 @@ export class SensoresComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getSensores();
+      this.getSensores("");
     });
   }
 
-  updateSensor(sensor) {
+  updateSensor(_sensor) {
     const dialogRef = this.dialog.open(NuevoSensorComponent, {
       width: '70rem',
       data: {
@@ -61,12 +61,12 @@ export class SensoresComponent implements OnInit {
         alertSuccesText: 'Sensor modificado correctamente',
         alertErrorText: "No se puedo modificar el sensor",
         modalMode: 'edit',
-        sensor
+        _sensor
       }
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getSensores();
+      this.getSensores("");
     });
   }
 
@@ -80,7 +80,7 @@ export class SensoresComponent implements OnInit {
         this.sensorService.delete(id).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El sensor ha sido eliminado correctamente', 'success');
-            this.getSensores();
+            this.getSensores("");
           } else {
             Swal.fire('Error', 'No fue posible eliminar el sensor', 'error');
           }
@@ -100,7 +100,7 @@ export class SensoresComponent implements OnInit {
   }
 
   async onSearchChange(searchValue : string ) {  
-    
+    this.getSensores(searchValue);
   }
 
 }

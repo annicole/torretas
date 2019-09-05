@@ -155,7 +155,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   async getMaquinas() {
     try {
-      let response = await this.maquinaService.getMaquinas().toPromise();
+      let response = await this.maquinaService.getMaquinas("").toPromise();
       if (response.code == 200) {
         this.maquinas = response.maquina;
       }

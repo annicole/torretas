@@ -40,7 +40,7 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
 
   async getAreas() {
     try {
-      let resp = await this.areaService.getAreas().toPromise();
+      let resp = await this.areaService.getAreas("").toPromise();
       console.log(resp);
       if (resp.code == 200) {
         this.areas = resp.area;
@@ -85,7 +85,7 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
   }
 
   loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode, _maquina } = this.data;
+    const { title, btnText, alertErrorText, alertSuccesText, modalMode, _maquina, idArea } = this.data;
     this.title = title;
     this.btnText = btnText;
     this.alertSuccesText = alertSuccesText;
@@ -97,8 +97,11 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
       this.maquina.idmaquina = idmaquina;
       this.maquina.maquina = maquina;
       this.maquina.idarea = idarea;
-      this.maquina.area = area;
       this.maquina.descripcion = descripcion;
+    }
+
+    if(idArea){
+      this.maquina.idarea = idArea;
     }
   }
 

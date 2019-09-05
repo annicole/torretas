@@ -6,6 +6,7 @@ import { Departamento } from '../../../models/departamento';
 import { Cia } from '../../../models/cia';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {ViewEncapsulation} from '@angular/core';
+import { Dialog } from '@app/classes/Dialog';
 
 @Component({
   selector: 'app-nuevo-departamento',
@@ -13,19 +14,12 @@ import {ViewEncapsulation} from '@angular/core';
   styleUrls: ['./nuevo-departamento.component.scss'],
   encapsulation: ViewEncapsulation.None 
 })
-export class NuevoDepartamentoComponent implements OnInit {
+export class NuevoDepartamentoComponent extends Dialog implements OnInit {
 
   departamento: Departamento = new Departamento();
   departamentoForm: FormGroup;
   submitted = false;
   cias: Cia[];
-  alertMessage: String; 
-  alertSuccess: Boolean;
-  title: String;
-  btnText: String;
-  alertSuccesText: String;
-  alertErrorText: String;
-  modalMode: String;
 
   constructor(
     private ciaService: CiaService,
@@ -33,7 +27,9 @@ export class NuevoDepartamentoComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<NuevoDepartamentoComponent>,
     @Inject(MAT_DIALOG_DATA) public data
-  ) { }
+  ) {
+    super();
+   }
 
   ngOnInit() {
     this.departamentoForm = this.formBuilder.group({
@@ -102,11 +98,6 @@ export class NuevoDepartamentoComponent implements OnInit {
       console.log(e);
       this.showAlert(this.alertErrorText, false);
     }
-  }
-
-  showAlert(message, isSuccess) {
-    this.alertMessage = message;
-    this.alertSuccess = isSuccess;
   }
 
   closeModal() {

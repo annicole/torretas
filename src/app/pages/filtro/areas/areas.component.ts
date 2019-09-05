@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NuevoAreaComponent } from '@app/pages/forms/nuevo-area/nuevo-area.component';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from "ngx-spinner";
+import { NuevoMaquinaComponent } from '@app/pages/forms/nuevo-maquina/nuevo-maquina.component';
 
 @Component({
   selector: 'app-areas',
@@ -19,12 +20,12 @@ export class AreasComponent implements OnInit {
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    this.getAreas();
+    this.getAreas("");
   }
 
-  async getAreas() {
+  async getAreas(searchValue: string) {
     try {
-      let resp = await this.areaService.getAreas().toPromise();
+      let resp = await this.areaService.getAreas(searchValue).toPromise();
       if (resp.code == 200) {
         this.areas = resp.area
       }
@@ -46,9 +47,28 @@ export class AreasComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getAreas();
+      this.getAreas("");
     });
   }
+
+  addMaquina(idArea) {
+    const dialogRef = this.dialog.open(NuevoMaquinaComponent, {
+      width: '40rem',
+      data: {
+        title: 'Agregar máquina',
+        btnText: 'Agregar',
+        alertSuccesText: 'Máquina creada!',
+        alertErrorText: "No se puedo crear la máquina",
+        modalMode: 'create',
+        idArea
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.getAreas("");
+    });
+  }
+
 
   updateArea(_area) {
     const dialogRef = this.dialog.open(NuevoAreaComponent, {
@@ -64,7 +84,7 @@ export class AreasComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getAreas();
+      this.getAreas("");
     });
   }
 
@@ -78,7 +98,7 @@ export class AreasComponent implements OnInit {
         this.areaService.delete(id).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El área ha sido eliminado correctamente', 'success');
-            this.getAreas();
+            this.getAreas("");
           } else {
             Swal.fire('Error', 'No fue posible eliminar el área', 'error');
           }
@@ -87,4 +107,7 @@ export class AreasComponent implements OnInit {
     });
   }
 
+  async onSearchChange(searchValue: string) {
+    this.getAreas(searchValue);
+  }
 }

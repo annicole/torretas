@@ -13,8 +13,11 @@ export class MaquinaService {
   private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   constructor(private http: HttpClient) { }
 
-  getMaquinas(): Observable<any> {
-    return this.http.get(this.url + '/maquinas');
+  getMaquinas(name:string): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda',name);
+    params = params.append("area",'');
+    return this.http.get(this.url + '/maquinas',{headers:this.httpHeaders,params:params});
   }
 
   create(maquina: Maquina): Observable<any> {

@@ -59,7 +59,7 @@ export class NuevoSensorComponent extends Dialog implements OnInit {
 
   async getMaquinas() {
     try {
-      let resp = await this.maquinaService.getMaquinas().toPromise();
+      let resp = await this.maquinaService.getMaquinas("").toPromise();
       console.log(resp);
       if (resp.code == 200) {
         this.maquinas = resp.maquina;
@@ -104,21 +104,25 @@ export class NuevoSensorComponent extends Dialog implements OnInit {
   }
 
   loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode, sensor } = this.data;
+    const { title, btnText, alertErrorText, alertSuccesText, modalMode, _sensor , idMaquina} = this.data;
     this.title = title;
     this.btnText = btnText;
     this.alertSuccesText = alertSuccesText;
     this.alertErrorText = alertErrorText;
     this.modalMode = modalMode;
 
-    if (sensor) {
-      const { idsensor, _sensor,idmaquina,color, intermitente, tipo } = sensor;
+    if (_sensor) {
+      const { idsensor, sensor,idmaquina,color, intermitente, tipo } = _sensor;
       this.sensor.idsensor = idsensor;
-      this.sensor.sensor = _sensor;
+      this.sensor.sensor = sensor;
       this.sensor.idmaquina = idmaquina;
       this.sensor.color = color;
       this.sensor.intermitente = intermitente;
       this.sensor.tipo = tipo;
+    }
+
+    if(idMaquina){
+      this.sensor.idmaquina=idMaquina;
     }
   }
   closeModal() {

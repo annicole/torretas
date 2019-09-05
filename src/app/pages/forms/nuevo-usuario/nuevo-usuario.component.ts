@@ -22,6 +22,8 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   usuarioForm: FormGroup;
   submitted = false;
   departamentos: Departamento[];
+  enabledDepartamento:boolean=false;
+
   constructor(private deptoService: DepartamentoService, private formBuilder: FormBuilder,
     private router: Router, private usuarioService: UsuarioService,
     public dialogRef: MatDialogRef<NuevoUsuarioComponent>,
@@ -44,7 +46,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
 
   async getDeptos() {
     try {
-      let resp = await this.deptoService.getDepartamentos().toPromise();
+      let resp = await this.deptoService.getDepartamentos("").toPromise();
       if (resp.code == 200) {
         this.departamentos = resp.depto;
         console.log(resp);
@@ -100,7 +102,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   }
 
   loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode, usuario } = this.data;
+    const { title, btnText, alertErrorText, alertSuccesText, modalMode, usuario,idDepto } = this.data;
     this.title = title;
     this.btnText = btnText;
     this.alertSuccesText = alertSuccesText;
@@ -114,6 +116,11 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       this.usuario.celular = celular;
       this.usuario.email = email;
       this.usuario.id = id;
+    }
+
+    if(idDepto){
+      this.enabledDepartamento = true;
+      this.usuario.iddep = idDepto;
     }
   }
 

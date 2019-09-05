@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NuevoDepartamentoComponent } from '@app/pages/forms/nuevo-departamento/nuevo-departamento.component';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from "ngx-spinner";
+import { NuevoUsuarioComponent } from '@app/pages/forms/nuevo-usuario/nuevo-usuario.component';
 
 @Component({
   selector: 'app-departamentos',
@@ -15,9 +16,9 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class DepartamentosComponent implements OnInit {
 
   departamentos: Departamento[];
-  page:number=1;
-  limit:number=10;
-  total:number; 
+  page: number = 1;
+  limit: number = 10;
+  total: number;
   numberOfElemets = [
     { label: '20', value: '20' },
     { label: '25', value: '25' },
@@ -30,15 +31,14 @@ export class DepartamentosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getDeptos();
+    this.getDeptos("");
   }
 
-  async getDeptos() {
+  async getDeptos(searchValue) {
     try {
-      let resp = await this.deptoService.getDepartamentos("").toPromise();
+      let resp = await this.deptoService.getDepartamentos(searchValue).toPromise();
       if (resp.code == 200) {
         this.departamentos = resp.depto;
-        console.log(resp);
       }
     } catch (e) {
       console.log(e);
@@ -48,14 +48,14 @@ export class DepartamentosComponent implements OnInit {
   selectPage(page) {
     this.page = page;
     this.showSpinner();
-    this.getDeptos();
+    this.getDeptos("");
   }
 
   selectOption(option) {
     this.limit = option.value;
-    this.page =1;
+    this.page = 1;
     this.showSpinner();
-    this.getDeptos();
+    this.getDeptos("");
   }
 
   addDepto() {
@@ -71,7 +71,7 @@ export class DepartamentosComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getDeptos();
+      this.getDeptos("");
     });
   }
 
@@ -89,7 +89,7 @@ export class DepartamentosComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getDeptos();
+      this.getDeptos("");
     });
   }
 
@@ -103,7 +103,7 @@ export class DepartamentosComponent implements OnInit {
         this.deptoService.delete(id).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El departamento ha sido eliminado correctamente', 'success');
-            this.getDeptos();
+            this.getDeptos("");
           } else {
             Swal.fire('Error', 'No fue posible eliminar el departamento', 'error');
           }
@@ -122,7 +122,25 @@ export class DepartamentosComponent implements OnInit {
     this.spinner.show("mySpinner", opt1);
   }
 
-  async onSearchChange(searchValue : string ) {  
-    
+  async onSearchChange(searchValue: string) {
+    this.getDeptos(searchValue);
+  }
+
+  addUsuario(idDepto){
+    const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
+      width: '50rem',
+      data: {
+        title: 'Agregar usuario',
+        btnText: 'Agregar',
+        alertSuccesText: 'Usuario creado!',
+        alertErrorText: "No se puedo crear el usuario",
+        modalMode: 'create',
+        idDepto
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.getDeptos("");
+    });
   }
 }

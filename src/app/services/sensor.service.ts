@@ -13,8 +13,10 @@ export class SensorService {
   private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   constructor(private http: HttpClient) { }
 
-  getSensores(): Observable<any> {
-    return this.http.get(this.url + '/sensores');
+  getSensores(name:string): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda',name);
+    return this.http.get(this.url + '/sensores',{headers:this.httpHeaders,params:params});
   }
 
   create(sensor: Sensor): Observable<any> {

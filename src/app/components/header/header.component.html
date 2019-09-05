@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg nav-header mb-5 fixed-top">
-  <a class="navbar-brand">ICMA</a>
+  <a class="navbar-brand"><img class="icono-icma" [src]="urlImg" alt="Empresa"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -15,15 +15,14 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle"  style="color: white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          Nuevo
+          Ver
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/maquina']">Máquina </a>
-          <a class="dropdown-item" [routerLink]="['/sensor']">Sensor</a>
-          <a class="dropdown-item" [routerLink]="['/departamento']">Departamento</a>
-          <a class="dropdown-item" [routerLink]="['/area']">Área</a>
-          <a class="dropdown-item" [routerLink]="['/cia']">Cia</a>
-          <a class="dropdown-item" [routerLink]="['/usuario']">Usuario</a>
+          <a class="dropdown-item" [routerLink]="['/maquina']">Máquinas </a>
+          <a class="dropdown-item" [routerLink]="['/sensor']">Sensores</a>
+          <a class="dropdown-item" [routerLink]="['/departamento']">Departamentos</a>
+          <a class="dropdown-item" [routerLink]="['/area']">Áreas</a>
+          <a class="dropdown-item" [routerLink]="['/usuario']">Usuarios</a>
         </div>
       </li>
     </ul>

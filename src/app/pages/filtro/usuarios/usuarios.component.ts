@@ -37,7 +37,7 @@ export class UsuariosComponent implements OnInit {
 
   addUsuario() {
     const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
-      width: '40rem',
+      width: '50rem',
       data: {
         title: 'Agregar usuario',
         btnText: 'Agregar',

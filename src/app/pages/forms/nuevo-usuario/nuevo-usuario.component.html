@@ -49,7 +49,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="departamento">Departamento</label>
-          <select class="form-control" id="departamento" nombre="iddep" [(ngModel)]="usuario.iddep"
+          <select class="form-control" id="departamento" nombre="iddep" [(ngModel)]="usuario.iddep" 
             formControlName="iddep" [ngClass]="{ 'is-invalid': submitted && f.iddep.errors }">
             <option *ngFor="let d of departamentos" [value]="d.iddep">{{d.departamento}} </option>
           </select>
