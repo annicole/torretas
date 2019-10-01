@@ -2,6 +2,7 @@
   <div class="card-header header">
     <h4>Máquinas</h4>
     <select class="form-control search" id="area" [(ngModel)]="selectedArea" (ngModelChange)="searchByArea()">
+      <option value="">Seleccione...</option>
       <option *ngFor="let a of areas" [value]="a.idarea">{{a.area}}</option>
     </select>
     <input type="text" class="form-control search" placeholder="Buscar.."

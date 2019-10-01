@@ -1,3 +1,5 @@
+import { Departamento} from './departamento';
+
 export class Usuario{
     username:string;
     email:string;
@@ -7,4 +9,9 @@ export class Usuario{
     celular:string;
     id:number;
     iddep:number;
+    Departamento:Departamento;
+
+    constructor(){
+        this.Departamento = new Departamento();
+    }  
 }

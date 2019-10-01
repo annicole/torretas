@@ -12,8 +12,11 @@ export class UsuarioService {
   private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   constructor(private http: HttpClient) { }
 
-  getUsuarios(): Observable<any> {
-    return this.http.get(this.url + '/usuarios');
+  getUsuarios(name:string,depatamento:string): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda',name);
+    params = params.append('departamento',depatamento);
+    return this.http.get(this.url + '/usuarios',{headers:this.httpHeaders,params:params});
   }
 
   create(usuario: Usuario): Observable<any> {

@@ -19,13 +19,13 @@ export class UsuariosComponent implements OnInit {
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    this.getUsuarios();
+    this.getUsuarios('');
   }
 
   
-  async getUsuarios() {
+  async getUsuarios(searchValue:string) {
     try {
-      let resp = await this.usuarioService.getUsuarios().toPromise();
+      let resp = await this.usuarioService.getUsuarios(searchValue,'').toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
         console.log(resp);
@@ -48,7 +48,7 @@ export class UsuariosComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getUsuarios();
+      this.getUsuarios('');
     });
   }
 
@@ -66,7 +66,7 @@ export class UsuariosComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getUsuarios();
+      this.getUsuarios('');
     });
   }
 
@@ -80,7 +80,7 @@ export class UsuariosComponent implements OnInit {
         this.usuarioService.delete(id).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El usuario se ha sido eliminado correctamente', 'success');
-            this.getUsuarios();
+            this.getUsuarios('');
           } else {
             Swal.fire('Error', 'No fue posible eliminar el usuario', 'error');
           }
@@ -100,7 +100,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   async onSearchChange(searchValue : string ) {  
-    
+     this.getUsuarios(searchValue);
   }
 
 }

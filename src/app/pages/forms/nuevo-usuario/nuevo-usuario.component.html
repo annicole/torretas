@@ -24,7 +24,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="password">Contraseña</label>
-          <input type="text" class="form-control" id="password" nombre="password" [(ngModel)]="usuario.password"
+          <input type="password" class="form-control" id="password" nombre="password" [(ngModel)]="usuario.password"
             formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
             <div *ngIf="f.password.errors.required">Contraseña es requerida</div>
@@ -32,7 +32,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="password2">Confirma Contraseña</label>
-          <input type="text" class="form-control" id="password2" nombre="password2" [(ngModel)]="usuario.password2"
+          <input type="password" class="form-control" id="password2" nombre="password2" [(ngModel)]="usuario.password2"
             formControlName="password2" [ngClass]="{ 'is-invalid': submitted && f.password2.errors }">
           <div *ngIf="submitted && f.password2.errors" class="invalid-feedback">
             <div *ngIf="f.password2.errors.required">Contraseña es requerido</div>
@@ -41,7 +41,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="celular">Celular</label>
-          <input type="text" class="form-control" id="celular" nombre="celular" [(ngModel)]="usuario.celular"
+          <input type="number" class="form-control" id="celular" nombre="celular" [(ngModel)]="usuario.celular"
             formControlName="celular" [ngClass]="{ 'is-invalid': submitted && f.celular.errors }">
           <div *ngIf="submitted && f.celular.errors" class="invalid-feedback">
             <div *ngIf="f.celular.errors.required">Celular es requerido</div>
