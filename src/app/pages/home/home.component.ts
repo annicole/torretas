@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
       {
         icon: 'assessment',
         text: 'Graficas',
-        function: '/graficas',
+        function: ['/graficas',0],
         class: 'black-bg'
       },
       {

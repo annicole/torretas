@@ -19,7 +19,7 @@ export class MaquinasComponent implements OnInit {
 
   maquinas: Maquina[];
   areas: Area[];
-  selectedArea:string;
+  selectedArea:string='';
   constructor(private maquinaService: MaquinaService, private areaService: AreaService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
@@ -30,7 +30,7 @@ export class MaquinasComponent implements OnInit {
 
   async getMaquinas(searchValue: string) {
     try {
-      let resp = await this.maquinaService.getMaquinas(searchValue).toPromise();
+      let resp = await this.maquinaService.getMaquinas(searchValue,(this.selectedArea != "")? this.selectedArea : "").toPromise();
       if (resp.code == 200) {
         this.maquinas = resp.maquina;
         console.log(this.maquinas);

@@ -2,7 +2,6 @@
   <div class="card-header header">
     <h4>Máquinas</h4>
     <select class="form-control search" id="area" [(ngModel)]="selectedArea" (ngModelChange)="searchByArea()">
-      <option value="">Área</option>
       <option *ngFor="let a of areas" [value]="a.idarea">{{a.area}}</option>
     </select>
     <input type="text" class="form-control search" placeholder="Buscar.."
@@ -31,6 +30,7 @@
                 class="material-icons">delete</i></a>
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar Sensor "
               (click)="addSensor(m.idmaquina)"><i class="material-icons">build</i></a>
+              <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver gráficas" [routerLink]="['/graficas',m.idmaquina]"><i class="material-icons">assessment</i></a>
           </td>
         </tr>
       </tbody>

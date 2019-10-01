@@ -11,6 +11,10 @@ export class CiaService {
 
   private url: string = environment.environment.urlEndPoint + '/cia';
   private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
+  private httpHeaderFormData = new HttpHeaders({ 'Content-Type': 'multipart/form-data'})
+  //'Content-Type': 'application/x-www-form-urlencoded'
+  // headers: { 'Content-Type': 'multipart/form-data'
+  //'Content-type': 'application/json
   constructor(private http: HttpClient) { }
 
   getCias(): Observable<any> {
@@ -19,6 +23,10 @@ export class CiaService {
 
   create(cia: Cia): Observable<any> {
     return this.http.post<any>(this.url + '/cias', cia, { headers: this.httpHeaders });
+  }
+
+  createImage(formdata) :Observable<any> {
+    return this.http.post<any>(this.url + '/cias', formdata,{headers: this.httpHeaderFormData});
   }
 
   readCia(id: number): Observable<any> {

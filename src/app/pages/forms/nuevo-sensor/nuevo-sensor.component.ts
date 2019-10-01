@@ -59,7 +59,7 @@ export class NuevoSensorComponent extends Dialog implements OnInit {
 
   async getMaquinas() {
     try {
-      let resp = await this.maquinaService.getMaquinas("").toPromise();
+      let resp = await this.maquinaService.getMaquinas("","").toPromise();
       console.log(resp);
       if (resp.code == 200) {
         this.maquinas = resp.maquina;

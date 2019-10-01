@@ -15,11 +15,12 @@ export class NuevoCiaComponent implements OnInit {
   cia: Cia = new Cia();
   ciaForm: FormGroup;
   submitted = false;
-  formData:FormData= new FormData();
+  formData:FormData;
   constructor(private ciaService: CiaService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.cia.logotipo = new FormData();
+    this.formData = new FormData();
     this.ciaForm = this.formBuilder.group({
       razon: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -47,7 +48,7 @@ export class NuevoCiaComponent implements OnInit {
 
   async guardar() {
     try {
-      let response = await this.ciaService.create(this.cia).toPromise();
+      let response = await this.ciaService.createImage(this.formData).toPromise();
       if (response.code = 200) {
         Swal.fire('', 'Cia guardado correctamente', 'success');
         this.router.navigate(['']);
@@ -63,5 +64,7 @@ export class NuevoCiaComponent implements OnInit {
 
   selectFile(file) {
      this.cia.logotipo= file;
+     console.log(file);
+     this.formData.append('file', file, file.name);
   }
 }

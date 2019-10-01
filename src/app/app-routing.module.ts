@@ -14,7 +14,7 @@ import {LoginComponent} from './pages/login/login.component';
 
 const routes:Routes=[
   {path:'',redirectTo:'/home',pathMatch:'full'},
-  {path:'graficas',component:GraficaEventoComponent},
+  {path:'graficas/:idMaquina',component:GraficaEventoComponent},
   {path:'maquina',component:MaquinasComponent},
   {path:'sensor',component:SensoresComponent},
   {path:'evento',component:EventoComponent},

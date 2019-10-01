@@ -13,6 +13,7 @@ import { DatePipe } from '@angular/common';
 import { GraficaService } from '@app/services/grafica.service';
 import { AplicacionService } from '@app/services/aplicacion.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
 am4core.useTheme(am4themes_animated);
 @Component({
@@ -50,7 +51,8 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     private graficaService: GraficaService,
     private aplicacionService: AplicacionService,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private activate:ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -61,6 +63,9 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required]
     }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'),this.ValidDate('horaInicio', 'horaFin') ]});
+    if (this.activate.snapshot.paramMap.get('idMaquina') != '0'){
+      this.maquina = this.activate.snapshot.paramMap.get('idMaquina');
+    }
     this.getMaquinas();
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
@@ -155,7 +160,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   async getMaquinas() {
     try {
-      let response = await this.maquinaService.getMaquinas("").toPromise();
+      let response = await this.maquinaService.getMaquinas("","").toPromise();
       if (response.code == 200) {
         this.maquinas = response.maquina;
       }
