@@ -1,7 +1,37 @@
 .grafica-evento {
-    height: 100%;
-    position: relative;
     margin-top: 5rem;
+}
+
+.grafica-evento-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.side-bar {
+    flex: 1;
+    min-width: 225px;
+}
+
+.cards-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 1.5rem;
+    height: 85vh;
+    overflow-x: auto;
+    flex: 3;
+    min-width: 370px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
 }
 
 .card { 
@@ -12,14 +42,4 @@
     width: 100%;
     margin: 0px !important;
     background-color: #ffff;
-}
-
-.side-bar {
-    position: fixed;
-    top: 55px;
-    left: 0;
-}
-
-.cards-section {
-    margin-left: 470px;
 }

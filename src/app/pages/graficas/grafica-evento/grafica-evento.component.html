@@ -1,13 +1,13 @@
 <div class="grafica-evento mx-5">
-  <div class="row">
+  <div class="grafica-evento-row">
   
     <!-- SIDE BAR -->
-    <div class="side-bar col-md-3 col-lg-3">
+    <div class="side-bar">
       <div class="card my-4">
-        <div class="card-header font-weight-bold" style="font-size: x-large;">
-          Gráficas por sensor
+        <div class="card-header font-weight-bold" style="font-size: x-large;" (click)="toggleFilter()">
+          Gráficas por sensor <i class="material-icons"> {{ iconFilter }} </i>
         </div>
-        <div class="card-body mx-2">
+        <div class="card-body mx-2" [hidden]="showFilter">
           <form [formGroup]="graficaForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label for="maquina">Máquina:</label>
@@ -59,7 +59,7 @@
     </div>
 
     <!-- CARDS SECTION -->
-    <div class="cards-section col-md-9 col-lg-9">
+    <div class="cards-section">
       <div class="col">
         <div class="card mb-4">
           <div class="card-body">

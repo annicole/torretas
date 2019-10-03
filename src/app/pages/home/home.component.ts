@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
       {
         icon: 'assessment',
         text: 'Graficas',
-        function: ['/graficas',0],
+        function: '/graficas/0',
         class: 'black-bg'
       },
       {
@@ -36,31 +36,31 @@ export class HomeComponent implements OnInit {
       },
       {
         icon: 'build',
-        text: 'Ver Máquinas',
+        text: 'Máquinas',
         function: '/maquina',
         class: 'pink-bg'
       },
       {
         icon: 'work',
-        text: 'Ver Áreas',
+        text: 'Áreas',
         function: '/area',
         class: 'red-bg'
       },
       {
         icon: 'group',
-        text: 'Ver Departamentos',
+        text: 'Departamentos',
         function: '/departamento',
         class: 'green-bg'
       },
       {
         icon: 'schedule',
-        text: 'Ver Sensores',
+        text: 'Sensores',
         function: '/sensor',
         class: 'yellow-bg'
       },
       {
         icon: 'person_add',
-        text: 'Ver Usuarios',
+        text: 'Usuarios',
         function: '/usuario',
         class: 'orange-bg'
       }
