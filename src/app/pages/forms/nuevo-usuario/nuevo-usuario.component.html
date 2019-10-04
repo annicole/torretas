@@ -16,7 +16,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="correo">Correo</label>
-          <input type="text" class="form-control" id="correo" nombre="correo" [(ngModel)]="usuario.correo"
+          <input type="text" class="form-control" id="correo" nombre="email" [(ngModel)]="usuario.email"
             formControlName="correo" [ngClass]="{ 'is-invalid': submitted && f.correo.errors }">
           <div *ngIf="submitted && f.correo.errors" class="invalid-feedback">
             <div *ngIf="f.correo.errors.required">Correo es requerido</div>
@@ -45,6 +45,7 @@
             formControlName="celular" [ngClass]="{ 'is-invalid': submitted && f.celular.errors }">
           <div *ngIf="submitted && f.celular.errors" class="invalid-feedback">
             <div *ngIf="f.celular.errors.required">Celular es requerido</div>
+            <div *ngIf="f.celular.errors.min">Caracteres minimos 5</div>
           </div>
         </div>
         <div class="form-group col-md-6">
