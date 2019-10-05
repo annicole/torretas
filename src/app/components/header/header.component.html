@@ -1,29 +1,60 @@
-<nav class="navbar navbar-expand-lg nav-header mb-5 fixed-top">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-5 fixed-top">
   <a class="navbar-brand"><img class="icono-icma" [src]="urlImg" alt="Empresa"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarText">
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link"  style="color: white" [routerLink]="['/home']">Inicio <span class="sr-only">(current)</span></a>
-          </li>
       <li class="nav-item">
-        <a class="nav-link"  style="color: white" [routerLink]="['/graficas',0]">Gráficas </a>
+        <a
+          class="nav-link"
+          [routerLink]="['/home']"
+          [routerLinkActive]="['activate']" 
+        > <i class="material-icons"> home </i>  Inicio <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle"  style="color: white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Ver
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/maquina']">Máquinas </a>
-          <a class="dropdown-item" [routerLink]="['/sensor']">Sensores</a>
-          <a class="dropdown-item" [routerLink]="['/departamento']">Departamentos</a>
-          <a class="dropdown-item" [routerLink]="['/area']">Áreas</a>
-          <a class="dropdown-item" [routerLink]="['/usuario']">Usuarios</a>
-        </div>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/graficas',0]"
+          [routerLinkActive]="['activate']"
+        > <i class="material-icons"> assessment </i> Gráficas </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/maquina']"
+          [routerLinkActive]="['activate']" 
+        > <i class="material-icons"> build </i> Máquinas </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/departamento']"
+          [routerLinkActive]="['activate']"
+        > <i class="material-icons"> group </i> Departamentos </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/area']"
+          [routerLinkActive]="['activate']"
+        > <i class="material-icons"> work </i> Áreas </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/sensor']"
+          [routerLinkActive]="['activate']"
+        > <i class="material-icons"> schedule </i> Sensores </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/usuario']"
+          [routerLinkActive]="['activate']"
+        > <i class="material-icons"> person_add </i> Usuarios </a>
       </li>
     </ul>
   </div>

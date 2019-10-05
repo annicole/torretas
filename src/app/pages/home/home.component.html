@@ -2,19 +2,14 @@
   <div class="card-body-custom">
 
     <div class="card-empresa">
-      <div class="row">
-        <div class="col-md-4 col-4">
+      <div class="row-empresa">
+        <div class="logo-empresa">
           <img [src]="urlImg" alt="Empresa">
         </div>
-        <div class="col-md-2 col-2">
-          <p class="text-justify font-weight-bold"> Empresa:</p>
-          <p class="text-justify font-weight-bold"> Razón:</p>
-          <p class="text-justify font-weight-bold">Eslogan:</p>
-        </div>
-        <div class="col-md-2 col-2">
-          <p>{{cia.nombre}}</p>
-          <p>{{cia.razon}}</p>
-          <p> {{cia.eslogan}}</p>
+        <div class="info-empresa">
+          <div class="info-texto"> Empresa: {{cia.nombre}} </div>
+          <div class="info-texto"> Razón: {{cia.razon}} </div>
+          <div class="info-texto"> Eslogan: {{cia.eslogan}} </div>
         </div>
       </div>
     </div>

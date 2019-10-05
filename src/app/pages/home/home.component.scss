@@ -10,10 +10,54 @@
     background-color: #ffff;
 }
 
+.row-empresa {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    .logo-empresa {
+        flex: 1;
+        min-width: 235px;
+        margin-bottom: 5px;
+    }
+    .info-empresa {
+        flex: 2;
+        min-width: 468px;
+        .info-texto {
+            white-space: pre-line;
+            text-align: start !important;
+            margin-top: 0;
+            margin-bottom: 1rem !important;
+            font-weight: 700 !important;
+        }
+    }
+}
+
+@media(max-width: 700px) {
+    .row-empresa {
+        .logo-empresa {
+            min-width: 235px;
+        }
+        .info-empresa {
+            min-width: 235px;
+        }
+    }
+}
+
+@media(max-width: 460px) {
+    .row-empresa {
+        .logo-empresa {
+            min-width: 142px;
+        }
+        .info-empresa {
+            min-width: 142px;
+        }
+    }
+}
 
 .home {
     margin-top: 5rem;
-    margin-bottom: 3rem;
 }
 
 .section-cards{

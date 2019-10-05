@@ -43,6 +43,8 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   dataChart1 = [];
   dataChart2 = [];
   chatFlag = false;
+  showFilter: boolean = false;
+  iconFilter: string = 'expand_less';
 
   constructor(
     private zone: NgZone,
@@ -243,5 +245,10 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     };
 
     this.spinner.show("mySpinner", opt1);
+  }
+
+  toggleFilter() {
+    this.showFilter = !this.showFilter;
+    this.iconFilter = (this.showFilter) ? 'expand_more' : 'expand_less';
   }
 }
