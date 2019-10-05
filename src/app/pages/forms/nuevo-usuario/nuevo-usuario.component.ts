@@ -37,7 +37,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       correo: ['', Validators.required],
       password: ['', Validators.required],
       password2: ['', Validators.required],
-      celular: ['', [Validators.required,Validators.min(5),Validators.max(12)]],
+      celular: ['', [Validators.required,Validators.min(5)]],
       iddep: ['', Validators.required]
     }, { validator: this.MustMatch('password', 'password2') });
     this.getDeptos();
