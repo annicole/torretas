@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { Maquina } from '../models/maquina';
 import * as environment from '../../environments/environment';
 
@@ -11,6 +11,7 @@ export class MaquinaService {
 
   private url: string = environment.environment.urlEndPoint + '/maquina';
   private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
+  chartPage = new Subject();
   constructor(private http: HttpClient) { }
 
   getMaquinas(name:string,area:string): Observable<any> {
@@ -34,5 +35,9 @@ export class MaquinaService {
 
   update(maquina: Maquina) {
     return this.http.put(`${this.url + '/read'}/${maquina.idmaquina}`, maquina, { headers: this.httpHeaders });
+  }
+
+  changePage(page) {
+    this.chartPage.next(page);
   }
 }

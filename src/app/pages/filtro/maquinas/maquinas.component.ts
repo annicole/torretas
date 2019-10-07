@@ -142,4 +142,8 @@ export class MaquinasComponent implements OnInit {
       this.getMaquinas("");
     });
   }
+
+  loadPage(page) {
+    this.maquinaService.changePage(page);
+  }
 }
