@@ -16,6 +16,7 @@ import { NuevoMaquinaComponent } from '@app/pages/forms/nuevo-maquina/nuevo-maqu
 export class AreasComponent implements OnInit {
 
   areas: Area[];
+  total:number =0;
   constructor(private areaService: AreaService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
@@ -28,6 +29,7 @@ export class AreasComponent implements OnInit {
       let resp = await this.areaService.getAreas(searchValue).toPromise();
       if (resp.code == 200) {
         this.areas = resp.area
+        this.total = this.areas.length;
       }
     } catch (e) {
       console.log(e);

@@ -82,6 +82,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       this.dataChart2 = [];
       let response = await this.graficaService.getGrafica(this.maquina, fechaI, fechaF).toPromise();
       if (response.code == 200) {
+        console.log(response);
         arreglo = response.grafica[0];
         Object.keys(arreglo).forEach(key => {
           if (key.substring(0, 1) === 'e') {

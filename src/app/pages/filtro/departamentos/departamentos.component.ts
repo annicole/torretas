@@ -16,16 +16,7 @@ import { NuevoUsuarioComponent } from '@app/pages/forms/nuevo-usuario/nuevo-usua
 export class DepartamentosComponent implements OnInit {
 
   departamentos: Departamento[];
-  page: number = 1;
-  limit: number = 10;
   total: number;
-  numberOfElemets = [
-    { label: '20', value: '20' },
-    { label: '25', value: '25' },
-    { label: '30', value: '30' },
-    { label: '35', value: '35' },
-    { label: '40', value: '40' },
-  ];
   constructor(private deptoService: DepartamentoService,
     private dialog: MatDialog, private spinner: NgxSpinnerService
   ) { }
@@ -39,23 +30,11 @@ export class DepartamentosComponent implements OnInit {
       let resp = await this.deptoService.getDepartamentos(searchValue).toPromise();
       if (resp.code == 200) {
         this.departamentos = resp.depto;
+        this.total = this.departamentos.length;
       }
     } catch (e) {
       console.log(e);
     }
-  }
-
-  selectPage(page) {
-    this.page = page;
-    this.showSpinner();
-    this.getDeptos("");
-  }
-
-  selectOption(option) {
-    this.limit = option.value;
-    this.page = 1;
-    this.showSpinner();
-    this.getDeptos("");
   }
 
   addDepto() {

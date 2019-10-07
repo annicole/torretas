@@ -1,4 +1,5 @@
 import { Maquina } from './maquina';
+import {Color} from './color';
 
 export class Sensor {
     idsensor:number;
@@ -8,8 +9,9 @@ export class Sensor {
     intermitente:number=1;
     tipo:number;
     Maquina:Maquina;
-
+    Color:Color;
     constructor(){
         this.Maquina= new Maquina();
+        this.Color = new Color();
     }
 }

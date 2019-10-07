@@ -15,6 +15,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class UsuariosComponent implements OnInit {
 
   usuarios:Usuario[];
+  total:number=0;
   constructor(private usuarioService: UsuarioService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
@@ -28,7 +29,7 @@ export class UsuariosComponent implements OnInit {
       let resp = await this.usuarioService.getUsuarios(searchValue,'').toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
-        console.log(resp);
+        this.total = this.usuarios.length;
       }
     } catch (e) {
       console.log(e);

@@ -16,10 +16,11 @@
         </div>
         <div class="form-group col-md-6">
           <label for="correo">Correo</label>
-          <input type="text" class="form-control" id="correo" nombre="email" [(ngModel)]="usuario.email"
+          <input type="email" class="form-control" id="correo" nombre="email" [(ngModel)]="usuario.email"
             formControlName="correo" [ngClass]="{ 'is-invalid': submitted && f.correo.errors }">
           <div *ngIf="submitted && f.correo.errors" class="invalid-feedback">
             <div *ngIf="f.correo.errors.required">Correo es requerido</div>
+            <div *ngIf="f.correo.errors.email">Correo inválido</div> 
           </div>
         </div>
         <div class="form-group col-md-6">
@@ -28,6 +29,7 @@
             formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
             <div *ngIf="f.password.errors.required">Contraseña es requerida</div>
+            <div *ngIf="f.celular.errors.min">Debe tener al menos 5 caracteres</div>
           </div>
         </div>
         <div class="form-group col-md-6">
@@ -44,15 +46,14 @@
           <input type="number" class="form-control" id="celular" nombre="celular" [(ngModel)]="usuario.celular"
             formControlName="celular" [ngClass]="{ 'is-invalid': submitted && f.celular.errors }">
           <div *ngIf="submitted && f.celular.errors" class="invalid-feedback">
-            <div *ngIf="f.celular.errors.required">Celular es requerido</div>
-            <div *ngIf="f.celular.errors.min">Caracteres minimos 5</div>
+            <div *ngIf="f.celular.errors.min">Debe tener al menos 5 caracteres</div>
           </div>
         </div>
         <div class="form-group col-md-6">
           <label for="departamento">Departamento</label>
           <select class="form-control" id="departamento" nombre="iddep" [(ngModel)]="usuario.iddep" 
             formControlName="iddep" [ngClass]="{ 'is-invalid': submitted && f.iddep.errors }">
-            <option *ngFor="let d of departamentos" [value]="d.iddep">{{d.departamento}} </option>
+            <option *ngFor="let d of departamentos" [value]="d.iddep">{{d.departamento |titlecase}} </option>
           </select>
           <div *ngIf="submitted && f.iddep.errors" class="invalid-feedback">
             <div *ngIf="f.iddep.errors.required">Departamento es requerido</div>

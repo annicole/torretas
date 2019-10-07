@@ -20,6 +20,7 @@ export class MaquinasComponent implements OnInit {
   maquinas: Maquina[];
   areas: Area[];
   selectedArea:string='';
+  total:number =0;
   constructor(private maquinaService: MaquinaService, private areaService: AreaService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
@@ -33,7 +34,7 @@ export class MaquinasComponent implements OnInit {
       let resp = await this.maquinaService.getMaquinas(searchValue,(this.selectedArea != "")? this.selectedArea : "").toPromise();
       if (resp.code == 200) {
         this.maquinas = resp.maquina;
-        console.log(this.maquinas);
+        this.total= this.maquinas.length;
       }
     } catch (e) {
       console.log(e);
@@ -43,10 +44,8 @@ export class MaquinasComponent implements OnInit {
   async getAreas() {
     try {
       let resp = await this.areaService.getAreas("").toPromise();
-      console.log(resp);
       if (resp.code == 200) {
         this.areas = resp.area;
-        console.log(resp);
       }
     } catch (e) {
       console.log(e);

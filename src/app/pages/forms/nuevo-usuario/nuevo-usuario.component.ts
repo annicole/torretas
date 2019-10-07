@@ -4,8 +4,6 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Departamento } from '../../../models/departamento';
 import { Usuario } from '../../../models/usuario';
-import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
 import { Dialog } from '@app/classes/Dialog';
@@ -25,20 +23,21 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   enabledDepartamento:boolean=false;
 
   constructor(private deptoService: DepartamentoService, private formBuilder: FormBuilder,
-    private router: Router, private usuarioService: UsuarioService,
+     private usuarioService: UsuarioService,
     public dialogRef: MatDialogRef<NuevoUsuarioComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
     super();
   }
 
   ngOnInit() {
+    const disabled = this.data.idDepto ? true : false;
     this.usuarioForm = this.formBuilder.group({
       username: ['', Validators.required],
-      correo: ['', Validators.required],
-      password: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required,Validators.min(6)]],
       password2: ['', Validators.required],
-      celular: ['', [Validators.required,Validators.min(5)]],
-      iddep: ['', Validators.required]
+      celular: ['', [Validators.min(5)]],
+      iddep: [{ value: '', disabled: disabled }, Validators.required]
     }, { validator: this.MustMatch('password', 'password2') });
     this.getDeptos();
     this.loadModalTexts();
@@ -49,7 +48,6 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       let resp = await this.deptoService.getDepartamentos("").toPromise();
       if (resp.code == 200) {
         this.departamentos = resp.depto;
-        console.log(resp);
       }
     } catch (e) {
       console.log(e);
@@ -72,15 +70,15 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     try {
       let response = await this.usuarioService.create(this.usuario).toPromise();
       if (response.code = 200) {
-        Swal.fire('', 'Usuario guardado correctamente', 'success');
-        this.router.navigate(['']);
+        this.showAlert(this.alertSuccesText, true);
+        this.closeModal();
       }
       else {
-        Swal.fire('Error', 'No fue posible guardar el usuario', 'error');
+        this.showAlert(this.alertErrorText, false);
       }
     } catch (e) {
       console.log(e);
-      Swal.fire('Error', 'No fue posible guardar el usuario', 'error');
+      this.showAlert(e.error.message, false);
     }
   }
 

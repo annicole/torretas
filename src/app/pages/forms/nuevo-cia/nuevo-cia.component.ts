@@ -21,6 +21,7 @@ export class NuevoCiaComponent implements OnInit {
   ngOnInit() {
     this.cia.logotipo = new FormData();
     this.formData = new FormData();
+    this.getCia();
     this.ciaForm = this.formBuilder.group({
       razon: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -33,6 +34,17 @@ export class NuevoCiaComponent implements OnInit {
       cp: ['', Validators.required],
       eslogan: ['', Validators.nullValidator]
     });
+  }
+
+  async getCia(){
+    try{
+      const response= await this.ciaService.readCia(1).toPromise();
+      if (response.code = 200) {
+        this.cia = response.cia
+      }
+    }catch(e){
+      Swal.fire('Error', 'No se pudo obtener la empresa', 'error');
+    }
   }
 
   get f() { return this.ciaForm.controls; }
@@ -48,17 +60,18 @@ export class NuevoCiaComponent implements OnInit {
 
   async guardar() {
     try {
-      let response = await this.ciaService.createImage(this.formData).toPromise();
+      //let response = await this.ciaService.createImage(this.formData).toPromise();
+      let response = await this.ciaService.update(this.cia).toPromise();
       if (response.code = 200) {
-        Swal.fire('', 'Cia guardado correctamente', 'success');
+        Swal.fire('', 'Empresa guardada correctamente', 'success');
         this.router.navigate(['']);
       }
       else {
-        Swal.fire('Error', 'No fue posible guardar el cia', 'error');
+        Swal.fire('Error', 'No fue posible guardar la empresa', 'error');
       }
     } catch (e) {
       console.log(e);
-      Swal.fire('Error', 'No fue posible guardar el cia', 'error');
+      Swal.fire('Error', 'No fue posible guardar la empresa', 'error');
     }
   }
 

@@ -33,7 +33,7 @@ export class CiaService {
     return this.http.get(`${this.url + '/read'}/${id}`);
   }
 
-  update(cia: Cia) {
+  update(cia: Cia): Observable<any> {
     return this.http.put(`${this.url + '/read'}/${cia.idcia}`, cia, { headers: this.httpHeaders });
   }
 }
