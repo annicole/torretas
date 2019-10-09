@@ -7,9 +7,9 @@
           <img [src]="urlImg" alt="Empresa">
         </div>
         <div class="info-empresa">
-          <div class="info-texto"> Empresa: {{cia.nombre}} </div>
-          <div class="info-texto"> Razón: {{cia.razon}} </div>
-          <div class="info-texto"> Eslogan: {{cia.eslogan}} </div>
+          <div class="info-texto"> Empresa: {{cia.nombre | titlecase}} </div>
+          <div class="info-texto"> Razón: {{cia.razon | titlecase}} </div>
+          <div class="info-texto"> Eslogan: {{cia.eslogan |titlecase}} </div>
         </div>
       </div>
     </div>

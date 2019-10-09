@@ -25,11 +25,12 @@ export class ChartPie {
                 }
             ];
 
-        pieSeries.alignLabels = false;
+        /*pieSeries.alignLabels = false;
         pieSeries.labels.template.bent = false;
         pieSeries.labels.template.radius = 1;
-        pieSeries.labels.template.padding(0, 0, 0, 1);
-
+        pieSeries.labels.template.padding(0, 0, 0, 1);*/
+        pieSeries.ticks.template.disabled = true;
+        pieSeries.labels.template.disabled = true;
         pieSeries.ticks.template.disabled = true;
 
         // Create a base filter effect (as if it's not there) for the hover to return to

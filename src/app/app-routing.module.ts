@@ -11,19 +11,20 @@ import {AreasComponent} from './pages/filtro/areas/areas.component';
 import {UsuariosComponent} from './pages/filtro/usuarios/usuarios.component';
 import {SensoresComponent} from './pages/filtro/sensores/sensores.component';
 import {LoginComponent} from './pages/login/login.component';
+import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
 
 const routes:Routes=[
   {path:'',redirectTo:'/home',pathMatch:'full'},
-  {path:'graficas/:idMaquina',component:GraficaEventoComponent},
-  {path:'maquina',component:MaquinasComponent},
-  {path:'sensor',component:SensoresComponent},
-  {path:'evento',component:EventoComponent},
-  {path:'departamento',component:DepartamentosComponent},
-  {path:'area',component:AreasComponent},
-  {path:'cia',component:NuevoCiaComponent},
-  {path:'usuario',component:UsuariosComponent},
-  {path:'home',component:HomeComponent},
-  {path:'login',component:LoginComponent}
+  {path:'graficas/:idMaquina',component:GraficaEventoComponent,canActivate: [AuthGuard] },
+  {path:'maquina',component:MaquinasComponent,canActivate: [AuthGuard] },
+  {path:'sensor',component:SensoresComponent,canActivate: [AuthGuard] },
+  {path:'evento',component:EventoComponent,canActivate: [AuthGuard] },
+  {path:'departamento',component:DepartamentosComponent,canActivate: [AuthGuard] },
+  {path:'area',component:AreasComponent,canActivate: [AuthGuard] },
+  {path:'cia/:id',component:NuevoCiaComponent},
+  {path:'usuario',component:UsuariosComponent,canActivate: [AuthGuard] },
+  {path:'home',component:HomeComponent,canActivate: [AuthGuard] },
+  {path:'login',component:LoginComponent }
 ];
 @NgModule({
   declarations: [],

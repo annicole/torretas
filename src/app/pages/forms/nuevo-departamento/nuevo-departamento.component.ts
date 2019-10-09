@@ -96,7 +96,7 @@ export class NuevoDepartamentoComponent extends Dialog implements OnInit {
       }
     } catch (e) {
       console.log(e);
-      this.showAlert(this.alertErrorText, false);
+      this.showAlert(e.error.message, false);
     }
   }
 

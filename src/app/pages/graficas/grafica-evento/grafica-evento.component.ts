@@ -14,6 +14,7 @@ import { GraficaService } from '@app/services/grafica.service';
 import { AplicacionService } from '@app/services/aplicacion.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
+import Swal from 'sweetalert2';
 
 am4core.useTheme(am4themes_animated);
 @Component({
@@ -83,6 +84,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       this.chatFlag = false;
       let response = await this.graficaService.getGrafica(this.maquina, fechaI, fechaF).toPromise();
       if (response.code == 200) {
+        console.log(response);
         arreglo = response.grafica[0];
         Object.keys(arreglo).forEach(key => {
           if (key.substring(0, 1) === 'e') {
@@ -113,6 +115,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       }
     } catch (e) {
       console.log(e);
+      Swal.fire('Error', 'Error al obtener los datos para las gráficas', 'error');
     }
   }
 
@@ -152,7 +155,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     localStorage.setItem('maquina', this.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
-    localStorage.setItem('sensor',selected.substring(1, 2));
+    localStorage.setItem('sensor',selected.substring(2, 3));
     window.open("http://localhost:4200/evento", "_blank");
   }
 

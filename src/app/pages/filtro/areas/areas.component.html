@@ -17,7 +17,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let d of areas">
-          <td>{{d.area}}</td>
+          <td>{{d.area |titlecase}}</td>
           <td>
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="updateArea(d)"><i
                 class="material-icons">create</i></a>
@@ -31,6 +31,6 @@
     </table>
   </div>
   <div class="footer">
-    <span class="badge badge-light">Total: </span>
+    <span class="badge badge-light">Total:{{total}} </span>
   </div>
 </div>

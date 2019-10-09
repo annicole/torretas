@@ -30,8 +30,8 @@ export class HomeComponent implements OnInit {
       },
       {
         icon: 'store',
-        text: 'Editar Cia',
-        function: '/cia',
+        text: 'Editar Empresa',
+        function: '/cia/0',
         class: 'blue-bg'
       },
       {
@@ -69,12 +69,10 @@ export class HomeComponent implements OnInit {
 
   async getCia(){
     try{
-      let resp = await this.ciaService.readCia(2).toPromise();
+      let resp = await this.ciaService.readCia(1).toPromise();
       if (resp.code == 200) {
         this.cia = resp.cia;
-        console.log(this.cia.logotipo);
         var uints = new Uint8Array([91,111,98,106,101,99,116,32,79,98,106,101,99,116,93]);
-        console.log(uints);
         var decoder = new TextDecoder('utf8');
         var base64 = btoa(decoder.decode(uints));
         var url = 'data:image/jpg;base64,' + base64;

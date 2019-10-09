@@ -21,8 +21,8 @@
         <tbody>
           <tr *ngFor="let s of sensores">
             <td>{{s.sensor}}</td>
-            <td>{{s.Maquina.maquina}}</td>
-            <td>{{s.color}}</td>
+            <td>{{s.Maquina.maquina | titlecase}}</td>
+            <td>{{s.Color.color}}</td>
             <td>{{s.intermitente}}</td>
             <td>{{s.tipo}}</td>
             <td>
@@ -36,6 +36,6 @@
       </table>
     </div>
     <div class="footer">
-      <span class="badge badge-light">Total: </span>
+      <span class="badge badge-light">Total: {{total}}</span>
     </div>
   </div>

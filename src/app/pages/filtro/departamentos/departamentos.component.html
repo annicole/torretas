@@ -17,7 +17,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let d of departamentos">
-          <td>{{d.departamento}}</td>
+          <td>{{d.departamento| titlecase}}</td>
           <td>
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="updateDepto(d)"><i
                 class="material-icons">create</i></a>
@@ -31,6 +31,6 @@
     </table>
   </div>
   <div class="footer">
-    <span class="badge badge-light">Total: </span>
+    <span class="badge badge-light">Total:{{total}} </span>
   </div>
 </div>

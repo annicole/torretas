@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MaquinaService } from '@app/services/maquina.service';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-header',
@@ -10,11 +13,16 @@ export class HeaderComponent implements OnInit {
 
   urlImg:string;
   chartPage:number = 0;
-  constructor(private maquinaService: MaquinaService) { }
+  constructor(private auth: AuthService, private router: Router, private maquinaService: MaquinaService) { }
 
   ngOnInit() {
     this.urlImg = "../../../assets/img/ICMA_AUTOMATION-01.png";
     this.maquinaService.chartPage.subscribe((page: number) => this.chartPage = page);
   }
 
+  logout(): void {
+    this.auth.logout();
+    Swal.fire('Logout', '', 'success');
+    this.router.navigate(['/login']);
+  }
 }

@@ -26,14 +26,22 @@ export class PieComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+   this.llenarGrafica();
+   console.log("entra", this.chartData);
+  }
+
+  llenarGrafica(){
     this.dataChart1 = this.chartData;
     this.chart1 = am4core.create("chartdiv1", am4charts.PieChart);
     this.chart1.data = this.dataChart1;
     let pieSeries = this.chartPie.generateSeries(this.chart1)
-
+    this.chart1.legend = new am4charts.Legend();
+    this.chart1.legend.position = "right";
+    this.chart1.legend.valign = "top";
+    this.chart1.legend.labels.template.maxWidth = 120;
+    this.chart1.legend.labels.template.truncate = true;
     pieSeries.slices.template.events.on("hit", this.clickEventPie, this);
   }
-
   
   clickEventPie(ev) {
     let selected = ev.target.dataItem.dataContext.sensor;
@@ -42,7 +50,7 @@ export class PieComponent implements OnInit {
     localStorage.setItem('maquina', this.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
-    localStorage.setItem('sensor',selected.substring(1, 2));
+    localStorage.setItem('sensor',selected.substring(2, 3));
     window.open("http://localhost:4200/evento", "_blank");
     
   }

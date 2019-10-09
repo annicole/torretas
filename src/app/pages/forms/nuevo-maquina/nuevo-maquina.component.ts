@@ -29,9 +29,10 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
   }
 
   ngOnInit() {
+    const disabled = this.data.idArea ? true : false;
     this.maquinaForm = this.formBuilder.group({
       maquina: ['', Validators.required],
-      idarea: ['', Validators.required],
+      idarea: [{ value: '', disabled: disabled }, Validators.required],
       descripcion: ['', Validators.required]
     });
     this.getAreas();
@@ -80,7 +81,7 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
       }
     } catch (e) {
       console.log(e);
-      this.showAlert(this.alertErrorText, false);
+      this.showAlert(e.error.message, false);
     }
   }
 

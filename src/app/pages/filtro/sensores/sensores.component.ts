@@ -15,6 +15,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class SensoresComponent implements OnInit {
 
   sensores:Sensor[];
+  total:number=0;
 
   constructor(private sensorService: SensorService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
@@ -28,7 +29,7 @@ export class SensoresComponent implements OnInit {
       let resp = await this.sensorService.getSensores(searchValue).toPromise();
       if (resp.code == 200) {
         this.sensores = resp.sensor;
-        console.log(resp);
+        this.total = this.sensores.length;
       }
     } catch (e) {
       console.log(e);

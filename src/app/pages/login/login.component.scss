@@ -18,6 +18,10 @@
      position: relative;
      z-index: 1;
   
+      .alert {
+        margin-top: 1rem;
+      }
+      
     .form-container {
       // border: 1px solid green;
       height: 20rem;
