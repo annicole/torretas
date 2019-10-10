@@ -81,6 +81,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       this.dataChart = [];
       this.dataChart1 = [];
       this.dataChart2 = [];
+      this.chatFlag = false;
       let response = await this.graficaService.getGrafica(this.maquina, fechaI, fechaF).toPromise();
       if (response.code == 200) {
         console.log(response);
