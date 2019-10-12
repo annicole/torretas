@@ -26,6 +26,13 @@
             </div>
 
             <div class="form-group">
+              <label for="horaInicio">Hora Inicio:</label>
+              <input type="time" step="1" name="horaInicio" id="horaInicio" class="form-control"
+                [(ngModel)]="horaInicio" formControlName="horaInicio"
+                [ngClass]="{ 'is-invalid': submitted && f.horaInicio.errors }">
+            </div>
+
+            <div class="form-group">
               <label for="fechaFin">Fecha Fin:</label>
               <input type="date" id="fechaFin" name="fechaFin" class="form-control" [(max)]="maxDate" [(min)]="minDate"
                 [(ngModel)]="fechaFin" formControlName="fechaFin"
@@ -33,13 +40,6 @@
               <div *ngIf="submitted && f.fechaFin.errors" class="invalid-feedback">
                 <div *ngIf="f.fechaFin.errors.mustMatch">Fecha final debe ser mayor a la fecha inicio</div>
               </div>
-            </div>
-
-            <div class="form-group">
-              <label for="horaInicio">Hora Inicio:</label>
-              <input type="time" step="1" name="horaInicio" id="horaInicio" class="form-control"
-                [(ngModel)]="horaInicio" formControlName="horaInicio"
-                [ngClass]="{ 'is-invalid': submitted && f.horaInicio.errors }">
             </div>
 
             <div class="form-group">

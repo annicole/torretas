@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   urlImg:string;
   chartPage:number = 0;
-  constructor(private auth: AuthService, private router: Router, private maquinaService: MaquinaService) { }
+  constructor(public auth: AuthService, private router: Router, private maquinaService: MaquinaService) { }
 
   ngOnInit() {
     this.urlImg = "../../../assets/img/ICMA_AUTOMATION-01.png";

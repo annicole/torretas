@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         }
       }
     } catch (e) {
-      this.alertRegister = e.error.error;
+      this.alertRegister = e.error.message;
       this.alertSuccess = false;
     }
   }

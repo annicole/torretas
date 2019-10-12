@@ -11,7 +11,7 @@ export class DropdownComponent implements OnInit {
   @Input() isDropleft: boolean;
   @Output() selectOptionOut = new EventEmitter();
 
-  optionSelected: object = {};
+  optionSelected;
 
   constructor() { }
 
