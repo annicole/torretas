@@ -2,10 +2,10 @@
   <div class="card-header header">
     <h4>Máquinas</h4>
     <select class="form-control search" id="area" [(ngModel)]="selectedArea" (ngModelChange)="searchByArea()">
-      <option value="">Seleccione...</option>
+      <option value="">Seleccionar área...</option>
       <option *ngFor="let a of areas" [value]="a.idarea">{{a.area | titlecase}}</option>
     </select>
-    <input type="text" class="form-control search" placeholder="Buscar.."
+    <input type="text" class="form-control search" placeholder="Buscar máquina.."
       (input)="onSearchChange($event.target.value)">
     <button class="btn btn-custom" (click)="addMaquina()">
       <i class="material-icons"> add </i>

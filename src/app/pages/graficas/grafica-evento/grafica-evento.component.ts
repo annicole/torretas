@@ -7,11 +7,12 @@ import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 
 import { ChartBar } from '@app/classes/ChartBar';
 import { Maquina } from '@app/models/maquina';
+import { Area } from '@app/models/area';
 import { MaquinaService } from '@app/services/maquina.service';
+import { AreaService } from '@app/services/area.service';
 import { ChartPie } from '@app/classes/ChartPie';
 import { DatePipe } from '@angular/common';
 import { GraficaService } from '@app/services/grafica.service';
-import { AplicacionService } from '@app/services/aplicacion.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import Swal from 'sweetalert2';
@@ -46,16 +47,17 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   chatFlag = false;
   showFilter: boolean = false;
   iconFilter: string = 'expand_less';
+  areas: Area[];
 
   constructor(
     private zone: NgZone,
     private maquinaService: MaquinaService,
     private datePipe: DatePipe,
     private graficaService: GraficaService,
-    private aplicacionService: AplicacionService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
-    private activate:ActivatedRoute
+    private activate:ActivatedRoute,
+    private areaService:AreaService
   ) { }
 
   ngOnInit() {
@@ -64,7 +66,8 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       horaInicio: ['', Validators.required],
       horaFin: ['', Validators.required],
       fechaInicio: ['', Validators.required],
-      fechaFin: ['', Validators.required]
+      fechaFin: ['', Validators.required],
+      area:[{ value: '', disabled: false }]
     }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'),this.ValidDate('horaInicio', 'horaFin') ]});
     if (this.activate.snapshot.paramMap.get('idMaquina') != '0'){
       this.maquina = this.activate.snapshot.paramMap.get('idMaquina');
@@ -181,6 +184,17 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     }
   }
 
+  async getAreas(){
+    try {
+      let response = await this.areaService.getAreas("").toPromise();
+      if (response.code == 200) {
+        this.areas = response.area;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   fechaChanged() {
     this.minDate = this.datePipe.transform(this.fechaInicio, 'yyyy-MM-dd');
     this.fechaFin = "";
@@ -254,5 +268,15 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   toggleFilter() {
     this.showFilter = !this.showFilter;
     this.iconFilter = (this.showFilter) ? 'expand_more' : 'expand_less';
+  }
+
+
+  selectedMaquinaArea(control:string,control2:string){
+    const controlEnable = this.graficaForm.controls[control];
+    const controlDisable = this.graficaForm.controls[control2];
+    controlEnable.enable();
+    controlDisable.disable();
+    controlEnable.setValidators([Validators.required]);
+    controlDisable.setValidators([Validators.required]);
   }
 }

@@ -11,13 +11,19 @@
           <form [formGroup]="graficaForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label for="maquina">Máquina:</label>
-              <select class="form-control"
+              <select class="form-control"  (ngModelChange)="selectedMaquinaArea('maquina','area')"
                 [(ngModel)]="maquina" name="maquina" id="maquina" formControlName="maquina"
                 [ngClass]="{ 'is-invalid': submitted && f.maquina.errors }">
                 <option *ngFor="let m of maquinas" [value]="m.idmaquina">{{m.maquina}} </option>
               </select>
             </div>
-
+            <div class="form-group">
+              <label for="area">Área</label>
+              <select class="form-control"  (ngModelChange)="selectedMaquinaArea('area','maquina')" id="area" nombre="area" [(ngModel)]="area" formControlName="area" 
+                [ngClass]="{ 'is-invalid': submitted && f.area.errors }">
+                <option *ngFor="let a of areas" [value]="a.idarea" [disabled]="false">{{a.area | titlecase}}</option>
+              </select>
+            </div>
             <div class="form-group">
               <label for="fechaInicio">Fecha Inicio:</label>
               <input type="date" id="fechaInicio" name="fechaInicio" [(ngModel)]="fechaInicio" class="form-control"
