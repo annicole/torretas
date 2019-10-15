@@ -43,3 +43,9 @@
     margin: 0px !important;
     background-color: #ffff;
 }
+
+.btn-info {
+    color: #fff;
+    background-color: #17a2b8 !important;
+    border-color: #17a2b8 !important;
+}

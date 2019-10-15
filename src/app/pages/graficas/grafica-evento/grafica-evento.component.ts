@@ -45,6 +45,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   showFilter: boolean = false;
   iconFilter: string = 'expand_less';
   areas: Area[];
+  filterByMachine: boolean = true;
 
   constructor(
     private zone: NgZone,
@@ -59,12 +60,12 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.graficaForm = this.formBuilder.group({
-      maquina: ['', Validators.required],
+      maquina: [''],
       horaInicio: ['', Validators.required],
       horaFin: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required],
-      area: [{ value: '', disabled: false }]
+      area: ['']
     }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'), this.ValidDate('horaInicio', 'horaFin')] });
     if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
       this.graficaForm.value.maquina = this.activate.snapshot.paramMap.get('idMaquina');
@@ -128,6 +129,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       }
     } catch (e) {
       console.log(e);
+      this.spinner.hide("mySpinner");
       Swal.fire('Error', 'Error al obtener los datos para las gráficas', 'error');
     }
   }
@@ -299,5 +301,9 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       controlMaquina.setValue('');
       controlArea.setValidators([Validators.required]);
     }
+  }
+
+  filterTypeselected(type: boolean) {
+    this.filterByMachine = type;
   }
 }
