@@ -11,30 +11,32 @@
           <form [formGroup]="graficaForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label for="maquina">Máquina:</label>
-              <select class="form-control"  (ngModelChange)="selectedMaquinaArea('maquina','area')"
-                [(ngModel)]="maquina" name="maquina" id="maquina" formControlName="maquina"
+              <select class="form-control" (ngModelChange)="selectedMaquina()"
+                id="maquina" formControlName="maquina"
                 [ngClass]="{ 'is-invalid': submitted && f.maquina.errors }">
+                <option value="">Seleccionar máquina</option>
                 <option *ngFor="let m of maquinas" [value]="m.idmaquina">{{m.maquina}} </option>
               </select>
             </div>
             <div class="form-group">
               <label for="area">Área</label>
-              <select class="form-control"  (ngModelChange)="selectedMaquinaArea('area','maquina')" id="area" nombre="area" [(ngModel)]="area" formControlName="area" 
+              <select class="form-control"  id="area"  formControlName="area" 
                 [ngClass]="{ 'is-invalid': submitted && f.area.errors }">
+                <option value="">Seleccionar área</option>
                 <option *ngFor="let a of areas" [value]="a.idarea" [disabled]="false">{{a.area | titlecase}}</option>
               </select>
             </div>
             <div class="form-group">
               <label for="fechaInicio">Fecha Inicio:</label>
-              <input type="date" id="fechaInicio" name="fechaInicio" [(ngModel)]="fechaInicio" class="form-control"
+              <input type="date" id="fechaInicio" class="form-control"
                 [(max)]="maxDate" (change)="fechaChanged()" formControlName="fechaInicio"
                 [ngClass]="{ 'is-invalid': submitted && f.fechaInicio.errors }">
             </div>
 
             <div class="form-group">
               <label for="horaInicio">Hora Inicio:</label>
-              <input type="time" step="1" name="horaInicio" id="horaInicio" class="form-control"
-                [(ngModel)]="horaInicio" formControlName="horaInicio"
+              <input type="time" step="1"  id="horaInicio" class="form-control"
+                 formControlName="horaInicio"
                 [ngClass]="{ 'is-invalid': submitted && f.horaInicio.errors }">
             </div>
 

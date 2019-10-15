@@ -14,7 +14,7 @@ import { ChartPie } from '@app/classes/ChartPie';
 import { DatePipe } from '@angular/common';
 import { GraficaService } from '@app/services/grafica.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 
 am4core.useTheme(am4themes_animated);
@@ -32,13 +32,10 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   maquinas: Maquina[];
   maxDate: string;
   minDate: string;
-  fechaInicio;
   fechaFin;
-  horaInicio;
   horaFin;
   validate: boolean = false;
   validateHour: boolean
-  maquina: string;
   graficaForm: FormGroup;
   submitted = false;
   dataChart = [];
@@ -56,8 +53,8 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     private graficaService: GraficaService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
-    private activate:ActivatedRoute,
-    private areaService:AreaService
+    private activate: ActivatedRoute,
+    private areaService: AreaService
   ) { }
 
   ngOnInit() {
@@ -67,25 +64,38 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       horaFin: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required],
-      area:[{ value: '', disabled: false }]
-    }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'),this.ValidDate('horaInicio', 'horaFin') ]});
-    if (this.activate.snapshot.paramMap.get('idMaquina') != '0'){
-      this.maquina = this.activate.snapshot.paramMap.get('idMaquina');
+      area: [{ value: '', disabled: false }]
+    }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'), this.ValidDate('horaInicio', 'horaFin')] });
+    if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
+      this.graficaForm.value.maquina = this.activate.snapshot.paramMap.get('idMaquina');
     }
     this.getMaquinas();
+    this.getAreas();
+    this.graficaForm.get('maquina').enable();
+    this.graficaForm.get('area').enable();
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
 
   async getDataGrafica() {
     try {
       let arreglo = [];
-      let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+      let fechaI: string = this.graficaForm.value.fechaInicio + ' ' + this.graficaForm.value.horaInicio;
       let fechaF: string = this.fechaFin + ' ' + this.horaFin;
       this.dataChart = [];
       this.dataChart1 = [];
       this.dataChart2 = [];
       this.chatFlag = false;
-      let response = await this.graficaService.getGrafica(this.maquina, fechaI, fechaF).toPromise();
+      let value;
+      let bandera;
+      if(this.graficaForm.value.maquina !=''){
+        value = this.graficaForm.value.maquina;
+        bandera = '0';
+      }else if(this.graficaForm.value.area !=''){
+        value = this.graficaForm.value.area;
+        bandera='1';
+      }
+  
+      let response = await this.graficaService.getGrafica(value, fechaI, fechaF,bandera).toPromise();
       if (response.code == 200) {
         console.log(response);
         arreglo = response.grafica[0];
@@ -133,12 +143,12 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   clickEventBar(ev) {
     let selected = ev.target.dataItem.dataContext.sensor;
-    let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+    let fechaI: string = this.graficaForm.value.fechaInicio + ' ' + this.graficaForm.value.horaInicio;
     let fechaF: string = this.fechaFin + ' ' + this.horaFin;
-    localStorage.setItem('maquina', this.maquina);
+    localStorage.setItem('maquina', this.graficaForm.value.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
-    localStorage.setItem('sensor',selected.substring(1, 2));
+    localStorage.setItem('sensor', selected.substring(1, 2));
     window.open("http://localhost:4200/evento", "_blank");
   }
 
@@ -153,12 +163,12 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   clickEventBar2(ev) {
     let selected = ev.target.dataItem.dataContext.sensor;
-    let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+    let fechaI: string = this.graficaForm.value.fechaInicio + ' ' + this.graficaForm.value.horaInicio;
     let fechaF: string = this.fechaFin + ' ' + this.horaFin;
-    localStorage.setItem('maquina', this.maquina);
+    localStorage.setItem('maquina', this.graficaForm.value.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
-    localStorage.setItem('sensor',selected.substring(2, 3));
+    localStorage.setItem('sensor', selected.substring(2, 3));
     window.open("http://localhost:4200/evento", "_blank");
   }
 
@@ -169,7 +179,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   async getMaquinas() {
     try {
-      let response = await this.maquinaService.getMaquinas("","").toPromise();
+      let response = await this.maquinaService.getMaquinas("", "").toPromise();
       if (response.code == 200) {
         this.maquinas = response.maquina;
       }
@@ -184,7 +194,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     }
   }
 
-  async getAreas(){
+  async getAreas() {
     try {
       let response = await this.areaService.getAreas("").toPromise();
       if (response.code == 200) {
@@ -196,7 +206,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   }
 
   fechaChanged() {
-    this.minDate = this.datePipe.transform(this.fechaInicio, 'yyyy-MM-dd');
+    this.minDate = this.datePipe.transform(this.graficaForm.value.fechaInicio, 'yyyy-MM-dd');
     this.fechaFin = "";
   }
 
@@ -231,15 +241,15 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   filtrar() {
     this.showSpinner();
     this.getDataGrafica();
-   /* let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
-    let fechaF: string = this.fechaFin + ' ' + this.horaFin;
-    console.log("hora",this.horaInicio, ' ',this.horaFin);
-    console.log(fechaI,fechaF);
-    localStorage.setItem('maquina', this.maquina);
-    localStorage.setItem('fechaInicio', fechaI);
-    localStorage.setItem('fechaFin', fechaF);
-    localStorage.setItem('sensor','1');
-    window.open("http://localhost:4200/evento", "_blank");*/
+    /* let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+     let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+     console.log("hora",this.horaInicio, ' ',this.horaFin);
+     console.log(fechaI,fechaF);
+     localStorage.setItem('maquina', this.maquina);
+     localStorage.setItem('fechaInicio', fechaI);
+     localStorage.setItem('fechaFin', fechaF);
+     localStorage.setItem('sensor','1');
+     window.open("http://localhost:4200/evento", "_blank");*/
   }
 
   showSpinner() {
@@ -271,12 +281,23 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   }
 
 
-  selectedMaquinaArea(control:string,control2:string){
-    const controlEnable = this.graficaForm.controls[control];
-    const controlDisable = this.graficaForm.controls[control2];
-    controlEnable.enable();
-    controlDisable.disable();
-    controlEnable.setValidators([Validators.required]);
-    controlDisable.setValidators([Validators.required]);
+  selectedMaquina() {
+    const controlArea = this.graficaForm.controls['area'];
+    const controlMaquina = this.graficaForm.controls['maquina'];
+    if (controlMaquina.value != '') {
+      controlArea.reset();
+      controlArea.setValue('');
+      controlMaquina.setValidators([Validators.required]);
+    }
+  }
+
+  selectedArea() {
+    const controlMaquina = this.graficaForm.controls['maquina'];
+    const controlArea = this.graficaForm.controls['area'];
+    if (controlArea.value != '') {
+      controlMaquina.reset();
+      controlMaquina.setValue('');
+      controlArea.setValidators([Validators.required]);
+    }
   }
 }
