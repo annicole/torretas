@@ -206,7 +206,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   fechaChanged() {
     this.minDate = this.datePipe.transform(this.graficaForm.value.fechaInicio, 'yyyy-MM-dd');
-    this.graficaForm.controls['fechaFin'].setValue('');
+    this.graficaForm.controls['fechaFins'].setValue('');
   }
 
   ValidDate(inicio: string, final: string) {
