@@ -32,8 +32,6 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   maquinas: Maquina[];
   maxDate: string;
   minDate: string;
-  fechaFin;
-  horaFin;
   validate: boolean = false;
   validateHour: boolean
   graficaForm: FormGroup;
@@ -61,9 +59,9 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.graficaForm = this.formBuilder.group({
       maquina: [''],
-      horaInicio: ['', Validators.required],
-      horaFin: ['', Validators.required],
-      fechaInicio: ['', Validators.required],
+      horaInicio: [null, Validators.required],
+      horaFin: [null, Validators.required],
+      fechaInicio: [null, Validators.required],
       fechaFin: ['', Validators.required],
       area: ['']
     }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'), this.ValidDate('horaInicio', 'horaFin')] });
@@ -72,8 +70,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     }
     this.getMaquinas();
     this.getAreas();
-    this.graficaForm.get('maquina').enable();
-    this.graficaForm.get('area').enable();
+    this.graficaForm.get('maquina').setValidators([Validators.required]);
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
 
@@ -81,22 +78,22 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     try {
       let arreglo = [];
       let fechaI: string = this.graficaForm.value.fechaInicio + ' ' + this.graficaForm.value.horaInicio;
-      let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+      let fechaF: string = this.graficaForm.value.fechaFin + ' ' + this.graficaForm.value.horaFin;
       this.dataChart = [];
       this.dataChart1 = [];
       this.dataChart2 = [];
       this.chatFlag = false;
       let value;
       let bandera;
-      if(this.graficaForm.value.maquina !=''){
+      if (this.graficaForm.value.maquina != '') {
         value = this.graficaForm.value.maquina;
         bandera = '0';
-      }else if(this.graficaForm.value.area !=''){
+      } else if (this.graficaForm.value.area != '') {
         value = this.graficaForm.value.area;
-        bandera='1';
+        bandera = '1';
       }
-  
-      let response = await this.graficaService.getGrafica(value, fechaI, fechaF,bandera).toPromise();
+
+      let response = await this.graficaService.getGrafica(value, fechaI, fechaF, bandera).toPromise();
       if (response.code == 200) {
         console.log(response);
         arreglo = response.grafica[0];
@@ -146,7 +143,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   clickEventBar(ev) {
     let selected = ev.target.dataItem.dataContext.sensor;
     let fechaI: string = this.graficaForm.value.fechaInicio + ' ' + this.graficaForm.value.horaInicio;
-    let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+    let fechaF: string = this.graficaForm.value.fechaFin + ' ' + this.graficaForm.value.horaFin;
     localStorage.setItem('maquina', this.graficaForm.value.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
@@ -166,7 +163,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   clickEventBar2(ev) {
     let selected = ev.target.dataItem.dataContext.sensor;
     let fechaI: string = this.graficaForm.value.fechaInicio + ' ' + this.graficaForm.value.horaInicio;
-    let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+    let fechaF: string = this.graficaForm.value.fechaFin + ' ' + this.graficaForm.value.horaFin;
     localStorage.setItem('maquina', this.graficaForm.value.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
@@ -209,7 +206,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   fechaChanged() {
     this.minDate = this.datePipe.transform(this.graficaForm.value.fechaInicio, 'yyyy-MM-dd');
-    this.fechaFin = "";
+    this.graficaForm.controls['fechaFin'].setValue('');
   }
 
   ValidDate(inicio: string, final: string) {
@@ -282,28 +279,20 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     this.iconFilter = (this.showFilter) ? 'expand_more' : 'expand_less';
   }
 
-
-  selectedMaquina() {
-    const controlArea = this.graficaForm.controls['area'];
-    const controlMaquina = this.graficaForm.controls['maquina'];
-    if (controlMaquina.value != '') {
-      controlArea.reset();
-      controlArea.setValue('');
-      controlMaquina.setValidators([Validators.required]);
-    }
-  }
-
-  selectedArea() {
-    const controlMaquina = this.graficaForm.controls['maquina'];
-    const controlArea = this.graficaForm.controls['area'];
-    if (controlArea.value != '') {
-      controlMaquina.reset();
-      controlMaquina.setValue('');
-      controlArea.setValidators([Validators.required]);
-    }
-  }
-
   filterTypeselected(type: boolean) {
     this.filterByMachine = type;
+    const controlMaquina = this.graficaForm.controls['maquina'];
+    const controlArea = this.graficaForm.controls['area'];
+    if (type) {
+      controlArea.setValidators(null);
+      controlArea.setValue('');
+      controlMaquina.setValidators([Validators.required]);
+    } else {
+      controlMaquina.setValue('');
+      controlMaquina.setValidators(null);
+      controlArea.setValidators([Validators.required]);
+    }
+    controlMaquina.updateValueAndValidity();
+    controlArea.updateValueAndValidity();
   }
 }

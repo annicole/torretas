@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.auth.logout();
-    Swal.fire('Logout', '', 'success');
+    Swal.fire('Sesión cerrada!', '', 'success');
     this.router.navigate(['/login']);
   }
 }

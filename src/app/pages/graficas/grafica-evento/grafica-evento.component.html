@@ -1,6 +1,6 @@
 <div class="grafica-evento mx-5">
   <div class="grafica-evento-row">
-  
+
     <!-- SIDE BAR -->
     <div class="side-bar">
       <div class="card my-4">
@@ -12,46 +12,53 @@
             <div class="form-group">
               <label for="tipoFiltro">Filtrar por:</label>
               <div class="btn-group ml-3" role="group" aria-label="Basic example" id="tipoFiltro">
-                <button type="button" class="btn btn-outline-info" [ngClass]="{'btn-info': filterByMachine }" (click)="filterTypeselected(true)">Máquina</button>
-                <button type="button" class="btn btn-outline-info" [ngClass]="{'btn-info': !filterByMachine }" (click)="filterTypeselected(null)">Área</button>
+                <button type="button" class="btn btn-outline-info" [ngClass]="{'btn-info': filterByMachine }"
+                  (click)="filterTypeselected(true)">Máquina</button>
+                <button type="button" class="btn btn-outline-info" [ngClass]="{'btn-info': !filterByMachine }"
+                  (click)="filterTypeselected(null)">Área</button>
               </div>
             </div>
             <div class="form-group" [hidden]="!filterByMachine">
               <label for="maquina">Máquina:</label>
-              <select class="form-control" (ngModelChange)="selectedMaquina()"
-                id="maquina" formControlName="maquina"
+              <select class="form-control" id="maquina" formControlName="maquina"
                 [ngClass]="{ 'is-invalid': submitted && f.maquina.errors }">
                 <option value="">Seleccionar máquina</option>
                 <option *ngFor="let m of maquinas" [value]="m.idmaquina">{{m.maquina}} </option>
               </select>
+              <div *ngIf="submitted && f.maquina.errors" class="invalid-feedback">
+                <div *ngIf="f.maquina.errors.required">Máquina es requerida</div>
+              </div>
             </div>
             <div class="form-group" [hidden]="filterByMachine">
               <label for="area">Área</label>
-              <select class="form-control"  id="area"  formControlName="area" 
+              <select class="form-control" id="area" formControlName="area"
                 [ngClass]="{ 'is-invalid': submitted && f.area.errors }">
                 <option value="">Seleccionar área</option>
                 <option *ngFor="let a of areas" [value]="a.idarea" [disabled]="false">{{a.area | titlecase}}</option>
               </select>
+              <div *ngIf="submitted && f.area.errors" class="invalid-feedback">
+                <div *ngIf="f.area.errors.required">Área es requerida</div>
+              </div>
             </div>
             <div class="form-group">
               <label for="fechaInicio">Fecha Inicio:</label>
-              <input type="date" id="fechaInicio" class="form-control"
-                [(max)]="maxDate" (change)="fechaChanged()" formControlName="fechaInicio"
-                [ngClass]="{ 'is-invalid': submitted && f.fechaInicio.errors }">
+              <input type="date" id="fechaInicio" class="form-control" [(max)]="maxDate" (change)="fechaChanged()"
+                formControlName="fechaInicio" [ngClass]="{ 'is-invalid': submitted && f.fechaInicio.errors }">
+              <div *ngIf="submitted && f.fechaInicio.errors" class="invalid-feedback">
+                <div *ngIf="f.fechaInicio.errors.required">Fecha inicio es requerida</div>
+              </div>
             </div>
 
             <div class="form-group">
               <label for="horaInicio">Hora Inicio:</label>
-              <input type="time" step="1"  id="horaInicio" class="form-control"
-                 formControlName="horaInicio"
+              <input type="time" step="1" id="horaInicio" class="form-control" formControlName="horaInicio"
                 [ngClass]="{ 'is-invalid': submitted && f.horaInicio.errors }">
             </div>
 
             <div class="form-group">
               <label for="fechaFin">Fecha Fin:</label>
-              <input type="date" id="fechaFin" name="fechaFin" class="form-control" [(max)]="maxDate" [(min)]="minDate"
-                [(ngModel)]="fechaFin" formControlName="fechaFin"
-                [ngClass]="{ 'is-invalid': submitted && f.fechaFin.errors }">
+              <input type="date" id="fechaFin" class="form-control" [(max)]="maxDate" [(min)]="minDate"
+                formControlName="fechaFin" [ngClass]="{ 'is-invalid': submitted && f.fechaFin.errors }">
               <div *ngIf="submitted && f.fechaFin.errors" class="invalid-feedback">
                 <div *ngIf="f.fechaFin.errors.mustMatch">Fecha final debe ser mayor a la fecha inicio</div>
               </div>
@@ -59,14 +66,13 @@
 
             <div class="form-group">
               <label for="horaFin">Hora Fin:</label>
-              <input type="time" step="1" name="horaFin" id="horaFin" class="form-control" [(ngModel)]="horaFin"
-                 formControlName="horaFin"
+              <input type="time" step="1" id="horaFin" class="form-control" formControlName="horaFin"
                 [ngClass]="{ 'is-invalid': submitted && f.horaFin.errors }">
-                <div *ngIf="submitted && f.horaFin.errors" class="invalid-feedback">
-                  <div *ngIf="f.horaFin.errors.mustMatch">Hora final debe ser mayor a la hora inicio</div>
-                </div>
+              <div *ngIf="submitted && f.horaFin.errors" class="invalid-feedback">
+                <div *ngIf="f.horaFin.errors.mustMatch">Hora final debe ser mayor a la hora inicio</div>
+              </div>
             </div>
-  
+
             <button type="submit" class="btn btn-secondary btn-sm btn-block">Filtrar</button>
           </form>
         </div>
@@ -88,10 +94,10 @@
       <div class="col">
         <div class="card my-4">
           <div class="card-body">
-              <h5>Gráfica por tiempo</h5>
-              <hr>
-            <app-pie [chartData]="dataChart1" [fechaInicio]="fechaInicio" [fechaFin]="fechaFin" [maquina]="maquina" [horaInicio]="horaInicio" 
-            [horaFin]="horaFin" *ngIf="chatFlag"></app-pie>
+            <h5>Gráfica por tiempo</h5>
+            <hr>
+            <app-pie [chartData]="dataChart1" [fechaInicio]="fechaInicio" [fechaFin]="fechaFin" [maquina]="maquina"
+              [horaInicio]="horaInicio" [horaFin]="horaFin" *ngIf="chatFlag"></app-pie>
           </div>
         </div>
       </div>
@@ -99,8 +105,8 @@
       <div class="col">
         <div class="card mb-4">
           <div class="card-body">
-              <h5>Gráfica por tiempo</h5>
-              <hr>
+            <h5>Gráfica por tiempo</h5>
+            <hr>
             <div id="chartdiv2" style="width: 100%; height: 500px"></div>
           </div>
         </div>
