@@ -1,12 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { DepartamentoService } from '../../../services/departamento.service';
-import { UsuarioService } from '../../../services/usuario.service';
+import { DepartamentoService } from '@app/services/departamento.service';
+import { UsuarioService } from '@app/services/usuario.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Departamento } from '../../../models/departamento';
-import { Usuario } from '../../../models/usuario';
+import { Departamento } from '@app/models/departamento';
+import { Usuario } from '@app/models/usuario';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
 import { Dialog } from '@app/classes/Dialog';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-nuevo-usuario',
@@ -21,9 +22,10 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   submitted = false;
   departamentos: Departamento[];
   enabledDepartamento:boolean=false;
+  token;
 
   constructor(private deptoService: DepartamentoService, private formBuilder: FormBuilder,
-     private usuarioService: UsuarioService,
+     private usuarioService: UsuarioService, private auth: AuthService,
     public dialogRef: MatDialogRef<NuevoUsuarioComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
     super();
@@ -39,13 +41,14 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       celular: ['', [Validators.min(5)]],
       iddep: [{ value: '', disabled: disabled }, Validators.required]
     }, { validator: this.MustMatch('password', 'password2') });
+    this.token= this.auth.token;
     this.getDeptos();
     this.loadModalTexts();
   }
 
   async getDeptos() {
     try {
-      let resp = await this.deptoService.getDepartamentos("").toPromise();
+      let resp = await this.deptoService.getDepartamentos("",this.token).toPromise();
       if (resp.code == 200) {
         this.departamentos = resp.depto;
       }
@@ -68,7 +71,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
 
   async guardar() {
     try {
-      let response = await this.usuarioService.create(this.usuario).toPromise();
+      let response = await this.usuarioService.create(this.usuario,this.token).toPromise();
       if (response.code = 200) {
         this.showAlert(this.alertSuccesText, true);
         this.closeModal();

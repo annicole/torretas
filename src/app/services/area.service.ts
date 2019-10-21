@@ -13,25 +13,30 @@ export class AreaService {
   private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   constructor(private http: HttpClient) { }
 
-  getAreas(name:string): Observable<any> {
+  getAreas(name: string, token): Observable<any> {
     let params = new HttpParams();
-    params = params.append('busqueda',name);
-    return this.http.get(this.url + '/areas',{headers:this.httpHeaders,params:params});
+    params = params.append('busqueda', name);
+    this.httpHeaders.set("Authorization", token);
+    return this.http.get(this.url + '/areas', { headers: this.httpHeaders, params: params });
   }
 
-  create(area: Area): Observable<any> {
+  create(area: Area, token): Observable<any> {
+    this.httpHeaders.set("Authorization", token);
     return this.http.post<any>(this.url + '/areas', area, { headers: this.httpHeaders });
   }
 
-  read(id: number): Observable<any> {
-    return this.http.get(`${this.url + '/read'}/${id}`);
+  read(id: number, token): Observable<any> {
+    this.httpHeaders.set("Authorization", token);
+    return this.http.get(`${this.url + '/read'}/${id}`,{headers:this.httpHeaders});
   }
 
-  delete(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.url + '/read'}/${id}`);
+  delete(id: number,token): Observable<any> {
+    this.httpHeaders.set("Authorization",token);
+    return this.http.delete<any>(`${this.url + '/read'}/${id}`,{headers:this.httpHeaders});
   }
 
-  update(area: Area) {
+  update(area: Area,token) {
+    this.httpHeaders.set("Authorization",token);
     return this.http.put(`${this.url + '/read'}/${area.idarea}`, area, { headers: this.httpHeaders });
   }
 }

@@ -1,16 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MaquinaService } from '../../../services/maquina.service';
-import { SensorService } from '../../../services/sensor.service';
+import { MaquinaService } from '@app/services/maquina.service';
+import { SensorService } from '@app/services/sensor.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Maquina } from '../../../models/maquina';
-import { Sensor } from '../../../models/sensor';
-import Swal from 'sweetalert2';
-import { Color } from '../../../models/color';
-import { ColorService } from '../../../services/color.service';
-import { Router } from '@angular/router';
+import { Maquina } from '@app/models/maquina';
+import { Sensor } from '@app/models/sensor';
+import { Color } from '@app/models/color';
+import { ColorService } from '@app/services/color.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
 import { Dialog } from '@app/classes/Dialog';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-nuevo-sensor',
@@ -25,9 +24,11 @@ export class NuevoSensorComponent extends Dialog implements OnInit {
   submitted = false;
   maquinas: Maquina[];
   colores: Color[];
+  token;
+
   constructor(private maquinaService: MaquinaService, private sensorService: SensorService,
-    private formBuilder: FormBuilder, private colorService: ColorService, private router: Router,
-    public dialogRef: MatDialogRef<NuevoSensorComponent>,
+    private formBuilder: FormBuilder, private colorService: ColorService,
+    public dialogRef: MatDialogRef<NuevoSensorComponent>, private auth:AuthService,
     @Inject(MAT_DIALOG_DATA) public data) {
     super();
   }
@@ -40,6 +41,7 @@ export class NuevoSensorComponent extends Dialog implements OnInit {
       intermitente: ['', Validators.required],
       tipo: ['', Validators.required]
     });
+    this.token=this.auth.token;
     this.getMaquinas();
     this.getColores();
     this.loadModalTexts();
@@ -47,7 +49,7 @@ export class NuevoSensorComponent extends Dialog implements OnInit {
 
   async getColores() {
     try {
-      let resp = await this.colorService.getColors().toPromise();
+      let resp = await this.colorService.getColors(this.token).toPromise();
       console.log(resp);
       if (resp.code == 200) {
         this.colores = resp.color;
@@ -59,7 +61,7 @@ export class NuevoSensorComponent extends Dialog implements OnInit {
 
   async getMaquinas() {
     try {
-      let resp = await this.maquinaService.getMaquinas("","").toPromise();
+      let resp = await this.maquinaService.getMaquinas("","",this.token).toPromise();
       console.log(resp);
       if (resp.code == 200) {
         this.maquinas = resp.maquina;
@@ -85,9 +87,9 @@ export class NuevoSensorComponent extends Dialog implements OnInit {
     try {
       let response;
       switch (this.modalMode) {
-        case 'create': response = await this.sensorService.create(this.sensor).toPromise();
+        case 'create': response = await this.sensorService.create(this.sensor,this.token).toPromise();
           break;
-        case 'edit': response = await this.sensorService.update(this.sensor).toPromise();
+        case 'edit': response = await this.sensorService.update(this.sensor,this.token).toPromise();
           break;
       }
       if (response.code = 200) {

@@ -11,10 +11,10 @@ import { MaquinaService } from '@app/services/maquina.service';
 import { ChartPie } from '@app/classes/ChartPie';
 import { DatePipe } from '@angular/common';
 import { GraficaService } from '@app/services/grafica.service';
-import { AplicacionService } from '@app/services/aplicacion.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AuthService } from '@app/services/auth.service';
 
 am4core.useTheme(am4themes_animated);
 @Component({
@@ -46,16 +46,16 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   chatFlag = false;
   showFilter: boolean = false;
   iconFilter: string = 'expand_less';
+  token;
 
   constructor(
     private zone: NgZone,
     private maquinaService: MaquinaService,
     private datePipe: DatePipe,
     private graficaService: GraficaService,
-    private aplicacionService: AplicacionService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
-    private activate:ActivatedRoute
+    private activate: ActivatedRoute, private auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -65,10 +65,11 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       horaFin: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required]
-    }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'),this.ValidDate('horaInicio', 'horaFin') ]});
-    if (this.activate.snapshot.paramMap.get('idMaquina') != '0'){
+    }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'), this.ValidDate('horaInicio', 'horaFin')] });
+    if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
       this.maquina = this.activate.snapshot.paramMap.get('idMaquina');
     }
+    this.token = this.auth.token;
     this.getMaquinas();
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
@@ -82,7 +83,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       this.dataChart1 = [];
       this.dataChart2 = [];
       this.chatFlag = false;
-      let response = await this.graficaService.getGrafica(this.maquina, fechaI, fechaF).toPromise();
+      let response = await this.graficaService.getGrafica(this.maquina, fechaI, fechaF, this.token).toPromise();
       if (response.code == 200) {
         console.log(response);
         arreglo = response.grafica[0];
@@ -135,7 +136,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     localStorage.setItem('maquina', this.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
-    localStorage.setItem('sensor',selected.substring(1, 2));
+    localStorage.setItem('sensor', selected.substring(1, 2));
     window.open("http://localhost:4200/evento", "_blank");
   }
 
@@ -155,7 +156,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     localStorage.setItem('maquina', this.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
-    localStorage.setItem('sensor',selected.substring(2, 3));
+    localStorage.setItem('sensor', selected.substring(2, 3));
     window.open("http://localhost:4200/evento", "_blank");
   }
 
@@ -166,7 +167,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   async getMaquinas() {
     try {
-      let response = await this.maquinaService.getMaquinas("","").toPromise();
+      let response = await this.maquinaService.getMaquinas("", "", this.token).toPromise();
       if (response.code == 200) {
         this.maquinas = response.maquina;
       }
@@ -217,15 +218,15 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   filtrar() {
     this.showSpinner();
     this.getDataGrafica();
-   /* let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
-    let fechaF: string = this.fechaFin + ' ' + this.horaFin;
-    console.log("hora",this.horaInicio, ' ',this.horaFin);
-    console.log(fechaI,fechaF);
-    localStorage.setItem('maquina', this.maquina);
-    localStorage.setItem('fechaInicio', fechaI);
-    localStorage.setItem('fechaFin', fechaF);
-    localStorage.setItem('sensor','1');
-    window.open("http://localhost:4200/evento", "_blank");*/
+    /* let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
+     let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+     console.log("hora",this.horaInicio, ' ',this.horaFin);
+     console.log(fechaI,fechaF);
+     localStorage.setItem('maquina', this.maquina);
+     localStorage.setItem('fechaInicio', fechaI);
+     localStorage.setItem('fechaFin', fechaF);
+     localStorage.setItem('sensor','1');
+     window.open("http://localhost:4200/evento", "_blank");*/
   }
 
   showSpinner() {

@@ -11,11 +11,13 @@ export class ColorService {
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   constructor(private http:HttpClient) { }
 
-  getColors():Observable<any>{
-    return this.http.get(this.url+'/colores');
+  getColors(token):Observable<any>{
+    this.httpHeaders.set("Authorization", token);
+    return this.http.get(this.url+'/colores',{headers:this.httpHeaders});
   }
 
-  create(color:Color): Observable<any>{
+  create(color:Color,token): Observable<any>{
+    this.httpHeaders.set("Authorization", token);
   	return this.http.post<any>(this.url,color,{headers:this.httpHeaders});
   }
 }

@@ -14,30 +14,36 @@ export class MaquinaService {
   chartPage = new Subject();
   constructor(private http: HttpClient) { }
 
-  getMaquinas(name:string,area:string): Observable<any> {
+  getMaquinas(name:string,area:string,token): Observable<any> {
     let params = new HttpParams();
     params = params.append('busqueda',name);
     params = params.append('area',area);
+    this.httpHeaders.set("Authorization", token);
     return this.http.get(this.url + '/maquinas',{headers:this.httpHeaders,params:params});
   }
 
-  create(maquina: Maquina): Observable<any> {
+  create(maquina: Maquina,token): Observable<any> {
+    this.httpHeaders.set("Authorization", token);
     return this.http.post<any>(this.url + '/maquinas', maquina, { headers: this.httpHeaders });
   }
 
-  read(id: number): Observable<any> {
+  read(id: number,token): Observable<any> {
+    this.httpHeaders.set("Authorization", token);
     return this.http.get(`${this.url + '/read'}/${id}`);
   }
 
-  delete(id: number): Observable<any> {
+  delete(id: number,token): Observable<any> {
+    this.httpHeaders.set("Authorization", token);
     return this.http.delete<any>(`${this.url + '/read'}/${id}`);
   }
 
-  update(maquina: Maquina) {
+  update(maquina: Maquina,token) {
+    this.httpHeaders.set("Authorization", token);
     return this.http.put(`${this.url + '/read'}/${maquina.idmaquina}`, maquina, { headers: this.httpHeaders });
   }
 
-  changePage(page) {
+  changePage(page,token) {
+    this.httpHeaders.set("Authorization", token);
     this.chartPage.next(page);
   }
 }

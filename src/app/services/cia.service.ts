@@ -11,29 +11,32 @@ export class CiaService {
 
   private url: string = environment.environment.urlEndPoint + '/cia';
   private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
-  private httpHeaderFormData = new HttpHeaders({ 'Content-Type': 'multipart/form-data'})
+  private httpHeaderFormData = new HttpHeaders({ 'Content-Type': 'multipart/form-data' })
   //'Content-Type': 'application/x-www-form-urlencoded'
   // headers: { 'Content-Type': 'multipart/form-data'
   //'Content-type': 'application/json
   constructor(private http: HttpClient) { }
 
-  getCias(): Observable<any> {
+  /*getCias(token): Observable<any> {
+    this.httpHeaders.set("Authorization", token);
     return this.http.get(this.url + '/cias');
-  }
+  }*/
 
-  create(cia: Cia): Observable<any> {
+  /*create(cia: Cia): Observable<any> {
     return this.http.post<any>(this.url + '/cias', cia, { headers: this.httpHeaders });
+  }*/
+
+  createImage(formdata): Observable<any> {
+    return this.http.post<any>(this.url + '/cias', formdata, { headers: this.httpHeaderFormData });
   }
 
-  createImage(formdata) :Observable<any> {
-    return this.http.post<any>(this.url + '/cias', formdata,{headers: this.httpHeaderFormData});
+  readCia(id: number, token): Observable<any> {
+    this.httpHeaders.set("Authorization", token);
+    return this.http.get(`${this.url + '/read'}/${id}`, { headers: this.httpHeaders });
   }
 
-  readCia(id: number): Observable<any> {
-    return this.http.get(`${this.url + '/read'}/${id}`);
-  }
-
-  update(cia: Cia): Observable<any> {
+  update(cia: Cia, token): Observable<any> {
+    this.httpHeaders.set("Authorization", token);
     return this.http.put(`${this.url + '/read'}/${cia.idcia}`, cia, { headers: this.httpHeaders });
   }
 }

@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { MaquinaService } from '../../../services/maquina.service';
-import { AreaService } from '../../../services/area.service';
-import { Maquina } from '../../../models/maquina';
-import { Area } from '../../../models/area';
+import { MaquinaService } from '@app/services/maquina.service';
+import { AreaService } from '@app/services/area.service';
+import { Maquina } from '@app/models/maquina';
+import { Area } from '@app/models/area';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { NuevoMaquinaComponent } from '@app/pages/forms/nuevo-maquina/nuevo-maquina.component';
 import { NuevoSensorComponent } from '@app/pages/forms/nuevo-sensor/nuevo-sensor.component';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from "ngx-spinner";
+import { AuthService } from '@app/services/auth.service';
+
 
 @Component({
   selector: 'app-maquinas',
@@ -19,22 +21,24 @@ export class MaquinasComponent implements OnInit {
 
   maquinas: Maquina[];
   areas: Area[];
-  selectedArea:string='';
-  total:number =0;
+  selectedArea: string = '';
+  total: number = 0;
+  token;
   constructor(private maquinaService: MaquinaService, private areaService: AreaService,
-    private dialog: MatDialog, private spinner: NgxSpinnerService) { }
+    private dialog: MatDialog, private spinner: NgxSpinnerService, private auth: AuthService) { }
 
   ngOnInit() {
     this.getMaquinas("");
     this.getAreas();
+    this.token = this.auth.token;
   }
 
   async getMaquinas(searchValue: string) {
     try {
-      let resp = await this.maquinaService.getMaquinas(searchValue,(this.selectedArea != "")? this.selectedArea : "").toPromise();
+      let resp = await this.maquinaService.getMaquinas(searchValue, (this.selectedArea != "") ? this.selectedArea : "",this.token).toPromise();
       if (resp.code == 200) {
         this.maquinas = resp.maquina;
-        this.total= this.maquinas.length;
+        this.total = this.maquinas.length;
       }
     } catch (e) {
       console.log(e);
@@ -43,7 +47,7 @@ export class MaquinasComponent implements OnInit {
 
   async getAreas() {
     try {
-      let resp = await this.areaService.getAreas("").toPromise();
+      let resp = await this.areaService.getAreas("", this.token).toPromise();
       if (resp.code == 200) {
         this.areas = resp.area;
       }
@@ -94,7 +98,7 @@ export class MaquinasComponent implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.maquinaService.delete(id).subscribe(res => {
+        this.maquinaService.delete(id,this.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El departamento ha sido eliminado correctamente', 'success');
             this.getMaquinas("");
@@ -116,13 +120,13 @@ export class MaquinasComponent implements OnInit {
     this.spinner.show("mySpinner", opt1);
   }
 
-   onSearchChange(searchValue: string) {
+  onSearchChange(searchValue: string) {
     this.getMaquinas(searchValue);
   }
 
-   searchByArea(){
-      this.getMaquinas("");
-   }
+  searchByArea() {
+    this.getMaquinas("");
+  }
 
   addSensor(idMaquina) {
     const dialogRef = this.dialog.open(NuevoSensorComponent, {
@@ -143,6 +147,6 @@ export class MaquinasComponent implements OnInit {
   }
 
   loadPage(page) {
-    this.maquinaService.changePage(page);
+    this.maquinaService.changePage(page,this.token);
   }
 }

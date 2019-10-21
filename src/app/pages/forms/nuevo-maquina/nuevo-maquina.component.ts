@@ -1,13 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MaquinaService } from '../../../services/maquina.service';
-import { AreaService } from '../../../services/area.service';
+import { MaquinaService } from '@app/services/maquina.service';
+import { AreaService } from '@app/services/area.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Maquina } from '../../../models/maquina';
-import { Area } from '../../../models/area';
+import { Maquina } from '@app/models/maquina';
+import { Area } from '@app/models/area';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
 import { Dialog } from '@app/classes/Dialog';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-nuevo-maquina',
@@ -21,9 +22,11 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
   maquinaForm: FormGroup;
   submitted = false;
   areas: Area[];
+  token;
 
   constructor(private maquinaService: MaquinaService, private areaService: AreaService,
     private formBuilder: FormBuilder, private router: Router, public dialogRef: MatDialogRef<NuevoMaquinaComponent>,
+    private auth: AuthService,
     @Inject(MAT_DIALOG_DATA) public data) {
     super();
   }
@@ -35,13 +38,14 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
       idarea: [{ value: '', disabled: disabled }, Validators.required],
       descripcion: ['', Validators.required]
     });
+    this.token = this.auth.token;
     this.getAreas();
     this.loadModalTexts();
   }
 
   async getAreas() {
     try {
-      let resp = await this.areaService.getAreas("").toPromise();
+      let resp = await this.areaService.getAreas("", this.token).toPromise();
       console.log(resp);
       if (resp.code == 200) {
         this.areas = resp.area;
@@ -67,9 +71,9 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
     try {
       let response;
       switch (this.modalMode) {
-        case 'create': response = await this.maquinaService.create(this.maquina).toPromise();
+        case 'create': response = await this.maquinaService.create(this.maquina,this.token).toPromise();
           break;
-        case 'edit': response = await this.maquinaService.update(this.maquina).toPromise();
+        case 'edit': response = await this.maquinaService.update(this.maquina,this.token).toPromise();
           break;
       }
       if (response.code = 200) {
@@ -101,7 +105,7 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
       this.maquina.descripcion = descripcion;
     }
 
-    if(idArea){
+    if (idArea) {
       this.maquina.idarea = idArea;
     }
   }

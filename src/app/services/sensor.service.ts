@@ -13,25 +13,30 @@ export class SensorService {
   private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   constructor(private http: HttpClient) { }
 
-  getSensores(name:string): Observable<any> {
+  getSensores(name:string,token): Observable<any> {
     let params = new HttpParams();
     params = params.append('busqueda',name);
+    this.httpHeaders.set("Authorization", token);
     return this.http.get(this.url + '/sensores',{headers:this.httpHeaders,params:params});
   }
 
-  create(sensor: Sensor): Observable<any> {
+  create(sensor: Sensor,token): Observable<any> {
+    this.httpHeaders.set("Authorization", token);
     return this.http.post<any>(this.url + '/sensores', sensor, { headers: this.httpHeaders });
   }
 
-  read(id: number): Observable<any> {
-    return this.http.get(`${this.url + '/read'}/${id}`);
+  read(id: number,token): Observable<any> {
+    this.httpHeaders.set("Authorization", token);
+    return this.http.get(`${this.url + '/read'}/${id}`,{ headers: this.httpHeaders });
   }
 
-  delete(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.url + '/read'}/${id}`);
+  delete(id: number,token): Observable<any> {
+    this.httpHeaders.set("Authorization", token);
+    return this.http.delete<any>(`${this.url + '/read'}/${id}`,{ headers: this.httpHeaders });
   }
 
-  update(sensor: Sensor) {
+  update(sensor: Sensor,token) {
+    this.httpHeaders.set("Authorization", token);
     return this.http.put(`${this.url + '/read'}/${sensor.idsensor}`, sensor, { headers: this.httpHeaders });
   }
 }
