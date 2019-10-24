@@ -10,7 +10,7 @@ import * as environment from '../../environments/environment';
 export class CiaService {
 
   private url: string = environment.environment.urlEndPoint + '/cia';
-  private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
+
   private httpHeaderFormData = new HttpHeaders({ 'Content-Type': 'multipart/form-data' })
   //'Content-Type': 'application/x-www-form-urlencoded'
   // headers: { 'Content-Type': 'multipart/form-data'
@@ -31,12 +31,12 @@ export class CiaService {
   }
 
   readCia(id: number, token): Observable<any> {
-    this.httpHeaders.set("Authorization", token);
-    return this.http.get(`${this.url + '/read'}/${id}`, { headers: this.httpHeaders });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(`${this.url + '/read'}/${id}`, { headers });
   }
 
   update(cia: Cia, token): Observable<any> {
-    this.httpHeaders.set("Authorization", token);
-    return this.http.put(`${this.url + '/read'}/${cia.idcia}`, cia, { headers: this.httpHeaders });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.put(`${this.url + '/read'}/${cia.idcia}`, cia, { headers });
   }
 }

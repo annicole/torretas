@@ -17,19 +17,17 @@ export class UsuariosComponent implements OnInit {
 
   usuarios: Usuario[];
   total: number = 0;
-  token;
   constructor(private usuarioService: UsuarioService, private auth: AuthService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.getUsuarios('');
-    this.token = this.auth.token;
   }
 
 
   async getUsuarios(searchValue: string) {
     try {
-      let resp = await this.usuarioService.getUsuarios(searchValue, '', this.token).toPromise();
+      let resp = await this.usuarioService.getUsuarios(searchValue, '', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
         this.total = this.usuarios.length;
@@ -81,7 +79,7 @@ export class UsuariosComponent implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.usuarioService.delete(id, this.token).subscribe(res => {
+        this.usuarioService.delete(id, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El usuario se ha sido eliminado correctamente', 'success');
             this.getUsuarios('');

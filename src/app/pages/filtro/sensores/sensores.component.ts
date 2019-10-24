@@ -16,19 +16,17 @@ export class SensoresComponent implements OnInit {
 
   sensores:Sensor[];
   total:number=0;
-  token;
 
   constructor(private sensorService: SensorService,private auth:AuthService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    this.token = this.auth.token;
     this.getSensores("");
   }
 
   async getSensores(searchValue:string) {
     try {
-      let resp = await this.sensorService.getSensores(searchValue,this.token).toPromise();
+      let resp = await this.sensorService.getSensores(searchValue,this.auth.token).toPromise();
       if (resp.code == 200) {
         this.sensores = resp.sensor;
         this.total = this.sensores.length;
@@ -80,7 +78,7 @@ export class SensoresComponent implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.sensorService.delete(id,this.token).subscribe(res => {
+        this.sensorService.delete(id,this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El sensor ha sido eliminado correctamente', 'success');
             this.getSensores("");

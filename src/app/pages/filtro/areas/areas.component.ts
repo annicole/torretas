@@ -17,18 +17,16 @@ export class AreasComponent implements OnInit {
 
   areas: Area[];
   total: number = 0;
-  token;
   constructor(private areaService: AreaService, private auth: AuthService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.getAreas("");
-    this.token = this.auth.token;
   }
 
   async getAreas(searchValue: string) {
     try {
-      let resp = await this.areaService.getAreas(searchValue, this.token).toPromise();
+      let resp = await this.areaService.getAreas(searchValue, this.auth.token).toPromise();
       if (resp.code == 200) {
         this.areas = resp.area
         this.total = this.areas.length;
@@ -99,7 +97,7 @@ export class AreasComponent implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.areaService.delete(id, this.token).subscribe(res => {
+        this.areaService.delete(id, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El área ha sido eliminado correctamente', 'success');
             this.getAreas("");

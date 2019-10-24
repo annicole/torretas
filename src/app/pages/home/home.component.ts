@@ -14,14 +14,12 @@ export class HomeComponent implements OnInit {
   cia:Cia = new Cia();
   urlImg:string;
   homeCards: Array <object> = [];
-  token;
 
   constructor(private router:Router,private ciaService:CiaService,private auth:AuthService) { }
 
   ngOnInit() {
     this.urlImg = "../../../assets/img/ICMA_01.jpg";
     this.getCia();
-    this.token = this.auth.token;
     this.homeCards = [
       {
         icon: 'assessment',
@@ -70,7 +68,7 @@ export class HomeComponent implements OnInit {
 
   async getCia(){
     try{
-      let resp = await this.ciaService.readCia(1,this.token).toPromise();
+      let resp = await this.ciaService.readCia(1,this.auth.token).toPromise();
       if (resp.code == 200) {
         this.cia = resp.cia;
         var uints = new Uint8Array([91,111,98,106,101,99,116,32,79,98,106,101,99,116,93]);

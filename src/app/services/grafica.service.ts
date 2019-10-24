@@ -9,7 +9,6 @@ import * as environment from '../../environments/environment';
 })
 export class GraficaService {
   private url:string = environment.environment.urlEndPoint+'/grafica';
-  private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   constructor(private http:HttpClient) { }
 
   getGrafica(maquina:string,inicio:string,fin:string,token):Observable<any>{
@@ -18,7 +17,7 @@ export class GraficaService {
     params = params.append('maquina',maquina);
     params = params.append('inicio',inicio);
     params = params.append('fin',fin);
-    this.httpHeaders.set("Authorization", token);
-    return this.http.get(this.url+'/graficaSensor',{headers:this.httpHeaders,params:params});
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url+'/graficaSensor',{headers,params:params});
   }
 }

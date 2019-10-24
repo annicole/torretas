@@ -10,33 +10,32 @@ import { Sensor } from '../models/sensor';
 export class SensorService {
 
   private url: string = environment.environment.urlEndPoint + '/sensor';
-  private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   constructor(private http: HttpClient) { }
 
   getSensores(name:string,token): Observable<any> {
     let params = new HttpParams();
     params = params.append('busqueda',name);
-    this.httpHeaders.set("Authorization", token);
-    return this.http.get(this.url + '/sensores',{headers:this.httpHeaders,params:params});
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/sensores',{headers,params:params});
   }
 
   create(sensor: Sensor,token): Observable<any> {
-    this.httpHeaders.set("Authorization", token);
-    return this.http.post<any>(this.url + '/sensores', sensor, { headers: this.httpHeaders });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.post<any>(this.url + '/sensores', sensor, { headers });
   }
 
   read(id: number,token): Observable<any> {
-    this.httpHeaders.set("Authorization", token);
-    return this.http.get(`${this.url + '/read'}/${id}`,{ headers: this.httpHeaders });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(`${this.url + '/read'}/${id}`,{ headers });
   }
 
   delete(id: number,token): Observable<any> {
-    this.httpHeaders.set("Authorization", token);
-    return this.http.delete<any>(`${this.url + '/read'}/${id}`,{ headers: this.httpHeaders });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.delete<any>(`${this.url + '/read'}/${id}`,{ headers});
   }
 
   update(sensor: Sensor,token) {
-    this.httpHeaders.set("Authorization", token);
-    return this.http.put(`${this.url + '/read'}/${sensor.idsensor}`, sensor, { headers: this.httpHeaders });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.put(`${this.url + '/read'}/${sensor.idsensor}`, sensor, { headers });
   }
 }

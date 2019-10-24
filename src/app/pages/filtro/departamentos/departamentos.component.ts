@@ -18,20 +18,18 @@ export class DepartamentosComponent implements OnInit {
 
   departamentos: Departamento[];
   total: number;
-  token;
   constructor(private deptoService: DepartamentoService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,
     private auth :AuthService
   ) { }
 
   ngOnInit() {
-    this.token = this.auth.token;
     this.getDeptos("");
   }
 
   async getDeptos(searchValue) {
     try {
-      let resp = await this.deptoService.getDepartamentos(searchValue,this.token).toPromise();
+      let resp = await this.deptoService.getDepartamentos(searchValue,this.auth.token).toPromise();
       if (resp.code == 200) {
         this.departamentos = resp.depto;
         this.total = this.departamentos.length;
@@ -83,7 +81,7 @@ export class DepartamentosComponent implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.deptoService.delete(id,this.token).subscribe(res => {
+        this.deptoService.delete(id,this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El departamento ha sido eliminado correctamente', 'success');
             this.getDeptos("");

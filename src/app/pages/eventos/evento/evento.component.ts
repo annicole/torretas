@@ -29,8 +29,6 @@ export class EventoComponent implements OnInit {
     { label: '35', value: '35' },
     { label: '40', value: '40' },
   ];
-  token;
-
   constructor(private eventoService: EventoService, private spinner: NgxSpinnerService, private auth:AuthService) { }
 
   ngOnInit() {
@@ -44,7 +42,6 @@ export class EventoComponent implements OnInit {
       localStorage.removeItem('fechaFin');
       localStorage.removeItem('sensor');
       this.getEventos();
-      this.token = this.auth.token;
     } catch (e) {
       console.log(e);
     }
@@ -52,7 +49,7 @@ export class EventoComponent implements OnInit {
 
   async getEventos() {
     try {
-      let resp = await this.eventoService.getEvento("/e"+this.sensor, this.idMaquina, this.fechaInicio, this.fechaFin,String(this.page),String(this.limit),this.token).toPromise();
+      let resp = await this.eventoService.getEvento("/e"+this.sensor, this.idMaquina, this.fechaInicio, this.fechaFin,String(this.page),String(this.limit),this.auth.token).toPromise();
       if (resp.code == 200) {
         console.log(resp);
         this.listEventos = resp.evento;
