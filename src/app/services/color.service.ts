@@ -8,14 +8,15 @@ import * as environment from '../../environments/environment';import { Injectabl
 })
 export class ColorService {
   private url:string = environment.environment.urlEndPoint+'/color';
-  private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   constructor(private http:HttpClient) { }
 
-  getColors():Observable<any>{
-    return this.http.get(this.url+'/colores');
+  getColors(token):Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url+'/colores',{headers});
   }
 
-  create(color:Color): Observable<any>{
-  	return this.http.post<any>(this.url,color,{headers:this.httpHeaders});
+  create(color:Color,token): Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+  	return this.http.post<any>(this.url,color,{headers});
   }
 }

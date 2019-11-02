@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CiaService } from '../../../services/cia.service';
+import { CiaService } from '@app/services/cia.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Cia } from '../../../models/cia';
+import { Cia } from '@app/models/cia';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-nuevo-cia',
@@ -16,12 +17,15 @@ export class NuevoCiaComponent implements OnInit {
   ciaForm: FormGroup;
   submitted = false;
   formData:FormData;
-  constructor(private ciaService: CiaService, private formBuilder: FormBuilder, private router: Router) { }
+  token;
+  constructor(private ciaService: CiaService, private formBuilder: FormBuilder, 
+    private router: Router,private auth: AuthService) { }
 
   ngOnInit() {
     this.cia.logotipo = new FormData();
     this.formData = new FormData();
     this.getCia();
+    this.token= this.auth.token;
     this.ciaForm = this.formBuilder.group({
       razon: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -38,7 +42,7 @@ export class NuevoCiaComponent implements OnInit {
 
   async getCia(){
     try{
-      const response= await this.ciaService.readCia(1).toPromise();
+      const response= await this.ciaService.readCia(1,this.token).toPromise();
       if (response.code = 200) {
         this.cia = response.cia
       }
@@ -61,7 +65,7 @@ export class NuevoCiaComponent implements OnInit {
   async guardar() {
     try {
       //let response = await this.ciaService.createImage(this.formData).toPromise();
-      let response = await this.ciaService.update(this.cia).toPromise();
+      let response = await this.ciaService.update(this.cia,this.token).toPromise();
       if (response.code = 200) {
         Swal.fire('', 'Empresa guardada correctamente', 'success');
         this.router.navigate(['']);

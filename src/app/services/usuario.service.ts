@@ -9,33 +9,33 @@ import { Usuario } from '../models/usuario';
 })
 export class UsuarioService {
   private url: string = environment.environment.urlEndPoint + '/usuario';
-  private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   constructor(private http: HttpClient) { }
 
-  getUsuarios(name:string,depatamento:string): Observable<any> {
+  getUsuarios(name:string,depatamento:string,token): Observable<any> {
     let params = new HttpParams();
     params = params.append('busqueda',name);
     params = params.append('departamento',depatamento);
-    return this.http.get(this.url + '/usuarios',{headers:this.httpHeaders,params:params});
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/usuarios',{headers,params:params});
   }
 
-  create(usuario: Usuario): Observable<any> {
-    return this.http.post<any>(this.url + '/usuarios', usuario, { headers: this.httpHeaders });
+  create(usuario: Usuario,token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.post<any>(this.url + '/usuarios', usuario, { headers });
   }
 
-  readUsuario(id: number): Observable<any> {
-    return this.http.get(`${this.url + '/read'}/${id}`);
+  readUsuario(id: number,token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(`${this.url + '/read'}/${id}`,{headers});
   }
 
-  read(id: number): Observable<any> {
-    return this.http.get(`${this.url + '/read'}/${id}`);
+  delete(id: number,token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.delete<any>(`${this.url + '/read'}/${id}`,{headers});
   }
 
-  delete(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.url + '/read'}/${id}`);
-  }
-
-  update(usuario: Usuario) {
-    return this.http.put(`${this.url + '/read'}/${usuario.id}`, usuario, { headers: this.httpHeaders });
+  update(usuario: Usuario,token) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.put(`${this.url + '/read'}/${usuario.id}`, usuario, { headers });
   }
 }

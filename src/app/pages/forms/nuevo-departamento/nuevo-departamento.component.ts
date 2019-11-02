@@ -1,18 +1,19 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { DepartamentoService } from '../../../services/departamento.service';
-import { CiaService } from '../../../services/cia.service';
+import { DepartamentoService } from '@app/services/departamento.service';
+import { CiaService } from '@app/services/cia.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Departamento } from '../../../models/departamento';
-import { Cia } from '../../../models/cia';
+import { Departamento } from '@app/models/departamento';
+import { Cia } from '@app/models/cia';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {ViewEncapsulation} from '@angular/core';
+import { ViewEncapsulation } from '@angular/core';
 import { Dialog } from '@app/classes/Dialog';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-nuevo-departamento',
   templateUrl: './nuevo-departamento.component.html',
   styleUrls: ['./nuevo-departamento.component.scss'],
-  encapsulation: ViewEncapsulation.None 
+  encapsulation: ViewEncapsulation.None
 })
 export class NuevoDepartamentoComponent extends Dialog implements OnInit {
 
@@ -20,16 +21,18 @@ export class NuevoDepartamentoComponent extends Dialog implements OnInit {
   departamentoForm: FormGroup;
   submitted = false;
   cias: Cia[];
+  token;
 
   constructor(
     private ciaService: CiaService,
     private deptoService: DepartamentoService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<NuevoDepartamentoComponent>,
+    private auth:AuthService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
     super();
-   }
+  }
 
   ngOnInit() {
     this.departamentoForm = this.formBuilder.group({
@@ -37,6 +40,7 @@ export class NuevoDepartamentoComponent extends Dialog implements OnInit {
     });
     this.departamento.idcia = 1;
     // this.getCias();
+    this.token= this.auth.token;
     this.loadModalTexts();
   }
 
@@ -55,7 +59,7 @@ export class NuevoDepartamentoComponent extends Dialog implements OnInit {
     }
   }
 
-  async getCias() {
+  /*async getCias() {
     try {
       let resp = await this.ciaService.getCias().toPromise();
       if (resp.code == 200) {
@@ -65,7 +69,7 @@ export class NuevoDepartamentoComponent extends Dialog implements OnInit {
     } catch (e) {
       console.log(e);
     }
-  }
+  }*/
 
   get f() { return this.departamentoForm.controls; }
 
@@ -82,9 +86,9 @@ export class NuevoDepartamentoComponent extends Dialog implements OnInit {
     try {
       let response;
       switch (this.modalMode) {
-        case 'create': response = await this.deptoService.create(this.departamento).toPromise();
+        case 'create': response = await this.deptoService.create(this.departamento,this.token).toPromise();
           break;
-        case 'edit': response = await this.deptoService.update(this.departamento).toPromise();
+        case 'edit': response = await this.deptoService.update(this.departamento,this.token).toPromise();
           break;
       }
       if (response.code = 200) {

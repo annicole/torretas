@@ -16,6 +16,7 @@ import { GraficaService } from '@app/services/grafica.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AuthService } from '@app/services/auth.service';
 
 am4core.useTheme(am4themes_animated);
 @Component({
@@ -52,18 +53,17 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     private graficaService: GraficaService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
-    private activate: ActivatedRoute,
+    private activate: ActivatedRoute, private auth: AuthService,
     private areaService: AreaService
   ) { }
 
   ngOnInit() {
     this.graficaForm = this.formBuilder.group({
-      maquina: [''],
-      horaInicio: [null, Validators.required],
-      horaFin: [null, Validators.required],
-      fechaInicio: [null, Validators.required],
-      fechaFin: ['', Validators.required],
-      area: ['']
+      maquina: ['', Validators.required],
+      horaInicio: ['', Validators.required],
+      horaFin: ['', Validators.required],
+      fechaInicio: ['', Validators.required],
+      fechaFin: ['', Validators.required]
     }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'), this.ValidDate('horaInicio', 'horaFin')] });
     if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
       this.graficaForm.value.maquina = this.activate.snapshot.paramMap.get('idMaquina');
@@ -93,7 +93,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
         bandera = '1';
       }
 
-      let response = await this.graficaService.getGrafica(value, fechaI, fechaF, bandera).toPromise();
+      let response = await this.graficaService.getGrafica(value, fechaI, fechaF, bandera,this.auth.token).toPromise();
       if (response.code == 200) {
         console.log(response);
         arreglo = response.grafica[0];
@@ -178,7 +178,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   async getMaquinas() {
     try {
-      let response = await this.maquinaService.getMaquinas("", "").toPromise();
+      let response = await this.maquinaService.getMaquinas("", "", this.auth.token).toPromise();
       if (response.code == 200) {
         this.maquinas = response.maquina;
       }
@@ -195,7 +195,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   async getAreas() {
     try {
-      let response = await this.areaService.getAreas("").toPromise();
+      let response = await this.areaService.getAreas("",this.auth.token).toPromise();
       if (response.code == 200) {
         this.areas = response.area;
       }

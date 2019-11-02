@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AreaService } from '../../../services/area.service';
-import { Area } from '../../../models/area';
+import { AreaService } from '@app/services/area.service';
+import { Area } from '@app/models/area';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { NuevoAreaComponent } from '@app/pages/forms/nuevo-area/nuevo-area.component';
-import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from "ngx-spinner";
 import { NuevoMaquinaComponent } from '@app/pages/forms/nuevo-maquina/nuevo-maquina.component';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-areas',
@@ -16,8 +16,8 @@ import { NuevoMaquinaComponent } from '@app/pages/forms/nuevo-maquina/nuevo-maqu
 export class AreasComponent implements OnInit {
 
   areas: Area[];
-  total:number =0;
-  constructor(private areaService: AreaService,
+  total: number = 0;
+  constructor(private areaService: AreaService, private auth: AuthService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class AreasComponent implements OnInit {
 
   async getAreas(searchValue: string) {
     try {
-      let resp = await this.areaService.getAreas(searchValue).toPromise();
+      let resp = await this.areaService.getAreas(searchValue, this.auth.token).toPromise();
       if (resp.code == 200) {
         this.areas = resp.area
         this.total = this.areas.length;
@@ -97,7 +97,7 @@ export class AreasComponent implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.areaService.delete(id).subscribe(res => {
+        this.areaService.delete(id, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El área ha sido eliminado correctamente', 'success');
             this.getAreas("");

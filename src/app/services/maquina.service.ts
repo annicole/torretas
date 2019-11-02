@@ -10,34 +10,39 @@ import * as environment from '../../environments/environment';
 export class MaquinaService {
 
   private url: string = environment.environment.urlEndPoint + '/maquina';
-  private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   chartPage = new Subject();
   constructor(private http: HttpClient) { }
 
-  getMaquinas(name:string,area:string): Observable<any> {
+  getMaquinas(name: string, area: string, token): Observable<any> {
     let params = new HttpParams();
-    params = params.append('busqueda',name);
-    params = params.append('area',area);
-    return this.http.get(this.url + '/maquinas',{headers:this.httpHeaders,params:params});
+    params = params.append('busqueda', name);
+    params = params.append('area', area);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/maquinas', { headers, params: params });
   }
 
-  create(maquina: Maquina): Observable<any> {
-    return this.http.post<any>(this.url + '/maquinas', maquina, { headers: this.httpHeaders });
+  create(maquina: Maquina, token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.post<any>(this.url + '/maquinas', maquina, { headers});
   }
 
-  read(id: number): Observable<any> {
-    return this.http.get(`${this.url + '/read'}/${id}`);
+  read(id: number, token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(`${this.url + '/read'}/${id}`,{headers});
   }
 
-  delete(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.url + '/read'}/${id}`);
+  delete(id: number, token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.delete<any>(`${this.url + '/read'}/${id}`,{headers});
   }
 
-  update(maquina: Maquina) {
-    return this.http.put(`${this.url + '/read'}/${maquina.idmaquina}`, maquina, { headers: this.httpHeaders });
+  update(maquina: Maquina, token) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.put(`${this.url + '/read'}/${maquina.idmaquina}`, maquina, { headers });
   }
 
-  changePage(page) {
+  changePage(page, token) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     this.chartPage.next(page);
   }
 }

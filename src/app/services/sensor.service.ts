@@ -10,28 +10,32 @@ import { Sensor } from '../models/sensor';
 export class SensorService {
 
   private url: string = environment.environment.urlEndPoint + '/sensor';
-  private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   constructor(private http: HttpClient) { }
 
-  getSensores(name:string): Observable<any> {
+  getSensores(name:string,token): Observable<any> {
     let params = new HttpParams();
     params = params.append('busqueda',name);
-    return this.http.get(this.url + '/sensores',{headers:this.httpHeaders,params:params});
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/sensores',{headers,params:params});
   }
 
-  create(sensor: Sensor): Observable<any> {
-    return this.http.post<any>(this.url + '/sensores', sensor, { headers: this.httpHeaders });
+  create(sensor: Sensor,token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.post<any>(this.url + '/sensores', sensor, { headers });
   }
 
-  read(id: number): Observable<any> {
-    return this.http.get(`${this.url + '/read'}/${id}`);
+  read(id: number,token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(`${this.url + '/read'}/${id}`,{ headers });
   }
 
-  delete(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.url + '/read'}/${id}`);
+  delete(id: number,token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.delete<any>(`${this.url + '/read'}/${id}`,{ headers});
   }
 
-  update(sensor: Sensor) {
-    return this.http.put(`${this.url + '/read'}/${sensor.idsensor}`, sensor, { headers: this.httpHeaders });
+  update(sensor: Sensor,token) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.put(`${this.url + '/read'}/${sensor.idsensor}`, sensor, { headers });
   }
 }

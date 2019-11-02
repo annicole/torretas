@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {CiaService} from '../../services/cia.service';
-import Swal from 'sweetalert2';
-import {Cia} from '../../models/cia';
-import { object } from '@amcharts/amcharts4/core';
+import {CiaService} from '@app/services/cia.service';
+import {Cia} from '@app/models/cia';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +15,7 @@ export class HomeComponent implements OnInit {
   urlImg:string;
   homeCards: Array <object> = [];
 
-  constructor(private router:Router,private ciaService:CiaService) { }
+  constructor(private router:Router,private ciaService:CiaService,private auth:AuthService) { }
 
   ngOnInit() {
     this.urlImg = "assets/img/ICMA_AUTOMATION-01.png";
@@ -69,7 +68,7 @@ export class HomeComponent implements OnInit {
 
   async getCia(){
     try{
-      let resp = await this.ciaService.readCia(1).toPromise();
+      let resp = await this.ciaService.readCia(1,this.auth.token).toPromise();
       if (resp.code == 200) {
         this.cia = resp.cia;
         var uints = new Uint8Array([91,111,98,106,101,99,116,32,79,98,106,101,99,116,93]);

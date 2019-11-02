@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from '../../../services/usuario.service';
-import { Usuario } from '../../../models/usuario';
+import { UsuarioService } from '@app/services/usuario.service';
+import { Usuario } from '@app/models/usuario';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { NuevoUsuarioComponent } from '@app/pages/forms/nuevo-usuario/nuevo-usuario.component';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from "ngx-spinner";
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -14,19 +15,19 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class UsuariosComponent implements OnInit {
 
-  usuarios:Usuario[];
-  total:number=0;
-  constructor(private usuarioService: UsuarioService,
+  usuarios: Usuario[];
+  total: number = 0;
+  constructor(private usuarioService: UsuarioService, private auth: AuthService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.getUsuarios('');
   }
 
-  
-  async getUsuarios(searchValue:string) {
+
+  async getUsuarios(searchValue: string) {
     try {
-      let resp = await this.usuarioService.getUsuarios(searchValue,'').toPromise();
+      let resp = await this.usuarioService.getUsuarios(searchValue, '', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
         this.total = this.usuarios.length;
@@ -78,7 +79,7 @@ export class UsuariosComponent implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.usuarioService.delete(id).subscribe(res => {
+        this.usuarioService.delete(id, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El usuario se ha sido eliminado correctamente', 'success');
             this.getUsuarios('');
@@ -100,8 +101,8 @@ export class UsuariosComponent implements OnInit {
     this.spinner.show("mySpinner", opt1);
   }
 
-  async onSearchChange(searchValue : string ) {  
-     this.getUsuarios(searchValue);
+  async onSearchChange(searchValue: string) {
+    this.getUsuarios(searchValue);
   }
 
 }

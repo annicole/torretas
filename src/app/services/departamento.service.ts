@@ -10,28 +10,32 @@ import * as environment from '../../environments/environment';
 export class DepartamentoService {
 
   private url:string = environment.environment.urlEndPoint+'/departamento';
-  private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   constructor(private http:HttpClient) { }
 
-  getDepartamentos(name:string):Observable<any>{
+  getDepartamentos(name:string,token):Observable<any>{
     let params = new HttpParams();
     params = params.append('busqueda',name);
-    return this.http.get(this.url+'/departamentos',{headers:this.httpHeaders,params:params});
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url+'/departamentos',{headers,params:params});
   }
 
-  create(departamento:Departamento): Observable<any>{
-  	return this.http.post<any>(this.url+'/departamentos',departamento,{headers:this.httpHeaders});
+  create(departamento:Departamento,token): Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+  	return this.http.post<any>(this.url+'/departamentos',departamento,{headers});
   }
 
-  read(id:number):Observable<any>{
-    return this.http.get(`${this.url+'/read'}/${id}`);
+  read(id:number,token):Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(`${this.url+'/read'}/${id}`,{headers});
   }
 
-  delete(id:number):Observable<any>{
-    return this.http.delete<any>(`${this.url+'/read'}/${id}`);
+  delete(id:number,token):Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.delete<any>(`${this.url+'/read'}/${id}`,{headers});
   }
 
-  update(departamento:Departamento){
-    return this.http.put(`${this.url+'/read'}/${departamento.iddep}`,departamento,{headers:this.httpHeaders});
+  update(departamento:Departamento,token){
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.put(`${this.url+'/read'}/${departamento.iddep}`,departamento,{headers});
   }
 }

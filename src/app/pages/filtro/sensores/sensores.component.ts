@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { SensorService } from '../../../services/sensor.service';
-import { Sensor } from '../../../models/sensor';
+import { SensorService } from '@app/services/sensor.service';
+import { Sensor } from '@app/models/sensor';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { NuevoSensorComponent } from '@app/pages/forms/nuevo-sensor/nuevo-sensor.component';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from "ngx-spinner";
-
+import { AuthService } from '@app/services/auth.service';
 @Component({
   selector: 'app-sensores',
   templateUrl: './sensores.component.html',
@@ -17,7 +17,7 @@ export class SensoresComponent implements OnInit {
   sensores:Sensor[];
   total:number=0;
 
-  constructor(private sensorService: SensorService,
+  constructor(private sensorService: SensorService,private auth:AuthService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class SensoresComponent implements OnInit {
 
   async getSensores(searchValue:string) {
     try {
-      let resp = await this.sensorService.getSensores(searchValue).toPromise();
+      let resp = await this.sensorService.getSensores(searchValue,this.auth.token).toPromise();
       if (resp.code == 200) {
         this.sensores = resp.sensor;
         this.total = this.sensores.length;
@@ -78,7 +78,7 @@ export class SensoresComponent implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.sensorService.delete(id).subscribe(res => {
+        this.sensorService.delete(id,this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El sensor ha sido eliminado correctamente', 'success');
             this.getSensores("");

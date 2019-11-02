@@ -10,28 +10,32 @@ import * as environment from '../../environments/environment';
 export class AreaService {
 
   private url: string = environment.environment.urlEndPoint + '/area';
-  private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   constructor(private http: HttpClient) { }
 
-  getAreas(name:string): Observable<any> {
+  getAreas(name: string, token): Observable<any> {
     let params = new HttpParams();
-    params = params.append('busqueda',name);
-    return this.http.get(this.url + '/areas',{headers:this.httpHeaders,params:params});
+    params = params.append('busqueda', name);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/areas', { headers, params: params });
   }
 
-  create(area: Area): Observable<any> {
-    return this.http.post<any>(this.url + '/areas', area, { headers: this.httpHeaders });
+  create(area: Area, token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.post<any>(this.url + '/areas', area, { headers });
   }
 
-  read(id: number): Observable<any> {
-    return this.http.get(`${this.url + '/read'}/${id}`);
+  read(id: number, token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(`${this.url + '/read'}/${id}`, { headers });
   }
 
-  delete(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.url + '/read'}/${id}`);
+  delete(id: number, token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.delete<any>(`${this.url + '/read'}/${id}`, { headers });
   }
 
-  update(area: Area) {
-    return this.http.put(`${this.url + '/read'}/${area.idarea}`, area, { headers: this.httpHeaders });
+  update(area: Area, token) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.put(`${this.url + '/read'}/${area.idarea}`, area, { headers });
   }
 }

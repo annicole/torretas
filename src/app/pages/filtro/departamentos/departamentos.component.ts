@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { DepartamentoService } from '../../../services/departamento.service';
-import { Departamento } from '../../../models/departamento';
+import { DepartamentoService } from '@app/services/departamento.service';
+import { Departamento } from '@app/models/departamento';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { NuevoDepartamentoComponent } from '@app/pages/forms/nuevo-departamento/nuevo-departamento.component';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from "ngx-spinner";
 import { NuevoUsuarioComponent } from '@app/pages/forms/nuevo-usuario/nuevo-usuario.component';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-departamentos',
@@ -18,7 +19,8 @@ export class DepartamentosComponent implements OnInit {
   departamentos: Departamento[];
   total: number;
   constructor(private deptoService: DepartamentoService,
-    private dialog: MatDialog, private spinner: NgxSpinnerService
+    private dialog: MatDialog, private spinner: NgxSpinnerService,
+    private auth :AuthService
   ) { }
 
   ngOnInit() {
@@ -27,7 +29,7 @@ export class DepartamentosComponent implements OnInit {
 
   async getDeptos(searchValue) {
     try {
-      let resp = await this.deptoService.getDepartamentos(searchValue).toPromise();
+      let resp = await this.deptoService.getDepartamentos(searchValue,this.auth.token).toPromise();
       if (resp.code == 200) {
         this.departamentos = resp.depto;
         this.total = this.departamentos.length;
@@ -79,7 +81,7 @@ export class DepartamentosComponent implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.deptoService.delete(id).subscribe(res => {
+        this.deptoService.delete(id,this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El departamento ha sido eliminado correctamente', 'success');
             this.getDeptos("");
@@ -105,7 +107,7 @@ export class DepartamentosComponent implements OnInit {
     this.getDeptos(searchValue);
   }
 
-  addUsuario(idDepto){
+  addUsuario(idDepto) {
     const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
       width: '50rem',
       data: {

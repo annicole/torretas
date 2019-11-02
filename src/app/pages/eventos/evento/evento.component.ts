@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
-import Swal from 'sweetalert2';
 
-import { Evento } from '../../../models/evento';
-import { EventoService } from '../../../services/evento.service';
+import { AuthService } from '@app/services/auth.service';
+import { Evento } from '@app/models/evento';
+import { EventoService } from '@app/services/evento.service';
 
 @Component({
   selector: 'app-evento',
@@ -29,7 +29,7 @@ export class EventoComponent implements OnInit {
     { label: '35', value: '35' },
     { label: '40', value: '40' },
   ];
-  constructor(private eventoService: EventoService, private spinner: NgxSpinnerService) { }
+  constructor(private eventoService: EventoService, private spinner: NgxSpinnerService, private auth:AuthService) { }
 
   ngOnInit() {
     try {
@@ -49,7 +49,7 @@ export class EventoComponent implements OnInit {
 
   async getEventos() {
     try {
-      let resp = await this.eventoService.getEvento("/e"+this.sensor, this.idMaquina, this.fechaInicio, this.fechaFin,String(this.page),String(this.limit)).toPromise();
+      let resp = await this.eventoService.getEvento("/e"+this.sensor, this.idMaquina, this.fechaInicio, this.fechaFin,String(this.page),String(this.limit),this.auth.token).toPromise();
       if (resp.code == 200) {
         console.log(resp);
         this.listEventos = resp.evento;
