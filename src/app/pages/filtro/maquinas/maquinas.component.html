@@ -2,10 +2,10 @@
   <div class="card-header header">
     <h4>Máquinas</h4>
     <select class="form-control search" id="area" [(ngModel)]="selectedArea" (ngModelChange)="searchByArea()">
-      <option value="">Seleccione...</option>
+      <option value="">Seleccionar área...</option>
       <option *ngFor="let a of areas" [value]="a.idarea">{{a.area | titlecase}}</option>
     </select>
-    <input type="text" class="form-control search" placeholder="Buscar.."
+    <input type="text" class="form-control search" placeholder="Buscar máquina.."
       (input)="onSearchChange($event.target.value)">
     <button class="btn btn-custom" (click)="addMaquina()">
       <i class="material-icons"> add </i>
@@ -30,8 +30,8 @@
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " (click)="delete(m.idmaquina)"><i
                 class="material-icons">delete</i></a>
             <!--<a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar Sensor "
-              (click)="addSensor(m.idmaquina)"><i class="material-icons">build</i></a>
-              <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver gráficas" [routerLink]="['/graficas',m.idmaquina]" (click)="loadPage(m.idmaquina)"><i class="material-icons">assessment</i></a> -->
+              (click)="addSensor(m.idmaquina)"><i class="material-icons">build</i></a>-->
+              <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver gráficas" [routerLink]="['/graficas',m.idmaquina]" (click)="loadPage(m.idmaquina)"><i class="material-icons">assessment</i></a> 
           </td>
         </tr>
       </tbody>

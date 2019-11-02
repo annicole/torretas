@@ -14,10 +14,10 @@ import { EventoService } from '@app/services/evento.service';
 export class EventoComponent implements OnInit {
 
   date = new Date();
-  private idMaquina: string;
-  private sensor: string;
-  private fechaInicio: string;
-  private fechaFin: string;
+  idMaquina: string;
+  sensor: string;
+  fechaInicio: string;
+  fechaFin: string;
   page:number=1;
   limit:number=10;
   total:number; 

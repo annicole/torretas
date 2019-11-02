@@ -7,7 +7,9 @@ import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 
 import { ChartBar } from '@app/classes/ChartBar';
 import { Maquina } from '@app/models/maquina';
+import { Area } from '@app/models/area';
 import { MaquinaService } from '@app/services/maquina.service';
+import { AreaService } from '@app/services/area.service';
 import { ChartPie } from '@app/classes/ChartPie';
 import { DatePipe } from '@angular/common';
 import { GraficaService } from '@app/services/grafica.service';
@@ -31,13 +33,8 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   maquinas: Maquina[];
   maxDate: string;
   minDate: string;
-  fechaInicio;
-  fechaFin;
-  horaInicio;
-  horaFin;
   validate: boolean = false;
   validateHour: boolean
-  maquina: string;
   graficaForm: FormGroup;
   submitted = false;
   dataChart = [];
@@ -46,7 +43,8 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   chatFlag = false;
   showFilter: boolean = false;
   iconFilter: string = 'expand_less';
-  token;
+  areas: Area[];
+  filterByMachine: boolean = true;
 
   constructor(
     private zone: NgZone,
@@ -55,7 +53,8 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     private graficaService: GraficaService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
-    private activate: ActivatedRoute, private auth: AuthService
+    private activate: ActivatedRoute, private auth: AuthService,
+    private areaService: AreaService
   ) { }
 
   ngOnInit() {
@@ -67,23 +66,34 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       fechaFin: ['', Validators.required]
     }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'), this.ValidDate('horaInicio', 'horaFin')] });
     if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
-      this.maquina = this.activate.snapshot.paramMap.get('idMaquina');
+      this.graficaForm.value.maquina = this.activate.snapshot.paramMap.get('idMaquina');
     }
-    this.token = this.auth.token;
     this.getMaquinas();
+    this.getAreas();
+    this.graficaForm.get('maquina').setValidators([Validators.required]);
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
 
   async getDataGrafica() {
     try {
       let arreglo = [];
-      let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
-      let fechaF: string = this.fechaFin + ' ' + this.horaFin;
+      let fechaI: string = this.graficaForm.value.fechaInicio + ' ' + this.graficaForm.value.horaInicio;
+      let fechaF: string = this.graficaForm.value.fechaFin + ' ' + this.graficaForm.value.horaFin;
       this.dataChart = [];
       this.dataChart1 = [];
       this.dataChart2 = [];
       this.chatFlag = false;
-      let response = await this.graficaService.getGrafica(this.maquina, fechaI, fechaF, this.token).toPromise();
+      let value;
+      let bandera;
+      if (this.graficaForm.value.maquina != '') {
+        value = this.graficaForm.value.maquina;
+        bandera = '0';
+      } else if (this.graficaForm.value.area != '') {
+        value = this.graficaForm.value.area;
+        bandera = '1';
+      }
+
+      let response = await this.graficaService.getGrafica(value, fechaI, fechaF, bandera,this.auth.token).toPromise();
       if (response.code == 200) {
         console.log(response);
         arreglo = response.grafica[0];
@@ -116,6 +126,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       }
     } catch (e) {
       console.log(e);
+      this.spinner.hide("mySpinner");
       Swal.fire('Error', 'Error al obtener los datos para las gráficas', 'error');
     }
   }
@@ -131,9 +142,9 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   clickEventBar(ev) {
     let selected = ev.target.dataItem.dataContext.sensor;
-    let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
-    let fechaF: string = this.fechaFin + ' ' + this.horaFin;
-    localStorage.setItem('maquina', this.maquina);
+    let fechaI: string = this.graficaForm.value.fechaInicio + ' ' + this.graficaForm.value.horaInicio;
+    let fechaF: string = this.graficaForm.value.fechaFin + ' ' + this.graficaForm.value.horaFin;
+    localStorage.setItem('maquina', this.graficaForm.value.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
     localStorage.setItem('sensor', selected.substring(1, 2));
@@ -151,9 +162,9 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   clickEventBar2(ev) {
     let selected = ev.target.dataItem.dataContext.sensor;
-    let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
-    let fechaF: string = this.fechaFin + ' ' + this.horaFin;
-    localStorage.setItem('maquina', this.maquina);
+    let fechaI: string = this.graficaForm.value.fechaInicio + ' ' + this.graficaForm.value.horaInicio;
+    let fechaF: string = this.graficaForm.value.fechaFin + ' ' + this.graficaForm.value.horaFin;
+    localStorage.setItem('maquina', this.graficaForm.value.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
     localStorage.setItem('sensor', selected.substring(2, 3));
@@ -167,7 +178,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   async getMaquinas() {
     try {
-      let response = await this.maquinaService.getMaquinas("", "", this.token).toPromise();
+      let response = await this.maquinaService.getMaquinas("", "", this.auth.token).toPromise();
       if (response.code == 200) {
         this.maquinas = response.maquina;
       }
@@ -182,9 +193,20 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     }
   }
 
+  async getAreas() {
+    try {
+      let response = await this.areaService.getAreas("",this.auth.token).toPromise();
+      if (response.code == 200) {
+        this.areas = response.area;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   fechaChanged() {
-    this.minDate = this.datePipe.transform(this.fechaInicio, 'yyyy-MM-dd');
-    this.fechaFin = "";
+    this.minDate = this.datePipe.transform(this.graficaForm.value.fechaInicio, 'yyyy-MM-dd');
+    this.graficaForm.controls['fechaFins'].setValue('');
   }
 
   ValidDate(inicio: string, final: string) {
@@ -255,5 +277,22 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   toggleFilter() {
     this.showFilter = !this.showFilter;
     this.iconFilter = (this.showFilter) ? 'expand_more' : 'expand_less';
+  }
+
+  filterTypeselected(type: boolean) {
+    this.filterByMachine = type;
+    const controlMaquina = this.graficaForm.controls['maquina'];
+    const controlArea = this.graficaForm.controls['area'];
+    if (type) {
+      controlArea.setValidators(null);
+      controlArea.setValue('');
+      controlMaquina.setValidators([Validators.required]);
+    } else {
+      controlMaquina.setValue('');
+      controlMaquina.setValidators(null);
+      controlArea.setValidators([Validators.required]);
+    }
+    controlMaquina.updateValueAndValidity();
+    controlArea.updateValueAndValidity();
   }
 }

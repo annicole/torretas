@@ -7,7 +7,7 @@ export class Cia {
     numero:string;
     colonia:string;
     ciudad:string;
-    oais:string;
+    pais:string;
     cp:string;
     eslogan:string;
     logotipo:any;

@@ -51,7 +51,7 @@ export class PieComponent implements OnInit {
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
     localStorage.setItem('sensor',selected.substring(2, 3));
-    window.open("http://localhost:4200/evento", "_blank");
+    window.open("http://192.168.100.16:8085/torretas/evento", "_blank");
     
   }
 
