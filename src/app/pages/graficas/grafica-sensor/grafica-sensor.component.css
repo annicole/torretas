@@ -1,0 +1,51 @@
+.grafica-sensor{
+    margin-top: 5rem;
+}
+
+.grafica-sensor-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.side-bar {
+    flex: 1;
+    min-width: 225px;
+}
+
+.cards-section {
+    display: flex;
+    flex: 3;
+    flex-direction: column;
+    /*justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 1.5rem;
+    height: 85vh;
+    overflow-x: auto;
+    min-width: 370px;*/
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.card { 
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.machine-card{
+    width: 100%;
+    margin: 0px !important;
+    background-color: #ffff;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #17a2b8 !important;
+    border-color: #17a2b8 !important;
+}

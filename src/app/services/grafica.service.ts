@@ -21,4 +21,13 @@ export class GraficaService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.get(this.url+'/graficaSensor',{headers,params:params});
   }
+
+  getGraficaEstadoR(id:string,tipo:string,token):Observable<any>{
+    let params = new HttpParams();
+
+    params = params.append('id',id);
+    params = params.append('tipo',tipo);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url+'/graficaEstadoR',{headers,params:params});
+  }
 }
