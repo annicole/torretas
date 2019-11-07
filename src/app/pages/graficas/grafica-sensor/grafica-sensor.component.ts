@@ -27,11 +27,23 @@ export class GraficaSensorComponent implements OnInit {
   areas: Area[];
   maquinas: Maquina[];
   private chart: am4charts.XYChart;
-  private chartHeap:ChartHeapMap = new ChartHeapMap();
-  dataChart=[];
-  colors;
-
+  private chartHeap: ChartHeapMap = new ChartHeapMap();
+  dataChart = [];
+  filterByMachine: boolean = true;
+  iconFilter: string = 'expand_less';
+  showFilter: boolean = false;
   graficaForm: FormGroup;
+  colorsChart = {
+    0: am4core.color("#DCEADA"),
+    1: am4core.color("#61CA56"),
+    2: am4core.color("#B02422")
+  }
+  estado = {
+    0: "Apagado",
+    1: "Evento",
+    2: "Paro"
+  }
+
   constructor(
     private maquinaService: MaquinaService,
     private graficaService: GraficaService,
@@ -43,15 +55,14 @@ export class GraficaSensorComponent implements OnInit {
 
   ngOnInit() {
     this.graficaForm = this.formBuilder.group({
-      maquina: ['', Validators.required],
-      area:['']
+      maquina: [''],
+      area: ['']
     });
     if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
       this.graficaForm.value.maquina = this.activate.snapshot.paramMap.get('idMaquina');
     }
     this.getMaquinas();
     this.getAreas();
-    this.llenarGrafica();
   }
 
   async getMaquinas() {
@@ -67,7 +78,7 @@ export class GraficaSensorComponent implements OnInit {
 
   async getAreas() {
     try {
-      let response = await this.areaService.getAreas("",this.auth.token).toPromise();
+      let response = await this.areaService.getAreas("", this.auth.token).toPromise();
       if (response.code == 200) {
         this.areas = response.area;
       }
@@ -76,195 +87,75 @@ export class GraficaSensorComponent implements OnInit {
     }
   }
 
-  async getDatosGrafica(){
+  toggleFilter() {
+    this.showFilter = !this.showFilter;
+    this.iconFilter = (this.showFilter) ? 'expand_more' : 'expand_less';
+  }
+
+  async getDatosGrafica() {
+    let arreglo;
+    let tipo: string = "";
+    let id;
     try {
-      let arreglo;
-      let tipo:string="";
-      let id;
+      this.showSpinner();
       if (this.graficaForm.value.maquina != '') {
         id = this.graficaForm.value.maquina;
         tipo = '0';
       } else if (this.graficaForm.value.area != '') {
         id = this.graficaForm.value.area;
         tipo = '1';
-      }else{
-        id="-1";
+      } else {
+        id = "-1";
       }
-      let response = await this.graficaService.getGraficaEstadoR(id,tipo,this.auth.token).toPromise();
+      let response = await this.graficaService.getGraficaEstadoR(id, tipo, this.auth.token).toPromise();
       if (response.code == 200) {
         arreglo = response.grafica;
-       // console.log( arreglo);
-        arreglo.forEach( (element) => {
+        arreglo.forEach((element) => {
+          let maquina = element["DESCRIPCION"];
           Object.keys(element).forEach(key => {
-            let maquina = element[0];
             if (key.substring(0, 3) === 'edo') {
+              if(element[key] !== null){
               this.dataChart.push({
                 sensor: key,
                 maquina: maquina,
-                estado: element[key]
+                estado: this.estado[element[key]],
+                color: this.colorsChart[element[key]],
+                valor: 20,
+                estadoN: element[key],
               });
             }
+            }
           });
-      });
-      console.log(this.dataChart);
-    }
+        });
+        console.log(this.dataChart);
+        this.llenarGrafica();
+      }
+      this.spinner.hide("mySpinner");
     } catch (e) {
       console.log(e);
+      this.spinner.hide("mySpinner");
+      Swal.fire('Error', 'Error al obtener los datos para las gráficas', 'error');
     }
   }
 
-  llenarGrafica(){
-   
-
-    this.chart = this.chartHeap.generateChar(null,"chartdiv");
-    this.chartHeap.generateSerie(this.chart);
-
-    this.colors ={
-      "critical": this.chart.colors.getIndex(0).brighten(-0.8),
-      "bad": this.chart.colors.getIndex(1).brighten(-0.6),
-      "medium": this.chart.colors.getIndex(1).brighten(-0.4),
-      "good": this.chart.colors.getIndex(1).brighten(-0.2),
-      "verygood": this.chart.colors.getIndex(1).brighten(0)
-    };
-
-    let data = [ {
-      "y": "Critical",
-      "x": "Very good",
-      "color": this.colors.medium,
-      "value": 20
-    }, {
-      "y": "Bad",
-      "x": "Very good",
-      "color": this.colors.good,
-      "value": 20
-    }, {
-      "y": "Medium",
-      "x": "Very good",
-      "color": this.colors.verygood,
-      "value": 20
-    }, {
-      "y": "Good",
-      "x": "Very good",
-      "color": this.colors.verygood,
-      "value": 20
-    }, {
-      "y": "Very good",
-      "x": "Very good",
-      "color": this.colors.verygood,
-      "value": 20
-    },
-    
-    {
-      "y": "Critical",
-      "x": "Good",
-      "color": this.colors.bad,
-      "value": 20
-    }, {
-      "y": "Bad",
-      "x": "Good",
-      "color": this.colors.medium,
-      "value": 20
-    }, {
-      "y": "Medium",
-      "x": "Good",
-      "color": this.colors.good,
-      "value": 20
-    }, {
-      "y": "Good",
-      "x": "Good",
-      "color": this.colors.verygood,
-      "value": 20
-    }, {
-      "y": "Very good",
-      "x": "Good",
-      "color": this.colors.verygood,
-      "value": 20
-    },
-    
-    {
-      "y": "Critical",
-      "x": "Medium",
-      "color": this.colors.bad,
-      "value": 20
-    }, {
-      "y": "Bad",
-      "x": "Medium",
-      "color": this.colors.bad,
-      "value": 20
-    }, {
-      "y": "Medium",
-      "x": "Medium",
-      "color": this.colors.medium,
-      "value": 20
-    }, {
-      "y": "Good",
-      "x": "Medium",
-      "color": this.colors.good,
-      "value": 20
-    }, {
-      "y": "Very good",
-      "x": "Medium",
-      "color": this.colors.good,
-      "value": 20
-    },
-    
-    {
-      "y": "Critical",
-      "x": "Bad",
-      "color": this.colors.critical,
-      "value": 20
-    }, {
-      "y": "Bad",
-      "x": "Bad",
-      "color": this.colors.critical,
-      "value": 20
-    }, {
-      "y": "Medium",
-      "x": "Bad",
-      "color": this.colors.bad,
-      "value": 20
-    }, {
-      "y": "Good",
-      "x": "Bad",
-      "color": this.colors.medium,
-      "value": 20
-    }, {
-      "y": "Very good",
-      "x": "Bad",
-      "color": this.colors.good,
-      "value": 20
-    },
-    
-    {
-      "y": "Critical",
-      "x": "Critical",
-      "color": this.colors.critical,
-      "value": 20
-    }, {
-      "y": "Bad",
-      "x": "Critical",
-      "color": this.colors.critical,
-      "value": 20
-    }, {
-      "y": "Medium",
-      "x": "Critical",
-      "color": this.colors.critical,
-      "value": 20
-    }, {
-      "y": "Good",
-      "x": "Critical",
-      "color": this.colors.bad,
-      "value": 20
-    }, {
-      "y": "Very good",
-      "x": "Critical",
-      "color": this.colors.medium,
-      "value": 20
+  filterTypeselected(type: boolean) {
+    this.filterByMachine = type;
+    const controlMaquina = this.graficaForm.controls['maquina'];
+    const controlArea = this.graficaForm.controls['area'];
+    if (type) {
+      controlArea.setValidators(null);
+      controlArea.setValue('');
+    } else {
+      controlMaquina.setValue('');
+      controlMaquina.setValidators(null);
     }
-    ];
+    controlMaquina.updateValueAndValidity();
+    controlArea.updateValueAndValidity();
+  }
 
-    this.chart.data = data;
-
+  llenarGrafica() {
+    this.chart = this.chartHeap.generateChar(this.dataChart, "chartdiv");
+    this.chartHeap.generateSerie(this.chart);
   }
 
   showSpinner() {

@@ -22,8 +22,8 @@ export class ChartHeapMap {
         let xAxis = chart.xAxes.push(new am4charts.CategoryAxis());
         let yAxis = chart.yAxes.push(new am4charts.CategoryAxis());
 
-        xAxis.dataFields.category = "x";
-        yAxis.dataFields.category = "y";
+        xAxis.dataFields.category = "sensor";
+        yAxis.dataFields.category = "maquina";
         xAxis.renderer.minGridDistance = 40;
 
         xAxis.renderer.grid.template.disabled = true;
@@ -36,26 +36,16 @@ export class ChartHeapMap {
         yAxis.renderer.inversed = true;
 
         let series = chart.series.push(new am4charts.ColumnSeries());
-        series.dataFields.categoryX = "x";
-        series.dataFields.categoryY = "y";
-        series.dataFields.value = "value";
+        series.dataFields.categoryX = "sensor";
+        series.dataFields.categoryY = "maquina";
+        series.dataFields.value = "valor";
         series.sequencedInterpolation = true;
         series.columns.template.disabled = true;
         series.defaultState.transitionDuration = 3000;
         
-        // Set up column appearance
-        /* let column = series.columns.template;
-         column.strokeWidth = 2;
-         column.strokeOpacity = 1;
-         column.stroke = am4core.color("#ffffff");
-         column.tooltipText = "{x}, {y}: {value.workingValue.formatNumber('#.')}";
-         column.width = am4core.percent(50);
-         column.height = am4core.percent(50);
-         column.column.cornerRadius(60, 60, 60, 60);
-         column.propertyFields.fill = "color";*/
 
         var bullet = series.bullets.push(new am4core.Circle());
-        bullet.tooltipText = "{x}, {y}: {value.workingValue.formatNumber('#.')}";
+        bullet.tooltipText = "{sensor}, {maquina}: {estado}";
         bullet.strokeWidth = 3;
         bullet.stroke = am4core.color("#ffffff");
         bullet.strokeOpacity = 0;
