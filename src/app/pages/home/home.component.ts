@@ -22,9 +22,15 @@ export class HomeComponent implements OnInit {
     this.getCia();
     this.homeCards = [
       {
-        icon: 'assessment',
-        text: 'Graficas',
+        icon: 'insert_chart',
+        text: 'Gráficas Evento',
         function: '/graficas/0',
+        class: 'black-bg'
+      },
+      {
+        icon: 'bubble_chart',
+        text: 'Gráfica Estado',
+        function: '/graficaEstado',
         class: 'black-bg'
       },
       {

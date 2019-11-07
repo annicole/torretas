@@ -33,6 +33,7 @@ import { AreasComponent } from './pages/filtro/areas/areas.component';
 import { MaquinasComponent } from './pages/filtro/maquinas/maquinas.component';
 import { SensoresComponent } from './pages/filtro/sensores/sensores.component';
 import { UsuariosComponent } from './pages/filtro/usuarios/usuarios.component';
+import { GraficaSensorComponent } from './pages/graficas/grafica-sensor/grafica-sensor.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -60,7 +61,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
     AreasComponent,
     MaquinasComponent,
     SensoresComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    GraficaSensorComponent
   ],
   imports: [
     BrowserModule,

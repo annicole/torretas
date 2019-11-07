@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import {RouterModule,Routes} from '@angular/router';
 import {GraficaEventoComponent} from './pages/graficas/grafica-evento/grafica-evento.component';
+import {GraficaSensorComponent} from './pages/graficas/grafica-sensor/grafica-sensor.component';
 import {EventoComponent} from './pages/eventos/evento/evento.component';
 import { NuevoCiaComponent } from './pages/forms/nuevo-cia/nuevo-cia.component';
 
@@ -24,7 +25,8 @@ const routes:Routes=[
   {path:'cia/:id',component:NuevoCiaComponent},
   {path:'usuario',component:UsuariosComponent,canActivate: [AuthGuard] },
   {path:'home',component:HomeComponent,canActivate: [AuthGuard] },
-  {path:'login',component:LoginComponent }
+  {path:'login',component:LoginComponent },
+  {path:'graficaEstado',component:GraficaSensorComponent}
 ];
 @NgModule({
   declarations: [],
