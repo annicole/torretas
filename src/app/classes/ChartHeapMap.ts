@@ -9,7 +9,7 @@ export class ChartHeapMap {
         chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
         // Add data
         chart.data = data;
-
+        chart.responsive.enabled = true;
         chart.maskBullets = false;
         return chart;
     }

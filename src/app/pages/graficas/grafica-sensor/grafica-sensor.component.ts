@@ -34,9 +34,9 @@ export class GraficaSensorComponent implements OnInit {
   showFilter: boolean = false;
   graficaForm: FormGroup;
   colorsChart = {
-    0: am4core.color("#DCEADA"),
+    0: am4core.color("#E9E9E9"),
     1: am4core.color("#61CA56"),
-    2: am4core.color("#B02422")
+    2: am4core.color("#CB4848")
   }
   estado = {
     0: "Apagado",
@@ -97,8 +97,9 @@ export class GraficaSensorComponent implements OnInit {
     let tipo: string = "";
     let id;
     try {
+      this.dataChart =[];
       this.showSpinner();
-      if (this.graficaForm.value.maquina != '') {
+      if (this.graficaForm.value.maquina != '' && this.graficaForm.value.maquina != '-1') {
         id = this.graficaForm.value.maquina;
         tipo = '0';
       } else if (this.graficaForm.value.area != '') {
@@ -129,6 +130,8 @@ export class GraficaSensorComponent implements OnInit {
         });
         console.log(this.dataChart);
         this.llenarGrafica();
+      }else{
+        Swal.fire('Error', 'No existe información para la gráfica', 'error');
       }
       this.spinner.hide("mySpinner");
     } catch (e) {
@@ -151,6 +154,10 @@ export class GraficaSensorComponent implements OnInit {
     }
     controlMaquina.updateValueAndValidity();
     controlArea.updateValueAndValidity();
+    if (this.chart) {
+      this.dataChart = [];
+      this.chart.dispose();
+    }
   }
 
   llenarGrafica() {
@@ -167,5 +174,11 @@ export class GraficaSensorComponent implements OnInit {
     };
 
     this.spinner.show("mySpinner", opt1);
+  }
+
+  ngOnDestroy() {
+    if (this.chart) {
+      this.chart.dispose();
+    }
   }
 }

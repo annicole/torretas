@@ -23,6 +23,7 @@
                 <select class="form-control" id="maquina" formControlName="maquina" (change)="getDatosGrafica()"
                   [ngClass]="{ 'is-invalid': submitted && f.maquina.errors }">
                   <option value="">Seleccionar máquina</option>
+                  <option value="-1">Todas las máquinas</option>
                   <option *ngFor="let m of maquinas" [value]="m.idmaquina">{{m.maquina}} </option>
                 </select>
                 <div *ngIf="submitted && f.maquina.errors" class="invalid-feedback">
