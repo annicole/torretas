@@ -24,7 +24,7 @@ export class ChartHeapMap {
 
         xAxis.dataFields.category = "sensor";
         yAxis.dataFields.category = "maquina";
-        xAxis.renderer.minGridDistance = 40;
+        xAxis.renderer.minGridDistance = 10;
 
         xAxis.renderer.grid.template.disabled = true;
         yAxis.renderer.grid.template.disabled = true;

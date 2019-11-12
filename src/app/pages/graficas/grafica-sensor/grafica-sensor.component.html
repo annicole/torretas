@@ -5,7 +5,7 @@
       <div class="side-bar">
         <div class="card my-4">
           <div class="card-header font-weight-bold" style="font-size: x-large;" (click)="toggleFilter()">
-            Gráfica Estado <i class="material-icons"> {{ iconFilter }} </i>
+            Tabla de estados <i class="material-icons"> {{ iconFilter }} </i>
           </div>
           <div class="card-body mx-2" [hidden]="showFilter">
             <form [formGroup]="graficaForm" (ngSubmit)="onSubmit()">

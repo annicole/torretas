@@ -26,7 +26,7 @@ const routes:Routes=[
   {path:'usuario',component:UsuariosComponent,canActivate: [AuthGuard] },
   {path:'home',component:HomeComponent,canActivate: [AuthGuard] },
   {path:'login',component:LoginComponent },
-  {path:'graficaEstado',component:GraficaSensorComponent,canActivate: [AuthGuard]}
+  {path:'tablaEstado',component:GraficaSensorComponent,canActivate: [AuthGuard]}
 ];
 @NgModule({
   declarations: [],

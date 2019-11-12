@@ -11,6 +11,7 @@ import { AuthService } from '@app/services/auth.service';
 import { Maquina } from '@app/models/maquina';
 import { Area } from '@app/models/area';
 import { ChartHeapMap } from '@app/classes/ChartHeapMap';
+import { interval } from 'rxjs';
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -96,42 +97,46 @@ export class GraficaSensorComponent implements OnInit {
     let arreglo;
     let tipo: string = "";
     let id;
+    let bandera: boolean = false;
     try {
-      this.dataChart =[];
+      this.dataChart = [];
       this.showSpinner();
-      if (this.graficaForm.value.maquina != '' && this.graficaForm.value.maquina != '-1') {
+      if (this.graficaForm.value.maquina != '') {
         id = this.graficaForm.value.maquina;
         tipo = '0';
+        bandera = true;
       } else if (this.graficaForm.value.area != '') {
         id = this.graficaForm.value.area;
         tipo = '1';
-      } else {
-        id = "-1";
+        bandera = true;
       }
-      let response = await this.graficaService.getGraficaEstadoR(id, tipo, this.auth.token).toPromise();
-      if (response.code == 200) {
-        arreglo = response.grafica;
-        arreglo.forEach((element) => {
-          let maquina = element["DESCRIPCION"];
-          Object.keys(element).forEach(key => {
-            if (key.substring(0, 3) === 'edo') {
-              if(element[key] !== null){
-              this.dataChart.push({
-                sensor: key,
-                maquina: maquina,
-                estado: this.estado[element[key]],
-                color: this.colorsChart[element[key]],
-                valor: 20,
-                estadoN: element[key],
-              });
-            }
-            }
+      if (bandera) {
+        let response = await this.graficaService.getGraficaEstadoR(id, tipo, this.auth.token).toPromise();
+        if (response.code == 200) {
+          arreglo = response.grafica;
+          console.log(response.grafica);
+          arreglo.forEach((element) => {
+            let maquina = element["DESCRIPCION"];
+            Object.keys(element).forEach(key => {
+              if (key.substring(0, 3) === 'edo') {
+                if (element[key] !== null) {
+                  this.dataChart.push({
+                    sensor: key,
+                    maquina: maquina,
+                    estado: this.estado[element[key]],
+                    color: this.colorsChart[element[key]],
+                    valor: 20,
+                    estadoN: element[key],
+                  });
+                }
+              }
+            });
           });
-        });
-        console.log(this.dataChart);
-        this.llenarGrafica();
-      }else{
-        Swal.fire('Error', 'No existe información para la gráfica', 'error');
+          console.log(this.dataChart);
+          this.llenarGrafica();
+        } else {
+          Swal.fire('Error', 'No existe información para la gráfica', 'error');
+        }
       }
       this.spinner.hide("mySpinner");
     } catch (e) {
@@ -174,6 +179,14 @@ export class GraficaSensorComponent implements OnInit {
     };
 
     this.spinner.show("mySpinner", opt1);
+  }
+
+  intervalChart() {
+    // Create an Observable that will publish a value on an interval
+    const secondsCounter = interval(30000);
+    // Subscribe to begin publishing values
+    secondsCounter.subscribe(n =>
+      console.log(`It's been ${n} seconds since subscribing!`));
   }
 
   ngOnDestroy() {
