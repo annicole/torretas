@@ -35,9 +35,17 @@ export class GraficaSensorComponent implements OnInit {
   showFilter: boolean = false;
   graficaForm: FormGroup;
   colorsChart = {
-    0: am4core.color("#E9E9E9"),
-    1: am4core.color("#61CA56"),
-    2: am4core.color("#CB4848")
+    "Apagado": am4core.color("#E9E9E9"),
+    "Paro": am4core.color("#CB4848"),
+    "Operando": am4core.color("#808080"),
+    "En_Paro": am4core.color("#00FF00"),
+    "Stand_by": am4core.color("#FF0000"),
+    "Servicio": am4core.color("#B45A00"),
+    "Materiales": am4core.color("#0000FF"),
+    "Ingenieria": am4core.color("#0064C8"),
+    "Produccion": am4core.color("#6400B4"),
+    "Calidad": am4core.color("#B43C00")
+
   }
   estado = {
     0: "Apagado",
@@ -98,6 +106,7 @@ export class GraficaSensorComponent implements OnInit {
     let tipo: string = "";
     let id;
     let bandera: boolean = false;
+    let estado: string = "";
     try {
       this.dataChart = [];
       this.showSpinner();
@@ -114,17 +123,17 @@ export class GraficaSensorComponent implements OnInit {
         let response = await this.graficaService.getGraficaEstadoR(id, tipo, this.auth.token).toPromise();
         if (response.code == 200) {
           arreglo = response.grafica;
-          console.log(response.grafica);
           arreglo.forEach((element) => {
             let maquina = element["DESCRIPCION"];
             Object.keys(element).forEach(key => {
-              if (key.substring(0, 3) === 'edo') {
+              if (['Operando', 'En_Paro', 'Stand_by', 'Servicio', 'Materiales', 'Ingenieria', 'Produccion', 'Calidad'].indexOf(key) >= 0) {
                 if (element[key] !== null) {
+                  estado = this.estado[element[key]];
                   this.dataChart.push({
                     sensor: key,
                     maquina: maquina,
-                    estado: this.estado[element[key]],
-                    color: this.colorsChart[element[key]],
+                    estado: estado,
+                    color: element[key] == 1 ? this.colorsChart[key] : this.colorsChart[estado],
                     valor: 20,
                     estadoN: element[key],
                   });
