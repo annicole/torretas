@@ -34,6 +34,8 @@ export class GraficaSensorComponent implements OnInit {
   iconFilter: string = 'expand_less';
   showFilter: boolean = false;
   graficaForm: FormGroup;
+  intervalTimer = interval(30000);
+  intervalSubs;
   colorsChart = {
     "Apagado": am4core.color("#E9E9E9"),
     "Paro": am4core.color("#CB4848"),
@@ -101,7 +103,7 @@ export class GraficaSensorComponent implements OnInit {
     this.iconFilter = (this.showFilter) ? 'expand_more' : 'expand_less';
   }
 
-  async getDatosGrafica() {
+  async getDatosGrafica(mostartSpinner: boolean) {
     let arreglo;
     let tipo: string = "";
     let id;
@@ -109,7 +111,11 @@ export class GraficaSensorComponent implements OnInit {
     let estado: string = "";
     try {
       this.dataChart = [];
-      this.showSpinner();
+      if (mostartSpinner) {
+        this.showSpinner();
+      }
+      this.unsubscribeInterval();
+      this.disposeChart();
       if (this.graficaForm.value.maquina != '') {
         id = this.graficaForm.value.maquina;
         tipo = '0';
@@ -144,14 +150,15 @@ export class GraficaSensorComponent implements OnInit {
           console.log(this.dataChart);
           this.llenarGrafica();
         } else {
-          Swal.fire('Error', 'No existe información para la gráfica', 'error');
+          Swal.fire('Error', 'No existe información para la tabla', 'error');
         }
       }
+      if(mostartSpinner)
       this.spinner.hide("mySpinner");
     } catch (e) {
       console.log(e);
       this.spinner.hide("mySpinner");
-      Swal.fire('Error', 'Error al obtener los datos para las gráficas', 'error');
+      Swal.fire('Error', 'Error al obtener los datos para las tabla', 'error');
     }
   }
 
@@ -171,12 +178,14 @@ export class GraficaSensorComponent implements OnInit {
     if (this.chart) {
       this.dataChart = [];
       this.chart.dispose();
+      this.unsubscribeInterval();
     }
   }
 
   llenarGrafica() {
     this.chart = this.chartHeap.generateChar(this.dataChart, "chartdiv");
     this.chartHeap.generateSerie(this.chart);
+    this.intervalSubs = this.intervalTimer.subscribe(()=> this.getDatosGrafica(false));
   }
 
   showSpinner() {
@@ -190,17 +199,21 @@ export class GraficaSensorComponent implements OnInit {
     this.spinner.show("mySpinner", opt1);
   }
 
-  intervalChart() {
-    // Create an Observable that will publish a value on an interval
-    const secondsCounter = interval(30000);
-    // Subscribe to begin publishing values
-    secondsCounter.subscribe(n =>
-      console.log(`It's been ${n} seconds since subscribing!`));
+  unsubscribeInterval() {
+    if (this.intervalSubs) {
+      this.intervalSubs.unsubscribe();
+      console.log("unsubscribe");
+    }
   }
 
-  ngOnDestroy() {
+  disposeChart() {
     if (this.chart) {
       this.chart.dispose();
     }
+  }
+
+  ngOnDestroy() {
+    this.disposeChart();
+    this.unsubscribeInterval();
   }
 }
