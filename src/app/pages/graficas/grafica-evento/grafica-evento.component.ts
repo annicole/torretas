@@ -17,6 +17,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '@app/services/auth.service';
+import * as ruta from '@app/classes/Ruta';
 
 am4core.useTheme(am4themes_animated);
 @Component({
@@ -44,6 +45,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
   showFilter: boolean = false;
   iconFilter: string = 'expand_less';
   areas: Area[];
+  dataTimeLine = [];
   filterByMachine: boolean = true;
 
   constructor(
@@ -64,15 +66,59 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
       horaFin: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required],
-      area:['']
+      area: ['']
     }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'), this.ValidDate('horaInicio', 'horaFin')] });
     if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
       this.graficaForm.value.maquina = this.activate.snapshot.paramMap.get('idMaquina');
     }
-    this.getMaquinas();
-    this.getAreas();
-    this.graficaForm.get('maquina').setValidators([Validators.required]);
+    //this.getMaquinas();
+    //this.getAreas();
+    //this.graficaForm.get('maquina').setValidators([Validators.required]);
+    this.llenarGraficaTime();
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+  }
+
+  llenarGraficaTime() {
+    let open = 100;
+    let close = 120;
+
+    let names = ["Raina",
+      "Demarcus",
+      "Carlo",
+      "Jacinda",
+      "Richie",
+      "Antony",
+      "Amada",
+      "Idalia",
+      "Janella",
+      "Marla",
+      "Curtis",
+      "Shellie",
+      "Meggan",
+      "Nathanael",
+      "Jannette",
+      "Tyrell",
+      "Sheena",
+      "Maranda",
+      "Briana",
+      "Rosa",
+      "Rosanne",
+      "Herman",
+      "Wayne",
+      "Shamika",
+      "Suk",
+      "Clair",
+      "Olivia",
+      "Hans",
+      "Glennie",
+    ];
+
+    for (var i = 0; i < names.length; i++) {
+      open += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 5);
+      close = open + Math.round(Math.random() * 10) + 3;
+      this.dataTimeLine.push({ category: names[i], open: open, close: close });
+    }
+    this.chatFlag = true;
   }
 
   async getDataGrafica() {
@@ -94,7 +140,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
         bandera = '1';
       }
 
-      let response = await this.graficaService.getGrafica(value, fechaI, fechaF, bandera,this.auth.token).toPromise();
+      let response = await this.graficaService.getGrafica(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
       if (response.code == 200) {
         console.log(response);
         arreglo = response.grafica[0];
@@ -149,7 +195,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
     localStorage.setItem('sensor', selected.substring(1, 2));
-    window.open("http://localhost:4200/evento", "_blank");
+    window.open(ruta.ruta + "/evento", "_blank");
   }
 
   llenarGraficaBarras2() {
@@ -169,7 +215,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
     localStorage.setItem('sensor', selected.substring(2, 3));
-    window.open("http://localhost:4200/evento", "_blank");
+    window.open(ruta.ruta + "/evento", "_blank");
   }
 
   clickEventPie(ev) {
@@ -196,7 +242,7 @@ export class GraficaEventoComponent implements OnInit, OnDestroy {
 
   async getAreas() {
     try {
-      let response = await this.areaService.getAreas("",this.auth.token).toPromise();
+      let response = await this.areaService.getAreas("", this.auth.token).toPromise();
       if (response.code == 200) {
         this.areas = response.area;
       }

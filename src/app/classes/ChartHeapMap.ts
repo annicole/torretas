@@ -4,7 +4,7 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 export class ChartHeapMap {
 
 
-    generateChar(data, chartDiv: string) {
+    generateChart(data, chartDiv: string) {
         let chart = am4core.create(chartDiv, am4charts.XYChart);
         chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
         // Add data

@@ -17,6 +17,8 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
+import * as color from '@app/classes/Color';
+
 am4core.useTheme(am4themes_animated);
 @Component({
   selector: 'app-grafica-sensor',
@@ -51,8 +53,8 @@ export class GraficaSensorComponent implements OnInit {
   }
   estado = {
     0: "Apagado",
-    1: "Evento",
-    2: "Paro"
+    1: "Paro",
+    2: "Evento"
   }
 
   constructor(
@@ -115,7 +117,7 @@ export class GraficaSensorComponent implements OnInit {
         this.showSpinner();
       }
       this.unsubscribeInterval();
-      this.disposeChart();
+      //this.disposeChart();
       if (this.graficaForm.value.maquina != '') {
         id = this.graficaForm.value.maquina;
         tipo = '0';
@@ -139,7 +141,7 @@ export class GraficaSensorComponent implements OnInit {
                     sensor: key,
                     maquina: maquina,
                     estado: estado,
-                    color: element[key] == 1 ? this.colorsChart[key] : this.colorsChart[estado],
+                    color: estado[key] == 2 ? color.colorsChart[key] : color.colorsChart[estado],
                     valor: 20,
                     estadoN: element[key],
                   });
@@ -148,18 +150,30 @@ export class GraficaSensorComponent implements OnInit {
             });
           });
           console.log(this.dataChart);
-          this.llenarGrafica();
+          if (this.chart) {
+            console.log('actualizo');
+            this.chart.data = this.dataChart;
+            this.chart.validateData();
+          } else {
+            this.llenarGrafica();
+          }
+          this.intervalSubs = this.intervalTimer.subscribe(() => this.getDatosGrafica(false));
         } else {
           Swal.fire('Error', 'No existe información para la tabla', 'error');
         }
       }
-      if(mostartSpinner)
-      this.spinner.hide("mySpinner");
+      if (mostartSpinner)
+        this.spinner.hide("mySpinner");
     } catch (e) {
       console.log(e);
       this.spinner.hide("mySpinner");
       Swal.fire('Error', 'Error al obtener los datos para las tabla', 'error');
     }
+  }
+
+  llenarGrafica() {
+    this.chart = this.chartHeap.generateChart(this.dataChart, "chartdiv");
+    this.chartHeap.generateSerie(this.chart);
   }
 
   filterTypeselected(type: boolean) {
@@ -177,15 +191,9 @@ export class GraficaSensorComponent implements OnInit {
     controlArea.updateValueAndValidity();
     if (this.chart) {
       this.dataChart = [];
-      this.chart.dispose();
+      //this.chart.dispose();
       this.unsubscribeInterval();
     }
-  }
-
-  llenarGrafica() {
-    this.chart = this.chartHeap.generateChar(this.dataChart, "chartdiv");
-    this.chartHeap.generateSerie(this.chart);
-    this.intervalSubs = this.intervalTimer.subscribe(()=> this.getDatosGrafica(false));
   }
 
   showSpinner() {

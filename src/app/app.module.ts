@@ -34,6 +34,8 @@ import { MaquinasComponent } from './pages/filtro/maquinas/maquinas.component';
 import { SensoresComponent } from './pages/filtro/sensores/sensores.component';
 import { UsuariosComponent } from './pages/filtro/usuarios/usuarios.component';
 import { GraficaSensorComponent } from './pages/graficas/grafica-sensor/grafica-sensor.component';
+import { BarraComponent } from './components/charts/barra/barra.component';
+import { TimeLineComponent } from './components/charts/time-line/time-line.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -62,7 +64,9 @@ registerLocaleData(localeEsMX, 'es-Mx');
     MaquinasComponent,
     SensoresComponent,
     UsuariosComponent,
-    GraficaSensorComponent
+    GraficaSensorComponent,
+    BarraComponent,
+    TimeLineComponent
   ],
   imports: [
     BrowserModule,

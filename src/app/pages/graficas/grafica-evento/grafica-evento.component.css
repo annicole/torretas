@@ -49,3 +49,10 @@
     background-color: #17a2b8 !important;
     border-color: #17a2b8 !important;
 }
+
+.btn-refresh{
+    background-color: white;
+    border: none;
+    float: right;
+    margin-bottom: 4px;
+}

@@ -27,7 +27,7 @@ export class CiaService {
   }*/
 
   createImage(formdata): Observable<any> {
-    return this.http.post<any>(this.url + '/cias', formdata, { headers: this.httpHeaderFormData });
+    return this.http.post<any>(this.url + '/image', formdata, { headers: this.httpHeaderFormData });
   }
 
   readCia(id: number, token): Observable<any> {
