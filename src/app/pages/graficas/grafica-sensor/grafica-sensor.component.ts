@@ -51,11 +51,11 @@ export class GraficaSensorComponent implements OnInit {
     "Calidad": am4core.color("#B43C00")
 
   }
-  estado = {
-    0: "Apagado",
-    1: "Paro",
-    2: "Evento"
-  }
+  estado = [
+    "Apagado",
+    "Evento",
+    "Paro"
+  ]
 
   constructor(
     private maquinaService: MaquinaService,
@@ -130,6 +130,7 @@ export class GraficaSensorComponent implements OnInit {
       if (bandera) {
         let response = await this.graficaService.getGraficaEstadoR(id, tipo, this.auth.token).toPromise();
         if (response.code == 200) {
+          console.log(response.grafica);
           arreglo = response.grafica;
           arreglo.forEach((element) => {
             let maquina = element["DESCRIPCION"];
@@ -141,7 +142,7 @@ export class GraficaSensorComponent implements OnInit {
                     sensor: key,
                     maquina: maquina,
                     estado: estado,
-                    color: estado[key] == 2 ? color.colorsChart[key] : color.colorsChart[estado],
+                    color: estado == 'Evento' ? this.colorsChart[key] : this.colorsChart[estado],
                     valor: 20,
                     estadoN: element[key],
                   });

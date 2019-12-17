@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,OnDestroy } from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
@@ -10,7 +10,7 @@ import * as ruta from '@app/classes/Ruta';
   templateUrl: './barra.component.html',
   styleUrls: ['./barra.component.css']
 })
-export class BarraComponent implements OnInit {
+export class BarraComponent implements OnInit,OnDestroy {
 
   private chartBar: ChartBar = new ChartBar();
   chart;
@@ -26,8 +26,8 @@ export class BarraComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.llenarGrafica();
     console.log("entra", this.chartData);
+    this.llenarGrafica();
   }
 
   llenarGrafica() {
@@ -48,8 +48,15 @@ export class BarraComponent implements OnInit {
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
     localStorage.setItem('sensor',selected.substring(2, 3));
-    window.open(ruta.ruta+"/evento", "_blank");
+    window.open("http://localhost:4200/evento/evento", "_blank");
     
+  }
+
+  
+  ngOnDestroy() {
+    if (this.chart) {
+      this.chart.dispose();
+    }
   }
 
 }

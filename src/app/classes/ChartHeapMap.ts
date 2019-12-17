@@ -42,7 +42,7 @@ export class ChartHeapMap {
         series.sequencedInterpolation = true;
         series.columns.template.disabled = true;
         series.defaultState.transitionDuration = 3000;
-        
+        series.tooltip.pointerOrientation = "vertical";
 
         var bullet = series.bullets.push(new am4core.Circle());
         bullet.tooltipText = "{sensor}, {maquina}: {estado}";

@@ -37,7 +37,7 @@ export class TimeLineComponent implements OnInit {
     serie = this.charTimeLine.generateSerie(this.chart);
     serie.columns.template.events.on("hit", this.clickEvent, this);
     // Cursor
-    this.chart.cursor = new am4charts.XYCursor();
+//this.chart.cursor = new am4charts.XYCursor();
   }
 
   clickEvent(ev) {

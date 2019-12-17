@@ -1,56 +1,132 @@
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
+import * as am4plugins_timeline from "@amcharts/amcharts4/plugins/timeline";
+import * as am4plugins_bullets from "@amcharts/amcharts4/plugins/bullets";
 
 
 export class ChartTimeLine {
 
     generateChart(data, chartDiv: string) {
-        let chart = am4core.create(chartDiv, am4charts.XYChart);
+        let container = am4core.create(chartDiv, am4core.Container);
+        container.width = am4core.percent(100);
+        container.height = am4core.percent(100);
+
+        let chart = container.createChild(am4plugins_timeline.CurveChart);
         chart.data = data;
+        chart.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm";
+        chart.dateFormatter.inputDateFormat = "yyyy-MM-dd hh:mm";
+        chart.dy = 90;
+        chart.maskBullets = false;
         return chart;
     }
 
-    generateSerie(chart: am4charts.XYChart) {
+    generateSerie(chart) {
+        let interfaceColors = new am4core.InterfaceColorSet();
+        let colorSet = new am4core.ColorSet();
+
         let categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
-        categoryAxis.renderer.grid.template.location = 0;
-        categoryAxis.renderer.ticks.template.disabled = true;
-        categoryAxis.renderer.axisFills.template.disabled = true;
-        categoryAxis.dataFields.category = "category";
-        categoryAxis.renderer.minGridDistance = 15;
-        categoryAxis.renderer.inversed = true;
-        categoryAxis.renderer.inside = true;
-        categoryAxis.renderer.grid.template.location = 0.5;
-        categoryAxis.renderer.grid.template.strokeDasharray = "1,3";
+        categoryAxis.dataFields.category = "task";
+        categoryAxis.renderer.labels.template.paddingRight = 25;
+        categoryAxis.renderer.minGridDistance = 10;
+        categoryAxis.renderer.innerRadius = 0;
+        categoryAxis.renderer.radius = 100;
+        categoryAxis.renderer.grid.template.location = 1;
 
-        let valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
-        valueAxis.tooltip.disabled = true;
-        valueAxis.renderer.ticks.template.disabled = true;
-        valueAxis.renderer.axisFills.template.disabled = true;
+        let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+        dateAxis.renderer.minGridDistance = 70;
+        dateAxis.min = new Date("2019-11-10 05:00").getTime();
+        dateAxis.max = new Date("2019-11-11 02:00").getTime();
 
-        let series = chart.series.push(new am4charts.ColumnSeries());
-        series.dataFields.categoryY = "category";
-        series.dataFields.openValueX = "open";
-        series.dataFields.valueX = "close";
-        series.tooltipText = "open: {openValueX.value} close: {valueX.value}";
-        series.sequencedInterpolation = true;
-        series.fillOpacity = 0;
-        series.strokeOpacity = 1;
-        series.columns.template.height = 0.01;
-        series.tooltip.pointerOrientation = "vertical";
+        dateAxis.baseInterval = { count: 1, timeUnit: "minute" };
+        dateAxis.startLocation = -0.5;
 
-        let openBullet = series.bullets.create(am4charts.CircleBullet);
-        //openBullet.locationX = 1;
+        dateAxis.renderer.points = [{ x: -400, y: 0 }, { x: -250, y: 0 }, { x: 0, y: 60 }, { x: 250, y: 0 }, { x: 400, y: 0 }];
+        dateAxis.renderer.autoScale = false;
+        dateAxis.renderer.polyspline.tensionX = 0.8;
+        dateAxis.renderer.tooltipLocation = 0;
+        dateAxis.renderer.grid.template.disabled = true;
+        dateAxis.renderer.line.strokeDasharray = "1,4";
+        dateAxis.renderer.line.strokeOpacity = 0.7;
+        dateAxis.tooltip.background.fillOpacity = 0.2;
+        dateAxis.tooltip.background.cornerRadius = 5;
+        dateAxis.tooltip.label.fill = new am4core.InterfaceColorSet().getFor("alternativeBackground");
+        dateAxis.tooltip.label.paddingTop = 7;
 
-        let closeBullet = series.bullets.create(am4charts.CircleBullet);
+        let labelTemplate = dateAxis.renderer.labels.template;
+        labelTemplate.verticalCenter = "middle";
+        labelTemplate.fillOpacity = 0.7;
+        labelTemplate.background.fill = interfaceColors.getFor("background");
+        labelTemplate.background.fillOpacity = 1;
+        labelTemplate.padding(7, 7, 7, 7);
 
-        closeBullet.fill = chart.colors.getIndex(4);
-        closeBullet.stroke = closeBullet.fill;
+        let series = chart.series.push(new am4plugins_timeline.CurveColumnSeries());
+        series.columns.template.height = am4core.percent(15);
+        series.columns.template.tooltipText = "{categoryX}: [bold]{openDateX}[/] - [bold]{dateX}[/]";
 
-        chart.cursor = new am4charts.XYCursor();
-        chart.cursor.behavior = "zoomY";
+        series.dataFields.openDateX = "start";
+        series.dataFields.dateX = "end";
+        series.dataFields.categoryY = "task";
+        series.columns.template.propertyFields.fill = "color"; // get color from data
+        series.columns.template.propertyFields.stroke = "color";
+        series.columns.template.strokeOpacity = 0;
+
+        series.columns.template.adapter.add("fill", function (fill, target) {
+            return chart.colors.getIndex(target.dataItem.index * 3);
+        })
+
+        let flagBullet1 = new am4plugins_bullets.FlagBullet();
+        series.bullets.push(flagBullet1);
+        flagBullet1.disabled = true;
+        flagBullet1.propertyFields.disabled = "bulletf1";
+        flagBullet1.locationX = 1;
+        flagBullet1.label.text = "start";
+
+        let flagBullet2 = new am4plugins_bullets.FlagBullet();
+        series.bullets.push(flagBullet2);
+        flagBullet2.disabled = true;
+        flagBullet2.propertyFields.disabled = "bulletf2";
+        flagBullet2.locationX = 0;
+        flagBullet2.background.fill = interfaceColors.getFor("background");
+        flagBullet2.label.text = "end";
+
+        let bullet = new am4charts.CircleBullet();
+        series.bullets.push(bullet);
+        bullet.circle.radius = 3;
+        bullet.circle.strokeOpacity = 0;
+        bullet.locationX = 0;
+
+        bullet.adapter.add("fill", function (fill, target) {
+            return chart.colors.getIndex(target.dataItem.index * 3);
+        })
+
+        let bullet2 = new am4charts.CircleBullet();
+        series.bullets.push(bullet2);
+        bullet2.circle.radius = 3;
+        bullet2.circle.strokeOpacity = 0;
+        bullet2.propertyFields.fill = "color";
+        bullet2.locationX = 1;
+
+        bullet2.adapter.add("fill", function (fill, target) {
+            return chart.colors.getIndex(target.dataItem.index * 3);
+        })
 
         chart.scrollbarX = new am4core.Scrollbar();
-        chart.scrollbarY = new am4core.Scrollbar();
+        chart.scrollbarX.align = "center"
+        chart.scrollbarX.width = 800;
+        chart.scrollbarX.parent = chart.bottomAxesContainer;
+        chart.scrollbarX.dy = - 90;
+        chart.scrollbarX.opacity = 0.4;
+
+        let cursor = new am4plugins_timeline.CurveCursor();
+        chart.cursor = cursor;
+        cursor.xAxis = dateAxis;
+        cursor.yAxis = categoryAxis;
+        cursor.lineY.disabled = true;
+        cursor.lineX.strokeDasharray = "1,4";
+        cursor.lineX.strokeOpacity = 1;
+
+        dateAxis.renderer.tooltipLocation2 = 0;
+        categoryAxis.cursorTooltipEnabled = false;
 
         return series;
     }

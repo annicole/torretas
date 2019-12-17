@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input ,OnDestroy} from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
-import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { ChartPie } from '@app/classes/ChartPie';
 import * as ruta from '@app/classes/Ruta';
 
@@ -10,7 +9,7 @@ import * as ruta from '@app/classes/Ruta';
   templateUrl: './pie.component.html',
   styleUrls: ['./pie.component.css']
 })
-export class PieComponent implements OnInit {
+export class PieComponent implements OnInit,OnDestroy {
 
   private chartPie: ChartPie = new ChartPie();
   chart1;
@@ -38,7 +37,9 @@ export class PieComponent implements OnInit {
     this.chart1.legend.position = "right";
     this.chart1.legend.valign = "top";
     this.chart1.legend.labels.template.maxWidth = 120;
-    this.chart1.legend.labels.template.truncate = true;
+    this.chart1.legend.labels.template.truncate = false;
+    this.chart1.legend.labels.template.wrap = true;
+    this.chart1.legend.labels.template.text = "{name}";
     pieSeries.slices.template.events.on("hit", this.clickEventPie, this);
   }
   
@@ -50,8 +51,14 @@ export class PieComponent implements OnInit {
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
     localStorage.setItem('sensor',selected.substring(2, 3));
-    window.open(ruta.ruta+"/evento", "_blank");
+    window.open("http://localhost:4200/evento", "_blank");
     
+  }
+
+  ngOnDestroy() {
+    if (this.chart1) {
+      this.chart1.dispose();
+    }
   }
 
 }

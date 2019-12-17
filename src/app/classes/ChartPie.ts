@@ -9,6 +9,11 @@ export class ChartPie {
         pieSeries.dataFields.value = "numEventos";
         pieSeries.dataFields.category = "sensor";
 
+        pieSeries.slices.template.adapter.add("fill", function (fill, target) {
+            const item = target.dataItem.dataContext as any;
+            return am4core.color(item.color);
+        });
+
         // Let's cut a hole in our Pie chart the size of 30% the radius
         chart.innerRadius = am4core.percent(30);
         chart.responsive.enabled = true;
@@ -25,6 +30,7 @@ export class ChartPie {
                 }
             ];
 
+        pieSeries.legendSettings.valueText = "{numEventos}";
         /*pieSeries.alignLabels = false;
         pieSeries.labels.template.bent = false;
         pieSeries.labels.template.radius = 1;

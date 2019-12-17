@@ -42,9 +42,9 @@ export class ChartBar {
         series.columns.template.column.cornerRadiusTopRight = 10;
         series.columns.template.column.fillOpacity = 0.8;
 
-
         series.columns.template.adapter.add("fill", function (fill, target) {
-            return chart.colors.getIndex(target.dataItem.index);
+            const item = target.dataItem.dataContext as any;
+            return am4core.color(item.color);
         });
 
         // on hover, make corner radiuses bigger
