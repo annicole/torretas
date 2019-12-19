@@ -7,7 +7,7 @@ import * as environment from '../../environments/environment';
   providedIn: 'root'
 })
 export class EventoService {
-  private url:string = environment.environment.urlEndPoint+'/evento';
+  private url:string = environment.environment.urlEndPoint+'/evento/';
   constructor(private http:HttpClient) { }
 
   getEvento(endPoint:string,maquina:string,inicio:string,fin:string,pagina:string,pageSize:string,token):Observable<any>{

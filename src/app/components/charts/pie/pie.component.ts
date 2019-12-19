@@ -50,7 +50,7 @@ export class PieComponent implements OnInit,OnDestroy {
     localStorage.setItem('maquina', this.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
-    localStorage.setItem('sensor',selected.substring(2, 3));
+    localStorage.setItem('sensor',selected);
     window.open("http://localhost:4200/evento", "_blank");
     
   }

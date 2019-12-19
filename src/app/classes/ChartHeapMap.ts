@@ -26,6 +26,7 @@ export class ChartHeapMap {
         yAxis.dataFields.category = "maquina";
         xAxis.renderer.minGridDistance = 10;
 
+        xAxis.renderer.labels.template.rotation = 270;
         xAxis.renderer.grid.template.disabled = true;
         yAxis.renderer.grid.template.disabled = true;
         xAxis.renderer.axisFills.template.disabled = true;

@@ -49,7 +49,7 @@ export class EventoComponent implements OnInit {
 
   async getEventos() {
     try {
-      let resp = await this.eventoService.getEvento("/e"+this.sensor, this.idMaquina, this.fechaInicio, this.fechaFin,String(this.page),String(this.limit),this.auth.token).toPromise();
+      let resp = await this.eventoService.getEvento(this.sensor, this.idMaquina, this.fechaInicio, this.fechaFin,String(this.page),String(this.limit),this.auth.token).toPromise();
       if (resp.code == 200) {
         console.log(resp);
         this.listEventos = resp.evento;

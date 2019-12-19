@@ -45,14 +45,14 @@ export class GraficaEventoComponent implements OnInit {
   colorsChart = {
     Apagado: "#E9E9E9",
     Paro: "#CB4848",
-    Operando: "#808080",
-    En_Paro: "#00FF00",
-    Stand_by: "#FF0000",
-    Servicio: "#B45A00",
-    Materiales: "#0000FF",
-    Ingenieria: "#0064C8",
-    Produccion: "#6400B4",
-    Calidad: "#B43C00"
+    Operando: "#01DF01",
+    En_Paro: "#F50505",
+    Stand_by: "#FAE31A",
+    Servicio: "#0000FF",
+    Materiales: "#FFA948",
+    Ingenieria: "#2EC1FE",
+    Produccion: "#0000FF",
+    Calidad: "#DF01D7"
   }
 
   constructor(
@@ -229,15 +229,6 @@ export class GraficaEventoComponent implements OnInit {
   filtrar() {
     this.showSpinner();
     this.getDataGrafica();
-    /* let fechaI: string = this.fechaInicio + ' ' + this.horaInicio;
-     let fechaF: string = this.fechaFin + ' ' + this.horaFin;
-     console.log("hora",this.horaInicio, ' ',this.horaFin);
-     console.log(fechaI,fechaF);
-     localStorage.setItem('maquina', this.maquina);
-     localStorage.setItem('fechaInicio', fechaI);
-     localStorage.setItem('fechaFin', fechaF);
-     localStorage.setItem('sensor','1');
-     window.open("http://localhost:4200/evento", "_blank");*/
   }
 
   showSpinner() {

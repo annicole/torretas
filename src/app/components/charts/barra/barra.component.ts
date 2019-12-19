@@ -26,7 +26,6 @@ export class BarraComponent implements OnInit,OnDestroy {
   constructor() { }
 
   ngOnInit() {
-    console.log("entra", this.chartData);
     this.llenarGrafica();
   }
 
@@ -47,8 +46,8 @@ export class BarraComponent implements OnInit,OnDestroy {
     localStorage.setItem('maquina', this.maquina);
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
-    localStorage.setItem('sensor',selected.substring(2, 3));
-    window.open("http://localhost:4200/evento/evento", "_blank");
+    localStorage.setItem('sensor',selected);
+    window.open("http://localhost:4200/evento", "_blank");
     
   }
 
