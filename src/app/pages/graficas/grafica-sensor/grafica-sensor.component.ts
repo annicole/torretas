@@ -36,7 +36,7 @@ export class GraficaSensorComponent implements OnInit {
   iconFilter: string = 'expand_less';
   showFilter: boolean = false;
   graficaForm: FormGroup;
-  intervalTimer = interval(30000);
+  intervalTimer = interval(15000);
   intervalSubs;
   colorsChart = {
     "Apagado": am4core.color("#E9E9E9"),
