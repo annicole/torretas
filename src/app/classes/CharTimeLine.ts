@@ -14,8 +14,8 @@ export class ChartTimeLine {
         chart.responsive.enabled = true;
         chart.maskBullets = false;
 
-         chart.legend = new am4charts.Legend();
-         chart.legend.useDefaultMarker = true;
+        // chart.legend = new am4charts.Legend();
+        // chart.legend.useDefaultMarker = true;
          //chart.legend.position = "right";
          //chart.legend.valign = "top";
          //chart.legend.labels.template.maxWidth = 120;
