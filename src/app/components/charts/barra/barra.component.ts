@@ -3,7 +3,7 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { ChartBar } from '@app/classes/ChartBar';
-import * as ruta from '@app/classes/Ruta';
+import { RUTA_EVENTO} from '@app/classes/Ruta';
 
 @Component({
   selector: 'app-barra',
@@ -47,7 +47,7 @@ export class BarraComponent implements OnInit,OnDestroy {
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
     localStorage.setItem('sensor',selected);
-    window.open("http://localhost:4200/evento", "_blank");
+    window.open(RUTA_EVENTO, "_blank");
     
   }
 

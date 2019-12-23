@@ -5,8 +5,6 @@ export class ChartBar {
 
     generateChartData(data, chartDiv: string) {
         let chart = am4core.create(chartDiv, am4charts.XYChart);
-        chart.scrollbarX = new am4core.Scrollbar();
-
         // Add data
         chart.data = data;
         chart.responsive.enabled = true;
@@ -23,7 +21,6 @@ export class ChartBar {
 
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
         valueAxis.renderer.minWidth = 50;
-
         return chart;
     }
 

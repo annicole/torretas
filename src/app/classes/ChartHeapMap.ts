@@ -52,6 +52,11 @@ export class ChartHeapMap {
         bullet.strokeOpacity = 0;
         bullet.propertyFields.fill = "color";
 
+        series.columns.template.adapter.add("fill", function (fill, target) {
+            const item = target.dataItem.dataContext as any;
+            return am4core.color(item.color);
+        });
+
 
         bullet.adapter.add("tooltipY", function (tooltipY, target) {
             return -target.radius + 1;

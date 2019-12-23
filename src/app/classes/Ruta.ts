@@ -1,3 +1,1 @@
-export const ruta = {
-    url: 'http://localhost:4200'
-  };
+export const RUTA_EVENTO =  'http://localhost:4200/evento';

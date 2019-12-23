@@ -1,15 +1,17 @@
 
 import * as am4core from "@amcharts/amcharts4/core";
 
-export const   colorsChart = {
-  "Apagado": am4core.color("#E9E9E9"),
-  "Paro": am4core.color("#CB4848"),
-  "Operando": am4core.color("#01DF01"),
-  "En_Paro": am4core.color("#F50505"),
-  "Stand_by": am4core.color("#FAE31A"),
-  "Servicio": am4core.color("#0000FF"),
-  "Materiales": am4core.color("#FFA948"),
-  "Ingenieria": am4core.color("#2EC1FE"),
-  "Produccion": am4core.color("#0000FF"),
-  "Calidad": am4core.color("#DF01D7")
+export const  COLORS_CHART = {
+  Apagado: "#E9E9E9",
+  Paro: "#CB4848",
+  Operando: "#01DF01",
+  En_Paro: "#F50505",
+  Stand_by: "#FAE31A",
+  Servicio: "#0000FF",
+  Materiales: "#FFA948",
+  Ingenieria: "#2EC1FE",
+  Produccion: "#0000FF",
+  Calidad: "#DF01D7"
 }
+
+//export default colorsChart;

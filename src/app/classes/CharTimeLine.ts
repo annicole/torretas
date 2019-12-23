@@ -7,22 +7,26 @@ import * as am4plugins_bullets from "@amcharts/amcharts4/plugins/bullets";
 export class ChartTimeLine {
 
     generateChart(data, chartDiv: string) {
-        let container = am4core.create(chartDiv, am4core.Container);
-        container.width = am4core.percent(100);
-        container.height = am4core.percent(100);
-
-        let chart = container.createChild(am4plugins_timeline.CurveChart);
+        let chart = am4core.create(chartDiv, am4plugins_timeline.CurveChart);
         chart.data = data;
         chart.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm";
         chart.dateFormatter.inputDateFormat = "yyyy-MM-dd hh:mm";
-        chart.dy = 90;
+        chart.responsive.enabled = true;
         chart.maskBullets = false;
+
+         chart.legend = new am4charts.Legend();
+         chart.legend.useDefaultMarker = true;
+         //chart.legend.position = "right";
+         //chart.legend.valign = "top";
+         //chart.legend.labels.template.maxWidth = 120;
+         //chart.legend.labels.template.truncate = false;
+         //chart.legend.labels.template.wrap = true;
+         //chart.legend.labels.template.text = "{task}";
         return chart;
     }
 
     generateSerie(chart) {
         let interfaceColors = new am4core.InterfaceColorSet();
-        let colorSet = new am4core.ColorSet();
 
         let categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
         categoryAxis.dataFields.category = "task";
@@ -109,13 +113,6 @@ export class ChartTimeLine {
         bullet2.adapter.add("fill", function (fill, target) {
             return chart.colors.getIndex(target.dataItem.index * 3);
         })
-
-        chart.scrollbarX = new am4core.Scrollbar();
-        chart.scrollbarX.align = "center"
-        chart.scrollbarX.width = 800;
-        chart.scrollbarX.parent = chart.bottomAxesContainer;
-        chart.scrollbarX.dy = - 90;
-        chart.scrollbarX.opacity = 0.4;
 
         let cursor = new am4plugins_timeline.CurveCursor();
         chart.cursor = cursor;

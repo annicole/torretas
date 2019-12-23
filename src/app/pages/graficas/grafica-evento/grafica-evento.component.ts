@@ -15,7 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '@app/services/auth.service';
-import * as color from '@app/classes/Color';
+import { COLORS_CHART } from '@app/classes/Color';
 
 am4core.useTheme(am4themes_animated);
 @Component({
@@ -42,19 +42,6 @@ export class GraficaEventoComponent implements OnInit {
   dataTimeLine = [];
   filterByMachine: boolean = true;
 
-  colorsChart = {
-    Apagado: "#E9E9E9",
-    Paro: "#CB4848",
-    Operando: "#01DF01",
-    En_Paro: "#F50505",
-    Stand_by: "#FAE31A",
-    Servicio: "#0000FF",
-    Materiales: "#FFA948",
-    Ingenieria: "#2EC1FE",
-    Produccion: "#0000FF",
-    Calidad: "#DF01D7"
-  }
-
   constructor(
     private maquinaService: MaquinaService,
     private datePipe: DatePipe,
@@ -74,13 +61,13 @@ export class GraficaEventoComponent implements OnInit {
       fechaFin: ['', Validators.required],
       area: ['']
     }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'), this.ValidDate('horaInicio', 'horaFin')] });
-    if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
-      this.graficaForm.value.maquina = this.activate.snapshot.paramMap.get('idMaquina');
-    }
     this.getMaquinas();
     this.getAreas();
     this.graficaForm.get('maquina').setValidators([Validators.required]);
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
+      this.graficaForm.controls['maquina'].setValue(this.activate.snapshot.paramMap.get('idMaquina'));
+    }
   }
 
   llenarGraficaTime() {
@@ -110,8 +97,6 @@ export class GraficaEventoComponent implements OnInit {
     }, {
       "task": ""
     }].reverse();
-
-    this.chatFlag = true;
   }
 
   async getDataGrafica() {
@@ -141,24 +126,25 @@ export class GraficaEventoComponent implements OnInit {
             this.dataChart.push({
               sensor: key,
               numEventos: arreglo[key],
-              color: this.colorsChart[key]
+              color: COLORS_CHART[key]
             });
           } else if (key.substring(0, 2) === 'te') {
-            let keyValue = key.substring(2,key.length);
+            let keyValue = key.substring(2, key.length);
             this.dataChart1.push({
               sensor: keyValue,
               numEventos: arreglo[key],
-              color : this.colorsChart[keyValue]
+              color: COLORS_CHART[keyValue]
             });
           }
           else if (key.substring(0, 2) === 'tp') {
             this.dataChart2.push({
               sensor: key,
-              numEventos: arreglo[key.substring(2,key.length)]
+              numEventos: arreglo[key.substring(2, key.length)]
             });
           }
         });
         this.chatFlag = true;
+        this.llenarGraficaTime(); //quitar
         this.spinner.hide("mySpinner");
       } else {
         this.chatFlag = false;
@@ -202,11 +188,9 @@ export class GraficaEventoComponent implements OnInit {
     return (formGroup: FormGroup) => {
       const controlInicio = formGroup.controls[inicio];
       const controlFinal = formGroup.controls[final];
-
       if (controlFinal.errors && !controlFinal.errors.mustMatch) {
         return;
       }
-
       if (controlFinal.value < controlInicio.value) {
         controlFinal.setErrors({ mustMatch: true });
       } else {

@@ -27,17 +27,14 @@ export class TimeLineComponent implements OnInit {
 
   ngOnInit() {
     this.llenarGrafica();
-    console.log('entro');
   }
 
   llenarGrafica() {
     this.dataChart = this.chartData;
-    this.chart = this.charTimeLine.generateChart(this.dataChart, "chartdiv");
+    this.chart = this.charTimeLine.generateChart(this.dataChart, "chartTimeLine");
     let serie = null;
     serie = this.charTimeLine.generateSerie(this.chart);
-    serie.columns.template.events.on("hit", this.clickEvent, this);
-    // Cursor
-//this.chart.cursor = new am4charts.XYCursor();
+    //serie.columns.template.events.on("hit", this.clickEvent, this);
   }
 
   clickEvent(ev) {
@@ -48,7 +45,7 @@ export class TimeLineComponent implements OnInit {
     localStorage.setItem('fechaInicio', fechaI);
     localStorage.setItem('fechaFin', fechaF);
     localStorage.setItem('sensor',selected.substring(2, 3));
-    window.open(ruta.ruta+"/evento", "_blank");
+   // window.open(ruta.ruta+"/evento", "_blank");
     
   }
 

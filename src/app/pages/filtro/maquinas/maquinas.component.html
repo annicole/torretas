@@ -32,6 +32,7 @@
             <!--<a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar Sensor "
               (click)="addSensor(m.idmaquina)"><i class="material-icons">build</i></a>-->
               <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver gráficas" [routerLink]="['/graficas',m.idmaquina]" (click)="loadPage(m.idmaquina)"><i class="material-icons">assessment</i></a> 
+              <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver tabla de estados" [routerLink]="['/tablaEstado',m.idmaquina]" (click)="loadPage(m.idmaquina)"> <i class="material-icons"> bubble_chart </i></a> 
           </td>
         </tr>
       </tbody>

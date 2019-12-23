@@ -17,7 +17,7 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
-import * as color from '@app/classes/Color';
+import {COLORS_CHART} from '@app/classes/Color';
 
 am4core.useTheme(am4themes_animated);
 @Component({
@@ -38,19 +38,6 @@ export class GraficaSensorComponent implements OnInit {
   graficaForm: FormGroup;
   intervalTimer = interval(15000);
   intervalSubs;
-  colorsChart = {
-    "Apagado": am4core.color("#E9E9E9"),
-    "Paro": am4core.color("#CB4848"),
-    "Operando": am4core.color("#01DF01"),
-    "En_Paro": am4core.color("#F50505"),
-    "Stand_by": am4core.color("#FAE31A"),
-    "Servicio": am4core.color("#0000FF"),
-    "Materiales": am4core.color("#FFA948"),
-    "Ingenieria": am4core.color("#2EC1FE"),
-    "Produccion": am4core.color("#0000FF"),
-    "Calidad": am4core.color("#DF01D7")
-
-  }
   estado = [
     "Apagado",
     "Evento",
@@ -76,6 +63,9 @@ export class GraficaSensorComponent implements OnInit {
     }
     this.getMaquinas();
     this.getAreas();
+    if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
+      this.graficaForm.controls['maquina'].setValue(this.activate.snapshot.paramMap.get('idMaquina'));
+    }
   }
 
   async getMaquinas() {
@@ -142,7 +132,7 @@ export class GraficaSensorComponent implements OnInit {
                     sensor: key,
                     maquina: maquina,
                     estado: estado,
-                    color: estado == 'Evento' ? this.colorsChart[key] : this.colorsChart[estado],
+                    color: estado == 'Evento' ? COLORS_CHART[key] : COLORS_CHART[estado],
                     valor: 20,
                     estadoN: element[key],
                   });
