@@ -1,11 +1,11 @@
 <div class="maquina card mb-4 mx-5">
   <div class="card-header header">
-    <h4>Máquinas</h4>
+    <h4>Equipos</h4>
     <select class="form-control search" id="area" [(ngModel)]="selectedArea" (ngModelChange)="searchByArea()">
       <option value="">Seleccionar área...</option>
       <option *ngFor="let a of areas" [value]="a.idarea">{{a.area | titlecase}}</option>
     </select>
-    <input type="text" class="form-control search" placeholder="Buscar máquina.."
+    <input type="text" class="form-control search" placeholder="Buscar equipo.."
       (input)="onSearchChange($event.target.value)">
     <button class="btn btn-custom" (click)="addMaquina()">
       <i class="material-icons"> add </i>
@@ -15,8 +15,10 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Máquina</th>
+          <th scope="col">Equipo</th>
           <th scope="col">Área</th>
+          <th scope="col">Tipo de equipo</th>
+          <th scope="col">Torreta</th>
           <th scope="col">Opciones</th>
         </tr>
       </thead>
@@ -24,6 +26,8 @@
         <tr *ngFor="let m of maquinas">
           <td>{{m.maquina | titlecase}}</td>
           <td>{{m.Area.area | titlecase}}</td>
+          <td>{{m.TipoEquipo.tipoequipo }}</td>
+          <td>{{m.torreta }}</td>
           <td>
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="updateMaquina(m)"><i
                 class="material-icons">create</i></a>

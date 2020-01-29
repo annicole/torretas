@@ -44,7 +44,7 @@ export class DepartamentosComponent implements OnInit {
       width: '40rem',
       data: {
         title: 'Agregar departamento',
-        btnText: 'Agregar',
+        btnText: 'Guardar',
         alertSuccesText: 'Departamento creado!',
         alertErrorText: "No se puedo crear el departamento",
         modalMode: 'create'

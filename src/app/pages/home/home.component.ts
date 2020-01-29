@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
       },
       {
         icon: 'build',
-        text: 'Máquinas',
+        text: 'Equipos',
         function: '/maquina',
         class: 'pink-bg'
       },

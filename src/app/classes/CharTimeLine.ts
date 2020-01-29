@@ -44,8 +44,8 @@ export class ChartTimeLine {
         dateAxis.baseInterval = { count: 1, timeUnit: "minute" };
         dateAxis.startLocation = -0.5;
 
-        dateAxis.renderer.points = [{ x: -400, y: 0 }, { x: -250, y: 0 }, { x: 0, y: 60 }, { x: 250, y: 0 }, { x: 400, y: 0 }];
-        dateAxis.renderer.autoScale = false;
+        //dateAxis.renderer.points = [{ x: -400, y: 0 }, { x: -250, y: 0 }, { x: 0, y: 60 }, { x: 250, y: 0 }, { x: 400, y: 0 }];
+       // dateAxis.renderer.autoScale = false;
         dateAxis.renderer.polyspline.tensionX = 0.8;
         dateAxis.renderer.tooltipLocation = 0;
         dateAxis.renderer.grid.template.disabled = true;
@@ -124,7 +124,7 @@ export class ChartTimeLine {
 
         dateAxis.renderer.tooltipLocation2 = 0;
         categoryAxis.cursorTooltipEnabled = false;
-
+        chart.responsive.enabled = true;
         return series;
     }
 

@@ -13,7 +13,7 @@
               <label for="tipoFiltro">Filtrar por:</label>
               <div class="btn-group ml-3" role="group" aria-label="Basic example" id="tipoFiltro">
                 <button type="button" class="btn btn-outline-info" [ngClass]="{'btn-info': filterByMachine }"
-                  (click)="filterTypeselected(true)">Máquina</button>
+                  (click)="filterTypeselected(true)">Equipo</button>
                 <button type="button" class="btn btn-outline-info" [ngClass]="{'btn-info': !filterByMachine }"
                   (click)="filterTypeselected(null)">Área</button>
               </div>
@@ -23,14 +23,14 @@
               </button>
             </div>
             <div class="form-group" [hidden]="!filterByMachine">
-              <label for="maquina">Máquina:</label>
+              <label for="maquina">Equipo:</label>
               <select class="form-control" id="maquina" formControlName="maquina"
                 [ngClass]="{ 'is-invalid': submitted && f.maquina.errors }">
-                <option value="">Seleccionar máquina</option>
+                <option value="">Seleccionar equipo</option>
                 <option *ngFor="let m of maquinas" [value]="m.idmaquina">{{m.maquina}} </option>
               </select>
               <div *ngIf="submitted && f.maquina.errors" class="invalid-feedback">
-                <div *ngIf="f.maquina.errors.required">Máquina es requerida</div>
+                <div *ngIf="f.maquina.errors.required">Equipo es requerido</div>
               </div>
             </div>
             <div class="form-group" [hidden]="filterByMachine">

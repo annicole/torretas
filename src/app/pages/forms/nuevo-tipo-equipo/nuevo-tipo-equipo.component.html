@@ -1,0 +1,24 @@
+<div class="modal">
+    <div class="header">
+      <h4>{{title}}</h4>
+      <h2> <i class="material-icons pointer" (click)="closeModal()"> clear </i> </h2>
+    </div>
+    <div class="body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="tipo">Tipo de Equipo</label>
+          <input type="text" class="form-control" id="tipo" nombre="tipo"
+            formControlName="tipo" [ngClass]="{ 'is-invalid': submitted && f.tipo.errors }">
+          <div *ngIf="submitted && f.tipo.errors" class="invalid-feedback">
+            <div *ngIf="f.tipo.errors.required">Tipo de Equipo es requerido</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn btn-secondary">{{btnText}}</button>
+      </form>
+  
+      <div class="alert animated fadeIn" *ngIf="alertMessage"
+        [ngClass]="{'alert-danger': !alertSuccess, 'alert-success': alertSuccess }">
+        {{ alertMessage }}
+      </div>
+    </div>
+  </div>

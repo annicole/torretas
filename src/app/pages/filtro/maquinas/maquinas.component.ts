@@ -58,10 +58,10 @@ export class MaquinasComponent implements OnInit {
     const dialogRef = this.dialog.open(NuevoMaquinaComponent, {
       width: '40rem',
       data: {
-        title: 'Agregar máquina',
+        title: 'Agregar equipo',
         btnText: 'Agregar',
-        alertSuccesText: 'Máquina creada!',
-        alertErrorText: "No se puedo crear la máquina",
+        alertSuccesText: 'Equipo creado!',
+        alertErrorText: "No se puedo crear el equipo",
         modalMode: 'create'
       }
     });
@@ -75,10 +75,10 @@ export class MaquinasComponent implements OnInit {
     const dialogRef = this.dialog.open(NuevoMaquinaComponent, {
       width: '50rem',
       data: {
-        title: 'Editar máquina',
+        title: 'Editar equipo',
         btnText: 'Editar',
-        alertSuccesText: 'Máquina modificada correctamente',
-        alertErrorText: "No se puedo modificar la máquina",
+        alertSuccesText: 'Equipo modificado correctamente',
+        alertErrorText: "No se puedo modificar el equipo",
         modalMode: 'edit',
         _maquina
       }
@@ -91,17 +91,17 @@ export class MaquinasComponent implements OnInit {
 
   delete(id: number) {
     Swal.fire({
-      title: '¿Estas seguro?', text: "Desea eliminar el departamento",
+      title: '¿Estas seguro?', text: "Desea eliminar el equipo",
       type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
         this.maquinaService.delete(id,this.auth.token).subscribe(res => {
           if (res.code == 200) {
-            Swal.fire('Eliminado', 'El departamento ha sido eliminado correctamente', 'success');
+            Swal.fire('Eliminado', 'El equipo ha sido eliminado correctamente', 'success');
             this.getMaquinas("");
           } else {
-            Swal.fire('Error', 'No fue posible eliminar el departamento', 'error');
+            Swal.fire('Error', 'No fue posible eliminar el equipo', 'error');
           }
         });
       }

@@ -13,6 +13,7 @@ import {UsuariosComponent} from './pages/filtro/usuarios/usuarios.component';
 import {SensoresComponent} from './pages/filtro/sensores/sensores.component';
 import {LoginComponent} from './pages/login/login.component';
 import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
+import { TipoEquipoComponent } from './pages/filtro/tipo-equipo/tipo-equipo.component';
 
 const routes:Routes=[
   {path:'',redirectTo:'/home',pathMatch:'full'},
@@ -26,7 +27,8 @@ const routes:Routes=[
   {path:'usuario',component:UsuariosComponent,canActivate: [AuthGuard] },
   {path:'home',component:HomeComponent,canActivate: [AuthGuard] },
   {path:'login',component:LoginComponent },
-  {path:'tablaEstado/:idMaquina',component:GraficaSensorComponent,canActivate: [AuthGuard]}
+  {path:'tablaEstado/:idMaquina',component:GraficaSensorComponent,canActivate: [AuthGuard]},
+  {path:'tipoEquipo',component:TipoEquipoComponent },
 ];
 @NgModule({
   declarations: [],

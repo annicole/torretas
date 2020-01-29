@@ -1,0 +1,31 @@
+<div class="tipo card mb-4 mx-5">
+    <div class="card-header">
+        <app-header-table [titleHeader]="'Tipos de equipo'" [titleSelect]="'Buscar tipo..'" 
+        (buttonOutput)="add()" (searchOutput)="onSearchChange($event)" >
+        </app-header-table>
+    </div>
+    <div class="table-responsive-lg px-4">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Tipo Equipo</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of tipos">
+            <td>{{t.tipoequipo | titlecase}}</td>
+            <td>
+              <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="update(t)"><i
+                  class="material-icons">create</i></a>
+              <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " (click)="delete(m.idmaquina)"><i
+                  class="material-icons">delete</i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="footer">
+      <span class="badge badge-light">Total: {{total}}</span>
+    </div>
+  </div>
