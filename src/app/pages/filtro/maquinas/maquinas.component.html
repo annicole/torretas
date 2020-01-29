@@ -7,9 +7,11 @@
     </select>
     <input type="text" class="form-control search" placeholder="Buscar equipo.."
       (input)="onSearchChange($event.target.value)">
-    <button class="btn btn-custom" (click)="addMaquina()">
+    <button class="btn btn-custom" (click)="addMaquina()" title="Tipo de equipo">
       <i class="material-icons"> add </i>
-    </button>
+      <button class="btn btn-custom" (click)="addMaquina()" title="Agregar departamento">
+        <i class="material-icons"> add </i>
+      </button>
   </div>
   <div class="table-responsive-lg px-4">
     <table class="table table-hover">
@@ -35,8 +37,12 @@
                 class="material-icons">delete</i></a>
             <!--<a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar Sensor "
               (click)="addSensor(m.idmaquina)"><i class="material-icons">build</i></a>-->
-              <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver gráficas" [routerLink]="['/graficas',m.idmaquina]" (click)="loadPage(m.idmaquina)"><i class="material-icons">assessment</i></a> 
-              <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver tabla de estados" [routerLink]="['/tablaEstado',m.idmaquina]" (click)="loadPage(m.idmaquina)"> <i class="material-icons"> bubble_chart </i></a> 
+            <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver gráficas"
+              [routerLink]="['/graficas',m.idmaquina]" (click)="loadPage(m.idmaquina)"><i
+                class="material-icons">assessment</i></a>
+            <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver tabla de estados"
+              [routerLink]="['/tablaEstado',m.idmaquina]" (click)="loadPage(m.idmaquina)"> <i class="material-icons">
+                bubble_chart </i></a>
           </td>
         </tr>
       </tbody>
