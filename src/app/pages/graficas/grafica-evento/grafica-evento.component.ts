@@ -21,7 +21,7 @@ am4core.useTheme(am4themes_animated);
 @Component({
   selector: 'app-grafica-evento',
   templateUrl: './grafica-evento.component.html',
-  styleUrls: ['./grafica-evento.component.css']
+  styleUrls: ['./grafica-evento.component.scss']
 })
 export class GraficaEventoComponent implements OnInit {
   private chart: am4charts.XYChart;

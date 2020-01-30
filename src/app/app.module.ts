@@ -87,7 +87,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
   providers: [DatePipe,{ provide: LOCALE_ID, useValue: 'es-Mx' }],
   bootstrap: [AppComponent],
   entryComponents: [
-    NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent
+    NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,NuevoTipoEquipoComponent
   ]
 })
 export class AppModule { }

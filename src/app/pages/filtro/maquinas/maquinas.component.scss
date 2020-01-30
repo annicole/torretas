@@ -2,28 +2,17 @@
 @import '../../../../assets/variables.scss';
 
 .card { 
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-
-.machine-card{
-    width: 100%;
-    margin: 0px !important;
-    background-color: #ffff;
+    box-shadow: $shadow-card;
 }
 
 .maquina {
-    margin-top: 5rem;
+    margin-top: 6rem;
 }
 
 .header{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-}
-
-.btn-custom{
-    background-color: $indigo;
-    color: white;
 }
 
 .footer{
@@ -31,5 +20,10 @@
 }
 
 .search{
-    width: 25% !important;
+    width: 30% !important;
+    margin-right: 20px;
+}
+
+.div-buttons{
+    flex: 3;
 }

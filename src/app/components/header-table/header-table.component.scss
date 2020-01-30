@@ -1,15 +1,11 @@
 @import '../.././../assets/variables.scss';
 .header{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 }
 
-.btn-custom{
-    background-color: $indigo;
-    color: white;
-}
 
 .search{
-    width: 25% !important;
+    width: 40% !important;
 }

@@ -1,17 +1,15 @@
 <div class="maquina card mb-4 mx-5">
   <div class="card-header header">
-    <h4>Equipos</h4>
     <select class="form-control search" id="area" [(ngModel)]="selectedArea" (ngModelChange)="searchByArea()">
       <option value="">Seleccionar área...</option>
       <option *ngFor="let a of areas" [value]="a.idarea">{{a.area | titlecase}}</option>
     </select>
     <input type="text" class="form-control search" placeholder="Buscar equipo.."
       (input)="onSearchChange($event.target.value)">
-    <button class="btn btn-custom" (click)="addMaquina()" title="Tipo de equipo">
-      <i class="material-icons"> add </i>
-      <button class="btn btn-custom" (click)="addMaquina()" title="Agregar departamento">
-        <i class="material-icons"> add </i>
-      </button>
+    <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver tipo de equipo" [routerLink]="['/tipoEquipo']">
+      <i class="material-icons"> assignment </i></a>
+    <a class="btn" data-toggle="tooltip" data-placement="top" title="Nuevo equipo" (click)="addMaquina()">
+      <i class="material-icons"> add </i></a>
   </div>
   <div class="table-responsive-lg px-4">
     <table class="table table-hover">

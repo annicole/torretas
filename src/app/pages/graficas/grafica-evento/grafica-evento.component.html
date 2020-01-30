@@ -1,4 +1,4 @@
-<div class="grafica-evento mx-5">
+<div class="grafica-evento mx-4">
   <div class="grafica-evento-row">
 
     <!-- SIDE BAR -->
@@ -85,38 +85,58 @@
 
     <!-- CARDS SECTION -->
     <div class="cards-section">
-      <div class="col">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h5>Cantidad de eventos por tipo</h5>
-            <hr>
+      <div class="row">
+        <div class="col">
+          <div class="card mb-3">
+            <div class="card-body">
+              <p><b>Cantidad de eventos por tipo</b></p>
+              <hr>
+              <!--<div id="chartdiv" style="width: 100%; height: 500px"></div>-->
+              <app-barra [chartData]="dataChart" [fechaInicio]="f.fechaInicio.value" [fechaFin]="f.fechaFin.value"
+                [maquina]="f.maquina.value" [horaInicio]="f.horaInicio.value" [horaFin]="f.horaFin.value"
+                *ngIf="chatFlag"></app-barra>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card mb-3">
+            <div class="card-body">
+              <p><b>Sumatoria de tiempos por tipo</b></p>
+              <hr>
+              <app-pie [chartData]="dataChart1" [fechaInicio]="f.fechaInicio.value" [fechaFin]="f.fechaFin.value"
+                [maquina]="f.maquina.value" [horaInicio]="f.horaInicio.value" [horaFin]="f.horaFin.value"
+                *ngIf="chatFlag"></app-pie>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="card mb-3">
+            <div class="card-body">
+              <p><b>Gráfica por tiempo</b></p>
+              <hr>
+              <!--<app-time-line [chartData]="dataTimeLine" [fechaInicio]="fechaInicio" [fechaFin]="fechaFin"
+            [maquina]="maquina" [horaInicio]="horaInicio" [horaFin]="horaFin" *ngIf="chatFlag"></app-time-line>-->
             <!--<div id="chartdiv" style="width: 100%; height: 500px"></div>-->
             <app-barra [chartData]="dataChart" [fechaInicio]="f.fechaInicio.value" [fechaFin]="f.fechaFin.value"
+            [maquina]="f.maquina.value" [horaInicio]="f.horaInicio.value" [horaFin]="f.horaFin.value"
+            *ngIf="chatFlag"></app-barra>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card mb-3">
+            <div class="card-body">
+              <p><b>Gráfica por tiempo</b></p>
+              <!--<div id="chartdiv" style="width: 100%; height: 500px"></div>-->
+              <hr>
+              <app-barra [chartData]="dataChart" [fechaInicio]="f.fechaInicio.value" [fechaFin]="f.fechaFin.value"
               [maquina]="f.maquina.value" [horaInicio]="f.horaInicio.value" [horaFin]="f.horaFin.value"
               *ngIf="chatFlag"></app-barra>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card my-4">
-          <div class="card-body">
-            <h5>Sumatoria de tiempos seccionados por tipo</h5>
-            <hr>
-            <app-pie [chartData]="dataChart1" [fechaInicio]="f.fechaInicio.value" [fechaFin]="f.fechaFin.value"
-              [maquina]="f.maquina.value" [horaInicio]="f.horaInicio.value" [horaFin]="f.horaFin.value"
-              *ngIf="chatFlag"></app-pie>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h5>Gráfica por tiempo</h5>
-            <hr>
-            <app-time-line [chartData]="dataTimeLine" [fechaInicio]="fechaInicio" [fechaFin]="fechaFin"
-              [maquina]="maquina" [horaInicio]="horaInicio" [horaFin]="horaFin" *ngIf="chatFlag"></app-time-line>
+            </div>
           </div>
         </div>
       </div>
