@@ -39,6 +39,8 @@ import { TimeLineComponent } from './components/charts/time-line/time-line.compo
 import { TipoEquipoComponent } from './pages/filtro/tipo-equipo/tipo-equipo.component';
 import { HeaderTableComponent } from './components/header-table/header-table.component';
 import { NuevoTipoEquipoComponent } from './pages/forms/nuevo-tipo-equipo/nuevo-tipo-equipo.component';
+import { DonutComponent } from './components/charts/donut/donut.component';
+import { LayeredComponent } from './components/charts/layered/layered.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -72,7 +74,9 @@ registerLocaleData(localeEsMX, 'es-Mx');
     TimeLineComponent,
     TipoEquipoComponent,
     HeaderTableComponent,
-    NuevoTipoEquipoComponent
+    NuevoTipoEquipoComponent,
+    DonutComponent,
+    LayeredComponent
   ],
   imports: [
     BrowserModule,

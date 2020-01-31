@@ -34,12 +34,14 @@ export class PieComponent implements OnInit,OnDestroy {
     this.chart1.data = this.dataChart1;
     let pieSeries = this.chartPie.generateSeries(this.chart1)
     this.chart1.legend = new am4charts.Legend();
-    this.chart1.legend.position = "right";
-    this.chart1.legend.valign = "top";
+    this.chart1.legend.valign = "bottom";
     this.chart1.legend.labels.template.maxWidth = 120;
     this.chart1.legend.labels.template.truncate = false;
     this.chart1.legend.labels.template.wrap = true;
     this.chart1.legend.labels.template.text = "{name}";
+    let markerTemplate = this.chart1.legend.markers.template;
+    markerTemplate.width = 15;
+    markerTemplate.height = 15;
     pieSeries.slices.template.events.on("hit", this.clickEventPie, this);
   }
   

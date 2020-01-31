@@ -24,7 +24,6 @@ am4core.useTheme(am4themes_animated);
   styleUrls: ['./grafica-evento.component.scss']
 })
 export class GraficaEventoComponent implements OnInit {
-  private chart: am4charts.XYChart;
   maquinas: Maquina[];
   maxDate: string;
   minDate: string;
@@ -40,6 +39,8 @@ export class GraficaEventoComponent implements OnInit {
   iconFilter: string = 'expand_less';
   areas: Area[];
   dataTimeLine = [];
+  dataDonut = [];
+  dataLayared =[];
   filterByMachine: boolean = true;
 
   constructor(
@@ -68,6 +69,7 @@ export class GraficaEventoComponent implements OnInit {
     if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
       this.graficaForm.controls['maquina'].setValue(this.activate.snapshot.paramMap.get('idMaquina'));
     }
+    this.llenarGraficaDonut();
   }
 
   llenarGraficaTime() {
@@ -99,6 +101,64 @@ export class GraficaEventoComponent implements OnInit {
     }].reverse();
   }
 
+  llenarGraficaDonut() {
+    this.dataDonut = [{
+      "country": "Lithuania",
+      "litres": 501.9
+    }, {
+      "country": "Czech Republic",
+      "litres": 301.9
+    }, {
+      "country": "Ireland",
+      "litres": 201.1
+    }, {
+      "country": "Germany",
+      "litres": 165.8
+    }, {
+      "country": "Australia",
+      "litres": 139.9
+    }, {
+      "country": "Austria",
+      "litres": 128.3
+    }, {
+      "country": "UK",
+      "litres": 99
+    }, {
+      "country": "Belgium",
+      "litres": 60
+    }, {
+      "country": "The Netherlands",
+      "litres": 50
+    }];
+
+    this.dataLayared = [{
+      "country": "USA",
+      "year2004": 3.5,
+      "year2005": 4.2
+  }, {
+      "country": "UK",
+      "year2004": 1.7,
+      "year2005": 3.1
+  }, {
+      "country": "Canada",
+      "year2004": 2.8,
+      "year2005": 2.9
+  }, {
+      "country": "Japan",
+      "year2004": 2.6,
+      "year2005": 2.3
+  }, {
+      "country": "France",
+      "year2004": 1.4,
+      "year2005": 2.1
+  }, {
+      "country": "Brazil",
+      "year2004": 2.6,
+      "year2005": 4.9
+  }];
+  
+  }
+
   async getDataGrafica() {
     try {
       let arreglo = [];
@@ -123,6 +183,7 @@ export class GraficaEventoComponent implements OnInit {
         arreglo = response.grafica[0];
         Object.keys(arreglo).forEach(key => {
           if (['Operando', 'En_Paro', 'Stand_by', 'Servicio', 'Materiales', 'Ingenieria', 'Produccion', 'Calidad'].indexOf(key) >= 0) {
+
             this.dataChart.push({
               sensor: key,
               numEventos: arreglo[key],
@@ -144,7 +205,6 @@ export class GraficaEventoComponent implements OnInit {
           }
         });
         this.chatFlag = true;
-        this.llenarGraficaTime(); //quitar
         this.spinner.hide("mySpinner");
       } else {
         this.chatFlag = false;
