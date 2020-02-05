@@ -41,6 +41,9 @@ import { HeaderTableComponent } from './components/header-table/header-table.com
 import { NuevoTipoEquipoComponent } from './pages/forms/nuevo-tipo-equipo/nuevo-tipo-equipo.component';
 import { DonutComponent } from './components/charts/donut/donut.component';
 import { LayeredComponent } from './components/charts/layered/layered.component';
+import { CardTitleComponent } from './components/card-title/card-title.component';
+import { FilterByComponent } from './components/filter-by/filter-by.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -76,7 +79,10 @@ registerLocaleData(localeEsMX, 'es-Mx');
     HeaderTableComponent,
     NuevoTipoEquipoComponent,
     DonutComponent,
-    LayeredComponent
+    LayeredComponent,
+    CardTitleComponent,
+    FilterByComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,

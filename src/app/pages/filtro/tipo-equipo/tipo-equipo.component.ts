@@ -41,7 +41,7 @@ export class TipoEquipoComponent implements OnInit {
 
   add(){
       const dialogRef = this.dialog.open(NuevoTipoEquipoComponent, {
-        width: '50rem',
+        width: '30rem',
         data: {
           title: 'Agregar tipo de equipo',
           btnText: 'Agregar',
@@ -59,7 +59,7 @@ export class TipoEquipoComponent implements OnInit {
 
   update(_tipo) {
     const dialogRef = this.dialog.open(NuevoTipoEquipoComponent, {
-      width: '70rem',
+      width: '30rem',
       data: {
         title: 'Editar tipo de equipo',
         btnText: 'Editar',

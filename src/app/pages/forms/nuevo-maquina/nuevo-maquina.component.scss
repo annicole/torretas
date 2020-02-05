@@ -4,36 +4,4 @@
   padding: 0px !important; 
 }
 
-.maquina-modal {
-    padding: 0;
-    .header {
-      padding: 1rem;
-      background-color: white;
-      color: black;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(0,0,0,.1);
-    }
-    .body{
-      width: 100%;
-      padding: 15px;
-      .alert {
-        margin-top: 1rem;
-      }
-    }
-    .pointer {
-      cursor: pointer;
-    }
-  }
-  
-  .custom {
-    background-color: $indigo;
-    border-color: $indigo;
-    color: white;
-}
-
-  .dialog-class{
-    padding: 0;
-  }
 

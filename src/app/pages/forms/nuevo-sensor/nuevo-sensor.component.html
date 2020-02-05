@@ -1,11 +1,6 @@
-<div class="sensor-modal">
-  <div class="header">
-    <h4>{{title}}</h4>
-    <h2> <i class="material-icons pointer" (click)="closeModal()"> clear </i> </h2>
-  </div>
-  <div class="body">
-    <form [formGroup]="sensorForm" (ngSubmit)="onSubmit()">
-        <div class="form-row">
+<dialog-component [title]="title" (closeEmit)="closeModal()">
+  <form [formGroup]="sensorForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
       <div class="form-group col-md-12">
         <label for="sensor">Sensor</label>
         <input type="text" class="form-control" id="sensor" nombre="sensor" [(ngModel)]="sensor.sensor"
@@ -51,12 +46,11 @@
           <div *ngIf="f.color.errors.required">Color es requerido</div>
         </div>
       </div>
-      </div>
-      <button type="submit" class="btn btn-secondary mt-3">Guardar</button>
-    </form>
-    <div class="alert animated fadeIn" *ngIf="alertMessage"
-      [ngClass]="{'alert-danger': !alertSuccess, 'alert-success': alertSuccess }">
-      {{ alertMessage }}
     </div>
+    <button type="submit" class="btn btn-secondary mt-3">Guardar</button>
+  </form>
+  <div class="alert animated fadeIn" *ngIf="alertMessage"
+    [ngClass]="{'alert-danger': !alertSuccess, 'alert-success': alertSuccess }">
+    {{ alertMessage }}
   </div>
-</div>
+</dialog-component>

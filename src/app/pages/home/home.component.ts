@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
         icon: 'bubble_chart',
         text: 'Estados',
         function: '/tablaEstado/0',
-        class: 'black-bg'
+        class: 'green-two-bg'
       },
       {
         icon: 'store',

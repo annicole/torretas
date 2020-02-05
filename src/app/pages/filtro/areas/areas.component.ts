@@ -38,7 +38,7 @@ export class AreasComponent implements OnInit {
 
   addArea() {
     const dialogRef = this.dialog.open(NuevoAreaComponent, {
-      width: '40rem',
+      width: '30rem',
       data: {
         title: 'Agregar área',
         btnText: 'Agregar',
@@ -55,12 +55,12 @@ export class AreasComponent implements OnInit {
 
   addMaquina(idArea) {
     const dialogRef = this.dialog.open(NuevoMaquinaComponent, {
-      width: '40rem',
+      width: '30rem',
       data: {
-        title: 'Agregar máquina',
+        title: 'Agregar equipo',
         btnText: 'Agregar',
-        alertSuccesText: 'Máquina creada!',
-        alertErrorText: "No se puedo crear la máquina",
+        alertSuccesText: 'Equipo creado!',
+        alertErrorText: "No se puedo crear el equipo",
         modalMode: 'create',
         idArea
       }
@@ -79,7 +79,7 @@ export class AreasComponent implements OnInit {
         title: 'Editar área',
         btnText: 'Editar',
         alertSuccesText: 'Área modificada correctamente',
-        alertErrorText: "No se puedo modificar el departamento",
+        alertErrorText: "No se puedo modificar el área",
         modalMode: 'edit',
         _area
       }
@@ -92,7 +92,7 @@ export class AreasComponent implements OnInit {
 
   delete(id: number) {
     Swal.fire({
-      title: '¿Estas seguro?', text: "Desea eliminar el departamento",
+      title: '¿Estas seguro?', text: "Desea eliminar el área",
       type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {

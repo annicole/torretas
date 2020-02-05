@@ -1,9 +1,4 @@
-<div class="usuario-modal">
-  <div class="header">
-    <h4>{{title}}</h4>
-    <h2> <i class="material-icons pointer" (click)="closeModal()"> clear </i> </h2>
-  </div>
-  <div class="body">
+<dialog-component [title]="title" (closeEmit)="closeModal()">
     <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
       <div class="form-row">
         <div class="form-group col-md-6">
@@ -66,5 +61,4 @@
       [ngClass]="{'alert-danger': !alertSuccess, 'alert-success': alertSuccess }">
       {{ alertMessage }}
     </div>
-  </div>
-</div>
+</dialog-component>

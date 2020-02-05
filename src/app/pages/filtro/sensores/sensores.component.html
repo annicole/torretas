@@ -1,4 +1,4 @@
-<div class="sensor card mb-4 mx-5">
+<card-title [title]="''" [styleClass]="'true'" >
   <div class="card-header">
     <app-header-table [titleHeader]="'Sensores'" [titleSelect]="'Buscar sensor..'" (buttonOutput)="addSensor()"
       (searchOutput)="onSearchChange($event)">
@@ -36,4 +36,4 @@
   <div class="footer">
     <span class="badge badge-light">Total: {{total}}</span>
   </div>
-</div>
+</card-title>

@@ -1,0 +1,7 @@
+<label for="tipoFiltro">Filtrar por:</label>
+<div class="btn-group ml-3" role="group" aria-label="Basic example" id="tipoFiltro">
+  <button type="button" class="btn btn-outline-info" [ngClass]="{'btn-info': filterBy }"
+    (click)="filterTypeselected(true)">Equipo</button>
+  <button type="button" class="btn btn-outline-info" [ngClass]="{'btn-info': !filterBy }"
+    (click)="filterTypeselected(null)">Área</button>
+</div>

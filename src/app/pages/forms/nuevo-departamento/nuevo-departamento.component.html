@@ -1,9 +1,4 @@
-<div class="departamento-modal">
-  <div class="header">
-    <h4>{{title}}</h4>
-    <h2> <i class="material-icons pointer" (click)="closeModal()"> clear </i> </h2>
-  </div>
-  <div class="body">
+<dialog-component [title]="title" (closeEmit)="closeModal()">
     <form [formGroup]="departamentoForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="depto">Departamento</label>
@@ -13,16 +8,6 @@
           <div *ngIf="f.departamento.errors.required">Departamento es requerido</div>
         </div>
       </div>
-      <!--<div class="form-group">
-        <label for="cia">Cia</label>
-        <select class="form-control" id="cia" nombre="idcia" [(ngModel)]="departamento.idcia" formControlName="idcia"
-          [ngClass]="{ 'is-invalid': submitted && f.idcia.errors }">
-          <option *ngFor="let c of cias" [value]="c.idcia">{{c.nombre}}</option>
-        </select>
-        <div *ngIf="submitted && f.idcia.errors" class="invalid-feedback">
-          <div *ngIf="f.idcia.errors.required">Cia es requerido</div>
-        </div>
-      </div>-->
       <button type="submit" class="btn btn-secondary">{{btnText}}</button>
     </form>
 
@@ -30,5 +15,4 @@
       [ngClass]="{'alert-danger': !alertSuccess, 'alert-success': alertSuccess }">
       {{ alertMessage }}
     </div>
-  </div>
-</div>
+</dialog-component>

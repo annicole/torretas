@@ -55,17 +55,6 @@ export class NuevoAreaComponent extends Dialog implements OnInit {
     }
   }
 
-  /*  async getCias() {
-      try {
-        let resp = await this.ciaService.getCias().toPromise();
-        if (resp.code == 200) {
-          this.cias = resp.cia;
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }*/
-
   get f() { return this.areaForm.controls; }
 
   onSubmit() {
