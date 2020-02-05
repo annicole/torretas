@@ -1,4 +1,4 @@
-<dialog-component [title]="title" (closeEmit)="closeModal()">
+<dialog-component [title]="title" (closeEmit)="closeModal()" [alertMessage]="alertMessage">
     <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
       <div class="form-row">
         <div class="form-group col-md-6">
@@ -57,8 +57,4 @@
       </div>
       <button type="submit" class="btn btn-secondary">Guardar</button>
     </form>
-    <div class="alert animated fadeIn" *ngIf="alertMessage"
-      [ngClass]="{'alert-danger': !alertSuccess, 'alert-success': alertSuccess }">
-      {{ alertMessage }}
-    </div>
 </dialog-component>
