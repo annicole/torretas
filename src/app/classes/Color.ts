@@ -11,7 +11,10 @@ export const  COLORS_CHART = {
   Materiales: "#FFA948",
   Ingenieria: "#2EC1FE",
   Produccion: "#0000FF",
-  Calidad: "#DF01D7"
+  Calidad: "#DF01D7",
+  no_reportado: "#DCDCDC",
+  Stanbyparo: "#FAE31A",
+  StanbyOperando:  "#FAE31A"
 }
 
 //export default colorsChart;

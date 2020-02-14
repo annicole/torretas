@@ -51,7 +51,7 @@
               <label for="horaInicio">Hora Inicio:</label>
               <input type="time" step="1" id="horaInicio" class="form-control" formControlName="horaInicio"
                 [ngClass]="{ 'is-invalid': submitted && f.horaInicio.errors }">
-              <div *ngIf="submitted && f.fechaFin.errors" class="invalid-feedback">
+              <div *ngIf="submitted && f.horaInicio.errors" class="invalid-feedback">
                 <div *ngIf="f.horaInicio.errors.required">Hora de inicio es requerida</div>
               </div>
             </div>
@@ -106,12 +106,16 @@
             <!--<app-time-line [chartData]="dataTimeLine" [fechaInicio]="fechaInicio" [fechaFin]="fechaFin"
             [maquina]="maquina" [horaInicio]="horaInicio" [horaFin]="horaFin" *ngIf="chatFlag"></app-time-line>-->
             <!--<div id="chartdiv" style="width: 100%; height: 500px"></div>-->
-            <app-donut [chartData]="dataDonut" [divInput]="'chartDonut'"></app-donut>
+           <app-donut [chartData]="dataDonut" [divInput]="'chartDonut'" *ngIf="chatFlagDonut">
+              <div id="chartDonut" style="width: 100%; height: 450px"></div>
+            </app-donut>
           </card-title>
         </div>
         <div class="col">
           <card-title [title]="'Comparativo de tiempo operativo y tiempo de paro' ">
-            <app-layered [chartData]="dataLayared" [divInput]="'chartDonut'"></app-layered>
+        <app-donut [chartData]="dataDonut2" [divInput]="'chartDonutTwo'" *ngIf="chatFlagDonut">
+              <div id="chartDonutTwo" style="width: 100%; height: 450px"></div>
+            </app-donut>
           </card-title>
         </div>
       </div>

@@ -25,7 +25,6 @@ export class PieComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
    this.llenarGrafica();
-   console.log("entra", this.chartData);
   }
 
   llenarGrafica(){

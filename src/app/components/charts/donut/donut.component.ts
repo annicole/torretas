@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,OnDestroy } from '@angular/core';
 import { ChartDonut } from '@app/classes/ChartDonut';
 
 @Component({
@@ -6,9 +6,9 @@ import { ChartDonut } from '@app/classes/ChartDonut';
   templateUrl: './donut.component.html',
   styleUrls: ['./donut.component.css']
 })
-export class DonutComponent implements OnInit {
+export class DonutComponent implements OnInit, OnDestroy {
   private charDonut: ChartDonut = new ChartDonut();
-  chart;
+  chartD;
   dataChart;
   @Input() divInput: string;
   @Input() chartData;
@@ -16,14 +16,18 @@ export class DonutComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.llenarGrafica();
+  }
 
+  llenarGrafica(){
     this.dataChart = this.chartData;
-    this.chart = this.charDonut.generateChartData(this.dataChart, "chartDonut");
+    this.chartD = this.charDonut.generateChartData(this.dataChart,this.divInput);
+    this.charDonut.generateSerie(this.chartD);
   }
 
   ngOnDestroy() {
-    if (this.chart) {
-      this.chart.dispose();
+    if (this.chartD) {
+      this.chartD.dispose();
     }
   }
 

@@ -31,11 +31,12 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
   validateHour: boolean
   dataChart = [];
   dataChart1 = [];
-  dataChart2 = [];
   chatFlag = false;
+  chatFlagDonut = false;
   dataTimeLine = [];
   dataDonut = [];
-  dataLayared =[];
+  dataDonut2 = [];
+  dataLayared = [];
 
   constructor(
     @Inject(MaquinaService) maquinaService: MaquinaService,
@@ -44,9 +45,9 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
     private formBuilder: FormBuilder,
     @Inject(NgxSpinnerService) spinner: NgxSpinnerService,
     private activate: ActivatedRoute, @Inject(AuthService) auth: AuthService,
-    @Inject(AreaService)areaService: AreaService
-  ) { 
-    super(areaService,maquinaService,auth,spinner);
+    @Inject(AreaService) areaService: AreaService
+  ) {
+    super(areaService, maquinaService, auth, spinner);
   }
 
   ngOnInit() {
@@ -65,107 +66,20 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
     if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
       this.graficaForm.controls['maquina'].setValue(this.activate.snapshot.paramMap.get('idMaquina'));
     }
-    this.llenarGraficaDonut();
-  }
-
-  llenarGraficaTime() {
-
-    this.dataTimeLine = [{
-      "start": "2019-11-10 08:00",
-      "end": "2019-11-10 17:00",
-      "task": "Official workday"
-    }, {
-      "start": "2019-11-10 06:00",
-      "end": "2019-11-10 11:00",
-      "task": "Gathering requirements",
-      "bulletf1": false
-    }, {
-      "start": "2019-11-10 11:30",
-      "end": "2019-11-10 16:30",
-      "task": "Development"
-    }, {
-      "start": "2019-11-10 16:00",
-      "end": "2019-11-10 18:00",
-      "task": "Producing specifications"
-    }, {
-      "start": "2019-11-10 13:00",
-      "end": "2019-11-11 01:00",
-      "task": "Testing",
-      "bulletf2": false
-    }, {
-      "task": ""
-    }].reverse();
-  }
-
-  llenarGraficaDonut() {
-    this.dataDonut = [{
-      "country": "Lithuania",
-      "litres": 501.9
-    }, {
-      "country": "Czech Republic",
-      "litres": 301.9
-    }, {
-      "country": "Ireland",
-      "litres": 201.1
-    }, {
-      "country": "Germany",
-      "litres": 165.8
-    }, {
-      "country": "Australia",
-      "litres": 139.9
-    }, {
-      "country": "Austria",
-      "litres": 128.3
-    }, {
-      "country": "UK",
-      "litres": 99
-    }, {
-      "country": "Belgium",
-      "litres": 60
-    }, {
-      "country": "The Netherlands",
-      "litres": 50
-    }];
-
-    this.dataLayared = [{
-      "country": "USA",
-      "year2004": 3.5,
-      "year2005": 4.2
-  }, {
-      "country": "UK",
-      "year2004": 1.7,
-      "year2005": 3.1
-  }, {
-      "country": "Canada",
-      "year2004": 2.8,
-      "year2005": 2.9
-  }, {
-      "country": "Japan",
-      "year2004": 2.6,
-      "year2005": 2.3
-  }, {
-      "country": "France",
-      "year2004": 1.4,
-      "year2005": 2.1
-  }, {
-      "country": "Brazil",
-      "year2004": 2.6,
-      "year2005": 4.9
-  }];
-  
   }
 
   async getDataGrafica() {
+    let arreglo = [];
+    let fechaI: string = this.graficaForm.value.fechaInicio + ' ' + this.graficaForm.value.horaInicio;
+    let fechaF: string = this.graficaForm.value.fechaFin + ' ' + this.graficaForm.value.horaFin;
+    this.dataChart = [];
+    this.dataChart1 = [];
+    this.chatFlag = false;
+    let value;
+    let bandera;
+    this.dataDonut = [];
+    let response;
     try {
-      let arreglo = [];
-      let fechaI: string = this.graficaForm.value.fechaInicio + ' ' + this.graficaForm.value.horaInicio;
-      let fechaF: string = this.graficaForm.value.fechaFin + ' ' + this.graficaForm.value.horaFin;
-      this.dataChart = [];
-      this.dataChart1 = [];
-      this.dataChart2 = [];
-      this.chatFlag = false;
-      let value;
-      let bandera;
       if (this.graficaForm.value.maquina != '') {
         value = this.graficaForm.value.maquina;
         bandera = '0';
@@ -173,7 +87,7 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
         value = this.graficaForm.value.area;
         bandera = '1';
       }
-      let response = await this.graficaService.getGrafica(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
+      response = await this.graficaService.getGrafica(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
       if (response.code == 200) {
         arreglo = response.grafica[0];
         Object.keys(arreglo).forEach(key => {
@@ -191,21 +105,61 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
               color: COLORS_CHART[keyValue]
             });
           }
-          else if (key.substring(0, 2) === 'tp') {
+         /* else if (key.substring(0, 2) === 'tp') {
             this.dataChart2.push({
               sensor: key,
               numEventos: arreglo[key.substring(2, key.length)]
             });
-          }
+          }*/
         });
         this.chatFlag = true;
-        this.spinner.hide("mySpinner");
       } else {
         this.chatFlag = false;
-        this.spinner.hide("mySpinner");
       }
+
+      //Donut 
+      let responseDonut = await this.graficaService.getGraficaAnillo(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
+      arreglo = responseDonut.grafica[0];
+      Object.keys(arreglo).forEach(key => {
+        if (key.substring(0, 2) === 'te') {
+          let keyValue = key.substring(2, key.length);
+          this.dataDonut.push({
+            sensor: keyValue,
+            numEventos: arreglo[key],
+            color: COLORS_CHART[keyValue]
+          });
+          this.dataDonut2.push({
+            sensor: keyValue,
+            numEventos: arreglo[key],
+            color: COLORS_CHART[keyValue]
+          });
+        } else if (key === 'no_reportado') {
+          this.dataDonut2.push({
+            sensor: key,
+            numEventos: arreglo[key],
+            color: COLORS_CHART[key]
+          })
+        }
+      });
+      this.chatFlagDonut = true;
+
+      //Layered
+      response = await this.graficaService.getSobrepuesta(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
+      arreglo = response.grafica[0];
+      Object.keys(arreglo).forEach(key => {
+        if (key.substring(0, 2) === 'te') {
+          let keyValue = key.substring(2, key.length);
+          this.dataLayared.push({
+            sensor: keyValue,
+            numEventos: arreglo[key],
+            color: COLORS_CHART[keyValue]
+          });
+        }
+      });
+
+      this.spinner.hide("mySpinner");
     } catch (e) {
-      console.log(e);
+      console.log(e.status);
       this.spinner.hide("mySpinner");
       Swal.fire('Error', 'Error al obtener los datos para las gráficas', 'error');
     }
@@ -225,13 +179,11 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
       }
       if (controlFinal.value < controlInicio.value) {
         controlFinal.setErrors({ mustMatch: true });
-      } else {
-        controlFinal.setErrors(null);
       }
     }
   }
 
- get f() { return this.graficaForm.controls; }
+  get f() { return this.graficaForm.controls; }
 
   onSubmit() {
     this.submitted = true;

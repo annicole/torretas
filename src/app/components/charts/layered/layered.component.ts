@@ -19,7 +19,7 @@ export class LayeredComponent implements OnInit {
   ngOnInit() {
 
     this.dataChart = this.chartData;
-    this.chart = this.chartLayer.generateChartData(this.dataChart, "chartLayered");
+    this.chart = this.chartLayer.generateChartData(this.dataChart, this.divInput);
   }
 
   ngOnDestroy() {
