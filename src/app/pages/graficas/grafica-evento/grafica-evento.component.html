@@ -86,10 +86,31 @@
     <div class="cards-section">
       <div class="row">
         <div class="col">
+          <card-title [title]="'Comparativo de tiempo operativo y tiempo de paro' ">
+            <!--<app-time-line [chartData]="dataTimeLine" [fechaInicio]="fechaInicio" [fechaFin]="fechaFin"
+            [maquina]="maquina" [horaInicio]="horaInicio" [horaFin]="horaFin" *ngIf="chatFlag"></app-time-line>-->
+            <!--<div id="chartdiv" style="width: 100%; height: 500px"></div>-->
+            <app-donut [chartData]="dataDonut" [divInput]="'chartDonut'" *ngIf="chatFlagDonut">
+              <div id="chartDonut" style="width: 100%; height: 450px"></div>
+            </app-donut>
+          </card-title>
+        </div>
+        <div class="col">
+          <card-title [title]="'Comparativo de tiempo operativo, tiempo no registrado y tiempo de paro' ">
+            <app-donut [chartData]="dataDonut2" [divInput]="'chartDonutTwo'" *ngIf="chatFlagDonut">
+              <div id="chartDonutTwo" style="width: 100%; height: 450px"></div>
+            </app-donut>
+          </card-title>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
           <card-title [title]="'Cantidad de eventos por tipo' ">
             <app-barra [chartData]="dataChart" [fechaInicio]="f.fechaInicio.value" [fechaFin]="f.fechaFin.value"
               [maquina]="f.maquina.value" [horaInicio]="f.horaInicio.value" [horaFin]="f.horaFin.value"
-              *ngIf="chatFlag"></app-barra>
+              [divInput]="'chartBar'" *ngIf="chatFlag">
+              <div id="chartBar" style="width: 100%; height: 450px"></div>
+            </app-barra>
           </card-title>
         </div>
         <div class="col">
@@ -103,19 +124,18 @@
       <div class="row">
         <div class="col">
           <card-title [title]="'Comparativo de tiempo operativo y tiempo de paro' ">
-            <!--<app-time-line [chartData]="dataTimeLine" [fechaInicio]="fechaInicio" [fechaFin]="fechaFin"
-            [maquina]="maquina" [horaInicio]="horaInicio" [horaFin]="horaFin" *ngIf="chatFlag"></app-time-line>-->
-            <!--<div id="chartdiv" style="width: 100%; height: 500px"></div>-->
-           <app-donut [chartData]="dataDonut" [divInput]="'chartDonut'" *ngIf="chatFlagDonut">
-              <div id="chartDonut" style="width: 100%; height: 450px"></div>
-            </app-donut>
+            <app-layered [chartData]="dataLayared" [divInput]="'charLayered'" *ngIf="chatFlagLayered">
+              <div id="charLayered" style="width: 100%; height: 450px"></div>
+            </app-layered>
           </card-title>
         </div>
         <div class="col">
-          <card-title [title]="'Comparativo de tiempo operativo y tiempo de paro' ">
-        <app-donut [chartData]="dataDonut2" [divInput]="'chartDonutTwo'" *ngIf="chatFlagDonut">
-              <div id="chartDonutTwo" style="width: 100%; height: 450px"></div>
-            </app-donut>
+          <card-title [title]="'Tiempo muerto por causa asignable' ">
+            <!--<app-barra [chartData]="dataChart" [fechaInicio]="f.fechaInicio.value" [fechaFin]="f.fechaFin.value"
+              [maquina]="f.maquina.value" [horaInicio]="f.horaInicio.value" [horaFin]="f.horaFin.value" [divInput]="'chartBar'"
+              *ngIf="chatFlag">
+              <div id="chartBar" style="width: 100%; height: 450px"></div>
+            </app-barra>-->
           </card-title>
         </div>
       </div>

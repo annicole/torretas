@@ -33,6 +33,7 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
   dataChart1 = [];
   chatFlag = false;
   chatFlagDonut = false;
+  chatFlagLayered = false;
   dataTimeLine = [];
   dataDonut = [];
   dataDonut2 = [];
@@ -105,12 +106,12 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
               color: COLORS_CHART[keyValue]
             });
           }
-         /* else if (key.substring(0, 2) === 'tp') {
-            this.dataChart2.push({
-              sensor: key,
-              numEventos: arreglo[key.substring(2, key.length)]
-            });
-          }*/
+          /* else if (key.substring(0, 2) === 'tp') {
+             this.dataChart2.push({
+               sensor: key,
+               numEventos: arreglo[key.substring(2, key.length)]
+             });
+           }*/
         });
         this.chatFlag = true;
       } else {
@@ -119,44 +120,51 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
 
       //Donut 
       let responseDonut = await this.graficaService.getGraficaAnillo(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
-      arreglo = responseDonut.grafica[0];
-      Object.keys(arreglo).forEach(key => {
-        if (key.substring(0, 2) === 'te') {
-          let keyValue = key.substring(2, key.length);
-          this.dataDonut.push({
-            sensor: keyValue,
-            numEventos: arreglo[key],
-            color: COLORS_CHART[keyValue]
-          });
-          this.dataDonut2.push({
-            sensor: keyValue,
-            numEventos: arreglo[key],
-            color: COLORS_CHART[keyValue]
-          });
-        } else if (key === 'no_reportado') {
-          this.dataDonut2.push({
-            sensor: key,
-            numEventos: arreglo[key],
-            color: COLORS_CHART[key]
-          })
-        }
-      });
-      this.chatFlagDonut = true;
+      if (responseDonut.code == 200) {
+        arreglo = responseDonut.grafica[0];
+        Object.keys(arreglo).forEach(key => {
+          if (key.substring(0, 2) === 'te') {
+            let keyValue = key.substring(2, key.length);
+            this.dataDonut.push({
+              sensor: keyValue,
+              numEventos: arreglo[key],
+              color: COLORS_CHART[keyValue]
+            });
+            this.dataDonut2.push({
+              sensor: keyValue,
+              numEventos: arreglo[key],
+              color: COLORS_CHART[keyValue]
+            });
+          } else if (key === 'no_reportado') {
+            this.dataDonut2.push({
+              sensor: key,
+              numEventos: arreglo[key],
+              color: COLORS_CHART[key]
+            })
+          }
+        });
+        this.chatFlagDonut = true;
+      }
 
       //Layered
       response = await this.graficaService.getSobrepuesta(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
-      arreglo = response.grafica[0];
-      Object.keys(arreglo).forEach(key => {
-        if (key.substring(0, 2) === 'te') {
-          let keyValue = key.substring(2, key.length);
-          this.dataLayared.push({
-            sensor: keyValue,
-            numEventos: arreglo[key],
-            color: COLORS_CHART[keyValue]
-          });
-        }
-      });
-
+      if (response.code == 200) {
+        arreglo = response.grafica[0];
+        Object.keys(arreglo).forEach(key => {
+          if (key.substring(0, 2) === 'te') {
+            let keyValue = key.substring(2, key.length);
+            let keyStandBy = "Standby".concat(keyValue);
+            this.dataLayared.push({
+              sensor: keyValue,
+              evento: arreglo[key],
+              standyBy: arreglo[keyValue],
+              color: COLORS_CHART[keyValue],
+              color2: COLORS_CHART[keyStandBy],
+            });
+          }
+        });
+        this.chatFlagLayered = true;
+      }
       this.spinner.hide("mySpinner");
     } catch (e) {
       console.log(e.status);

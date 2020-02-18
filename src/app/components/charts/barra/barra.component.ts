@@ -22,6 +22,7 @@ export class BarraComponent implements OnInit,OnDestroy {
   @Input() horaFin;
   @Input() fechaFin;
   @Input() maquina;
+  @Input() divInput: string
 
   constructor() { }
 
@@ -31,7 +32,7 @@ export class BarraComponent implements OnInit,OnDestroy {
 
   llenarGrafica() {
     this.dataChart = this.chartData;
-    this.chart = this.chartBar.generateChartData(this.dataChart, "chartdiv");
+    this.chart = this.chartBar.generateChartData(this.dataChart, this.divInput);
     let serie = null;
     serie = this.chartBar.generateSerie(this.chart);
     serie.columns.template.events.on("hit", this.clickEventBar, this);

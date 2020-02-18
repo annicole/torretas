@@ -13,7 +13,7 @@ export const  COLORS_CHART = {
   Produccion: "#0000FF",
   Calidad: "#DF01D7",
   no_reportado: "#DCDCDC",
-  Stanbyparo: "#FAE31A",
+  StanbyEn_Paro: "#FAE31A",
   StanbyOperando:  "#FAE31A"
 }
 
