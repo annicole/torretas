@@ -41,13 +41,13 @@ export class GraficaService {
     return this.http.get(this.url + '/graficaAnillo',{headers,params:params});
   }
 
-  getSobrepuesta(maquina:string,inicio:string,fin:string,tipo:string,token){
+  getSobrepuesta(maquina:string,inicio:string,fin:string,tipo:string,token):Observable<any>{
     let params = new HttpParams();
     params = params.append('maquina',maquina);
     params = params.append('inicio',inicio);
     params = params.append('fin',fin);
     params = params.append('tipo',tipo);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
-    return this.http.get(this.url + '/graficasobre',{headers,params:params}).pipe(map(res=>res));
+    return this.http.get(this.url + '/graficaSobrepuesta',{headers,params:params});
   }
 }

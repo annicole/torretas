@@ -76,9 +76,13 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
     this.dataChart = [];
     this.dataChart1 = [];
     this.chatFlag = false;
+    this.chatFlagDonut = false;
+    this.chatFlagLayered = false;
     let value;
     let bandera;
     this.dataDonut = [];
+    this.dataDonut2 = [];
+    this.dataLayared = [];
     let response;
     try {
       if (this.graficaForm.value.maquina != '') {
@@ -88,36 +92,6 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
         value = this.graficaForm.value.area;
         bandera = '1';
       }
-      response = await this.graficaService.getGrafica(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
-      if (response.code == 200) {
-        arreglo = response.grafica[0];
-        Object.keys(arreglo).forEach(key => {
-          if (['Operando', 'En_Paro', 'Stand_by', 'Servicio', 'Materiales', 'Ingenieria', 'Produccion', 'Calidad'].indexOf(key) >= 0) {
-            this.dataChart.push({
-              sensor: key,
-              numEventos: arreglo[key],
-              color: COLORS_CHART[key]
-            });
-          } else if (key.substring(0, 2) === 'te') {
-            let keyValue = key.substring(2, key.length);
-            this.dataChart1.push({
-              sensor: keyValue,
-              numEventos: arreglo[key],
-              color: COLORS_CHART[keyValue]
-            });
-          }
-          /* else if (key.substring(0, 2) === 'tp') {
-             this.dataChart2.push({
-               sensor: key,
-               numEventos: arreglo[key.substring(2, key.length)]
-             });
-           }*/
-        });
-        this.chatFlag = true;
-      } else {
-        this.chatFlag = false;
-      }
-
       //Donut 
       let responseDonut = await this.graficaService.getGraficaAnillo(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
       if (responseDonut.code == 200) {
@@ -146,6 +120,37 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
         this.chatFlagDonut = true;
       }
 
+      response = await this.graficaService.getGrafica(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
+      if (response.code == 200) {
+        arreglo = response.grafica[0];
+        Object.keys(arreglo).forEach(key => {
+          if (arreglo[key] != null) {
+            if (['Operando', 'En_Paro', 'Stand_by', 'Servicio', 'Materiales', 'Ingenieria', 'Produccion', 'Calidad'].indexOf(key) >= 0) {
+              this.dataChart.push({
+                sensor: key,
+                numEventos: arreglo[key],
+                color: COLORS_CHART[key]
+              });
+            } else if (key.substring(0, 2) === 'te') {
+              let keyValue = key.substring(2, key.length);
+              this.dataChart1.push({
+                sensor: keyValue,
+                numEventos: arreglo[key],
+                color: COLORS_CHART[keyValue]
+              });
+            }
+            /* else if (key.substring(0, 2) === 'tp') {
+               this.dataChart2.push({
+                 sensor: key,
+                 numEventos: arreglo[key.substring(2, key.length)]
+               });
+             }*/
+          }
+        });
+        // this.chatFlag = true;
+      } else {
+        this.chatFlag = false;
+      }
       //Layered
       response = await this.graficaService.getSobrepuesta(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
       if (response.code == 200) {
@@ -157,7 +162,7 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
             this.dataLayared.push({
               sensor: keyValue,
               evento: arreglo[key],
-              standyBy: arreglo[keyValue],
+              standyBy: '0.0',
               color: COLORS_CHART[keyValue],
               color2: COLORS_CHART[keyStandBy],
             });
@@ -165,6 +170,7 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
         });
         this.chatFlagLayered = true;
       }
+      console.log(this.dataLayared);
       this.spinner.hide("mySpinner");
     } catch (e) {
       console.log(e.status);

@@ -7,7 +7,7 @@ export class ChartLayed {
         let chart = am4core.create(chartDiv, am4charts.XYChart);
 
         // Add percent sign to all numbers
-        chart.numberFormatter.numberFormat = "#.#'%'";
+        //chart.numberFormatter.numberFormat = "#.#'%'";
 
         chart.data = data;
         chart.responsive.enabled = true;
@@ -18,9 +18,9 @@ export class ChartLayed {
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 30;
 
-       // let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-       // valueAxis.title.text = "GDP growth rate";
-        //valueAxis.title.fontSize = 25;
+        let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.title.text = "Tiempo";
+        valueAxis.title.fontSize = 25;
 
         // Create series
         let series = chart.series.push(new am4charts.ColumnSeries());
@@ -41,7 +41,7 @@ export class ChartLayed {
         series2.columns.template.width = am4core.percent(50);
         series2.tooltipText = " {categoryX}: [bold]{valueY}[/]";
 
-        series2.columns.template.adapter.add("fill", function (fill, target) {
+       series2.columns.template.adapter.add("fill", function (fill, target) {
             const item = target.dataItem.dataContext as any;
             return am4core.color(item.color);
         });

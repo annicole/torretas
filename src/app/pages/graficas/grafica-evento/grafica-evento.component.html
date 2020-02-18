@@ -86,7 +86,7 @@
     <div class="cards-section">
       <div class="row">
         <div class="col">
-          <card-title [title]="'Comparativo de tiempo operativo y tiempo de paro' ">
+          <card-title [title]="'Comparativo de tiempo operativo y tiempo de paro' " *ngIf="dataDonut?.length > 0">
             <!--<app-time-line [chartData]="dataTimeLine" [fechaInicio]="fechaInicio" [fechaFin]="fechaFin"
             [maquina]="maquina" [horaInicio]="horaInicio" [horaFin]="horaFin" *ngIf="chatFlag"></app-time-line>-->
             <!--<div id="chartdiv" style="width: 100%; height: 500px"></div>-->
@@ -94,9 +94,11 @@
               <div id="chartDonut" style="width: 100%; height: 450px"></div>
             </app-donut>
           </card-title>
+
         </div>
         <div class="col">
-          <card-title [title]="'Comparativo de tiempo operativo, tiempo no registrado y tiempo de paro' ">
+          <card-title [title]="'Comparativo de tiempo operativo, tiempo no registrado y tiempo de paro' "
+            *ngIf="dataDonut2?.length > 0">
             <app-donut [chartData]="dataDonut2" [divInput]="'chartDonutTwo'" *ngIf="chatFlagDonut">
               <div id="chartDonutTwo" style="width: 100%; height: 450px"></div>
             </app-donut>
@@ -105,7 +107,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <card-title [title]="'Cantidad de eventos por tipo' ">
+          <card-title [title]="'Cantidad de eventos por tipo' " *ngIf="dataChart?.length > 0">
             <app-barra [chartData]="dataChart" [fechaInicio]="f.fechaInicio.value" [fechaFin]="f.fechaFin.value"
               [maquina]="f.maquina.value" [horaInicio]="f.horaInicio.value" [horaFin]="f.horaFin.value"
               [divInput]="'chartBar'" *ngIf="chatFlag">
@@ -114,7 +116,7 @@
           </card-title>
         </div>
         <div class="col">
-          <card-title [title]="'Sumatoria de tiempos por tipo' ">
+          <card-title [title]="'Sumatoria de tiempos por tipo'" *ngIf="dataChart1?.length > 0">
             <app-pie [chartData]="dataChart1" [fechaInicio]="f.fechaInicio.value" [fechaFin]="f.fechaFin.value"
               [maquina]="f.maquina.value" [horaInicio]="f.horaInicio.value" [horaFin]="f.horaFin.value"
               *ngIf="chatFlag"></app-pie>
@@ -123,7 +125,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <card-title [title]="'Comparativo de tiempo operativo y tiempo de paro' ">
+          <card-title [title]="'Comparativo de tiempo operativo y tiempo de paro'" *ngIf="dataLayared?.length > 0">
             <app-layered [chartData]="dataLayared" [divInput]="'charLayered'" *ngIf="chatFlagLayered">
               <div id="charLayered" style="width: 100%; height: 450px"></div>
             </app-layered>
