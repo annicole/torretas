@@ -1,14 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
-import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { NgxSpinnerService } from "ngx-spinner";
-import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
-
-import { Maquina } from '@app/models/maquina';
-import { Area } from '@app/models/area';
 import { MaquinaService } from '@app/services/maquina.service';
 import { AreaService } from '@app/services/area.service';
+import { TipoEquipoService } from '@app/services/tipo-equipo.service';
 import { DatePipe } from '@angular/common';
 import { GraficaService } from '@app/services/grafica.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -46,9 +42,9 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
     private formBuilder: FormBuilder,
     @Inject(NgxSpinnerService) spinner: NgxSpinnerService,
     private activate: ActivatedRoute, @Inject(AuthService) auth: AuthService,
-    @Inject(AreaService) areaService: AreaService
+    @Inject(AreaService) areaService: AreaService, @Inject(TipoEquipoService) tipoService: TipoEquipoService
   ) {
-    super(areaService, maquinaService, auth, spinner);
+    super(areaService, maquinaService, auth, spinner, tipoService);
   }
 
   ngOnInit() {
@@ -58,10 +54,10 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
       horaFin: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required],
-      area: ['']
+      area: [''],
+      tipo: ['']
     }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'), this.ValidDate('horaInicio', 'horaFin')] });
-    this.getMaquinas();
-    this.getAreas();
+    this.getSelect();
     this.graficaForm.get('maquina').setValidators([Validators.required]);
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
@@ -91,6 +87,10 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
       } else if (this.graficaForm.value.area != '') {
         value = this.graficaForm.value.area;
         bandera = '1';
+      }
+      else if (this.graficaForm.value.tipo != '') {
+        value = this.graficaForm.value.tipo;
+        bandera = '2';
       }
       //Donut 
       let responseDonut = await this.graficaService.getGraficaAnillo(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
@@ -162,7 +162,7 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
             this.dataLayared.push({
               sensor: keyValue,
               evento: arreglo[key],
-              standyBy: '0.0',
+              standyBy: arreglo[keyStandBy],
               color: COLORS_CHART[keyValue],
               color2: COLORS_CHART[keyStandBy],
             });

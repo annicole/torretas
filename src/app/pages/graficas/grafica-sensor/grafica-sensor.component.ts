@@ -8,10 +8,9 @@ import { AreaService } from '@app/services/area.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '@app/services/auth.service';
-import { Maquina } from '@app/models/maquina';
-import { Area } from '@app/models/area';
 import { ChartHeapMap } from '@app/classes/ChartHeapMap';
 import { interval } from 'rxjs';
+import { TipoEquipoService } from '@app/services/tipo-equipo.service';
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -45,21 +44,21 @@ export class GraficaSensorComponent extends ClassChart implements OnInit {
     private formBuilder: FormBuilder,
     @Inject(NgxSpinnerService) spinner: NgxSpinnerService,
     private activate: ActivatedRoute, @Inject(AuthService) auth: AuthService,
-    @Inject(AreaService) areaService: AreaService
+    @Inject(AreaService) areaService: AreaService, @Inject(TipoEquipoService) tipoService: TipoEquipoService
   ) {
-    super(areaService, maquinaService, auth, spinner);
+    super(areaService, maquinaService, auth, spinner, tipoService);
   }
 
   ngOnInit() {
     this.graficaForm = this.formBuilder.group({
       maquina: [''],
-      area: ['']
+      area: [''],
+      tipo: ['']
     });
     if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
       this.graficaForm.value.maquina = this.activate.snapshot.paramMap.get('idMaquina');
     }
-    this.getMaquinas();
-    this.getAreas();
+    this.getSelect();
     if (this.activate.snapshot.paramMap.get('idMaquina') != '0') {
       this.graficaForm.controls['maquina'].setValue(this.activate.snapshot.paramMap.get('idMaquina'));
     }
@@ -85,6 +84,11 @@ export class GraficaSensorComponent extends ClassChart implements OnInit {
       } else if (this.graficaForm.value.area != '') {
         id = this.graficaForm.value.area;
         tipo = '1';
+        bandera = true;
+      }
+      else if (this.graficaForm.value.tipo != '') {
+        id = this.graficaForm.value.tipo;
+        tipo = '2';
         bandera = true;
       }
       if (bandera) {
@@ -135,13 +139,12 @@ export class GraficaSensorComponent extends ClassChart implements OnInit {
     this.chartHeap.generateSerie(this.chart);
   }
 
-  filterTypeselected(type: boolean) {
-    super.filterTypeselected(type);
+  filterSelected(type: number) {
     if (this.chart) {
-      this.dataChart = [];
-      //this.chart.dispose();
+      this.chart.data = [];
       this.unsubscribeInterval();
     }
+    super.filterTypeselected(type);
   }
 
   unsubscribeInterval() {

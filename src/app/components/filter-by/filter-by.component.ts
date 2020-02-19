@@ -6,7 +6,7 @@ import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
   styleUrls: ['./filter-by.component.scss']
 })
 export class FilterByComponent implements OnInit {
-  @Input() filterBy:boolean;
+  @Input() filterBy:number;
   @Output() selectionFilter = new EventEmitter();
 
   constructor() { }

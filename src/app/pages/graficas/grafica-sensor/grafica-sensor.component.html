@@ -8,11 +8,9 @@
           <i class="material-icons"> {{ iconFilter }} </i>
         </div>
         <div class="card-body mx-2" [hidden]="showFilter">
-          <form [formGroup]="graficaForm" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-              <filter-by [filterBy]="filterByMachine" (selectionFilter)="filterTypeselected($event)"></filter-by>
-            </div>
-            <div class="form-group" [hidden]="!filterByMachine">
+          <filter-by [filterBy]="filterByMachine" (selectionFilter)="filterSelected($event)"></filter-by>
+          <form [formGroup]="graficaForm" (ngSubmit)="onSubmit()">            
+            <div class="form-group" [hidden]="filterByMachine != 1">
               <label for="maquina">Equipo:</label>
               <select class="form-control" id="maquina" formControlName="maquina" (change)="getDatosGrafica(true)"
                 [ngClass]="{ 'is-invalid': submitted && f.maquina.errors }">
@@ -24,7 +22,7 @@
                 <div *ngIf="f.maquina.errors.required">Equipo es requerido</div>
               </div>
             </div>
-            <div class="form-group" [hidden]="filterByMachine">
+            <div class="form-group" [hidden]="filterByMachine != 2">
               <label for="area">Área</label>
               <select class="form-control" id="area" formControlName="area" (change)="getDatosGrafica(true)"
                 [ngClass]="{ 'is-invalid': submitted && f.area.errors }">
@@ -33,6 +31,17 @@
               </select>
               <div *ngIf="submitted && f.area.errors" class="invalid-feedback">
                 <div *ngIf="f.area.errors.required">Área es requerida</div>
+              </div>
+            </div>
+            <div class="form-group" [hidden]="filterByMachine !=3">
+              <label for="tipo">Tipo de Equipo</label>
+              <select class="form-control" id="tipo" formControlName="tipo"
+                [ngClass]="{ 'is-invalid': submitted && f.tipo.errors }">
+                <option value="">Seleccionar tipo</option>
+                <option *ngFor="let t of tipoEquipos" [value]="t.idtipo" [disabled]="false">{{t.tipoequipo | titlecase}}</option>
+              </select>
+              <div *ngIf="submitted && f.tipo.errors" class="invalid-feedback">
+                <div *ngIf="f.tipo.errors.required">Tipo de equipo es requerido</div>
               </div>
             </div>
           </form>

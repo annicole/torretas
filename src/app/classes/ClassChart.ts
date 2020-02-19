@@ -1,8 +1,10 @@
 
 import { Maquina } from '@app/models/maquina';
 import { Area } from '@app/models/area';
+import { TipoEquipo } from '@app/models/tipoEquipo';
 import { MaquinaService } from '@app/services/maquina.service';
 import { AreaService } from '@app/services/area.service';
+import { TipoEquipoService } from '@app/services/tipo-equipo.service';
 import { FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@app/services/auth.service';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -13,13 +15,21 @@ export abstract class ClassChart {
     showFilter: boolean = false;
     iconFilter: string = 'expand_less';
     areas: Area[];
-    filterByMachine: boolean = true;
+    filterByMachine: number = 1;
     graficaForm: FormGroup;
     submitted = false;
     maquinas: Maquina[];
+    tipoEquipos: TipoEquipo[];
 
     constructor(protected areaService: AreaService, protected maquinaService: MaquinaService, protected auth: AuthService,
-        protected spinner: NgxSpinnerService) { }
+        protected spinner: NgxSpinnerService, protected tipoEquipoService: TipoEquipoService) { }
+
+    getSelect() {
+        this.getMaquinas();
+        this.getAreas();
+        this.getTipo();
+    }
+
     async getMaquinas() {
         try {
             let response = await this.maquinaService.getMaquinas("", "", this.auth.token).toPromise();
@@ -42,26 +52,53 @@ export abstract class ClassChart {
         }
     }
 
+    async getTipo() {
+        try {
+            let response = await this.tipoEquipoService.getTipos(this.auth.token).toPromise();
+            if (response.code == 200) {
+                this.tipoEquipos = response.tipo_equipos;
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     toggleFilter() {
         this.showFilter = !this.showFilter;
         this.iconFilter = (this.showFilter) ? 'expand_more' : 'expand_less';
     }
 
-    filterTypeselected(type: boolean) {
+    filterTypeselected(type: number) {
         this.filterByMachine = type;
         const controlMaquina = this.graficaForm.controls['maquina'];
         const controlArea = this.graficaForm.controls['area'];
-        if (type) {
-            controlArea.setValidators(null);
-            controlArea.setValue('');
-            controlMaquina.setValidators([Validators.required]);
-        } else {
-            controlMaquina.setValue('');
-            controlMaquina.setValidators(null);
-            controlArea.setValidators([Validators.required]);
+        const controlTipo = this.graficaForm.controls['tipo'];
+        switch (type) {
+            case 1:
+                controlArea.setValidators(null);
+                controlArea.setValue('');
+                controlTipo.setValidators(null);
+                controlTipo.setValue('');
+                controlMaquina.setValidators([Validators.required]);
+                break;
+            case 2:
+                controlMaquina.setValue('');
+                controlMaquina.setValidators(null);
+                controlTipo.setValidators(null);
+                controlTipo.setValue('');
+                controlArea.setValidators([Validators.required]);
+                break;
+            case 3:
+                controlMaquina.setValue('');
+                controlMaquina.setValidators(null);
+                controlArea.setValidators(null);
+                controlArea.setValue('');
+                controlTipo.setValidators([Validators.required]);
+                break;
         }
         controlMaquina.updateValueAndValidity();
         controlArea.updateValueAndValidity();
+        controlTipo.updateValueAndValidity();
     }
 
     showSpinner() {
