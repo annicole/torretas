@@ -148,8 +148,6 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
           }
         });
         // this.chatFlag = true;
-      } else {
-        this.chatFlag = false;
       }
       //Layered
       response = await this.graficaService.getSobrepuesta(value, fechaI, fechaF, bandera, this.auth.token).toPromise();

@@ -8,12 +8,11 @@
           <i class="material-icons"> {{ iconFilter }} </i>
         </div>
         <div class="card-body mx-2" [hidden]="showFilter">
-            <filter-by [filterBy]="filterByMachine" (selectionFilter)="filterTypeselected($event)"></filter-by>
-          <div>
-            <button type="submit" class="btn-refresh" [disabled]="!chatFlag"><i class="material-icons"> cached </i>
-            </button>
-          </div>
+          <filter-by [filterBy]="filterByMachine" (selectionFilter)="filterTypeselected($event)"></filter-by>
           <form [formGroup]="graficaForm" (ngSubmit)="onSubmit()">
+            <button type="submit" class="btn-refresh" [disabled]="graficaForm.invalid"><i class="material-icons">
+                cached </i>
+            </button>
             <div class="form-group" [hidden]="filterByMachine != 1">
               <label for="maquina">Equipo:</label>
               <select class="form-control" id="maquina" formControlName="maquina"
@@ -41,7 +40,8 @@
               <select class="form-control" id="tipo" formControlName="tipo"
                 [ngClass]="{ 'is-invalid': submitted && f.tipo.errors }">
                 <option value="">Seleccionar tipo</option>
-                <option *ngFor="let t of tipoEquipos" [value]="t.idtipo" [disabled]="false">{{t.tipoequipo | titlecase}}</option>
+                <option *ngFor="let t of tipoEquipos" [value]="t.idtipo" [disabled]="false">{{t.tipoequipo | titlecase}}
+                </option>
               </select>
               <div *ngIf="submitted && f.tipo.errors" class="invalid-feedback">
                 <div *ngIf="f.tipo.errors.required">Tipo de equipo es requerido</div>
@@ -141,7 +141,7 @@
           </card-title>
         </div>
         <div class="col">
-          <card-title [title]="'Tiempo muerto por causa asignable' ">
+          <card-title [title]="'Tiempo muerto por causa asignable' " *ngIf="false">
             <!--<app-barra [chartData]="dataChart" [fechaInicio]="f.fechaInicio.value" [fechaFin]="f.fechaFin.value"
               [maquina]="f.maquina.value" [horaInicio]="f.horaInicio.value" [horaFin]="f.horaFin.value" [divInput]="'chartBar'"
               *ngIf="chatFlag">
