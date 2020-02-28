@@ -147,7 +147,7 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
              }*/
           }
         });
-        // this.chatFlag = true;
+        this.chatFlag = true;
       }
       //Layered
       response = await this.graficaService.getSobrepuesta(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
@@ -168,7 +168,6 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
         });
         this.chatFlagLayered = true;
       }
-      console.log(this.dataLayared);
       this.spinner.hide("mySpinner");
     } catch (e) {
       console.log(e.status);
