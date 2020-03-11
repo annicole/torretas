@@ -141,12 +141,12 @@
           </card-title>
         </div>
         <div class="col">
-          <card-title [title]="'Tiempo muerto por causa asignable' " *ngIf="false">
-            <!--<app-barra [chartData]="dataChart" [fechaInicio]="f.fechaInicio.value" [fechaFin]="f.fechaFin.value"
-              [maquina]="f.maquina.value" [horaInicio]="f.horaInicio.value" [horaFin]="f.horaFin.value" [divInput]="'chartBar'"
+          <card-title [title]="'Tiempo muerto por causa asignable' " *ngIf="dataBChartTp?.length > 0">
+            <app-barra [chartData]="dataBChartTp" [fechaInicio]="f.fechaInicio.value" [fechaFin]="f.fechaFin.value"
+              [maquina]="f.maquina.value" [horaInicio]="f.horaInicio.value" [horaFin]="f.horaFin.value" [divInput]="'chartBarTp'"
               *ngIf="chatFlag">
-              <div id="chartBar" style="width: 100%; height: 450px"></div>
-            </app-barra>-->
+              <div id="chartBarTp" style="width: 100%; height: 450px"></div>
+            </app-barra>
           </card-title>
         </div>
       </div>

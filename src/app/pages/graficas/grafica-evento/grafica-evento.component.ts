@@ -34,6 +34,7 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
   dataDonut = [];
   dataDonut2 = [];
   dataLayared = [];
+  dataBChartTp =[];
 
   constructor(
     @Inject(MaquinaService) maquinaService: MaquinaService,
@@ -71,6 +72,7 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
     let fechaF: string = this.graficaForm.value.fechaFin + ' ' + this.graficaForm.value.horaFin;
     this.dataChart = [];
     this.dataChart1 = [];
+    this.dataBChartTp=[];
     this.chatFlag = false;
     this.chatFlagDonut = false;
     this.chatFlagLayered = false;
@@ -125,6 +127,7 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
         arreglo = response.grafica[0];
         Object.keys(arreglo).forEach(key => {
           if (arreglo[key] != null) {
+            let keyValue = key.substring(2, key.length);
             if (['Operando', 'En_Paro', 'Stand_by', 'Servicio', 'Materiales', 'Ingenieria', 'Produccion', 'Calidad'].indexOf(key) >= 0) {
               this.dataChart.push({
                 sensor: key,
@@ -132,19 +135,19 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
                 color: COLORS_CHART[key]
               });
             } else if (key.substring(0, 2) === 'te') {
-              let keyValue = key.substring(2, key.length);
               this.dataChart1.push({
                 sensor: keyValue,
                 numEventos: arreglo[key],
                 color: COLORS_CHART[keyValue]
               });
             }
-            /* else if (key.substring(0, 2) === 'tp') {
-               this.dataChart2.push({
-                 sensor: key,
-                 numEventos: arreglo[key.substring(2, key.length)]
+             else if (key.substring(0, 2) === 'tp') {
+               this.dataBChartTp.push({
+                 sensor: keyValue,
+                 numEventos: arreglo[key],
+                 color: COLORS_CHART[keyValue]
                });
-             }*/
+             }
           }
         });
         this.chatFlag = true;
