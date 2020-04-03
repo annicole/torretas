@@ -2,10 +2,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MaquinaService } from '@app/services/maquina.service';
 import { AreaService } from '@app/services/area.service';
 import { TipoEquipoService } from '@app/services/tipo-equipo.service';
+import { ModuloInterfazService } from '@app/services/modulo-interfaz.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Maquina } from '@app/models/maquina';
 import { Area } from '@app/models/area';
-import {TipoEquipo} from '@app/models/tipoEquipo';
+import { TipoEquipo } from '@app/models/tipoEquipo';
+import { ModuloInterfaz } from '@app/models/moduloInterfaz';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
@@ -24,12 +26,13 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
   maquinaForm: FormGroup;
   submitted = false;
   areas: Area[];
-  tipos :TipoEquipo[];
+  tipos: TipoEquipo[];
+  moduloInterfaz:ModuloInterfaz[];
   token;
 
   constructor(private maquinaService: MaquinaService, private areaService: AreaService,
     private formBuilder: FormBuilder, private router: Router, public dialogRef: MatDialogRef<NuevoMaquinaComponent>,
-    private auth: AuthService, private tipoService:TipoEquipoService,
+    private auth: AuthService, private tipoService: TipoEquipoService, private moduloService:ModuloInterfazService,
     @Inject(MAT_DIALOG_DATA) public data) {
     super();
   }
@@ -39,14 +42,15 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
     this.maquinaForm = this.formBuilder.group({
       maquina: ['', Validators.required],
       idarea: [{ value: '', disabled: disabled }, Validators.required],
-      tipoequipo :[''],
-      torreta:[''],
+      tipoequipo: [''],
+      idmodulo: [''],
       descripcion: ['', Validators.required]
     });
     this.token = this.auth.token;
     this.getAreas();
     this.loadModalTexts();
     this.getTipos();
+    this.getModulo();
   }
 
   async getAreas() {
@@ -60,12 +64,22 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
     }
   }
 
-  async getTipos(){
+  async getTipos() {
     try {
       let resp = await this.tipoService.getTipos(this.token).toPromise();
-      console.log(resp);
-      if(resp.code == 200){
+      if (resp.code == 200) {
         this.tipos = resp.tipo_equipos;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getModulo(){
+    try {
+      let resp = await this.moduloService.getModuloInterfaz(this.token).toPromise();
+      if(resp.code ==200){
+        this.moduloInterfaz = resp.moduloI;
       }
     } catch (error) {
       console.log(error);
@@ -87,9 +101,9 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
     try {
       let response;
       switch (this.modalMode) {
-        case 'create': response = await this.maquinaService.create(this.maquina,this.token).toPromise();
+        case 'create': response = await this.maquinaService.create(this.maquina, this.token).toPromise();
           break;
-        case 'edit': response = await this.maquinaService.update(this.maquina,this.token).toPromise();
+        case 'edit': response = await this.maquinaService.update(this.maquina, this.token).toPromise();
           break;
       }
       if (response.code = 200) {
@@ -114,11 +128,6 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
     this.modalMode = modalMode;
 
     if (_maquina) {
-      const { idmaquina, maquina, idarea, idtipo, descripcion,torreta } = _maquina;
-     /* this.maquina.idmaquina = idmaquina;
-      this.maquina.maquina = maquina;
-      this.maquina.idarea = idarea;
-      this.maquina.descripcion = descripcion;*/
       this.maquina = _maquina;
     }
 

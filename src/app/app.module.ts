@@ -44,6 +44,8 @@ import { LayeredComponent } from './components/charts/layered/layered.component'
 import { CardTitleComponent } from './components/card-title/card-title.component';
 import { FilterByComponent } from './components/filter-by/filter-by.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { ModuloInterfazComponent } from './pages/filtro/modulo-interfaz/modulo-interfaz.component';
+import { NuevoModuloComponent } from './pages/forms/nuevo-modulo/nuevo-modulo.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -82,7 +84,9 @@ registerLocaleData(localeEsMX, 'es-Mx');
     LayeredComponent,
     CardTitleComponent,
     FilterByComponent,
-    DialogComponent
+    DialogComponent,
+    ModuloInterfazComponent,
+    NuevoModuloComponent
   ],
   imports: [
     BrowserModule,

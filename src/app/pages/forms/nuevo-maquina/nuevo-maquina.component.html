@@ -20,23 +20,23 @@
           </div>
         </div>
         <div class="form-group col-md-6">
-          <label for="area">Tipo de Equipo</label>
+          <label for="tipo">Tipo de Equipo</label>
           <select class="form-control" id="tipo" nombre="tipoequipo" [(ngModel)]="maquina.tipoequipo" formControlName="tipoequipo"
             [ngClass]="{ 'is-invalid': submitted && f.tipoequipo.errors }">
             <option *ngFor="let tipo of tipos" [value]="tipo.idtipo">{{tipo.tipoequipo | titlecase}}</option>
           </select>
-          <div *ngIf="submitted && f.idarea.errors" class="invalid-feedback">
+          <div *ngIf="submitted && f.tipoequipo.errors" class="invalid-feedback">
             <div *ngIf="f.tipoequipo.errors.required">Tipo de equipo es requerido</div>
           </div>
         </div>
         <div class="form-group col-md-6">
-          <label for="area">Torreta</label>
-          <select class="form-control" id="torreta" nombre="torreta" [(ngModel)]="maquina.torreta"
-            formControlName="torreta" [ngClass]="{ 'is-invalid': submitted && f.torreta.errors }">
-            <option *ngFor="let tipo of tipos" [value]="tipo.idtipo">{{tipo.tipoequipo | titlecase}}</option>
+          <label for="torreta">Modulo interfaz</label>
+          <select class="form-control" id="torreta" nombre="torreta" [(ngModel)]="maquina.idmodulo"
+            formControlName="idmodulo" [ngClass]="{ 'is-invalid': submitted && f.torreta.errors }">
+            <option *ngFor="let modulo of moduloInterfaz" [value]="moduloInterfaz.idmodulo">{{modulo.serial}}</option>
           </select>
-          <div *ngIf="submitted && f.idarea.errors" class="invalid-feedback">
-            <div *ngIf="f.torreta.errors.required">Torreta es requerido</div>
+          <div *ngIf="submitted && f.idmodulo.errors" class="invalid-feedback">
+            <div *ngIf="f.idmodulo.errors.required">Modulo Interfaz es requerido</div>
           </div>
         </div>
         <div class="form-group col-md-12">

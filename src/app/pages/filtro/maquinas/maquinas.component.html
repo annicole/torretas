@@ -18,7 +18,7 @@
           <th scope="col">Equipo</th>
           <th scope="col">Área</th>
           <th scope="col">Tipo de equipo</th>
-          <th scope="col">Torreta</th>
+          <th scope="col">Modulo Interfaz</th>
           <th scope="col">Opciones</th>
         </tr>
       </thead>
@@ -27,7 +27,7 @@
           <td>{{m.maquina | titlecase}}</td>
           <td>{{m.Area.area | titlecase}}</td>
           <td>{{m.TipoEquipo.tipoequipo }}</td>
-          <td>{{m.torreta }}</td>
+          <td>{{m.ModuloInterfaz.serial }}</td>
           <td>
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="updateMaquina(m)"><i
                 class="material-icons">create</i></a>
