@@ -46,6 +46,7 @@ import { FilterByComponent } from './components/filter-by/filter-by.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ModuloInterfazComponent } from './pages/filtro/modulo-interfaz/modulo-interfaz.component';
 import { NuevoModuloComponent } from './pages/forms/nuevo-modulo/nuevo-modulo.component';
+import { NuevoPerfilconfigComponent } from './pages/forms/nuevo-perfilconfig/nuevo-perfilconfig.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -86,7 +87,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
     FilterByComponent,
     DialogComponent,
     ModuloInterfazComponent,
-    NuevoModuloComponent
+    NuevoModuloComponent,
+    NuevoPerfilconfigComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +103,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
   providers: [DatePipe,{ provide: LOCALE_ID, useValue: 'es-Mx' }],
   bootstrap: [AppComponent],
   entryComponents: [
-    NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,NuevoTipoEquipoComponent
+    NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
+    NuevoTipoEquipoComponent,NuevoModuloComponent, NuevoPerfilconfigComponent
   ]
 })
 export class AppModule { }

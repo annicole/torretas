@@ -7,8 +7,8 @@ export class ModuloInterfaz {
     serial:string;
     activo:number=1;
     idperfil:number;
-    perfilConfiguracion:PerfilConfig;
+    PerfilConfig:PerfilConfig;
     constructor(){
-       this.perfilConfiguracion = new PerfilConfig();
+       this.PerfilConfig = new PerfilConfig();
     }    
 }

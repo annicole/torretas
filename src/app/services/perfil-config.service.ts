@@ -19,7 +19,7 @@ export class PerfilConfigService {
   }
 
 
-  create(perfilConfig: PerfilConfig, token): Observable<any> {
+  create(perfilConfig, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url + '/get', perfilConfig, { headers });
   }
@@ -29,7 +29,7 @@ export class PerfilConfigService {
     return this.http.get(`${this.url + '/read'}/${id}`, { headers });
   }
 
-  update(perfilConfig: PerfilConfig, token) {
+  update(perfilConfig, token) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.put(`${this.url + '/read'}/${perfilConfig.idperfil}`, perfilConfig, { headers });
   }

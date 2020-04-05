@@ -59,8 +59,8 @@ export class HomeComponent implements OnInit {
       },
       {
         icon: 'schedule',
-        text: 'Sensores',
-        function: '/sensor',
+        text: 'Modulo Interfaz',
+        function: '/moduloInterfaz',
         class: 'yellow-bg'
       },
       {

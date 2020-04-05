@@ -21,7 +21,7 @@ export class MaquinaService {
     return this.http.get(this.url + '/maquinas', { headers, params: params });
   }
 
-  create(maquina: Maquina, token): Observable<any> {
+  create(maquina, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url + '/maquinas', maquina, { headers});
   }
@@ -36,7 +36,7 @@ export class MaquinaService {
     return this.http.delete<any>(`${this.url + '/read'}/${id}`,{headers});
   }
 
-  update(maquina: Maquina, token) {
+  update(maquina, token) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.put(`${this.url + '/read'}/${maquina.idmaquina}`, maquina, { headers });
   }

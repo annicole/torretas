@@ -10,16 +10,15 @@ import {DepartamentosComponent} from './pages/filtro/departamentos/departamentos
 import {MaquinasComponent} from './pages/filtro/maquinas/maquinas.component';
 import {AreasComponent} from './pages/filtro/areas/areas.component';
 import {UsuariosComponent} from './pages/filtro/usuarios/usuarios.component';
-import {SensoresComponent} from './pages/filtro/sensores/sensores.component';
 import {LoginComponent} from './pages/login/login.component';
 import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
 import { TipoEquipoComponent } from './pages/filtro/tipo-equipo/tipo-equipo.component';
-
+import {ModuloInterfazComponent} from './pages/filtro/modulo-interfaz/modulo-interfaz.component'
 const routes:Routes=[
   {path:'',redirectTo:'/home',pathMatch:'full'},
   {path:'graficas/:idMaquina',component:GraficaEventoComponent,canActivate: [AuthGuard] },
   {path:'maquina',component:MaquinasComponent,canActivate: [AuthGuard] },
-  {path:'sensor',component:SensoresComponent,canActivate: [AuthGuard] },
+  {path:'moduloInterfaz',component:ModuloInterfazComponent,canActivate: [AuthGuard] },
   {path:'evento',component:EventoComponent,canActivate: [AuthGuard] },
   {path:'departamento',component:DepartamentosComponent,canActivate: [AuthGuard] },
   {path:'area',component:AreasComponent,canActivate: [AuthGuard] },

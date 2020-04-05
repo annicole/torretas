@@ -17,7 +17,7 @@ export class ModuloInterfazService {
     return this.http.get(this.url + '/get', { headers });
   }
 
-  create(modulo: ModuloInterfaz, token): Observable<any> {
+  create(modulo, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url + '/get', modulo, { headers });
   }
@@ -27,7 +27,7 @@ export class ModuloInterfazService {
     return this.http.get(`${this.url + '/read'}/${id}`, { headers });
   }
 
-  update(modulo: ModuloInterfaz, token): Observable<any>{
+  update(modulo, token): Observable<any>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.put(`${this.url + '/read'}/${modulo.idmodulo}`, modulo, { headers });
   }

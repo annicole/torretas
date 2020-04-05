@@ -10,7 +10,6 @@
                 <tr>
                     <th scope="col">Serial</th>
                     <th scope="col">Perfil</th>
-                    <th scope="col">Descripción Perfil</th>
                     <th scope="col"></th>
                     <th scope="col">Opciones</th>
                 </tr>
@@ -18,12 +17,14 @@
             <tbody>
                 <tr *ngFor="let m of listaModulo">
                     <td>{{m.serial| titlecase}}</td>
+                    <td>{{m.PerfilConfig.nombreperfil}}</td>
+                    <td>{{m.PerfilConfig.automanual ==1 ? "Manual" : "Automático"}}</td>
                     <td>
                         <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="update(m)"><i
                                 class="material-icons">create</i></a>
                         <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar "
                             (click)="delete(m)"><i class="material-icons">delete</i></a>
-                        <a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar Usuario "
+                        <a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar perfil configutración "
                             (click)="addUsuario(d.iddep)"><i class="material-icons"> person_add</i></a>
                     </td>
                 </tr>

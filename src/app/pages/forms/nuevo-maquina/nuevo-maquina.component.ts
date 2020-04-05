@@ -43,8 +43,9 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
       maquina: ['', Validators.required],
       idarea: [{ value: '', disabled: disabled }, Validators.required],
       tipoequipo: [''],
-      idmodulo: [''],
-      descripcion: ['', Validators.required]
+      idmodulo: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      idmaquina:['']
     });
     this.token = this.auth.token;
     this.getAreas();
@@ -101,9 +102,9 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
     try {
       let response;
       switch (this.modalMode) {
-        case 'create': response = await this.maquinaService.create(this.maquina, this.token).toPromise();
+        case 'create': response = await this.maquinaService.create(this.maquinaForm.value, this.token).toPromise();
           break;
-        case 'edit': response = await this.maquinaService.update(this.maquina, this.token).toPromise();
+        case 'edit': response = await this.maquinaService.update(this.maquinaForm.value, this.token).toPromise();
           break;
       }
       if (response.code = 200) {
@@ -128,11 +129,9 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
     this.modalMode = modalMode;
 
     if (_maquina) {
-      this.maquina = _maquina;
-    }
-
-    if (idArea) {
-      this.maquina.idarea = idArea;
+      //this.maquina = _maquina;
+      const { idmaquina, descripcion, idarea, tipoequipo,idmodulo,maquina} = _maquina;
+      this.maquinaForm.patchValue({idmaquina, descripcion, idarea, tipoequipo,idmodulo,maquina});
     }
   }
 

@@ -45,7 +45,7 @@ export class ModuloInterfazComponent implements OnInit {
         title: 'Agregar modulo interfaz',
         btnText: 'Guardar',
         alertSuccesText: 'Modulo interfaz creado!',
-        alertErrorText: "No se puedo crear el modulo interfaz",
+        alertErrorText: "El modulo interfaz ya existe",
         modalMode: 'create'
       }
     });
@@ -80,6 +80,7 @@ export class ModuloInterfazComponent implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
+        modulo.activo =0;
         this.moduloService.update(modulo,this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El modulo interfaz ha sido desactivado correctamente', 'success');
