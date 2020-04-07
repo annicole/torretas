@@ -41,7 +41,7 @@ export class DepartamentosComponent implements OnInit {
 
   addDepto() {
     const dialogRef = this.dialog.open(NuevoDepartamentoComponent, {
-      width: '40rem',
+      width: '30rem',
       data: {
         title: 'Agregar departamento',
         btnText: 'Guardar',
@@ -58,7 +58,7 @@ export class DepartamentosComponent implements OnInit {
 
   updateDepto(depto) {
     const dialogRef = this.dialog.open(NuevoDepartamentoComponent, {
-      width: '40rem',
+      width: '30rem',
       data: {
         title: 'Editar departamento',
         btnText: 'Editar',
@@ -109,7 +109,7 @@ export class DepartamentosComponent implements OnInit {
 
   addUsuario(idDepto) {
     const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
-      width: '50rem',
+      width: '40rem',
       data: {
         title: 'Agregar usuario',
         btnText: 'Agregar',

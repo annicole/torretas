@@ -19,7 +19,7 @@ export class ModuloInterfazComponent implements OnInit {
   total: number;
   constructor(private moduloService: ModuloInterfazService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,
-    private auth :AuthService
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -64,7 +64,7 @@ export class ModuloInterfazComponent implements OnInit {
         alertSuccesText: 'Modulo interfaz modificado correctamente',
         alertErrorText: "No se puedo modificar el modulo interfaz",
         modalMode: 'edit',
-        modulo
+        _modulo:modulo
       }
     });
 
@@ -80,8 +80,8 @@ export class ModuloInterfazComponent implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        modulo.activo =0;
-        this.moduloService.update(modulo,this.auth.token).subscribe(res => {
+        modulo.activo = 0;
+        this.moduloService.update(modulo, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El modulo interfaz ha sido desactivado correctamente', 'success');
             this.getModulo();

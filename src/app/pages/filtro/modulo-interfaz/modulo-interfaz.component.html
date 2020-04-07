@@ -9,7 +9,8 @@
             <thead>
                 <tr>
                     <th scope="col">Serial</th>
-                    <th scope="col">Perfil</th>
+                    <th scope="col"><button type="button" class="btn btn-link" title="Ir a perfil configuración"
+                        [routerLink]="['/perfilConfig']">Perfil configuración</button></th>
                     <th scope="col"></th>
                     <th scope="col">Opciones</th>
                 </tr>
@@ -24,8 +25,6 @@
                                 class="material-icons">create</i></a>
                         <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar "
                             (click)="delete(m)"><i class="material-icons">delete</i></a>
-                        <a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar perfil configutración "
-                            (click)="addUsuario(d.iddep)"><i class="material-icons"> person_add</i></a>
                     </td>
                 </tr>
             </tbody>

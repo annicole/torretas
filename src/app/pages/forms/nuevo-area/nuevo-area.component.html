@@ -8,6 +8,8 @@
         <div *ngIf="f.area.errors.required">Área es requerida</div>
       </div>
     </div>
-    <button type="submit" class="btn btn-secondary">Guardar</button>
+    <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-secondary">{{btnText}}</button>
+    </div>
   </form>
 </dialog-component>

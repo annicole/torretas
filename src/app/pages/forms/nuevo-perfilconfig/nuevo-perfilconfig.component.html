@@ -2,25 +2,36 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="serial">Serial</label>
-                <input type="text" class="form-control" id="serial" nombre="serial" formControlName="serial"
-                    [ngClass]="{ 'is-invalid': submitted && f.serial.errors }">
-                <div *ngIf="submitted && f.serial.errors" class="invalid-feedback">
-                    <div *ngIf="f.serial.errors.required">Serial es requerido</div>
+                <label for="nombreperfil">Nombre</label>
+                <input type="text" class="form-control" id="nombreperfil" nombre="nombreperfil"
+                    formControlName="nombreperfil" [ngClass]="{ 'is-invalid': submitted && f.nombreperfil.errors }">
+                <div *ngIf="submitted && f.nombreperfil.errors" class="invalid-feedback">
+                    <div *ngIf="f.nombreperfil.errors.required">Nombre es requerido</div>
                 </div>
             </div>
             <div class="form-group col-md-6">
-                <label for="perfil">Perfil Configuración</label>
-                <select class="form-control" id="perfil" nombre="perfil" formControlName="idperfil"
-                    [ngClass]="{ 'is-invalid': submitted && f.idperfil.errors }">
-                    <option *ngFor="let perfil of listaPerfil" [value]="perfil.idperfil">{{perfil.nombreperfil}}
-                    </option>
-                </select>
-                <div *ngIf="submitted && f.idperfil.errors" class="invalid-feedback">
-                    <div *ngIf="f.idperfil.errors.required">Perfil es requerido</div>
+                <label for="descripcion">Descripción</label>
+                <input type="text" class="form-control" id="descripcion" nombre="descripcion"
+                    formControlName="descripcion" [ngClass]="{ 'is-invalid': submitted && f.descripcion.errors }">
+                <div *ngIf="submitted && f.descripcion.errors" class="invalid-feedback">
+                    <div *ngIf="f.descripcion.errors.required">Perfil es requerido</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="automanual" formControlName="automanual"
+                        class="custom-control-input" value="1">
+                    <label class="custom-control-label" for="customRadioInline1">Manual</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="automanual" formControlName="automanual"
+                        class="custom-control-input" value="2">
+                    <label class="custom-control-label" for="customRadioInline2">Automático</label>
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-secondary">{{btnText}}</button>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-secondary">{{btnText}}</button>
+        </div>
     </form>
 </dialog-component>

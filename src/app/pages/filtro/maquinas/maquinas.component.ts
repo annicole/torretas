@@ -73,7 +73,7 @@ export class MaquinasComponent implements OnInit {
 
   updateMaquina(_maquina) {
     const dialogRef = this.dialog.open(NuevoMaquinaComponent, {
-      width: '50rem',
+      width: '40rem',
       data: {
         title: 'Editar equipo',
         btnText: 'Editar',
