@@ -42,7 +42,7 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
     this.maquinaForm = this.formBuilder.group({
       maquina: ['', Validators.required],
       idarea: [{ value: '', disabled: disabled }, Validators.required],
-      tipoequipo: [''],
+      tipoequipo: ['',Validators.required],
       idmodulo: ['', Validators.required],
       descripcion: ['', Validators.required],
       idmaquina:['']

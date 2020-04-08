@@ -108,7 +108,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
   bootstrap: [AppComponent],
   entryComponents: [
     NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
-    NuevoTipoEquipoComponent,NuevoModuloComponent, NuevoPerfilconfigComponent,NuevoConfiguracionModuloComponent
+    NuevoTipoEquipoComponent,NuevoModuloComponent, NuevoPerfilconfigComponent
   ]
 })
 export class AppModule { }

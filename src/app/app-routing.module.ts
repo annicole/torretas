@@ -15,6 +15,8 @@ import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
 import { TipoEquipoComponent } from './pages/filtro/tipo-equipo/tipo-equipo.component';
 import {ModuloInterfazComponent} from './pages/filtro/modulo-interfaz/modulo-interfaz.component'
 import {PerfilConfigComponent} from './pages/filtro/perfil-config/perfil-config.component'
+import {NuevoConfiguracionModuloComponent} from './pages/forms/nuevo-configuracion-modulo/nuevo-configuracion-modulo.component'
+
 const routes:Routes=[
   {path:'',redirectTo:'/home',pathMatch:'full'},
   {path:'graficas/:idMaquina',component:GraficaEventoComponent,canActivate: [AuthGuard] },
@@ -29,7 +31,8 @@ const routes:Routes=[
   {path:'login',component:LoginComponent },
   {path:'tablaEstado/:idMaquina',component:GraficaSensorComponent,canActivate: [AuthGuard]},
   {path:'tipoEquipo',component:TipoEquipoComponent,canActivate: [AuthGuard] },
-  {path:'perfilConfig',component:PerfilConfigComponent,canActivate: [AuthGuard] }
+  {path:'perfilConfig',component:PerfilConfigComponent,canActivate: [AuthGuard] },
+  {path:'configuracionModulo/:idPerfil',component:NuevoConfiguracionModuloComponent,canActivate:[AuthGuard]}
 ];
 @NgModule({
   declarations: [],

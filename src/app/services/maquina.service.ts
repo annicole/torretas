@@ -42,7 +42,6 @@ export class MaquinaService {
   }
 
   changePage(page, token) {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     this.chartPage.next(page);
   }
 }

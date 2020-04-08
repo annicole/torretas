@@ -1,76 +1,54 @@
-<dialog-component [title]="title" (closeEmit)="closeModal()" [alertMessage]="alertMessage">
-    <div>
-        <table class="table table-borderless">
+<div class="perfilConfig card mb-4 mx-5">
+    <div class="card-header">
+        <p class="font-weight-bold">Agregar configuración</p>
+    </div>
+    <div class="table-responsive-lg px-4">
+        <table class="table table-borderless table-sm" id="table" >
             <thead>
                 <tr>
-                    <th scope="col">Entrada</th>
-                    <th scope="col">Tipo entrada</th>
-                    <th scope="col">Evento</th>
-                    <th scope="col">Estaciones</th>
+                    <th scope="col" rowspan="2" >Entrada</th>
+                    <th scope="col" rowspan="2" >Tipo entrada</th>
+                    <th scope="col" rowspan="2" >Evento</th>
+                    <th scope="col" rowspan="1" colspan="16" >Estaciones</th>
+                </tr>
+                <tr>
+                    <th *ngFor="let number of numbers" >{{number}}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type="email" class="form-control" id="exampleFormControlInput1"></td>
+                <tr *ngFor="let conf of lisConfiguracion; let i = index; trackBy: trackByFn;">
+                    <td>{{i +1}}</td>
                     <td>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                            <label class="custom-control-label" for="customSwitch1">HDMI</label>
+                            <!--<input type="checkbox" class="custom-control-input" id="{{'checkbox' + i}}"
+                            (change)="onFilterChange($event)" [(ngModel)]="conf.tipoentrada">
+                            <label class="custom-control-label" id="{{'checkbox' + i}}">HDMI</label>-->
+
+                            <select class="custom-select" id="{{'select' + i}}"
+                                [(ngModel)]="lisConfiguracion[i].tipoentrada">
+                                <option value="0">HDMI</option>
+                                <option value="1">PLC</option>
+                            </select>
                         </div>
                     </td>
                     <td>
-                        <select class="custom-select custom-select-sm">
+                        <select class="custom-select custom-select-sm" id="{{'evento' + i}}"
+                            [(ngModel)]="conf.idevento">
                             <option *ngFor="let e of listEventos" [value]="e.idevento">{{e.evento | titlecase}}</option>
                         </select>
                     </td>
-                    <td>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline1" name="customRadioInline1"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="customRadioInline1">1</label>
+                    <td *ngFor="let number of numbers">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="number" id="number">
+                            <label class="form-check-label" for="number">
+                            </label>
                         </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline1" name="customRadioInline1"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="customRadioInline1">1</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline1" name="customRadioInline1"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="customRadioInline1">1</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline1" name="customRadioInline1"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="customRadioInline1">1</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline1" name="customRadioInline1"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="customRadioInline1">1</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline1" name="customRadioInline1"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="customRadioInline1">1</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline1" name="customRadioInline1"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="customRadioInline1">1</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline1" name="customRadioInline1"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="customRadioInline1">1</label>
-                        </div>
-
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-secondary">{{btnText}}</button>
+    <div class="d-flex justify-content-end mb-2 mr-5">
+        <button type="submit" class="btn btn-secondary">Guardar</button>
     </div>
-</dialog-component>
+</div>

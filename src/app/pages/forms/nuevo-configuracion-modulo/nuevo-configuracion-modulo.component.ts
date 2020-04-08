@@ -2,11 +2,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ConfiguracionModuloService } from '@app/services/configuracion-modulo.service';
 import { ColorService } from '@app/services/color.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
 import { Dialog } from '@app/classes/Dialog';
 import { AuthService } from '@app/services/auth.service'
-import {EventoSensor} from '@app/models/eventoSensor';
+import { EventoSensor } from '@app/models/eventoSensor';
+import { ConfiguracionModulo } from '@app/models/configuracionModulo';
 
 @Component({
   selector: 'app-nuevo-configuracion-modulo',
@@ -14,35 +14,37 @@ import {EventoSensor} from '@app/models/eventoSensor';
   styleUrls: ['./nuevo-configuracion-modulo.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class NuevoConfiguracionModuloComponent extends Dialog implements OnInit {
+export class NuevoConfiguracionModuloComponent implements OnInit {
 
   submitted = false;
   token;
-  listEventos:EventoSensor[];
+  listEventos: EventoSensor[];
+  lisConfiguracion: ConfiguracionModulo[];
+  numbers;
   constructor(
     private configService: ConfiguracionModuloService,
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<NuevoConfiguracionModuloComponent>,
-    private auth: AuthService, private colorService:ColorService,
-    @Inject(MAT_DIALOG_DATA) public data
+    private auth: AuthService, private colorService: ColorService,
   ) {
-    super();
   }
 
   ngOnInit() {
     this.token = this.auth.token;
-    this.loadModalTexts();
+    this.numbers = Array(16).fill(null).map((x, i) => i + 1);
+    this.lisConfiguracion = Array(11).fill(new ConfiguracionModulo());
+    console.log(this.lisConfiguracion);
+    //this.loadModalTexts();
     this.getEventos();
   }
 
-  loadModalTexts() {
+  /*loadModalTexts() {
     const { title, btnText, alertErrorText, alertSuccesText, modalMode } = this.data;
     this.title = title;
     this.btnText = btnText;
     this.alertSuccesText = alertSuccesText;
     this.alertErrorText = alertErrorText;
     this.modalMode = modalMode;
-  }
+  }*/
 
   async getEventos() {
     try {
@@ -56,7 +58,7 @@ export class NuevoConfiguracionModuloComponent extends Dialog implements OnInit 
     }
   }
 
-  async guardar() {
+ /* async guardar() {
     try {
       let response;
       /*switch (this.modalMode) {
@@ -64,7 +66,7 @@ export class NuevoConfiguracionModuloComponent extends Dialog implements OnInit 
           break;
         case 'edit': response = await this.perfilService.update(this.form.value, this.token).toPromise();
           break;
-      }*/
+      }
       if (response.code == 200) {
         this.showAlert(this.alertSuccesText, true);
         this.closeModal();
@@ -76,9 +78,13 @@ export class NuevoConfiguracionModuloComponent extends Dialog implements OnInit 
       console.log(e);
       this.showAlert(e.error.message, false);
     }
+  }*/
+
+  onFilterChange(eve: any) {
+    console.log(eve);
   }
 
-  closeModal() {
-    this.dialogRef.close();
+  trackByFn(index, item) {
+    return index;
   }
 }

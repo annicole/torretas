@@ -25,7 +25,7 @@
                         <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar "
                             (click)="delete(PerfilConfig.idperfil)"><i class="material-icons">delete</i></a>
                         <a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar configuración "
-                            (click)="addConfiguracion(PerfilConfig.idperfil)"><i class="material-icons">
+                        [routerLink]="['/configuracionModulo',PerfilConfig.idperfil]"><i class="material-icons">
                                 settings
                             </i></a>
                     </td>

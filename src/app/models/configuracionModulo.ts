@@ -9,5 +9,6 @@ export class ConfiguracionModulo {
     Evento : EventoSensor;
     constructor(){
        this.Evento = new EventoSensor();
+       this.tipoentrada =1;
     }    
 }

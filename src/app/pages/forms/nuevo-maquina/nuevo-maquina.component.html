@@ -32,7 +32,7 @@
       <div class="form-group col-md-6">
         <label for="torreta">Modulo interfaz</label>
         <select class="form-control" id="torreta" nombre="torreta" formControlName="idmodulo"
-          [ngClass]="{ 'is-invalid': submitted && f.torreta.errors }">
+          [ngClass]="{ 'is-invalid': submitted && f.idmodulo.errors }">
           <option *ngFor="let modulo of moduloInterfaz" [value]="modulo.idmodulo">{{modulo.serial}}</option>
         </select>
         <div *ngIf="submitted && f.idmodulo.errors" class="invalid-feedback">

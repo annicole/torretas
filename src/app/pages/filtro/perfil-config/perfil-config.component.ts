@@ -8,6 +8,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { NuevoPerfilconfigComponent } from '@app/pages/forms/nuevo-perfilconfig/nuevo-perfilconfig.component';
 import { NuevoConfiguracionModuloComponent } from '@app/pages/forms/nuevo-configuracion-modulo/nuevo-configuracion-modulo.component';
 import { AuthService } from '@app/services/auth.service';
+
 @Component({
   selector: 'app-perfil-config',
   templateUrl: './perfil-config.component.html',
@@ -100,22 +101,5 @@ export class PerfilConfigComponent implements OnInit {
       type: "square-jelly-box"
     };
     this.spinner.show("mySpinner", opt1);
-  }
-
-  addConfiguracion(id) {
-    const dialogRef = this.dialog.open(NuevoConfiguracionModuloComponent, {
-      width: '70rem',
-      data: {
-        title: 'Agregar configuración',
-        btnText: 'Guardar',
-        alertSuccesText: 'Configuración creada!',
-        alertErrorText: "",
-        modalMode: 'create'
-      }
-    });
-
-  /*  dialogRef.afterClosed().subscribe(data => {
-      this.getPerfil();
-    });*/
   }
 }
