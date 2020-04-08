@@ -7,6 +7,7 @@ import { Dialog } from '@app/classes/Dialog';
 import { AuthService } from '@app/services/auth.service'
 import { EventoSensor } from '@app/models/eventoSensor';
 import { ConfiguracionModulo } from '@app/models/configuracionModulo';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-nuevo-configuracion-modulo',
@@ -19,21 +20,20 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
   submitted = false;
   token;
   listEventos: EventoSensor[];
-  lisConfiguracion: ConfiguracionModulo[];
-  numbers;
+  lisConfiguracion: Array<ConfiguracionModulo>;
+  listEstacion;
   constructor(
     private configService: ConfiguracionModuloService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,private activate: ActivatedRoute,
     private auth: AuthService, private colorService: ColorService,
   ) {
   }
 
   ngOnInit() {
     this.token = this.auth.token;
-    this.numbers = Array(16).fill(null).map((x, i) => i + 1);
-    this.lisConfiguracion = Array(11).fill(new ConfiguracionModulo());
+    this.listEstacion = Array(16).fill(null).map((x, i) => i + 1);
+    this.lisConfiguracion = Array(11).fill(new ConfiguracionModulo(this.activate.snapshot.paramMap.get('idPerfil')));
     console.log(this.lisConfiguracion);
-    //this.loadModalTexts();
     this.getEventos();
   }
 
@@ -51,7 +51,6 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
       let resp = await this.colorService.getColors(this.token).toPromise();
       if (resp.code == 200) {
         this.listEventos = resp.eventos;
-        console.log(this.listEventos)
       }
     } catch (e) {
       console.log(e);
@@ -80,11 +79,17 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     }
   }*/
 
-  onFilterChange(eve: any) {
-    console.log(eve);
+  onFilterChange(eve: any,item) {
+    item.tipoentrada = eve;
+    console.log(item)
   }
 
   trackByFn(index, item) {
     return index;
+  }
+
+  onChange(eve,conf){
+    conf.idevento = eve;
+    console.log(conf)
   }
 }

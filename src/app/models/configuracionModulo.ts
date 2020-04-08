@@ -1,14 +1,18 @@
-import {EventoSensor} from './eventoSensor';
+import { EventoSensor } from './eventoSensor';
 
 export class ConfiguracionModulo {
-    idconfiguracion:number;
-    entrada:string;
-    tipoentrada:number;
-    idevento:number;
-    idperfil:number;
-    Evento : EventoSensor;
-    constructor(){
-       this.Evento = new EventoSensor();
-       this.tipoentrada =1;
-    }    
+    idconfiguracion: number;
+    entrada: string;
+    tipoentrada: number;
+    idevento: number;
+    idperfil: number;
+
+    constructor(idPerfil){
+        this.idconfiguracion = 0;
+        this.entrada ="";
+        this.tipoentrada =0;
+        this.idevento =0;
+        this.idperfil = idPerfil;
+    }
+
 }

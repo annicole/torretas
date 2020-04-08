@@ -3,16 +3,16 @@
         <p class="font-weight-bold">Agregar configuración</p>
     </div>
     <div class="table-responsive-lg px-4">
-        <table class="table table-borderless table-sm" id="table" >
+        <table class="table table-borderless table-sm" id="table">
             <thead>
                 <tr>
-                    <th scope="col" rowspan="2" >Entrada</th>
-                    <th scope="col" rowspan="2" >Tipo entrada</th>
-                    <th scope="col" rowspan="2" >Evento</th>
-                    <th scope="col" rowspan="1" colspan="16" >Estaciones</th>
+                    <th scope="col" rowspan="2">Entrada</th>
+                    <th scope="col" rowspan="2">Tipo entrada</th>
+                    <th scope="col" rowspan="2">Evento</th>
+                    <th scope="col" rowspan="1" colspan="16">Estaciones</th>
                 </tr>
                 <tr>
-                    <th *ngFor="let number of numbers" >{{number}}</th>
+                    <th *ngFor="let number of listEstacion">{{number}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +25,8 @@
                             <label class="custom-control-label" id="{{'checkbox' + i}}">HDMI</label>-->
 
                             <select class="custom-select" id="{{'select' + i}}"
-                                [(ngModel)]="lisConfiguracion[i].tipoentrada">
+                                (change)="onFilterChange($event.target.value,conf)">
+                                <option value=""></option>
                                 <option value="0">HDMI</option>
                                 <option value="1">PLC</option>
                             </select>
@@ -33,11 +34,12 @@
                     </td>
                     <td>
                         <select class="custom-select custom-select-sm" id="{{'evento' + i}}"
-                            [(ngModel)]="conf.idevento">
+                            (change)="onChange($event.target.value,conf)">
+                            <option value=""></option>
                             <option *ngFor="let e of listEventos" [value]="e.idevento">{{e.evento | titlecase}}</option>
                         </select>
                     </td>
-                    <td *ngFor="let number of numbers">
+                    <td *ngFor="let number of listEstacion">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="number" id="number">
                             <label class="form-check-label" for="number">
