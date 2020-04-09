@@ -1,12 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ConfiguracionModuloService } from '@app/services/configuracion-modulo.service';
 import { ColorService } from '@app/services/color.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
-import { Dialog } from '@app/classes/Dialog';
 import { AuthService } from '@app/services/auth.service'
 import { EventoSensor } from '@app/models/eventoSensor';
-import { ConfiguracionModulo } from '@app/models/configuracionModulo';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -20,31 +17,31 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
   submitted = false;
   token;
   listEventos: EventoSensor[];
-  lisConfiguracion: Array<ConfiguracionModulo>;
-  listEstacion;
+  lisConfiguracion = [];
+  listEstacion = [];
   constructor(
     private configService: ConfiguracionModuloService,
-    private formBuilder: FormBuilder,private activate: ActivatedRoute,
+    private activate: ActivatedRoute,
     private auth: AuthService, private colorService: ColorService,
   ) {
   }
 
   ngOnInit() {
     this.token = this.auth.token;
-    this.listEstacion = Array(16).fill(null).map((x, i) => i + 1);
-    this.lisConfiguracion = Array(11).fill(new ConfiguracionModulo(this.activate.snapshot.paramMap.get('idPerfil')));
+    this.listEstacion = Array(16).fill(null).map((x, i) => ({ 'estacion': i + 1 }));
+    let idPerfil = this.activate.snapshot.paramMap.get('idPerfil');
+    this.lisConfiguracion = Array(11).fill(null).map((x, i) => (
+      {
+        entrada: i + 1,
+        tipoentrada: '',
+        idevento: 0,
+        idperfil: idPerfil,
+        listEstacion: Array(16).fill(null).map((x, i) => ({ 'id': 'estacion_' + (i + 1), 'checked': false }))
+      }
+    ));
     console.log(this.lisConfiguracion);
     this.getEventos();
   }
-
-  /*loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode } = this.data;
-    this.title = title;
-    this.btnText = btnText;
-    this.alertSuccesText = alertSuccesText;
-    this.alertErrorText = alertErrorText;
-    this.modalMode = modalMode;
-  }*/
 
   async getEventos() {
     try {
@@ -57,39 +54,50 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     }
   }
 
- /* async guardar() {
-    try {
-      let response;
-      /*switch (this.modalMode) {
-        case 'create': response = await this.configService.create('', this.token).toPromise();
-          break;
-        case 'edit': response = await this.perfilService.update(this.form.value, this.token).toPromise();
-          break;
-      }
-      if (response.code == 200) {
-        this.showAlert(this.alertSuccesText, true);
-        this.closeModal();
-      }
-      else {
-        this.showAlert(this.alertErrorText, false);
-      }
-    } catch (e) {
-      console.log(e);
-      this.showAlert(e.error.message, false);
-    }
-  }*/
+  /* async guardar() {
+     try {
+       let response;
+       /*switch (this.modalMode) {
+         case 'create': response = await this.configService.create('', this.token).toPromise();
+           break;
+         case 'edit': response = await this.perfilService.update(this.form.value, this.token).toPromise();
+           break;
+       }
+       if (response.code == 200) {
+         this.showAlert(this.alertSuccesText, true);
+         this.closeModal();
+       }
+       else {
+         this.showAlert(this.alertErrorText, false);
+       }
+     } catch (e) {
+       console.log(e);
+       this.showAlert(e.error.message, false);
+     }
+   }*/
 
-  onFilterChange(eve: any,item) {
-    item.tipoentrada = eve;
-    console.log(item)
+  onFilterChange(eve: any, index) {
+    console.log(this.lisConfiguracion)
   }
 
   trackByFn(index, item) {
     return index;
   }
 
-  onChange(eve,conf){
-    conf.idevento = eve;
-    console.log(conf)
+  onChange(eve, index) {
+    console.log(this.lisConfiguracion)
+  }
+
+  onEstacionChange(eve: any) {
+
+    this.lisConfiguracion.forEach((key) => {
+      key.listEstacion.forEach(estacion => {
+        if (estacion.id === eve.id && estacion.checked) {
+          estacion.checked = false;
+        }
+      })
+    });
+    eve.checked = !eve.checked;
+    console.log(this.lisConfiguracion)
   }
 }
