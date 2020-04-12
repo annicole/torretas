@@ -3,8 +3,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a [routerLink]="['/perfilConfig']">Perfil Configuración</a></li>
-                <li class="breadcrumb-item active font-weight-bold" 
-                aria-current="page" >Agregar configuración</li>
+                <li class="breadcrumb-item active font-weight-bold" aria-current="page">Agregar configuración</li>
             </ol>
         </nav>
     </div>
@@ -24,14 +23,11 @@
             <tbody>
                 <tr *ngFor="let conf of lisConfiguracion; let i = index; trackBy: trackByFn;">
                     <td>
-                        <p class="text-center">{{i +1}}</p>
+                        <p class="text-center">{{conf.entrada}}</p>
                     </td>
                     <td>
-                        <!--<input type="checkbox" class="custom-control-input" id="{{'checkbox' + i}}"
-                            (change)="onFilterChange($event)" [(ngModel)]="conf.tipoentrada">
-                            <label class="custom-control-label" id="{{'checkbox' + i}}">HDMI</label>-->
-
-                        <select class="custom-select" id="{{'select' + i}}"
+                        <select class="custom-select" id="{{'select' + i}}" 
+                         [ngClass]="{ 'is-invalid': submitted && conf.tipoentrada === '' }"
                             (change)="onFilterChange($event.target.value,i)" [(ngModel)]="conf.tipoentrada">
                             <option value="0">HDMI</option>
                             <option value="1">PLC</option>
@@ -39,6 +35,7 @@
                     </td>
                     <td>
                         <select class="custom-select custom-select-sm" id="{{'evento' + i}}"
+                        [ngClass]="{ 'is-invalid': submitted && conf.idevento === '' }"
                             (change)="onChange($event.target.value,i)" [(ngModel)]="conf.idevento">
                             <option *ngFor="let e of listEventos" [value]="e.idevento">{{e.evento | titlecase}}</option>
                         </select>
@@ -55,7 +52,15 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-end mb-2 mr-5">
-        <button type="submit" class="btn btn-secondary">Guardar</button>
+    <div class=" row mb-3 mx-5">
+        <div class="col-8">
+            <div *ngIf="submitted && !validate" class="alert alert-danger" role="alert">
+                {{messageError}}
+            </div>
+        </div>
+        <div class="col-4">
+            <button type="button" (click)="onSubmit()" class="btn btn-secondary float-right">Guardar</button>
+        </div>
+
     </div>
 </div>

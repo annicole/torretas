@@ -18,7 +18,7 @@ export class ConfiguracionModuloService {
   }
 
 
-  create(configModulo: ConfiguracionModulo, token): Observable<any> {
+  create(configModulo, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url + '/get', configModulo, { headers });
   }
@@ -28,7 +28,7 @@ export class ConfiguracionModuloService {
     return this.http.get(`${this.url + '/read'}/${id}`, { headers });
   }
 
-  update(configModulo: ConfiguracionModulo, token) {
+  update(configModulo, token) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.put(`${this.url + '/read'}/${configModulo.idconfiguracion}`, configModulo, { headers });
   }

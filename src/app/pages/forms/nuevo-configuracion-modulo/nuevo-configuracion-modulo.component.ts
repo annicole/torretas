@@ -19,6 +19,8 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
   listEventos: EventoSensor[];
   lisConfiguracion = [];
   listEstacion = [];
+  validate = true;
+  messageError;
   constructor(
     private configService: ConfiguracionModuloService,
     private activate: ActivatedRoute,
@@ -34,12 +36,11 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
       {
         entrada: i + 1,
         tipoentrada: '',
-        idevento: 0,
+        idevento: '',
         idperfil: idPerfil,
         listEstacion: Array(16).fill(null).map((x, i) => ({ 'id': 'estacion_' + (i + 1), 'checked': false }))
       }
     ));
-    console.log(this.lisConfiguracion);
     this.getEventos();
   }
 
@@ -54,27 +55,40 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     }
   }
 
-  /* async guardar() {
-     try {
-       let response;
-       /*switch (this.modalMode) {
-         case 'create': response = await this.configService.create('', this.token).toPromise();
-           break;
-         case 'edit': response = await this.perfilService.update(this.form.value, this.token).toPromise();
-           break;
-       }
-       if (response.code == 200) {
-         this.showAlert(this.alertSuccesText, true);
-         this.closeModal();
-       }
-       else {
-         this.showAlert(this.alertErrorText, false);
-       }
-     } catch (e) {
-       console.log(e);
-       this.showAlert(e.error.message, false);
-     }
-   }*/
+  onSubmit() {
+    this.submitted = true;
+    this.validate = true;
+    this.lisConfiguracion.forEach((key) => {
+      if (key.tipoentrada === '' || key.idevento === '') {
+        this.validate = false;
+      }
+    });
+
+    if (!this.validate) {
+      this.messageError = "¡Error! Los campos tipo entrada y evento no deben estar vacíos.";
+      return;
+
+    } else {
+      this.guardar();
+    }
+  }
+
+  async guardar() {
+    try {
+      let response = await this.configService.create(this.lisConfiguracion, this.token).toPromise();
+
+      if (response.code == 200) {
+
+      }
+      else {
+        this.validate = false;
+      }
+    } catch (e) {
+      console.log(e);
+      this.messageError = "Error al guardar la configuración!"
+      this.validate = false;
+    }
+  }
 
   onFilterChange(eve: any, index) {
     console.log(this.lisConfiguracion)
