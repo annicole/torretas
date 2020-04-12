@@ -4,7 +4,8 @@ import { ColorService } from '@app/services/color.service';
 import { ViewEncapsulation } from '@angular/core';
 import { AuthService } from '@app/services/auth.service'
 import { EventoSensor } from '@app/models/eventoSensor';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-nuevo-configuracion-modulo',
@@ -23,7 +24,7 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
   messageError;
   constructor(
     private configService: ConfiguracionModuloService,
-    private activate: ActivatedRoute,
+    private activate: ActivatedRoute, private router: Router,
     private auth: AuthService, private colorService: ColorService,
   ) {
   }
@@ -32,7 +33,7 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     this.token = this.auth.token;
     this.listEstacion = Array(16).fill(null).map((x, i) => ({ 'estacion': i + 1 }));
     let idPerfil = this.activate.snapshot.paramMap.get('idPerfil');
-    this.lisConfiguracion = Array(11).fill(null).map((x, i) => (
+    this.lisConfiguracion = Array(2).fill(null).map((x, i) => (
       {
         entrada: i + 1,
         tipoentrada: '',
@@ -78,7 +79,8 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
       let response = await this.configService.create(this.lisConfiguracion, this.token).toPromise();
 
       if (response.code == 200) {
-
+        Swal.fire('Se guardó correctamente la configuración!', '', 'success');
+        this.router.navigate(['/perfilConfig']);
       }
       else {
         this.validate = false;
