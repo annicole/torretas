@@ -44,6 +44,11 @@ import { LayeredComponent } from './components/charts/layered/layered.component'
 import { CardTitleComponent } from './components/card-title/card-title.component';
 import { FilterByComponent } from './components/filter-by/filter-by.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { ModuloInterfazComponent } from './pages/filtro/modulo-interfaz/modulo-interfaz.component';
+import { NuevoModuloComponent } from './pages/forms/nuevo-modulo/nuevo-modulo.component';
+import { NuevoPerfilconfigComponent } from './pages/forms/nuevo-perfilconfig/nuevo-perfilconfig.component';
+import { PerfilConfigComponent } from './pages/filtro/perfil-config/perfil-config.component';
+import { NuevoConfiguracionModuloComponent } from './pages/forms/nuevo-configuracion-modulo/nuevo-configuracion-modulo.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -82,7 +87,12 @@ registerLocaleData(localeEsMX, 'es-Mx');
     LayeredComponent,
     CardTitleComponent,
     FilterByComponent,
-    DialogComponent
+    DialogComponent,
+    ModuloInterfazComponent,
+    NuevoModuloComponent,
+    NuevoPerfilconfigComponent,
+    PerfilConfigComponent,
+    NuevoConfiguracionModuloComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +107,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
   providers: [DatePipe,{ provide: LOCALE_ID, useValue: 'es-Mx' }],
   bootstrap: [AppComponent],
   entryComponents: [
-    NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,NuevoTipoEquipoComponent
+    NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
+    NuevoTipoEquipoComponent,NuevoModuloComponent, NuevoPerfilconfigComponent
   ]
 })
 export class AppModule { }

@@ -6,8 +6,6 @@
     </select>
     <input type="text" class="form-control search" placeholder="Buscar equipo.."
       (input)="onSearchChange($event.target.value)">
-    <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver tipo de equipo" [routerLink]="['/tipoEquipo']">
-      <i class="material-icons"> assignment </i></a>
     <a class="btn" data-toggle="tooltip" data-placement="top" title="Nuevo equipo" (click)="addMaquina()">
       <i class="material-icons"> add </i></a>
   </div>
@@ -16,9 +14,12 @@
       <thead>
         <tr>
           <th scope="col">Equipo</th>
-          <th scope="col">Área</th>
-          <th scope="col">Tipo de equipo</th>
-          <th scope="col">Torreta</th>
+          <th scope="col"><button type="button" class="btn btn-link" title="Ir a áreas"
+              [routerLink]="['/area'] ">Área</button></th>
+          <th scope="col"><button type="button" class="btn btn-link" title="Ir a tipo de equipo"
+              [routerLink]="['/tipoEquipo']">Tipo de Equipo</button></th>
+          <th scope="col"><button type="button" class="btn btn-link" title="Ir a modulo interfaz"
+            [routerLink]="['/moduloInterfaz']">Modulo Interfaz</button></th>
           <th scope="col">Opciones</th>
         </tr>
       </thead>
@@ -27,7 +28,7 @@
           <td>{{m.maquina | titlecase}}</td>
           <td>{{m.Area.area | titlecase}}</td>
           <td>{{m.TipoEquipo.tipoequipo }}</td>
-          <td>{{m.torreta }}</td>
+          <td>{{m.ModuloInterfaz.serial }}</td>
           <td>
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="updateMaquina(m)"><i
                 class="material-icons">create</i></a>
@@ -36,10 +37,10 @@
             <!--<a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar Sensor "
               (click)="addSensor(m.idmaquina)"><i class="material-icons">build</i></a>-->
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver gráficas"
-              [routerLink]="['/graficas',m.idmaquina]" (click)="loadPage(m.idmaquina)"><i
+              [routerLink]="['/graficas',m.idmaquina]" ><i
                 class="material-icons">assessment</i></a>
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver tabla de estados"
-              [routerLink]="['/tablaEstado',m.idmaquina]" (click)="loadPage(m.idmaquina)"> <i class="material-icons">
+              [routerLink]="['/tablaEstado',m.idmaquina]"> <i class="material-icons">
                 bubble_chart </i></a>
           </td>
         </tr>

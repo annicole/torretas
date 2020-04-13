@@ -4,7 +4,7 @@ import { SensorService } from '@app/services/sensor.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Maquina } from '@app/models/maquina';
 import { Sensor } from '@app/models/sensor';
-import { Color } from '@app/models/color';
+import { EventoSensor } from '@app/models/eventoSensor';
 import { ColorService } from '@app/services/color.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
@@ -23,7 +23,7 @@ export class NuevoSensorComponent extends Dialog implements OnInit {
   sensorForm: FormGroup;
   submitted = false;
   maquinas: Maquina[];
-  colores: Color[];
+  colores: EventoSensor[];
   token;
 
   constructor(private maquinaService: MaquinaService, private sensorService: SensorService,

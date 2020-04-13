@@ -1,0 +1,66 @@
+<div class="perfilConfig card mb-4 mx-5">
+    <div class="card-header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a [routerLink]="['/perfilConfig']">Perfil Configuración</a></li>
+                <li class="breadcrumb-item active font-weight-bold" aria-current="page">Agregar configuración</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="table-responsive-lg px-4">
+        <table class="table table-borderless table-sm" id="table">
+            <thead>
+                <tr>
+                    <th scope="col" rowspan="2">Entrada</th>
+                    <th scope="col" rowspan="2">Tipo entrada</th>
+                    <th scope="col" rowspan="2">Evento</th>
+                    <th scope="col" rowspan="1" colspan="16">Estaciones</th>
+                </tr>
+                <tr>
+                    <th *ngFor="let number of listEstacion">{{number.estacion}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let conf of lisConfiguracion; let i = index; trackBy: trackByFn;">
+                    <td>
+                        <p class="text-center">{{conf.entrada}}</p>
+                    </td>
+                    <td>
+                        <select class="custom-select" id="{{'select' + i}}" 
+                         [ngClass]="{ 'is-invalid': submitted && conf.tipoentrada === '' }"
+                            (change)="onFilterChange($event.target.value,i)" [(ngModel)]="conf.tipoentrada">
+                            <option value="0">HDMI</option>
+                            <option value="1">PLC</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="custom-select custom-select-sm" id="{{'evento' + i}}"
+                        [ngClass]="{ 'is-invalid': submitted && conf.idevento === '' }"
+                            (change)="onChange($event.target.value,i)" [(ngModel)]="conf.idevento">
+                            <option *ngFor="let e of listEventos" [value]="e.idevento">{{e.evento | titlecase}}</option>
+                        </select>
+                    </td>
+                    <td *ngFor="let number of conf.listEstacion">
+                        <div class="custom-control custom-checkbox">
+                            <input class="form-check-input" type="checkbox" id="{{number.id}}"
+                                [checked]="number.checked" (change)="onEstacionChange(number)">
+                            <label class="form-check-label" for="{{number.id}}">
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class=" row mb-3 mx-5">
+        <div class="col-8">
+            <div *ngIf="submitted && !validate" class="alert alert-danger" role="alert">
+                {{messageError}}
+            </div>
+        </div>
+        <div class="col-4">
+            <button type="button" (click)="onSubmit()" class="btn btn-secondary float-right">Guardar</button>
+        </div>
+
+    </div>
+</div>
