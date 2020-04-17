@@ -33,7 +33,7 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     this.token = this.auth.token;
     this.listEstacion = Array(16).fill(null).map((x, i) => ({ 'estacion': i + 1 }));
     let idPerfil = this.activate.snapshot.paramMap.get('idPerfil');
-    this.lisConfiguracion = Array(2).fill(null).map((x, i) => (
+    this.lisConfiguracion = Array(11).fill(null).map((x, i) => (
       {
         entrada: i + 1,
         tipoentrada: '',
@@ -64,11 +64,9 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
         this.validate = false;
       }
     });
-
     if (!this.validate) {
       this.messageError = "¡Error! Los campos tipo entrada y evento no deben estar vacíos.";
       return;
-
     } else {
       this.guardar();
     }
@@ -92,20 +90,33 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     }
   }
 
-  onFilterChange(eve: any, index) {
-    console.log(this.lisConfiguracion)
+  onFilterChange(eve: any, index, key: string) {
+    //la entrada 1 es igual a  9
+    //Entrada 2 igual 10
+    //Entrada 3 igual 11
+    let indexChange;
+    switch (index) {
+      case 0:
+        indexChange = 8;
+        break;
+      case 1:
+        indexChange = 9;
+        break;
+      case 2:
+        indexChange = 10;
+        break;
+    }
+    if (indexChange !== undefined) {
+      let objectConfig = this.lisConfiguracion[indexChange];
+      objectConfig[key] = eve;
+    }
   }
 
   trackByFn(index, item) {
     return index;
   }
 
-  onChange(eve, index) {
-    console.log(this.lisConfiguracion)
-  }
-
   onEstacionChange(eve: any) {
-
     this.lisConfiguracion.forEach((key) => {
       key.listEstacion.forEach(estacion => {
         if (estacion.id === eve.id && estacion.checked) {
@@ -114,6 +125,5 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
       })
     });
     eve.checked = !eve.checked;
-    console.log(this.lisConfiguracion)
   }
 }

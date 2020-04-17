@@ -26,18 +26,20 @@
                         <p class="text-center">{{conf.entrada}}</p>
                     </td>
                     <td>
-                        <select class="custom-select" id="{{'select' + i}}" 
-                         [ngClass]="{ 'is-invalid': submitted && conf.tipoentrada === '' }"
-                            (change)="onFilterChange($event.target.value,i)" [(ngModel)]="conf.tipoentrada">
+                        <select class="custom-select" id="{{'select' + i}}"
+                            [ngClass]="{ 'is-invalid': submitted && conf.tipoentrada === '' }"
+                            (change)="onFilterChange($event.target.value,i,'tipoentrada')"
+                            [(ngModel)]="conf.tipoentrada">
                             <option value="0">HDMI</option>
                             <option value="1">PLC</option>
                         </select>
                     </td>
                     <td>
-                        <select class="custom-select custom-select-sm" id="{{'evento' + i}}"
-                        [ngClass]="{ 'is-invalid': submitted && conf.idevento === '' }"
-                            (change)="onChange($event.target.value,i)" [(ngModel)]="conf.idevento">
-                            <option *ngFor="let e of listEventos" [value]="e.idevento">{{e.evento | titlecase}}</option>
+                        <select class="custom-select custom-select-sm" id="{{'evento' + i}}" 
+                            [ngClass]="{ 'is-invalid': submitted && conf.idevento === '' }"
+                            (change)="onFilterChange($event.target.value,i,'idevento')" [(ngModel)]="conf.idevento">
+                            <option *ngFor="let e of listEventos" [style.color]="e.color"
+                             [value]="e.idevento">{{e.evento | titlecase}}</option>
                         </select>
                     </td>
                     <td *ngFor="let number of conf.listEstacion">
