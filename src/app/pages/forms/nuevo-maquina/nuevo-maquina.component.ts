@@ -27,12 +27,12 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
   submitted = false;
   areas: Area[];
   tipos: TipoEquipo[];
-  moduloInterfaz:ModuloInterfaz[];
+  moduloInterfaz: ModuloInterfaz[];
   token;
 
   constructor(private maquinaService: MaquinaService, private areaService: AreaService,
     private formBuilder: FormBuilder, private router: Router, public dialogRef: MatDialogRef<NuevoMaquinaComponent>,
-    private auth: AuthService, private tipoService: TipoEquipoService, private moduloService:ModuloInterfazService,
+    private auth: AuthService, private tipoService: TipoEquipoService, private moduloService: ModuloInterfazService,
     @Inject(MAT_DIALOG_DATA) public data) {
     super();
   }
@@ -42,10 +42,10 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
     this.maquinaForm = this.formBuilder.group({
       maquina: ['', Validators.required],
       idarea: [{ value: '', disabled: disabled }, Validators.required],
-      tipoequipo: ['',Validators.required],
+      tipoequipo: ['', Validators.required],
       idmodulo: ['', Validators.required],
       descripcion: ['', Validators.required],
-      idmaquina:['']
+      idmaquina: ['']
     });
     this.token = this.auth.token;
     this.getAreas();
@@ -76,10 +76,10 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
     }
   }
 
-  async getModulo(){
+  async getModulo() {
     try {
       let resp = await this.moduloService.getModuloInterfaz(this.token).toPromise();
-      if(resp.code ==200){
+      if (resp.code == 200) {
         this.moduloInterfaz = resp.moduloI;
       }
     } catch (error) {
@@ -130,8 +130,8 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
 
     if (_maquina) {
       //this.maquina = _maquina;
-      const { idmaquina, descripcion, idarea, tipoequipo,idmodulo,maquina} = _maquina;
-      this.maquinaForm.patchValue({idmaquina, descripcion, idarea, tipoequipo,idmodulo,maquina});
+      const { idmaquina, descripcion, idarea, tipoequipo, idmodulo, maquina } = _maquina;
+      this.maquinaForm.patchValue({ idmaquina, descripcion, idarea, tipoequipo, idmodulo, maquina });
     }
   }
 

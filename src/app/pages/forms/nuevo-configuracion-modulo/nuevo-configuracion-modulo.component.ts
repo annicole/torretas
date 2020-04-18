@@ -1,13 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ConfiguracionModuloService } from '@app/services/configuracion-modulo.service';
 import { ColorService } from '@app/services/color.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
-import { Dialog } from '@app/classes/Dialog';
 import { AuthService } from '@app/services/auth.service'
 import { EventoSensor } from '@app/models/eventoSensor';
-import { ConfiguracionModulo } from '@app/models/configuracionModulo';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-nuevo-configuracion-modulo',
@@ -20,31 +18,32 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
   submitted = false;
   token;
   listEventos: EventoSensor[];
-  lisConfiguracion: Array<ConfiguracionModulo>;
-  listEstacion;
+  lisConfiguracion = [];
+  listEstacion = [];
+  validate = true;
+  messageError;
   constructor(
     private configService: ConfiguracionModuloService,
-    private formBuilder: FormBuilder,private activate: ActivatedRoute,
+    private activate: ActivatedRoute, private router: Router,
     private auth: AuthService, private colorService: ColorService,
   ) {
   }
 
   ngOnInit() {
     this.token = this.auth.token;
-    this.listEstacion = Array(16).fill(null).map((x, i) => i + 1);
-    this.lisConfiguracion = Array(11).fill(new ConfiguracionModulo(this.activate.snapshot.paramMap.get('idPerfil')));
-    console.log(this.lisConfiguracion);
+    this.listEstacion = Array(16).fill(null).map((x, i) => ({ 'estacion': i + 1 }));
+    let idPerfil = this.activate.snapshot.paramMap.get('idPerfil');
+    this.lisConfiguracion = Array(11).fill(null).map((x, i) => (
+      {
+        entrada: i + 1,
+        tipoentrada: '',
+        idevento: '',
+        idperfil: idPerfil,
+        listEstacion: Array(16).fill(null).map((x, i) => ({ 'id': 'estacion_' + (i + 1), 'checked': false }))
+      }
+    ));
     this.getEventos();
   }
-
-  /*loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode } = this.data;
-    this.title = title;
-    this.btnText = btnText;
-    this.alertSuccesText = alertSuccesText;
-    this.alertErrorText = alertErrorText;
-    this.modalMode = modalMode;
-  }*/
 
   async getEventos() {
     try {
@@ -57,39 +56,74 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     }
   }
 
- /* async guardar() {
-    try {
-      let response;
-      /*switch (this.modalMode) {
-        case 'create': response = await this.configService.create('', this.token).toPromise();
-          break;
-        case 'edit': response = await this.perfilService.update(this.form.value, this.token).toPromise();
-          break;
+  onSubmit() {
+    this.submitted = true;
+    this.validate = true;
+    this.lisConfiguracion.forEach((key) => {
+      if (key.tipoentrada === '' || key.idevento === '') {
+        this.validate = false;
       }
+    });
+    if (!this.validate) {
+      this.messageError = "¡Error! Los campos tipo entrada y evento no deben estar vacíos.";
+      return;
+    } else {
+      this.guardar();
+    }
+  }
+
+  async guardar() {
+    try {
+      let response = await this.configService.create(this.lisConfiguracion, this.token).toPromise();
+
       if (response.code == 200) {
-        this.showAlert(this.alertSuccesText, true);
-        this.closeModal();
+        Swal.fire('Se guardó correctamente la configuración!', '', 'success');
+        this.router.navigate(['/perfilConfig']);
       }
       else {
-        this.showAlert(this.alertErrorText, false);
+        this.validate = false;
       }
     } catch (e) {
       console.log(e);
-      this.showAlert(e.error.message, false);
+      this.messageError = "Error al guardar la configuración!"
+      this.validate = false;
     }
-  }*/
+  }
 
-  onFilterChange(eve: any,item) {
-    item.tipoentrada = eve;
-    console.log(item)
+  onFilterChange(eve: any, index, key: string) {
+    //la entrada 1 es igual a  9
+    //Entrada 2 igual 10
+    //Entrada 3 igual 11
+    let indexChange;
+    switch (index) {
+      case 0:
+        indexChange = 8;
+        break;
+      case 1:
+        indexChange = 9;
+        break;
+      case 2:
+        indexChange = 10;
+        break;
+    }
+    if (indexChange !== undefined) {
+      let objectConfig = this.lisConfiguracion[indexChange];
+      objectConfig[key] = eve;
+    }
   }
 
   trackByFn(index, item) {
     return index;
   }
 
-  onChange(eve,conf){
-    conf.idevento = eve;
-    console.log(conf)
+  onEstacionChange(eve: any) {
+    this.lisConfiguracion.forEach((key) => {
+      key.listEstacion.forEach(estacion => {
+        if (estacion.id === eve.id && estacion.checked) {
+          estacion.checked = false;
+        }
+      })
+    });
+    eve.checked = !eve.checked;
   }
 }
