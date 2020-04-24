@@ -32,6 +32,7 @@ export class PerfilConfigComponent implements OnInit {
       let resp = await this.perfilService.getPerfil(this.auth.token).toPromise();
       if (resp.code == 200) {
         this.lista = resp.perfilConfig;
+        console.log(this.lista);
         this.total = this.lista.length;
       }
     } catch (e) {

@@ -10,6 +10,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { registerLocaleData } from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
 
 import localeEsMX from '@angular/common/locales/es-MX';
 
@@ -49,6 +52,9 @@ import { NuevoModuloComponent } from './pages/forms/nuevo-modulo/nuevo-modulo.co
 import { NuevoPerfilconfigComponent } from './pages/forms/nuevo-perfilconfig/nuevo-perfilconfig.component';
 import { PerfilConfigComponent } from './pages/filtro/perfil-config/perfil-config.component';
 import { NuevoConfiguracionModuloComponent } from './pages/forms/nuevo-configuracion-modulo/nuevo-configuracion-modulo.component';
+import { RespiradorComponent } from './pages/filtro/respirador/respirador.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatInputModule} from '@angular/material/input';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -92,7 +98,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoModuloComponent,
     NuevoPerfilconfigComponent,
     PerfilConfigComponent,
-    NuevoConfiguracionModuloComponent
+    NuevoConfiguracionModuloComponent,
+    RespiradorComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +109,12 @@ registerLocaleData(localeEsMX, 'es-Mx');
     HttpClientModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatNativeDateModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatInputModule
   ],
   providers: [DatePipe,{ provide: LOCALE_ID, useValue: 'es-Mx' }],
   bootstrap: [AppComponent],

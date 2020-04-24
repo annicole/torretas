@@ -1,9 +1,4 @@
 <div class="header">
-
-  <!--<select class="form-control search" id="area" [(ngModel)]="selectedArea" (ngModelChange)="searchByArea()">
-      <option value="">Seleccionar área...</option>
-      <option *ngFor="let a of areas" [value]="a.idarea">{{a.area | titlecase}}</option>
-    </select>-->
   <input type="text" class="form-control search" placeholder="{{titleSelect}}"
     (input)="onSearchChange($event.target.value)">
   <a class="btn" data-toggle="tooltip" data-placement="top" title="Nuevo" (click)="onClickButon()">
