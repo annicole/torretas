@@ -2,11 +2,11 @@
 @import '../../../../assets/variables.scss';
 
 .card { 
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: $shadow-card;
 }
 
 .departamento {
-    margin-top: 5rem;
+    margin-top: 3rem;
 }
 
 .footer{

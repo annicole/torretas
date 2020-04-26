@@ -18,6 +18,10 @@ export class PerfilConfigComponent implements OnInit {
 
   lista: PerfilConfig[];
   total: number;
+  listNav=[
+    {"name":"Modulo Interfaz", "router":"/moduloInterfaz"},
+    {"name":"Perfil configuración", "router":"/perfilConfig"}
+  ]
   constructor(private perfilService: PerfilConfigService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,
     private auth: AuthService

@@ -17,6 +17,9 @@ export class UsuariosComponent implements OnInit {
 
   usuarios: Usuario[];
   total: number = 0;
+  listNav=[
+    {"name":"Usuarios", "router":"/usuario"}, 
+  ]
   constructor(private usuarioService: UsuarioService, private auth: AuthService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 

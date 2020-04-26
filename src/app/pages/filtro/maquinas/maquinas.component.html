@@ -1,5 +1,11 @@
+<div class="mt-3">
+  <app-header-table [renderButton]="true" [titleHeader]="'Áreas'" [titleSelect]="'Buscar equipo..'"
+    (buttonOutput)="addMaquina()" (searchOutput)="onSearchChange($event.target.value)" [listNav]="listNav">
+  </app-header-table>
+</div>
+
 <div class="maquina card mb-4 mx-5">
-  <div class="card-header header">
+ <!-- <div class="card-header header">
     <select class="form-control search" id="area" [(ngModel)]="selectedArea" (ngModelChange)="searchByArea()">
       <option value="">Seleccionar área...</option>
       <option *ngFor="let a of areas" [value]="a.idarea">{{a.area | titlecase}}</option>
@@ -8,18 +14,15 @@
       (input)="onSearchChange($event.target.value)">
     <a class="btn" data-toggle="tooltip" data-placement="top" title="Nuevo equipo" (click)="addMaquina()">
       <i class="material-icons"> add </i></a>
-  </div>
+  </div>-->
   <div class="table-responsive-lg px-4">
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">Equipo</th>
-          <th scope="col"><button type="button" class="btn btn-link" title="Ir a áreas"
-              [routerLink]="['/area'] ">Área</button></th>
-          <th scope="col"><button type="button" class="btn btn-link" title="Ir a tipo de equipo"
-              [routerLink]="['/tipoEquipo']">Tipo de Equipo</button></th>
-          <th scope="col"><button type="button" class="btn btn-link" title="Ir a modulo interfaz"
-            [routerLink]="['/moduloInterfaz']">Modulo Interfaz</button></th>
+          <th scope="col">Área</th>
+          <th scope="col">Tipo de Equipo</th>
+          <th scope="col">Modulo Interfaz</th>
           <th scope="col">Opciones</th>
         </tr>
       </thead>
@@ -37,8 +40,7 @@
             <!--<a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar Sensor "
               (click)="addSensor(m.idmaquina)"><i class="material-icons">build</i></a>-->
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver gráficas"
-              [routerLink]="['/graficas',m.idmaquina]" ><i
-                class="material-icons">assessment</i></a>
+              [routerLink]="['/graficas',m.idmaquina]"><i class="material-icons">assessment</i></a>
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Ver tabla de estados"
               [routerLink]="['/tablaEstado',m.idmaquina]"> <i class="material-icons">
                 bubble_chart </i></a>

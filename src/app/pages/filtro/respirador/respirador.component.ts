@@ -27,6 +27,9 @@ export class RespiradorComponent implements OnInit {
   listInfo = [];
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource;
+  listNav=[
+    {"name":"Respiradores", "router":"/respirador"}, 
+  ]
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;

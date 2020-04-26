@@ -1,12 +1,10 @@
+<div class="mt-3">
+    <app-header-table [renderButton]="false" [titleHeader]="'Departamentos'" [titleSelect]="'Buscar departamento..'"
+        (buttonOutput)="addDepto()" (searchOutput)="onSearchChange($event)" [listNav]="listNav">
+    </app-header-table>
+</div>
+
 <div class="perfilConfig card mb-4 mx-5">
-    <div class="card-header">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a [routerLink]="['/perfilConfig']">Perfil Configuración</a></li>
-                <li class="breadcrumb-item active font-weight-bold" aria-current="page">Agregar configuración</li>
-            </ol>
-        </nav>
-    </div>
     <div class="table-responsive-lg px-4">
         <table class="table table-borderless table-sm" id="table">
             <thead>
@@ -35,11 +33,11 @@
                         </select>
                     </td>
                     <td>
-                        <select class="custom-select custom-select-sm" id="{{'evento' + i}}" 
+                        <select class="custom-select custom-select-sm" id="{{'evento' + i}}"
                             [ngClass]="{ 'is-invalid': submitted && conf.idevento === '' }"
                             (change)="onFilterChange($event.target.value,i,'idevento')" [(ngModel)]="conf.idevento">
-                            <option *ngFor="let e of listEventos" [style.color]="e.color"
-                             [value]="e.idevento">{{e.evento | titlecase}}</option>
+                            <option *ngFor="let e of listEventos" [style.color]="e.color" [value]="e.idevento">
+                                {{e.evento | titlecase}}</option>
                         </select>
                     </td>
                     <td *ngFor="let number of conf.listEstacion">

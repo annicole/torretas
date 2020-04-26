@@ -18,6 +18,9 @@ export class DepartamentosComponent implements OnInit {
 
   departamentos: Departamento[];
   total: number;
+  listNav=[
+    {"name":"Departamento", "router":"/departamento"}, 
+  ]
   constructor(private deptoService: DepartamentoService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,
     private auth :AuthService

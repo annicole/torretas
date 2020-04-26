@@ -17,6 +17,11 @@ export class AreasComponent implements OnInit {
 
   areas: Area[];
   total: number = 0;
+  render =true;
+  listNav=[
+    {"name":"Área", "router":"/area"},
+    { "name": "Equipo", "router": "/maquina" }
+  ]
   constructor(private areaService: AreaService, private auth: AuthService,
     private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 

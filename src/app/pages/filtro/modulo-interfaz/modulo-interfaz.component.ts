@@ -17,6 +17,10 @@ export class ModuloInterfazComponent implements OnInit {
 
   listaModulo: ModuloInterfaz[];
   total: number;
+  listNav=[
+    {"name":"Modulo Interfaz", "router":"/moduloInterfaz"},
+    {"name":"Perfil configuración", "router":"/perfilConfig"}
+  ]
   constructor(private moduloService: ModuloInterfazService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,
     private auth: AuthService
