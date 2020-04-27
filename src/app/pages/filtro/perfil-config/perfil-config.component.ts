@@ -18,6 +18,10 @@ export class PerfilConfigComponent implements OnInit {
 
   lista: PerfilConfig[];
   total: number;
+  listNav=[
+    {"name":"Modulo Interfaz", "router":"/moduloInterfaz"},
+    {"name":"Perfil configuración", "router":"/perfilConfig"}
+  ]
   constructor(private perfilService: PerfilConfigService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,
     private auth: AuthService
@@ -32,6 +36,7 @@ export class PerfilConfigComponent implements OnInit {
       let resp = await this.perfilService.getPerfil(this.auth.token).toPromise();
       if (resp.code == 200) {
         this.lista = resp.perfilConfig;
+        console.log(this.lista);
         this.total = this.lista.length;
       }
     } catch (e) {

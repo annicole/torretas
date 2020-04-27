@@ -22,6 +22,10 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
   listEstacion = [];
   validate = true;
   messageError;
+  listNav=[
+    {"name":"Perfil configuración", "router":"/perfilConfig"},
+    {"name":"Agregar configuración", "router":"/configuracionModulo"}
+  ]
   constructor(
     private configService: ConfiguracionModuloService,
     private activate: ActivatedRoute, private router: Router,
@@ -33,6 +37,7 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     this.token = this.auth.token;
     this.listEstacion = Array(16).fill(null).map((x, i) => ({ 'estacion': i + 1 }));
     let idPerfil = this.activate.snapshot.paramMap.get('idPerfil');
+    this.listNav[1].router ="/configuracionModulo/" + idPerfil;
     this.lisConfiguracion = Array(11).fill(null).map((x, i) => (
       {
         entrada: i + 1,

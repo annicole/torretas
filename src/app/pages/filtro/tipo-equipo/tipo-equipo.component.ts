@@ -15,6 +15,10 @@ export class TipoEquipoComponent implements OnInit {
 
   tipos :TipoEquipo[];
   total:number =0;
+  listNav = [
+    { "name": "Tipo de equipo", "router": "/tipoEquipo" },
+    { "name": "Equipos", "router": "/maquina" },
+  ]
   constructor(private tipoService: TipoEquipoService, 
     private dialog: MatDialog, private auth: AuthService) { }
 

@@ -23,6 +23,12 @@ export class MaquinasComponent implements OnInit {
   areas: Area[];
   selectedArea: string = '';
   total: number = 0;
+  listNav = [
+    { "name": "Equipos", "router": "/maquina" },
+    { "name": "Área", "router": "/area" },
+    { "name": "Tipo de equipo", "router": "/tipoEquipo" },
+    { "name": "Modulo Interfaz", "router": "/moduloInterfaz" }
+  ]
   constructor(private maquinaService: MaquinaService, private areaService: AreaService,
     private dialog: MatDialog, private spinner: NgxSpinnerService, private auth: AuthService) { }
 
@@ -33,7 +39,7 @@ export class MaquinasComponent implements OnInit {
 
   async getMaquinas(searchValue: string) {
     try {
-      let resp = await this.maquinaService.getMaquinas(searchValue, (this.selectedArea != "") ? this.selectedArea : "",this.auth.token).toPromise();
+      let resp = await this.maquinaService.getMaquinas(searchValue, (this.selectedArea != "") ? this.selectedArea : "", this.auth.token).toPromise();
       if (resp.code == 200) {
         this.maquinas = resp.maquina;
         this.total = this.maquinas.length;
@@ -96,7 +102,7 @@ export class MaquinasComponent implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.maquinaService.delete(id,this.auth.token).subscribe(res => {
+        this.maquinaService.delete(id, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El equipo ha sido eliminado correctamente', 'success');
             this.getMaquinas("");
@@ -145,6 +151,6 @@ export class MaquinasComponent implements OnInit {
   }
 
   loadPage(page) {
-    this.maquinaService.changePage(page,this.auth.token);
+    this.maquinaService.changePage(page, this.auth.token);
   }
 }

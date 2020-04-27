@@ -8,12 +8,16 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class HeaderTableComponent implements OnInit {
   @Input() public titleHeader;
   @Input() public titleSelect;
+  @Input() public renderSelect;
+  @Input() public renderButton;
+  @Input() public listNav;
   @Output() buttonOutput = new EventEmitter();
   @Output() searchOutput = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.renderButton);
   }
 
   onSearchChange(searchValue: string){

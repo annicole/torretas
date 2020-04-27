@@ -1,11 +1,21 @@
-<div class="header">
-
-  <!--<select class="form-control search" id="area" [(ngModel)]="selectedArea" (ngModelChange)="searchByArea()">
-      <option value="">Seleccionar área...</option>
-      <option *ngFor="let a of areas" [value]="a.idarea">{{a.area | titlecase}}</option>
-    </select>-->
-  <input type="text" class="form-control search" placeholder="{{titleSelect}}"
+<div class="header d-flex justify-content-between">
+  <div class="d-flex justify-content-start">
+    <ul class="nav">
+      <li class="nav-item" *ngFor="let li of listNav">
+        <a class="nav-link active"  [routerLink]="[li.router]" [routerLinkActive]="['activate']">{{li.name}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="d-flex justify-content-end"  *ngIf="renderButton">
+  <div class="form-group has-search">
+    <span class="material-icons form-control-feedback">
+      search
+    </span>
+    <input type="text" class="form-control search-input" placeholder="{{titleSelect}}" 
     (input)="onSearchChange($event.target.value)">
-  <a class="btn" data-toggle="tooltip" data-placement="top" title="Nuevo" (click)="onClickButon()">
+  </div>
+  <a class="btn" data-toggle="tooltip" data-placement="top" title="Nuevo"
+   (click)="onClickButon()">
     <i class="material-icons"> add </i></a>
+    </div>
 </div>

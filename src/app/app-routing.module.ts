@@ -16,6 +16,7 @@ import { TipoEquipoComponent } from './pages/filtro/tipo-equipo/tipo-equipo.comp
 import {ModuloInterfazComponent} from './pages/filtro/modulo-interfaz/modulo-interfaz.component'
 import {PerfilConfigComponent} from './pages/filtro/perfil-config/perfil-config.component'
 import {NuevoConfiguracionModuloComponent} from './pages/forms/nuevo-configuracion-modulo/nuevo-configuracion-modulo.component'
+import {RespiradorComponent} from './pages/filtro/respirador/respirador.component'
 
 const routes:Routes=[
   {path:'',redirectTo:'/home',pathMatch:'full'},
@@ -32,7 +33,8 @@ const routes:Routes=[
   {path:'tablaEstado/:idMaquina',component:GraficaSensorComponent,canActivate: [AuthGuard]},
   {path:'tipoEquipo',component:TipoEquipoComponent,canActivate: [AuthGuard] },
   {path:'perfilConfig',component:PerfilConfigComponent,canActivate: [AuthGuard] },
-  {path:'configuracionModulo/:idPerfil',component:NuevoConfiguracionModuloComponent,canActivate:[AuthGuard]}
+  {path:'configuracionModulo/:idPerfil',component:NuevoConfiguracionModuloComponent,canActivate:[AuthGuard]},
+  {path:'respirador',component:RespiradorComponent,canActivate:[AuthGuard]}
 ];
 @NgModule({
   declarations: [],
