@@ -17,8 +17,14 @@
                 <td mat-cell *matCellDef="let element"> {{element.ns}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="error" >
+                <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2" class="header-bgray"> Error </th>
+                <td mat-cell *matCellDef="let element" class="alert alert-success" [ngClass]="{ 'alert alert-danger': element.eerror !== ''}"
+                > {{element.eerror}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="conf">
-                <th class="header-bgray" mat-header-cell *matHeaderCellDef [attr.colspan]="3">Configuración</th>
+                <th class="header-bgray" mat-header-cell *matHeaderCellDef [attr.colspan]="6">Configuración</th>
                 <!-- This column doesn't generate <td> items, so no need to add a definition for them -->
             </ng-container>
 
@@ -36,7 +42,22 @@
 
             <ng-container matColumnDef="cpresion">
                 <th mat-header-cell *matHeaderCellDef class="header-blue"> Presión </th>
+                <td mat-cell *matCellDef="let element"> {{element.cpresion}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="cbpm">
+                <th mat-header-cell *matHeaderCellDef class="header-blue"> BPM </th>
                 <td mat-cell *matCellDef="let element"> {{element.cbpm}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ctiempoI">
+                <th mat-header-cell *matHeaderCellDef class="header-blue"> Tiempo inhalación </th>
+                <td mat-cell *matCellDef="let element"> {{element.ctinalacion}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ctiempoE">
+                <th mat-header-cell *matHeaderCellDef class="header-blue"> Tiempo exhalación </th>
+                <td mat-cell *matCellDef="let element"> {{element.ctexalacion}} </td>
             </ng-container>
 
             <ng-container matColumnDef="sensor">
@@ -74,10 +95,10 @@
                 <td mat-cell *matCellDef="let element"> {{element.eritmoc}} </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="['ns', 'conf', 'sensor']"></tr>
-            <tr mat-header-row *matHeaderRowDef="['flujo','relacion','cpresion' ,'encendido', 'eflujo','oxigeno' , 'oximetro',
+            <tr mat-header-row *matHeaderRowDef="['ns','error', 'conf', 'sensor']"></tr>
+            <tr mat-header-row *matHeaderRowDef="['flujo','relacion','cpresion','cbpm','ctiempoI','ctiempoE' ,'encendido', 'eflujo','oxigeno' , 'oximetro',
             'presion','ritmo']"></tr>
-            <tr mat-row *matRowDef="let row; columns: ['ns', 'flujo','relacion','cpresion' ,'encendido', 'eflujo','oxigeno' , 'oximetro',
+            <tr mat-row *matRowDef="let row; columns: ['ns', 'error','flujo','relacion','cpresion','cbpm','ctiempoI','ctiempoE','encendido', 'eflujo','oxigeno' , 'oximetro',
             'presion','ritmo']"></tr>
         </table>
 
