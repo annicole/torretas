@@ -6,6 +6,9 @@ import { RespiradorService } from '@app/services/respirador.service';
 import { AuthService } from '@app/services/auth.service';
 
 export interface Registro {
+  cpresion: string,
+  ctexalacion: string,
+  ctinalacion: string,
   cbpm: number,
   cflujo: number,
   crelacion: number,
@@ -15,7 +18,8 @@ export interface Registro {
   eoximetro: number,
   epresion: string,
   eritmoc: number,
-  ns: string
+  ns: string,
+  eerror: number
 }
 
 @Component({
@@ -27,8 +31,8 @@ export class RespiradorComponent implements OnInit {
   listInfo = [];
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource;
-  listNav=[
-    {"name":"Respiradores", "router":"/respirador"}, 
+  listNav = [
+    { "name": "Respiradores", "router": "/respirador" },
   ]
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
