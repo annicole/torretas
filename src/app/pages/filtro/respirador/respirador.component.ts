@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { RespiradorService } from '@app/services/respirador.service';
 import { AuthService } from '@app/services/auth.service';
+import { interval } from 'rxjs';
 
 export interface Registro {
   cpresion: string,
@@ -27,13 +28,14 @@ export interface Registro {
   templateUrl: './respirador.component.html',
   styleUrls: ['./respirador.component.scss']
 })
-export class RespiradorComponent implements OnInit {
-  listInfo = [];
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+export class RespiradorComponent implements OnInit, OnDestroy {
+  listInfo: Registro[];
   dataSource;
   listNav = [
     { "name": "Respiradores", "router": "/respirador" },
   ]
+  intervalTimer = interval(1300);
+  intervalTable;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -44,21 +46,34 @@ export class RespiradorComponent implements OnInit {
 
   ngOnInit() {
     this.getInfoRespirador();
-    this.dataSource = new MatTableDataSource<Registro>(this.listInfo);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   async getInfoRespirador() {
     try {
+      this.unsubscribeInterval();
       let resp = await this.respiradorService.getInfoRespirador('0', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.listInfo = resp.respirador;
+        this.dataSource = new MatTableDataSource<Registro>(this.listInfo);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
         console.log(this.listInfo);
+        this.intervalTable = this.intervalTimer.subscribe(() => this.getInfoRespirador());
       }
     } catch (e) {
       console.log(e);
     }
+  }
+
+  unsubscribeInterval() {
+    if (this.intervalTable) {
+      this.intervalTable.unsubscribe();
+      // console.log("unsubscribe");
+    }
+  }
+
+  ngOnDestroy() {
+    this.unsubscribeInterval();
   }
 
 }
