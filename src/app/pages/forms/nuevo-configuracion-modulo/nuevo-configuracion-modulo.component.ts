@@ -76,7 +76,7 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
       this.guardar();
     }
   }
-
+  
   async guardar() {
     try {
       let response = await this.configService.create(this.lisConfiguracion, this.token).toPromise();
