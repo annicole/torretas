@@ -68,12 +68,13 @@ export class RespiradorComponent implements OnInit, OnDestroy {
   unsubscribeInterval() {
     if (this.intervalTable) {
       this.intervalTable.unsubscribe();
-      // console.log("unsubscribe");
+      console.log("unsubscribe");
     }
   }
 
   ngOnDestroy() {
-    this.unsubscribeInterval();
+    console.log("destroy")
+    this.intervalTable.unsubscribe();
   }
 
 }

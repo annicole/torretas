@@ -47,6 +47,9 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
         listEstacion: Array(16).fill(null).map((x, i) => ({ 'id': 'estacion_' + (i + 1), 'checked': false }))
       }
     ));
+    this.lisConfiguracion[0].idevento = 1;
+    this.lisConfiguracion[1].idevento = 2;
+    this.lisConfiguracion[2].idevento = 3;
     this.getEventos();
   }
 
@@ -55,6 +58,7 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
       let resp = await this.colorService.getColors(this.token).toPromise();
       if (resp.code == 200) {
         this.listEventos = resp.eventos;
+        console.log( this.listEventos)
       }
     } catch (e) {
       console.log(e);

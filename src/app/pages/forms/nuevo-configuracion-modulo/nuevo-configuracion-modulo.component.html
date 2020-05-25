@@ -52,15 +52,15 @@
             </tbody>
         </table>
     </div>
-    <div class=" row mb-3 mx-5">
+    <div class=" row mb-3">
         <div class="col-8">
             <div *ngIf="submitted && !validate" class="alert alert-danger" role="alert">
                 {{messageError}}
             </div>
         </div>
-        <div class="col-4">
-            <button type="button" (click)="onSubmit()" class="btn btn-secondary float-right">Guardar</button>
-            <button type="button" [routerLink]="['/perfilConfig']" class="btn btn-secondary float-right">Cancelar</button>
+        <div class="col-4 float-right">
+            <button type="button" (click)="onSubmit()" class="btn btn-secondary mr-1">Guardar</button>   
+            <button type="button" [routerLink]="['/perfilConfig']" class="btn btn-secondary ">Cancelar</button>                
         </div>
     </div>
 </div>
