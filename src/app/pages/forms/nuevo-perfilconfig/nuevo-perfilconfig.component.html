@@ -20,13 +20,16 @@
             <div class="form-group">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="customRadioInline1" name="automanual" formControlName="automanual"
-                        class="custom-control-input" value="1">
+                        class="custom-control-input" [value]="1">
                     <label class="custom-control-label" for="customRadioInline1">Manual</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="customRadioInline2" name="automanual" formControlName="automanual"
-                        class="custom-control-input" value="2">
+                        class="custom-control-input" [value]="2">
                     <label class="custom-control-label" for="customRadioInline2">Automático</label>
+                </div>
+                <div *ngIf="submitted && f.automanual.errors" class="invalid-feedback">
+                    <div *ngIf="f.automanual.errors.required">Es requerido</div>
                 </div>
             </div>
         </div>

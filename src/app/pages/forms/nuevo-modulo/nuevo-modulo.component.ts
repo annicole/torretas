@@ -37,7 +37,7 @@ export class NuevoModuloComponent extends Dialog implements OnInit {
     this.form = this.formBuilder.group({
       serial: ['', Validators.required],
       idperfil: ['', Validators.required],
-      idmodulo:[''],
+      idmodulo:[],
       activo:[1]
     });
     this.token = this.auth.token;

@@ -31,7 +31,7 @@ export class NuevoPerfilconfigComponent extends Dialog implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       nombreperfil: ['', Validators.required],
-      idperfil: ['', Validators.required],
+      idperfil: [],
       descripcion:[''],
       automanual:['',Validators.required]
     });
@@ -67,6 +67,7 @@ export class NuevoPerfilconfigComponent extends Dialog implements OnInit {
   async guardar() {
     try {
       let response;
+      console.log(this.form.value)
       switch (this.modalMode) {
         case 'create': response = await this.perfilService.create(this.form.value, this.token).toPromise();
           break;
