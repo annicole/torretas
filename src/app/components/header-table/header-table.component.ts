@@ -17,7 +17,6 @@ export class HeaderTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.renderButton);
   }
 
   onSearchChange(searchValue: string){

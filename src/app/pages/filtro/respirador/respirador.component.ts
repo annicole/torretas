@@ -28,7 +28,7 @@ export interface Registro {
   templateUrl: './respirador.component.html',
   styleUrls: ['./respirador.component.scss']
 })
-export class RespiradorComponent implements OnInit, OnDestroy {
+export class RespiradorComponent implements OnInit, OnDestroy  {
   listInfo: Registro[];
   dataSource;
   listNav = [
@@ -74,6 +74,7 @@ export class RespiradorComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     console.log("destroy")
+    //clearInterval(this.intervalTable);
     this.intervalTable.unsubscribe();
   }
 

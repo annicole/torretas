@@ -23,6 +23,7 @@ export class ConfiguracionModulo {
     estacion_15: boolean;
     estacion_16: boolean;
     listEstacion;
+    evento:string;
 
     constructor(idPerfil) {
         this.idconfiguracion = 0;

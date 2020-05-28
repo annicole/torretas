@@ -8,14 +8,25 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { NuevoPerfilconfigComponent } from '@app/pages/forms/nuevo-perfilconfig/nuevo-perfilconfig.component';
 import { NuevoConfiguracionModuloComponent } from '@app/pages/forms/nuevo-configuracion-modulo/nuevo-configuracion-modulo.component';
 import { AuthService } from '@app/services/auth.service';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-perfil-config',
   templateUrl: './perfil-config.component.html',
-  styleUrls: ['./perfil-config.component.scss']
+  styleUrls: ['./perfil-config.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class PerfilConfigComponent implements OnInit {
 
+  dataSource;
+  columnsToDisplay = ['nombre', 'desc', 'config', 'opciones'];
+  expandedElement: PerfilConfig | null;
   lista: PerfilConfig[];
   total: number;
   listNav=[
@@ -35,9 +46,10 @@ export class PerfilConfigComponent implements OnInit {
     try {
       let resp = await this.perfilService.getPerfil(this.auth.token).toPromise();
       if (resp.code == 200) {
-        this.lista = resp.perfilConfig;
-        console.log(this.lista);
-        this.total = this.lista.length;
+       // this.lista = resp.perfilConfig;
+        this.dataSource = resp.perfilConfig
+        console.log(this.dataSource)
+       // this.total = this.lista.length;
       }
     } catch (e) {
       console.log(e);

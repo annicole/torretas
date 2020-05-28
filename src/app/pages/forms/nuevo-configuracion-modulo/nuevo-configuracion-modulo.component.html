@@ -31,14 +31,22 @@
                             <option value="0">HDMI</option>
                             <option value="1">PLC</option>
                         </select>
+                        <div *ngIf="submitted && conf.tipoentrada === ''" class="invalid-feedback">
+                            <div *ngIf=" submitted && conf.tipoentrada === ''">Tipo requerido</div>
+                          </div>
                     </td>
                     <td>
                         <select class="custom-select custom-select-sm" id="{{'evento' + i}}"
-                            [ngClass]="{ 'is-invalid': submitted && conf.idevento === '' }"
+                            [ngClass]="{ 'is-invalid': (submitted && conf.idevento === '' || conf.errorEvento) }" 
+                             [disabled] ="i ==0 || i ==1 || i ==2 || i ==8 || i==9 || i==10"
                             (change)="onFilterChange($event.target.value,i,'idevento')" [(ngModel)]="conf.idevento">
                             <option *ngFor="let e of listEventos" [style.color]="e.color" [value]="e.idevento">
                                 {{e.evento | titlecase}}</option>
                         </select>
+                        <div *ngIf="(submitted && conf.idevento === '' || conf.errorEvento)" class="invalid-feedback">
+                            <div *ngIf=" conf.errorEvento">Evento Duplicado</div>
+                            <div *ngIf="submitted && conf.idevento  === ''">Evento requerido</div>
+                          </div>
                     </td>
                     <td *ngFor="let number of conf.listEstacion">
                         <div class="custom-control custom-checkbox">
@@ -54,9 +62,9 @@
     </div>
     <div class=" row mb-3">
         <div class="col-8">
-            <div *ngIf="submitted && !validate" class="alert alert-danger" role="alert">
+            <!--<div *ngIf="(submitted && !validate || errorDuplicated)" class="alert alert-danger" role="alert">
                 {{messageError}}
-            </div>
+            </div>-->
         </div>
         <div class="col-4 float-right">
             <button type="button" (click)="onSubmit()" class="btn btn-secondary mr-1">Guardar</button>   
