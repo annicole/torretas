@@ -78,7 +78,7 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
 
   async getModulo() {
     try {
-      let resp = await this.moduloService.getModuloInterfaz(this.token).toPromise();
+      let resp = await this.moduloService.getModuloInterfaz('',this.token).toPromise();
       if (resp.code == 200) {
         this.moduloInterfaz = resp.moduloI;
       }

@@ -61,7 +61,7 @@ export class NuevoModuloComponent extends Dialog implements OnInit {
 
   async getPerfiles() {
     try {
-      let resp = await this.perfilService.getPerfil(this.token).toPromise();
+      let resp = await this.perfilService.getPerfil('',this.token).toPromise();
       if (resp.code == 200) {
         this.listaPerfil = resp.perfilConfig;
       }
