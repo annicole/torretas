@@ -39,12 +39,12 @@ export class PerfilConfigComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getPerfil();
+    this.getPerfil('');
   }
 
-  async getPerfil() {
+  async getPerfil(searchValue:string) {
     try {
-      let resp = await this.perfilService.getPerfil(this.auth.token).toPromise();
+      let resp = await this.perfilService.getPerfil(searchValue,this.auth.token).toPromise();
       if (resp.code == 200) {
        // this.lista = resp.perfilConfig;
         this.dataSource = resp.perfilConfig
@@ -54,6 +54,10 @@ export class PerfilConfigComponent implements OnInit {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  onSearchChange(searchValue: string) {
+    this.getPerfil(searchValue);
   }
 
   add() {
@@ -69,7 +73,7 @@ export class PerfilConfigComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getPerfil();
+      this.getPerfil('');
     });
   }
 
@@ -87,7 +91,7 @@ export class PerfilConfigComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getPerfil();
+      this.getPerfil('');
     });
   }
 
@@ -101,7 +105,7 @@ export class PerfilConfigComponent implements OnInit {
         this.perfilService.delete(id, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El perfil configuración ha sido eliminado correctamente', 'success');
-            this.getPerfil();
+            this.getPerfil('');
           } else {
             Swal.fire('Error', 'No fue posible eliminar el perfil', 'error');
           }

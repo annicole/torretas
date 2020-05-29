@@ -26,7 +26,7 @@
                     <td>
                         <select class="custom-select" id="{{'select' + i}}"
                             [ngClass]="{ 'is-invalid': submitted && conf.tipoentrada === '' }"
-                            (change)="onFilterChange($event.target.value,i,'tipoentrada')"
+                            (change)="onTipoEntradaChange($event.target.value,i,'tipoentrada')"
                             [(ngModel)]="conf.tipoentrada">
                             <option value="0">HDMI</option>
                             <option value="1">PLC</option>
@@ -39,7 +39,7 @@
                         <select class="custom-select custom-select-sm" id="{{'evento' + i}}"
                             [ngClass]="{ 'is-invalid': (submitted && conf.idevento === '' || conf.errorEvento) }" 
                              [disabled] ="i ==0 || i ==1 || i ==2 || i ==8 || i==9 || i==10"
-                            (change)="onFilterChange($event.target.value,i,'idevento')" [(ngModel)]="conf.idevento">
+                            (change)="onEventoChange($event.target.value,i)" [(ngModel)]="conf.idevento">
                             <option *ngFor="let e of listEventos" [style.color]="e.color" [value]="e.idevento">
                                 {{e.evento | titlecase}}</option>
                         </select>

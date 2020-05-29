@@ -12,9 +12,11 @@ export class ModuloInterfazService {
   private url: string = environment.environment.urlEndPoint + '/moduloInterfaz';
   constructor(private http: HttpClient) { }
 
-  getModuloInterfaz(token): Observable<any> {
+  getModuloInterfaz(name,token): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda', name);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
-    return this.http.get(this.url + '/get', { headers });
+    return this.http.get(this.url + '/get', { headers, params: params });
   }
 
   create(modulo, token): Observable<any> {

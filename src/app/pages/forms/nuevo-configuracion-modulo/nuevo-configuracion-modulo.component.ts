@@ -143,7 +143,16 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     }
   }
 
-  onFilterChange(eve: any, index, key: string) {
+  onEventoChange(eve: any, index) {
+    this.lisConfiguracion[index].errorEvento = false;
+    this.lisConfiguracion.forEach((key, i) => {
+      if (key.idevento == eve && index != i) {
+        this.lisConfiguracion[index].errorEvento = true;
+      }
+    });
+  }
+
+  onTipoEntradaChange(eve: any, index, key: string){
     //la entrada 1 es igual a  9
     //Entrada 2 igual 10
     //Entrada 3 igual 11
@@ -163,12 +172,6 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
       let objectConfig = this.lisConfiguracion[indexChange];
       objectConfig[key] = eve;
     }
-    this.lisConfiguracion[index].errorEvento = false;
-    this.lisConfiguracion.forEach((key, i) => {
-      if (key.idevento == eve && index != i) {
-        this.lisConfiguracion[index].errorEvento = true;
-      }
-    });
   }
 
   trackByFn(index, item) {

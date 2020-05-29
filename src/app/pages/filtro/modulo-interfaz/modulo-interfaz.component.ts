@@ -27,12 +27,12 @@ export class ModuloInterfazComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getModulo();
+    this.getModulo('');
   }
 
-  async getModulo() {
+  async getModulo(searchValue:string) {
     try {
-      let resp = await this.moduloService.getModuloInterfaz(this.auth.token).toPromise();
+      let resp = await this.moduloService.getModuloInterfaz(searchValue,this.auth.token).toPromise();
       if (resp.code == 200) {
         this.listaModulo = resp.moduloI;
         this.total = this.listaModulo.length;
@@ -40,6 +40,10 @@ export class ModuloInterfazComponent implements OnInit {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  onSearchChange(searchValue: string) {
+    this.getModulo(searchValue);
   }
 
   add() {
@@ -55,7 +59,7 @@ export class ModuloInterfazComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getModulo();
+      this.getModulo('');
     });
   }
 
@@ -73,7 +77,7 @@ export class ModuloInterfazComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getModulo();
+      this.getModulo('');
     });
   }
 
@@ -88,7 +92,7 @@ export class ModuloInterfazComponent implements OnInit {
         this.moduloService.update(modulo, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El modulo interfaz ha sido desactivado correctamente', 'success');
-            this.getModulo();
+            this.getModulo('');
           } else {
             Swal.fire('Error', 'No fue posible desactivar el modulo interfaz', 'error');
           }

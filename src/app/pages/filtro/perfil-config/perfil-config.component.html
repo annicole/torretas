@@ -68,6 +68,7 @@
             <td mat-cell *matCellDef="let element" [attr.colspan]="4">
                 <div class="example-element-detail"
                     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div style="overflow-x:auto;">
                     <mat-table [dataSource]="element.ConfiguracionModulos" *ngIf="element.ConfiguracionModulos.length >0">
                         <ng-container matColumnDef="entrada">
                             <mat-header-cell *matHeaderCellDef> Entrada </mat-header-cell>
@@ -75,11 +76,11 @@
                         </ng-container>
                         <ng-container matColumnDef="tipoentrada">
                             <mat-header-cell *matHeaderCellDef> Tipo entrada </mat-header-cell>
-                            <mat-cell *matCellDef="let element"> {{element.automanual ==0 ? "HDMI" : "PLC"}} </mat-cell>
+                            <mat-cell *matCellDef="let element"> {{element.tipoentrada ==  0 ? "HDMI" : "PLC"}} </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="evento">
                             <mat-header-cell *matHeaderCellDef> Evento </mat-header-cell>
-                            <mat-cell *matCellDef="let element" [style.color]="element.Evento.color"> {{element.Evento.evento}} </mat-cell>
+                            <mat-cell *matCellDef="let element" class="mat-column-evento" [style.color]="element.Evento.color"> {{element.Evento.evento}} </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="estacion1">
                             <mat-header-cell *matHeaderCellDef> 1 </mat-header-cell>
@@ -264,6 +265,7 @@
                         'estacion4','estacion5','estacion6','estacion7','estacion8','estacion9','estacion10','estacion11','estacion12',
                         'estacion13','estacion14','estacion15','estacion16']"></mat-row>
                     </mat-table>
+                </div>
                 </div>
             </td>
         </ng-container>
