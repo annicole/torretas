@@ -68,7 +68,7 @@ export class ModuloInterfazComponent implements OnInit {
       width: '40rem',
       data: {
         title: 'Editar modulo interfaz',
-        btnText: 'Editar',
+        btnText: 'Guardar',
         alertSuccesText: 'Modulo interfaz modificado correctamente',
         alertErrorText: "No se puedo modificar el modulo interfaz",
         modalMode: 'edit',

@@ -82,7 +82,7 @@ export class PerfilConfigComponent implements OnInit {
       width: '40rem',
       data: {
         title: 'Editar perfil configuración',
-        btnText: 'Editar',
+        btnText: 'Guardar',
         alertSuccesText: 'Perfil configuración modificado correctamente',
         alertErrorText: "No se puedo modificar el modulo interfaz",
         modalMode: 'edit',

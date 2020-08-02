@@ -45,7 +45,7 @@ export class UsuariosComponent implements OnInit {
       width: '50rem',
       data: {
         title: 'Agregar usuario',
-        btnText: 'Agregar',
+        btnText: 'Guardar',
         alertSuccesText: 'Usuario creado!',
         alertErrorText: "No se puedo crear el usuario",
         modalMode: 'create'
@@ -62,7 +62,7 @@ export class UsuariosComponent implements OnInit {
       width: '40rem',
       data: {
         title: 'Editar usuario',
-        btnText: 'Editar',
+        btnText: 'Guardar',
         alertSuccesText: 'Usuario modificado correctamente',
         alertErrorText: "No se puedo modificar el usuario",
         modalMode: 'edit',

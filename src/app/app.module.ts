@@ -13,8 +13,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
 import localeEsMX from '@angular/common/locales/es-MX';
+import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import { TablaSensorComponent } from './components/tabla-sensor/tabla-sensor.component';
 import { NuevoMaquinaComponent } from './pages/forms/nuevo-maquina/nuevo-maquina.component';
@@ -53,11 +57,8 @@ import { NuevoPerfilconfigComponent } from './pages/forms/nuevo-perfilconfig/nue
 import { PerfilConfigComponent } from './pages/filtro/perfil-config/perfil-config.component';
 import { NuevoConfiguracionModuloComponent } from './pages/forms/nuevo-configuracion-modulo/nuevo-configuracion-modulo.component';
 import { RespiradorComponent } from './pages/filtro/respirador/respirador.component';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatInputModule} from '@angular/material/input';
 
 registerLocaleData(localeEsMX, 'es-Mx');
-
 
 @NgModule({
   declarations: [
@@ -114,7 +115,10 @@ registerLocaleData(localeEsMX, 'es-Mx');
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatButtonToggleModule
   ],
   providers: [DatePipe,{ provide: LOCALE_ID, useValue: 'es-Mx' }],
   bootstrap: [AppComponent],
