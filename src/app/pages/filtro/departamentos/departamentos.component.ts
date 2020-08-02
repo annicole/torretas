@@ -64,7 +64,7 @@ export class DepartamentosComponent implements OnInit {
       width: '30rem',
       data: {
         title: 'Editar departamento',
-        btnText: 'Editar',
+        btnText: 'Guardar',
         alertSuccesText: 'Departamento modificado correctamente',
         alertErrorText: "No se puedo modificar el departamento",
         modalMode: 'edit',

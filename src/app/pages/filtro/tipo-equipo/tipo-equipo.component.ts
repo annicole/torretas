@@ -48,7 +48,7 @@ export class TipoEquipoComponent implements OnInit {
         width: '30rem',
         data: {
           title: 'Agregar tipo de equipo',
-          btnText: 'Agregar',
+          btnText: 'Guardar',
           alertSuccesText: 'Tipo de equipo creado!',
           alertErrorText: "No se puedo crear el tipo de equipo",
           modalMode: 'create'
@@ -66,7 +66,7 @@ export class TipoEquipoComponent implements OnInit {
       width: '30rem',
       data: {
         title: 'Editar tipo de equipo',
-        btnText: 'Editar',
+        btnText: 'Guardar',
         alertSuccesText: 'Tipo de equipo modificado correctamente',
         alertErrorText: "No se puedo modificar el tipo de equipo",
         modalMode: 'edit',

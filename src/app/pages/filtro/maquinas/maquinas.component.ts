@@ -65,7 +65,7 @@ export class MaquinasComponent implements OnInit {
       width: '40rem',
       data: {
         title: 'Agregar equipo',
-        btnText: 'Agregar',
+        btnText: 'Guardar',
         alertSuccesText: 'Equipo creado!',
         alertErrorText: "No se puedo crear el equipo",
         modalMode: 'create'
@@ -82,7 +82,7 @@ export class MaquinasComponent implements OnInit {
       width: '40rem',
       data: {
         title: 'Editar equipo',
-        btnText: 'Editar',
+        btnText: 'Guardar',
         alertSuccesText: 'Equipo modificado correctamente',
         alertErrorText: "No se puedo modificar el equipo",
         modalMode: 'edit',

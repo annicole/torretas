@@ -82,7 +82,7 @@ export class AreasComponent implements OnInit {
       width: '40rem',
       data: {
         title: 'Editar área',
-        btnText: 'Editar',
+        btnText: 'Guardar',
         alertSuccesText: 'Área modificada correctamente',
         alertErrorText: "No se puedo modificar el área",
         modalMode: 'edit',

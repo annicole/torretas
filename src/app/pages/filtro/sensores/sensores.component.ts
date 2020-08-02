@@ -41,7 +41,7 @@ export class SensoresComponent implements OnInit {
       width: '50rem',
       data: {
         title: 'Agregar sensor',
-        btnText: 'Agregar',
+        btnText: 'Guardar',
         alertSuccesText: 'Sensor creado!',
         alertErrorText: "No se puedo crear el sensor",
         modalMode: 'create'
@@ -58,7 +58,7 @@ export class SensoresComponent implements OnInit {
       width: '70rem',
       data: {
         title: 'Editar sensor',
-        btnText: 'Editar',
+        btnText: 'Guardar',
         alertSuccesText: 'Sensor modificado correctamente',
         alertErrorText: "No se puedo modificar el sensor",
         modalMode: 'edit',
