@@ -33,8 +33,7 @@ const routes:Routes=[
   {path:'tablaEstado/:idMaquina',component:GraficaSensorComponent,canActivate: [AuthGuard]},
   {path:'tipoEquipo',component:TipoEquipoComponent,canActivate: [AuthGuard] },
   {path:'perfilConfig',component:PerfilConfigComponent,canActivate: [AuthGuard] },
-  {path:'configuracionModulo/:idPerfil',component:NuevoConfiguracionModuloComponent,canActivate:[AuthGuard]},
-  {path:'respirador',component:RespiradorComponent,canActivate:[AuthGuard]}
+  {path:'configuracionModulo/:idPerfil',component:NuevoConfiguracionModuloComponent,canActivate:[AuthGuard]}
 ];
 @NgModule({
   declarations: [],
