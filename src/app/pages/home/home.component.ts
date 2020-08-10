@@ -68,12 +68,6 @@ export class HomeComponent implements OnInit {
         text: 'Usuarios',
         function: '/usuario',
         class: 'orange-bg'
-      },
-      {
-        icon: 'dvr',
-        text: 'Respiradores',
-        function: '/respirador',
-        class: 'orange-bg'
       }
     ];
   }
