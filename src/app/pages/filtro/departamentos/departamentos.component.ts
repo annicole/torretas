@@ -38,7 +38,6 @@ export class DepartamentosComponent implements OnInit {
         this.total = this.departamentos.length;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 

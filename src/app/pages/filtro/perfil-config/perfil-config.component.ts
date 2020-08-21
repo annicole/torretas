@@ -48,11 +48,9 @@ export class PerfilConfigComponent implements OnInit {
       if (resp.code == 200) {
        // this.lista = resp.perfilConfig;
         this.dataSource = resp.perfilConfig
-        console.log(this.dataSource)
        // this.total = this.lista.length;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 

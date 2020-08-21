@@ -53,7 +53,6 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
         this.departamentos = resp.depto;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 
@@ -80,7 +79,6 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
         this.showAlert(this.alertErrorText, false);
       }
     } catch (e) {
-      console.log(e);
       this.showAlert(e.error.message, false);
     }
   }

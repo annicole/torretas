@@ -45,7 +45,6 @@ export class MaquinasComponent implements OnInit {
         this.total = this.maquinas.length;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 
@@ -56,7 +55,6 @@ export class MaquinasComponent implements OnInit {
         this.areas = resp.area;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 

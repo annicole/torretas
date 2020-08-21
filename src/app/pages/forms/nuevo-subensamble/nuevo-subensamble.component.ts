@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { PerfilConfigService } from '@app/services/perfil-config.service';
+import { SubensambleService } from '@app/services/subensamble.service';
+import { UmService } from '@app/services/um.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
@@ -7,21 +8,23 @@ import { Dialog } from '@app/classes/Dialog';
 import { AuthService } from '@app/services/auth.service';
 
 @Component({
-  selector: 'app-nuevo-perfilconfig',
-  templateUrl: './nuevo-perfilconfig.component.html',
-  styleUrls: ['./nuevo-perfilconfig.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-nuevo-subensamble',
+  templateUrl: './nuevo-subensamble.component.html',
+  styleUrls: ['./nuevo-subensamble.component.scss'],
+  encapsulation:ViewEncapsulation.None
 })
-export class NuevoPerfilconfigComponent extends Dialog implements OnInit {
-
+export class NuevoSubensambleComponent extends Dialog implements OnInit {
 
   form: FormGroup;
   submitted = false;
+  listaUm: [];
   token;
+
   constructor(
-    private perfilService: PerfilConfigService,
+    private subensambleService: SubensambleService,
+    private umService: UmService,
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<NuevoPerfilconfigComponent>,
+    public dialogRef: MatDialogRef<NuevoSubensambleComponent>,
     private auth: AuthService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
@@ -30,26 +33,39 @@ export class NuevoPerfilconfigComponent extends Dialog implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      nombreperfil: ['', Validators.required],
-      idperfil: [],
-      descripcion:[''],
-      automanual:['',Validators.required]
+      subensamble: ['',Validators.required],
+      desc_subens: ['', Validators.required],
+      te_subens: ['', Validators.required],
+      um_subens: [Validators.required],
+      idsubens: []
     });
     this.token = this.auth.token;
     this.loadModalTexts();
+    this.getUm();
+  }
+
+  async getUm() {
+    try {
+      let resp = await this.umService.get(this.token).toPromise();
+      if (resp.code == 200) {
+        this.listaUm = resp.response;
+      }
+    } catch (e) {
+    }
   }
 
   loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode, _perfilConfig } = this.data;
+    const { title, btnText, alertErrorText, alertSuccesText, modalMode, _subensamble } = this.data;
     this.title = title;
     this.btnText = btnText;
     this.alertSuccesText = alertSuccesText;
     this.alertErrorText = alertErrorText;
     this.modalMode = modalMode;
 
-    if (_perfilConfig) {
-      const {idperfil,nombreperfil,descripcion,automanual} = _perfilConfig;
-      this.form.patchValue({idperfil,nombreperfil,descripcion,automanual});
+    if (_subensamble) {
+      const { idsubens, desc_subens, te_subens, subensamble } = _subensamble;
+      const um_subens = _subensamble.Um.idum;
+      this.form.patchValue({ idsubens, desc_subens, te_subens, um_subens, subensamble });
     }
   }
 
@@ -67,13 +83,7 @@ export class NuevoPerfilconfigComponent extends Dialog implements OnInit {
   async guardar() {
     try {
       let response;
-      console.log(this.form.value)
-      switch (this.modalMode) {
-        case 'create': response = await this.perfilService.create(this.form.value, this.token).toPromise();
-          break;
-        case 'edit': response = await this.perfilService.update(this.form.value, this.token).toPromise();
-          break;
-      }
+      response = await this.subensambleService.update(this.form.value, this.token).toPromise();
       if (response.code == 200) {
         this.showAlert(this.alertSuccesText, true);
         this.closeModal();
@@ -89,6 +99,5 @@ export class NuevoPerfilconfigComponent extends Dialog implements OnInit {
   closeModal() {
     this.dialogRef.close();
   }
-
 
 }

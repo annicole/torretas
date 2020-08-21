@@ -37,7 +37,6 @@ export class AreasComponent implements OnInit {
         this.total = this.areas.length;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 

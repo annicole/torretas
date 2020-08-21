@@ -34,13 +34,12 @@ export class TipoEquipoComponent implements OnInit {
         this.total = this.tipos.length;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 
   onSearchChange(searchValue: string) {
    // this.getTipos(searchValue);
-    console.log(searchValue);
+    //console.log(searchValue);
   }
 
   add(){

@@ -68,6 +68,12 @@ export class HomeComponent implements OnInit {
         text: 'Usuarios',
         function: '/usuario',
         class: 'orange-bg'
+      },
+      {
+        icon: 'assignment',
+        text: 'Control de producción',
+        function: '/producto',
+        class: 'gray-bg'
       }
     ];
   }
@@ -84,8 +90,7 @@ export class HomeComponent implements OnInit {
        // console.log(this.urlImg);
       }
     }catch(e){
-      console.log(e);
-    }
+        }
   }
 
   navigateTo(url:String){

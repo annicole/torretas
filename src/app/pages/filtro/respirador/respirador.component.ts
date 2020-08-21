@@ -57,11 +57,9 @@ export class RespiradorComponent implements OnInit, OnDestroy  {
         this.dataSource = new MatTableDataSource<Registro>(this.listInfo);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.listInfo);
         this.intervalTable = this.intervalTimer.subscribe(() => this.getInfoRespirador());
       }
     } catch (e) {
-      console.log(e);
     }
   }
 
@@ -73,7 +71,6 @@ export class RespiradorComponent implements OnInit, OnDestroy  {
   }
 
   ngOnDestroy() {
-    console.log("destroy")
     //clearInterval(this.intervalTable);
     this.intervalTable.unsubscribe();
   }

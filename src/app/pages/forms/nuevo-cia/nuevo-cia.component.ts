@@ -74,7 +74,6 @@ export class NuevoCiaComponent implements OnInit {
         Swal.fire('Error', 'No fue posible guardar la empresa', 'error');
       }
     } catch (e) {
-      console.log(e);
       Swal.fire('Error', 'No fue posible guardar la empresa', 'error');
     }
   }

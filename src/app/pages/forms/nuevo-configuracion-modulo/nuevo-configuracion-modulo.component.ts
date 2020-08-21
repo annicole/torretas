@@ -87,7 +87,6 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
         this.listEventos = resp.eventos;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 
@@ -96,11 +95,9 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
       let resp = await this.configService.read(this.idPerfil, this.token).toPromise();
       if (resp.code == 200) {
         this.lisConfiguracion = resp.listaconfig;
-        console.log(this.lisConfiguracion)
         this.fillTable();
       }
     } catch (e) {
-      console.log(e);
     }
   }
 
@@ -137,7 +134,6 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
         this.validate = false;
       }
     } catch (e) {
-      console.log(e);
       this.messageError = "Error al guardar la configuración!"
       this.validate = false;
     }

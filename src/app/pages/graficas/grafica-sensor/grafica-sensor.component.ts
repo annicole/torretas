@@ -94,7 +94,6 @@ export class GraficaSensorComponent extends ClassChart implements OnInit {
       if (bandera) {
         let response = await this.graficaService.getGraficaEstadoR(id, tipo, this.auth.token).toPromise();
         if (response.code == 200) {
-          console.log(response.grafica);
           arreglo = response.grafica;
           arreglo.forEach((element) => {
             let maquina = element["DESCRIPCION"];
@@ -128,7 +127,6 @@ export class GraficaSensorComponent extends ClassChart implements OnInit {
       if (mostartSpinner)
         this.spinner.hide("mySpinner");
     } catch (e) {
-      console.log(e);
       this.spinner.hide("mySpinner");
       Swal.fire('Error', 'Error al obtener los datos para las tabla', 'error');
     }
@@ -150,7 +148,6 @@ export class GraficaSensorComponent extends ClassChart implements OnInit {
   unsubscribeInterval() {
     if (this.intervalSubs) {
       this.intervalSubs.unsubscribe();
-      console.log("unsubscribe");
     }
   }
 

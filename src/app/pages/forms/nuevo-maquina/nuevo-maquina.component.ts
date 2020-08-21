@@ -61,7 +61,6 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
         this.areas = resp.area;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 
@@ -72,7 +71,6 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
         this.tipos = resp.tipo_equipos;
       }
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -82,9 +80,7 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
       if (resp.code == 200) {
         this.moduloInterfaz = resp.moduloI;
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {    }
   }
 
   get f() { return this.maquinaForm.controls; }
@@ -115,7 +111,6 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
         this.showAlert(this.alertErrorText, false);
       }
     } catch (e) {
-      console.log(e);
       this.showAlert(e.error.message, false);
     }
   }

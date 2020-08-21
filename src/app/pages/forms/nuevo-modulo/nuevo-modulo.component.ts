@@ -66,7 +66,6 @@ export class NuevoModuloComponent extends Dialog implements OnInit {
         this.listaPerfil = resp.perfilConfig;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 
@@ -98,7 +97,6 @@ export class NuevoModuloComponent extends Dialog implements OnInit {
         this.showAlert(this.alertErrorText, false);
       }
     } catch (e) {
-      console.log(e);
       this.showAlert(e.error.message, false);
       //Duplicate Element and the modulo is inactive (0)
       if(e.status == 403 && e.error.modulo.activo ==0){

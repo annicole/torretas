@@ -50,25 +50,20 @@ export class NuevoSensorComponent extends Dialog implements OnInit {
   async getColores() {
     try {
       let resp = await this.colorService.getColors(this.token).toPromise();
-      console.log(resp);
       if (resp.code == 200) {
         this.colores = resp.color;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 
   async getMaquinas() {
     try {
       let resp = await this.maquinaService.getMaquinas("","",this.token).toPromise();
-      console.log(resp);
       if (resp.code == 200) {
         this.maquinas = resp.maquina;
-        console.log(resp);
       }
     } catch (e) {
-      console.log(e);
     }
   }
 
@@ -100,7 +95,6 @@ export class NuevoSensorComponent extends Dialog implements OnInit {
         this.showAlert(this.alertErrorText, false);
       }
     } catch (e) {
-      console.log(e);
       this.showAlert(e.error.message, false);
     }
   }

@@ -16,7 +16,10 @@ import { TipoEquipoComponent } from './pages/filtro/tipo-equipo/tipo-equipo.comp
 import {ModuloInterfazComponent} from './pages/filtro/modulo-interfaz/modulo-interfaz.component'
 import {PerfilConfigComponent} from './pages/filtro/perfil-config/perfil-config.component'
 import {NuevoConfiguracionModuloComponent} from './pages/forms/nuevo-configuracion-modulo/nuevo-configuracion-modulo.component'
-import {RespiradorComponent} from './pages/filtro/respirador/respirador.component'
+import {ProductosComponent} from './pages/filtro/productos/productos.component'
+import {SubensambleComponent} from './pages/filtro/subensamble/subensamble.component'
+import {MateriaPrimaComponent} from '@app/pages/filtro/materia-prima/materia-prima.component'
+import { from } from 'rxjs';
 
 const routes:Routes=[
   {path:'',redirectTo:'/home',pathMatch:'full'},
@@ -33,7 +36,10 @@ const routes:Routes=[
   {path:'tablaEstado/:idMaquina',component:GraficaSensorComponent,canActivate: [AuthGuard]},
   {path:'tipoEquipo',component:TipoEquipoComponent,canActivate: [AuthGuard] },
   {path:'perfilConfig',component:PerfilConfigComponent,canActivate: [AuthGuard] },
-  {path:'configuracionModulo/:idPerfil',component:NuevoConfiguracionModuloComponent,canActivate:[AuthGuard]}
+  {path:'configuracionModulo/:idPerfil',component:NuevoConfiguracionModuloComponent,canActivate:[AuthGuard]},
+  {path:'producto',component:ProductosComponent,canActivate:[AuthGuard]},
+  {path:'subensamble',component:SubensambleComponent,canActivate:[AuthGuard]},
+  {path:'materiaPrima',component:MateriaPrimaComponent,canActivate:[AuthGuard]}
 ];
 @NgModule({
   declarations: [],

@@ -173,7 +173,6 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
       }
       this.spinner.hide("mySpinner");
     } catch (e) {
-      console.log(e.status);
       this.spinner.hide("mySpinner");
       Swal.fire('Error', 'Error al obtener los datos para las gráficas', 'error');
     }

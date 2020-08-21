@@ -38,7 +38,6 @@ export class ModuloInterfazComponent implements OnInit {
         this.total = this.listaModulo.length;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 

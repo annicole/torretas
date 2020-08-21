@@ -36,7 +36,6 @@ export class UsuariosComponent implements OnInit {
         this.total = this.usuarios.length;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 

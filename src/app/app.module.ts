@@ -57,6 +57,12 @@ import { NuevoPerfilconfigComponent } from './pages/forms/nuevo-perfilconfig/nue
 import { PerfilConfigComponent } from './pages/filtro/perfil-config/perfil-config.component';
 import { NuevoConfiguracionModuloComponent } from './pages/forms/nuevo-configuracion-modulo/nuevo-configuracion-modulo.component';
 import { RespiradorComponent } from './pages/filtro/respirador/respirador.component';
+import { NuevoProductoComponent} from './pages/forms/nuevo-producto/nuevo-producto.component';
+import { ProductosComponent } from './pages/filtro/productos/productos.component';
+import { NuevoSubensambleComponent } from './pages/forms/nuevo-subensamble/nuevo-subensamble.component';
+import { NuevoMateriapComponent } from './pages/forms/nuevo-materiap/nuevo-materiap.component';
+import { SubensambleComponent } from './pages/filtro/subensamble/subensamble.component';
+import { MateriaPrimaComponent } from './pages/filtro/materia-prima/materia-prima.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -100,7 +106,13 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoPerfilconfigComponent,
     PerfilConfigComponent,
     NuevoConfiguracionModuloComponent,
-    RespiradorComponent
+    RespiradorComponent,
+    ProductosComponent,
+    NuevoProductoComponent,
+    NuevoSubensambleComponent,
+    NuevoMateriapComponent,
+    SubensambleComponent,
+    MateriaPrimaComponent
   ],
   imports: [
     BrowserModule,
@@ -124,7 +136,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
   bootstrap: [AppComponent],
   entryComponents: [
     NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
-    NuevoTipoEquipoComponent,NuevoModuloComponent, NuevoPerfilconfigComponent
+    NuevoTipoEquipoComponent,NuevoModuloComponent, NuevoPerfilconfigComponent,NuevoProductoComponent,NuevoMateriapComponent,NuevoSubensambleComponent
   ]
 })
 export class AppModule { }

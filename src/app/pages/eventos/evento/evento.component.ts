@@ -43,7 +43,6 @@ export class EventoComponent implements OnInit {
       localStorage.removeItem('sensor');
       this.getEventos();
     } catch (e) {
-      console.log(e);
     }
   }
 
@@ -51,14 +50,12 @@ export class EventoComponent implements OnInit {
     try {
       let resp = await this.eventoService.getEvento(this.sensor, this.idMaquina, this.fechaInicio, this.fechaFin,String(this.page),String(this.limit),this.auth.token).toPromise();
       if (resp.code == 200) {
-        console.log(resp);
         this.listEventos = resp.evento;
         this.total = resp.total;
         this.spinner.hide("mySpinner");
       }
    
     } catch (e) {
-      console.log(e);
     }
   }
 
@@ -72,7 +69,6 @@ export class EventoComponent implements OnInit {
   selectOption(option) {
     this.limit = option.value;
     this.page =1;
-    console.log("selectOption");
     this.showSpinner();
     this.getEventos();
   }

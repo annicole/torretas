@@ -32,7 +32,6 @@ export class SensoresComponent implements OnInit {
         this.total = this.sensores.length;
       }
     } catch (e) {
-      console.log(e);
     }
   }
 

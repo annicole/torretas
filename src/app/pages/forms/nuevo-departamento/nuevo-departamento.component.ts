@@ -59,18 +59,6 @@ export class NuevoDepartamentoComponent extends Dialog implements OnInit {
     }
   }
 
-  /*async getCias() {
-    try {
-      let resp = await this.ciaService.getCias().toPromise();
-      if (resp.code == 200) {
-        this.cias = resp.cia;
-        console.log(resp);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }*/
-
   get f() { return this.departamentoForm.controls; }
 
   onSubmit() {
@@ -99,7 +87,6 @@ export class NuevoDepartamentoComponent extends Dialog implements OnInit {
         this.showAlert(this.alertErrorText, false);
       }
     } catch (e) {
-      console.log(e);
       this.showAlert(e.error.message, false);
     }
   }

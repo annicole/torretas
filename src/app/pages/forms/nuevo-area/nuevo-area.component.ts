@@ -83,7 +83,6 @@ export class NuevoAreaComponent extends Dialog implements OnInit {
         this.showAlert(this.alertErrorText, false);
       }
     } catch (e) {
-      console.log(e);
       this.showAlert(this.alertErrorText, false);
     }
   }
