@@ -35,7 +35,7 @@ export class ProductosComponent implements OnInit {
     this.form = this.formBuilder.group({
       producto: ['',Validators.required],
       desc_producto: ['', Validators.required],
-      te_producto: ['', Validators.required],
+      te_producto: ['', Validators.required, Validators.pattern("^[0-9]*$"),],
       um_producto: ['',Validators.required]
     });
     this.getProductos('');

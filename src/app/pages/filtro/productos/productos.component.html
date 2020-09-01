@@ -11,7 +11,7 @@
                     <tr >
                         <th scope="col" style="border-bottom: none;">Producto</th>
                         <th scope="col">Descripción producto</th>
-                        <th scope="col">Tiempo de fabricación (segundos)</th>
+                        <th scope="col" style="width: 16.66%">Tiempo de fabricación (segundos)</th>
                         <th scope="col">Unidad de medida</th>
                         <th></th>
                     </tr>
@@ -69,9 +69,9 @@
                 <tbody>
                     <tr *ngFor="let p of listaProductos">
                         <td>{{p.producto| titlecase}}</td>
-                        <td>{{p.desc_producto}}</td>
+                        <td>{{p.desc_producto | titlecase}}</td>
                         <td>{{p.te_producto}} </td>
-                        <td>{{p.Um.um}}</td>
+                        <td>{{p.Um.um|titlecase}}</td>
                         <td>
                             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar"
                                 (click)="update(p)"><i class="material-icons">create</i></a>

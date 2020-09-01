@@ -63,7 +63,6 @@ export class NuevoProductoComponent extends Dialog implements OnInit {
     this.modalMode = modalMode;
 
     if (_producto) {
-      console.log(_producto);
       const { idproducto, desc_producto, te_producto, producto } = _producto;
       const um_producto = _producto.Um.idum;
       this.form.patchValue({ idproducto, desc_producto, te_producto, um_producto, producto });
