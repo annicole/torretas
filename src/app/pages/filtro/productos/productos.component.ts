@@ -7,7 +7,8 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { NuevoProductoComponent } from '@app/pages/forms/nuevo-producto/nuevo-producto.component';
 import { AuthService } from '@app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import{UmService} from '@app/services/um.service'
+import { UmService } from '@app/services/um.service'
+import { NuevoUmComponent } from '@app/pages/forms/nuevo-um/nuevo-um.component'
 
 @Component({
   selector: 'app-productos',
@@ -17,9 +18,9 @@ import{UmService} from '@app/services/um.service'
 export class ProductosComponent implements OnInit {
 
   listaProductos: [];
-  form:FormGroup
+  form: FormGroup
   total: number;
-  listaUm:[];
+  listaUm: [];
   submitted = false;
   listNav = [
     { "name": "Producto", "router": "/producto" },
@@ -28,15 +29,15 @@ export class ProductosComponent implements OnInit {
   ]
   constructor(private productoService: ProductoService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,
-    private auth: AuthService,private formBuilder:FormBuilder,private umService:UmService
+    private auth: AuthService, private formBuilder: FormBuilder, private umService: UmService
   ) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      producto: ['',Validators.required],
+      producto: ['', Validators.required],
       desc_producto: ['', Validators.required],
-      te_producto: ['', Validators.required, Validators.pattern("^[0-9]*$"),],
-      um_producto: ['',Validators.required]
+      te_producto: ['', [Validators.required, Validators.min(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
+      um_producto: ['', Validators.required]
     });
     this.getProductos('');
     this.getUm();
@@ -54,9 +55,9 @@ export class ProductosComponent implements OnInit {
     }
   }
 
-  async getUm(){
+  async getUm() {
     try {
-      let resp = await this.umService.get( this.auth.token).toPromise();
+      let resp = await this.umService.get(this.auth.token).toPromise();
       if (resp.code == 200) {
         this.listaUm = resp.response;
       }
@@ -79,16 +80,14 @@ export class ProductosComponent implements OnInit {
     }
   }
 
-  async save(){
+  async save() {
     try {
-      let response = await this.productoService.create(this.form.value,this.auth.token).toPromise();
+      let response = await this.productoService.create(this.form.value, this.auth.token).toPromise();
       if (response.code == 200) {
         Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
         this.getProductos('');
-        for (const key in this.form.controls) {
-          this.form.get(key).setValue('');
-         // this.form.get(key).updateValueAndValidity();
-      }
+        this.submitted = false;
+        this.form.reset({});
       }
     } catch (error) {
       Swal.fire('Error', 'No fue posible guardar el registro!', 'error');
@@ -140,6 +139,23 @@ export class ProductosComponent implements OnInit {
       type: "square-jelly-box"
     };
     this.spinner.show("mySpinner", opt1);
+  }
+
+  newUm() {
+    const dialogRef = this.dialog.open(NuevoUmComponent, {
+      width: '30rem',
+      data: {
+        title: 'Nuevo unidad de medida',
+        btnText: 'Guardar',
+        alertSuccesText: 'Agregado correctamente!',
+        alertErrorText: "No se puedo guardar el registro!",
+        modalMode: 'new'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.getUm();
+    });
   }
 
 }

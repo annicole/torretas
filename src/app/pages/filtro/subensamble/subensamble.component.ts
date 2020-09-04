@@ -8,6 +8,7 @@ import { NuevoSubensambleComponent } from '@app/pages/forms/nuevo-subensamble/nu
 import { AuthService } from '@app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {UmService} from '@app/services/um.service'
+import {NuevoUmComponent} from '@app/pages/forms/nuevo-um/nuevo-um.component'
 
 @Component({
   selector: 'app-subensamble',
@@ -36,7 +37,7 @@ export class SubensambleComponent implements OnInit {
     this.form = this.formBuilder.group({
       subensamble: ['',Validators.required],
       desc_subens: ['', Validators.required],
-      te_subens: ['', Validators.required],
+      te_subens: ['', [Validators.required, Validators.min(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
       um_subens: [Validators.required],
       idsubens: []
     });
@@ -87,10 +88,8 @@ export class SubensambleComponent implements OnInit {
       if (response.code == 200) {
         Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
         this.getProductos('');
-        for (const key in this.form.controls) {
-          this.form.get(key).setValue('');
-          this.form.get(key).updateValueAndValidity();
-      }
+        this.submitted = false;
+        this.form.reset({});
       }
     } catch (error) {
       Swal.fire('Error', 'No fue posible guardar el registro!', 'error');
@@ -142,5 +141,22 @@ export class SubensambleComponent implements OnInit {
       type: "square-jelly-box"
     };
     this.spinner.show("mySpinner", opt1);
+  }
+
+  newUm() {
+    const dialogRef = this.dialog.open(NuevoUmComponent, {
+      width: '30rem',
+      data: {
+        title: 'Nuevo unidad de medida',
+        btnText: 'Guardar',
+        alertSuccesText: 'Agregado correctamente!',
+        alertErrorText: "No se puedo guardar el registro!",
+        modalMode: 'new'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.getUm();
+    });
   }
 }

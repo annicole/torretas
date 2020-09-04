@@ -16,4 +16,11 @@ export abstract class Dialog {
     abstract closeModal(): void;
     abstract loadModalTexts(): void;
 
+    static nonZero(control):{ [key: string]: any; } {
+        if (Number(control.value) < 0) {
+          return {nonZero: true};
+        } else {
+          return null;
+        }
+      }
 }

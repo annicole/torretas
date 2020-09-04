@@ -15,6 +15,7 @@
                     formControlName="te_producto" [ngClass]="{ 'is-invalid': submitted && f.te_producto.errors }">
                 <div *ngIf="submitted && f.te_producto.errors" class="invalid-feedback">
                     <div *ngIf="f.te_producto.errors.required">Tiempo es requerido</div>
+                    <div *ngIf="f.te_producto.errors.pattern">Tiempo es mayor a cero</div>
                 </div>
             </div>
             <div class="form-group col-md-6">

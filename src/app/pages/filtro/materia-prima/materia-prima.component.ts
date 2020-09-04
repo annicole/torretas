@@ -86,8 +86,8 @@ export class MateriaPrimaComponent implements OnInit {
       if (response.code == 200) {
         Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
         this.getProductos('');
-        this.form.reset();
-        this.form.updateValueAndValidity();
+        this.submitted = false;
+        this.form.reset({});
       }
     } catch (e) {
       Swal.fire('Error', 'No fue posible guardar el registro!', 'error');
@@ -99,7 +99,7 @@ export class MateriaPrimaComponent implements OnInit {
     const dialogRef = this.dialog.open(NuevoMateriapComponent, {
       width: '40rem',
       data: {
-        title: 'Editar producto: ' + obj.subensamble,
+        title: 'Editar producto: ' + obj.desc_raw,
         btnText: 'Guardar',
         alertSuccesText: 'Producto modificado correctamente',
         alertErrorText: "No se puedo modificar el registro",
@@ -113,15 +113,14 @@ export class MateriaPrimaComponent implements OnInit {
     });
   }
 
-  delete(modulo) {
+  delete(obj) {
     Swal.fire({
       title: '¿Desea eliminar el registro?', text: "",
       type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        modulo.activo = 0;
-        this.service.delete(modulo, this.auth.token).subscribe(res => {
+        this.service.delete(obj.idraw, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El registro ha sido borrado!', 'success');
             this.getProductos('');

@@ -31,4 +31,9 @@ export class UmService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.put(`${this.url + '/read'}/${id}`, obj, { headers });
   }
+
+  delete(id: number, token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.delete<any>(`${this.url + '/read'}/${id}`, { headers });
+  }
 }

@@ -35,7 +35,7 @@ export class NuevoSubensambleComponent extends Dialog implements OnInit {
     this.form = this.formBuilder.group({
       subensamble: ['',Validators.required],
       desc_subens: ['', Validators.required],
-      te_subens: ['', Validators.required],
+      te_subens: ['', [Validators.required, Validators.min(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
       um_subens: [Validators.required],
       idsubens: []
     });

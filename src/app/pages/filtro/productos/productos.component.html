@@ -12,7 +12,10 @@
                         <th scope="col" style="border-bottom: none;">Producto</th>
                         <th scope="col">Descripción producto</th>
                         <th scope="col" style="width: 16.66%">Tiempo de fabricación (segundos)</th>
-                        <th scope="col">Unidad de medida</th>
+                        <th scope="col">Unidad de medida
+                            <a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar "
+                                (click)="newUm()"><i class="material-icons">add_circle</i></a>
+                        </th>
                         <th></th>
                     </tr>
                     <tr>
@@ -43,6 +46,7 @@
                                     [ngClass]="{ 'is-invalid': submitted && f.te_producto.errors }">
                                 <div *ngIf="submitted && f.te_producto.errors" class="invalid-feedback">
                                     <div *ngIf="f.te_producto.errors.required">Tiempo es requerido</div>
+                                    <div *ngIf="f.teproducto.errors.pattern">Tiempo es mayor a cero</div>
                                 </div>
                             </div>
                         </th>

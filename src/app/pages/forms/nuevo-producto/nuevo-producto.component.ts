@@ -35,7 +35,7 @@ export class NuevoProductoComponent extends Dialog implements OnInit {
     this.form = this.formBuilder.group({
       producto: [],
       desc_producto: ['', Validators.required],
-      te_producto: ['', Validators.required],
+      te_producto: ['', [Validators.required, Validators.min(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
       um_producto: [Validators.required],
       idproducto: []
     });

@@ -2,11 +2,11 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="desc_producto">Descripción materia prima</label>
-                <input type="text" class="form-control" id="desc_raw" nombre="desc_producto"
-                    formControlName="desc_producto" [ngClass]="{ 'is-invalid': submitted && f.desc_producto.errors }">
-                <div *ngIf="submitted && f.desc_producto.errors" class="invalid-feedback">
-                    <div *ngIf="f.desc_producto.errors.required">Descripción es requerido</div>
+                <label for="desc_raw">Descripción materia prima</label>
+                <input type="text" class="form-control" id="desc_raw" nombre="desc_raw"
+                    formControlName="desc_raw" [ngClass]="{ 'is-invalid': submitted && f.desc_raw.errors }">
+                <div *ngIf="submitted && f.desc_raw.errors" class="invalid-feedback">
+                    <div *ngIf="f.desc_raw.errors.required">Descripción es requerido</div>
                 </div>
             </div>
             <div class="form-group col-md-6">
