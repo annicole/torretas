@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
 
   async getCia(){
     try{
-      let resp = await this.ciaService.readCia(1,this.auth.token).toPromise();
+      let resp = await this.ciaService.readCia(this.auth.idCia,this.auth.token).toPromise();
       if (resp.code == 200) {
         this.cia = resp.cia;
         var uints = new Uint8Array([91,111,98,106,101,99,116,32,79,98,106,101,99,116,93]);

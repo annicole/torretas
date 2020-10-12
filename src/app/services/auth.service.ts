@@ -13,6 +13,7 @@ export class AuthService {
 
   _token:string;
   _userID:string;
+  _idCia;
   private url: string = environment.environment.urlEndPoint + '/usuario/login';
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'});
   constructor(private http:HttpClient) {
@@ -38,17 +39,29 @@ export class AuthService {
      return null;
    }
 
+   public get idCia():string{
+    if(this._idCia != null){
+      return this._idCia;
+    }else if(this._idCia == null && sessionStorage.getItem('cia') != null){
+      this._idCia = sessionStorage.getItem('cia');
+      return this._idCia;
+    }
+    return null;
+  }
+
    login(user, getHas?):Observable<any>{
     user['getHas'] = (getHas) ? getHas : null;
    	return this.http.post<any>(this.url,user,{headers:this.httpHeaders});
    }
 
-   guardarUsuarioToken(accessToken:string,id:string,expires:string):void{
+   guardarUsuarioToken(accessToken:string,id:string,expires:string,idcia):void{
      this._token = accessToken;
      this._userID = id;
+     this._idCia=idcia;
      sessionStorage.setItem('userID',id);
      sessionStorage.setItem('token',accessToken);
-     sessionStorage.setItem('expires',expires)
+     sessionStorage.setItem('expires',expires);
+     sessionStorage.setItem('cia',idcia);
    }
 
    isAuthenticated():boolean{
@@ -61,6 +74,7 @@ export class AuthService {
    logout(){
      this._token = null;
      this._userID = null;
+     this._idCia = null;
      sessionStorage.clear();
    }
 }

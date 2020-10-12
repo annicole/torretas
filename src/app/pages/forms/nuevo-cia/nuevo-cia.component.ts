@@ -18,14 +18,16 @@ export class NuevoCiaComponent implements OnInit {
   submitted = false;
   formData:FormData;
   token;
+  idcia;
   constructor(private ciaService: CiaService, private formBuilder: FormBuilder, 
     private router: Router,private auth: AuthService) { }
 
   ngOnInit() {
     this.cia.logotipo = new FormData();
     this.formData = new FormData();
-    this.getCia();
     this.token= this.auth.token;
+    this.idcia = this.auth.idCia;
+    this.getCia();
     this.ciaForm = this.formBuilder.group({
       razon: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -42,7 +44,7 @@ export class NuevoCiaComponent implements OnInit {
 
   async getCia(){
     try{
-      const response= await this.ciaService.readCia(1,this.token).toPromise();
+      const response= await this.ciaService.readCia(this.idcia,this.token).toPromise();
       if (response.code = 200) {
         this.cia = response.cia
       }
@@ -64,17 +66,17 @@ export class NuevoCiaComponent implements OnInit {
 
   async guardar() {
     try {
-      let response = await this.ciaService.createImage(this.formData).toPromise();
-      //let response = await this.ciaService.update(this.cia,this.token).toPromise();
+      //let response = await this.ciaService.createImage(this.formData).toPromise();
+      let response = await this.ciaService.update(this.cia,this.token).toPromise();
       if (response.code = 200) {
-        Swal.fire('', 'Empresa guardada correctamente', 'success');
-        this.router.navigate(['']);
+        Swal.fire('', 'Registro modificado', 'success');
+        this.router.navigate(['/home']);
       }
       else {
-        Swal.fire('Error', 'No fue posible guardar la empresa', 'error');
+        Swal.fire('Error', 'No fue posible modificar la empresa', 'error');
       }
     } catch (e) {
-      Swal.fire('Error', 'No fue posible guardar la empresa', 'error');
+      Swal.fire('Error', 'No fue posible modificar la empresa', 'error');
     }
   }
 

@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         if (!usuario.token) {
           this.alertRegister = "No se pudo iniciar sesión.";
         } else {
-          this.auth.guardarUsuarioToken(usuario.token, usuario.id, usuario.expires);
+          this.auth.guardarUsuarioToken(usuario.token, usuario.id, usuario.expires,usuario.idcia);
           this.router.navigate(['/home']);
         }
       }

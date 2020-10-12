@@ -30,7 +30,7 @@ export class CiaService {
     return this.http.post<any>(this.url + '/image', formdata, { headers: this.httpHeaderFormData });
   }
 
-  readCia(id: number, token): Observable<any> {
+  readCia(id: string, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.get(`${this.url + '/read'}/${id}`, { headers });
   }
