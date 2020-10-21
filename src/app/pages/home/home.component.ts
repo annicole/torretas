@@ -74,6 +74,12 @@ export class HomeComponent implements OnInit {
         text: 'Control de producción',
         function: '/producto',
         class: 'gray-bg'
+      },
+      {
+        icon: 'book',
+        text: 'Clientes y proveedores',
+        function: '/control',
+        class: 'orange-bg'
       }
     ];
   }

@@ -18,7 +18,10 @@ import {PerfilConfigComponent} from './pages/filtro/perfil-config/perfil-config.
 import {NuevoConfiguracionModuloComponent} from './pages/forms/nuevo-configuracion-modulo/nuevo-configuracion-modulo.component'
 import {ProductosComponent} from './pages/filtro/productos/productos.component'
 import {SubensambleComponent} from './pages/filtro/subensamble/subensamble.component'
-import {MateriaPrimaComponent} from '@app/pages/filtro/materia-prima/materia-prima.component'
+import { MateriaPrimaComponent } from '@app/pages/filtro/materia-prima/materia-prima.component'
+import { EmpresaComponent } from '@app/pages/filtro/empresa/empresa.component'
+import { NuevoEmpresaComponent } from '@app/pages/forms/nuevo-empresa/nuevo-empresa.component'
+import { ControlComponent } from './pages/control/control.component';
 import { from } from 'rxjs';
 import { PersonalCalidadComponent } from './pages/filtro/personal-calidad/personal-calidad.component';
 import { PersonalIngenieriaComponent } from './pages/filtro/personal-ingenieria/personal-ingenieria.component';
@@ -44,12 +47,20 @@ const routes:Routes=[
   {path:'configuracionModulo/:idPerfil',component:NuevoConfiguracionModuloComponent,canActivate:[AuthGuard]},
   {path:'producto',component:ProductosComponent,canActivate:[AuthGuard]},
   {path:'subensamble',component:SubensambleComponent,canActivate:[AuthGuard]},
+<<<<<<< HEAD
   {path:'materiaPrima',component:MateriaPrimaComponent,canActivate:[AuthGuard]},
   {path:'personal-calidad', component:PersonalCalidadComponent,canActivate:[AuthGuard]},
   {path:'personal-ingenieria', component:PersonalIngenieriaComponent,canActivate:[AuthGuard]},
   {path:'personal-materiales', component:PersonalMaterialesComponent,canActivate:[AuthGuard]},
   {path:'personal-operativo', component:PersonalOperativoComponent,canActivate:[AuthGuard]},
   {path:'personal-tecnico', component:PersonalTecnicoComponent,canActivate:[AuthGuard]},
+=======
+  { path: 'materiaPrima', component: MateriaPrimaComponent, canActivate: [AuthGuard] },
+  { path: 'empresa/:id', component: NuevoEmpresaComponent, canActivate: [AuthGuard] },
+  { path: 'empresa/add', component: NuevoEmpresaComponent, canActivate: [AuthGuard] },
+  { path: 'control', component: ControlComponent, canActivate: [AuthGuard] },
+  { path: 'empresa', component: EmpresaComponent, canActivate: [AuthGuard] },
+>>>>>>> 128681e2d67a7ecdbe5e52a1a5c26d091dea3328
 ];
 @NgModule({
   declarations: [],
