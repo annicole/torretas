@@ -20,6 +20,11 @@ import {ProductosComponent} from './pages/filtro/productos/productos.component'
 import {SubensambleComponent} from './pages/filtro/subensamble/subensamble.component'
 import {MateriaPrimaComponent} from '@app/pages/filtro/materia-prima/materia-prima.component'
 import { from } from 'rxjs';
+import { PersonalCalidadComponent } from './pages/filtro/personal-calidad/personal-calidad.component';
+import { PersonalIngenieriaComponent } from './pages/filtro/personal-ingenieria/personal-ingenieria.component';
+import { PersonalMaterialesComponent } from './pages/filtro/personal-materiales/personal-materiales.component';
+import { PersonalOperativoComponent } from './pages/filtro/personal-operativo/personal-operativo.component';
+import { PersonalTecnicoComponent } from './pages/filtro/personal-tecnico/personal-tecnico.component';
 
 const routes:Routes=[
   {path:'',redirectTo:'/home',pathMatch:'full'},
@@ -39,7 +44,12 @@ const routes:Routes=[
   {path:'configuracionModulo/:idPerfil',component:NuevoConfiguracionModuloComponent,canActivate:[AuthGuard]},
   {path:'producto',component:ProductosComponent,canActivate:[AuthGuard]},
   {path:'subensamble',component:SubensambleComponent,canActivate:[AuthGuard]},
-  {path:'materiaPrima',component:MateriaPrimaComponent,canActivate:[AuthGuard]}
+  {path:'materiaPrima',component:MateriaPrimaComponent,canActivate:[AuthGuard]},
+  {path:'personal-calidad', component:PersonalCalidadComponent,canActivate:[AuthGuard]},
+  {path:'personal-ingenieria', component:PersonalIngenieriaComponent,canActivate:[AuthGuard]},
+  {path:'personal-materiales', component:PersonalMaterialesComponent,canActivate:[AuthGuard]},
+  {path:'personal-operativo', component:PersonalOperativoComponent,canActivate:[AuthGuard]},
+  {path:'personal-tecnico', component:PersonalTecnicoComponent,canActivate:[AuthGuard]},
 ];
 @NgModule({
   declarations: [],

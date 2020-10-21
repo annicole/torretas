@@ -1,5 +1,5 @@
 <div class="mt-3">
-  <app-header-table [renderButton] = "true" [titleHeader]="'Usuarios'" [titleSelect]="'Buscar usuario..'" (buttonOutput)="addUsuario()"
+  <app-header-table [renderButton] = "true" [titleHeader]="'Usuarios de sistema'" [titleSelect]="'Buscar usuario..'" (buttonOutput)="addUsuario()"
     (searchOutput)="onSearchChange($event)"  [listNav]="listNav">
   </app-header-table>
 </div>
@@ -9,12 +9,66 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Usuario</th>
-          <th scope="col">Correo</th>
-          <th scope="col">Celular</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
           <th scope="col">Departamento</th>
-          <th scope="col">Opciones</th>
+          <th scope="col">Evento</th>
+          <th scope="col"></th>
         </tr>
+        <tr>
+          <th scope="col">
+              <div class=" ">
+                  <input type="text" class="form-control" id="nombre" nombre="nombre"
+                      formControlName="nombre"
+                      [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }">
+                  <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
+                      <div *ngIf="f.nombre.errors.required">Nombre es requerido</div>
+                  </div>
+              </div>
+          </th>
+          <th>
+              <div class=" ">
+                  <input type="text" class="form-control" id="apellido" nombre="apellido"
+                      formControlName="apellido"
+                      [ngClass]="{ 'is-invalid': submitted && f.apellido.errors }">
+                  <div *ngIf="submitted && apellido.errors" class="invalid-feedback">
+                      <div *ngIf="f.apellido.errors.required">Apellido es requerido</div>
+                  </div>
+              </div>
+          </th>
+          <th>
+              <div class="">
+                  <select type="number" class="form-control" id="departamento" nombre="departamento"
+                      formControlName="departamento"
+                      [ngClass]="{ 'is-invalid': submitted && f.departamento.errors }">
+                    <option value="">Departamento1</option>
+                    <option value="">Departamento2s</option>
+                    <option value="">Departamento3</option>
+                  </select>
+                  <div *ngIf="submitted && f.departamento.errors" class="invalid-feedback">
+                      <div *ngIf="f.departamento.errors.required">Departamento es requerido</div>
+                  </div>
+              </div>
+          </th>
+          <th>
+              <div class="">
+                  <select class="evento" id="evento" nombre="evento"
+                      formControlName="evento"
+                      [ngClass]="{ 'is-invalid': submitted && f.evento.errors }">
+                      <option *ngFor="let ev of listaEvento" [value]="ev.idevento">{{ev.evento}}
+                      </option>
+                  </select>
+                  <div *ngIf="submitted && f.evento.errors" class="invalid-feedback">
+                      <div *ngIf="f.evento.errors.required">Evento es requerido</div>
+                  </div>
+              </div>
+          </th>
+          <th>
+              <div class="">
+              <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+          </th>
+      </tr>
       </thead>
       <tbody>
         <tr *ngFor="let u of usuarios">

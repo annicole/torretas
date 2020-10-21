@@ -7,21 +7,16 @@ import { NuevoUsuarioComponent } from '@app/pages/forms/nuevo-usuario/nuevo-usua
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from "ngx-spinner";
 import { AuthService } from '@app/services/auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss']
+  selector: 'app-personal-ingenieria',
+  templateUrl: './personal-ingenieria.component.html',
+  styleUrls: ['./personal-ingenieria.component.scss']
 })
-export class UsuariosComponent implements OnInit {
+export class PersonalIngenieriaComponent implements OnInit {
 
   usuarios: Usuario[];
-  listaDep=[];
-  listaEvento = [];
-  formUser: FormGroup;
   total: number = 0;
-  submitted = false;
   listNav=[
     {"name":"Usuarios del sistema", "router":"/usuario"}, 
     {"name":"Personal tecnico", "router":"/personal-tecnico"}, 
@@ -31,16 +26,10 @@ export class UsuariosComponent implements OnInit {
     {"name":"Personal materiales", "router":"/personal-materiales"}, 
   ]
   constructor(private usuarioService: UsuarioService, private auth: AuthService,
-    private dialog: MatDialog, private spinner: NgxSpinnerService,private formBuilder: FormBuilder) { }
+    private dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.getUsuarios('');
-    this.formUser = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      departamento: ['', Validators.required],
-      evento: ['', Validators.required],
-    })
   }
 
 
@@ -50,7 +39,6 @@ export class UsuariosComponent implements OnInit {
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
         this.total = this.usuarios.length;
-        this.listaEvento = resp.re
       }
     } catch (e) {
     }
@@ -122,31 +110,6 @@ export class UsuariosComponent implements OnInit {
 
   async onSearchChange(searchValue: string) {
     this.getUsuarios(searchValue);
-  }
-
-  get f() { return this.formUser.controls; }
-
-  onSubmit() {
-    this.submitted = true;
-    if (this.formUser.invalid) {
-      return;
-    } else {
-      this.save();
-    }
-  }
-
-  async save() {
-    try {
-      let response = await this.usuarioService.create(this.formUser.value, this.auth.token).toPromise();
-      if (response.code == 200) {
-        Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
-        this.getUsuarios('');
-        this.submitted = false;
-        this.formUser.reset({});
-      }
-    } catch (error) {
-      Swal.fire('Error', 'No fue posible guardar el registro!', 'error');
-    }
   }
 
 }
