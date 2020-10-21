@@ -64,6 +64,10 @@ import { NuevoMateriapComponent } from './pages/forms/nuevo-materiap/nuevo-mater
 import { SubensambleComponent } from './pages/filtro/subensamble/subensamble.component';
 import { MateriaPrimaComponent } from './pages/filtro/materia-prima/materia-prima.component';
 import { NuevoUmComponent } from './pages/forms/nuevo-um/nuevo-um.component';
+import { ControlComponent } from './pages/control/control.component';
+import { EmpresaComponent } from './pages/filtro/empresa/empresa.component';
+import { NuevoContempComponent } from './pages/forms/nuevo-contemp/nuevo-contemp.component';
+import { NuevoEmpresaComponent } from './pages/forms/nuevo-empresa/nuevo-empresa.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -114,7 +118,11 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoMateriapComponent,
     SubensambleComponent,
     MateriaPrimaComponent,
-    NuevoUmComponent
+    NuevoUmComponent,
+    ControlComponent,
+    EmpresaComponent,
+    NuevoContempComponent,
+    NuevoEmpresaComponent,
   ],
   imports: [
     BrowserModule,
@@ -139,7 +147,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
   entryComponents: [
     NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
     NuevoTipoEquipoComponent,NuevoModuloComponent, NuevoPerfilconfigComponent,NuevoProductoComponent,NuevoMateriapComponent,NuevoSubensambleComponent,
-    NuevoUmComponent
+    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent,
   ]
 })
 export class AppModule { }
