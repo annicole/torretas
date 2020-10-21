@@ -64,7 +64,6 @@ import { NuevoMateriapComponent } from './pages/forms/nuevo-materiap/nuevo-mater
 import { SubensambleComponent } from './pages/filtro/subensamble/subensamble.component';
 import { MateriaPrimaComponent } from './pages/filtro/materia-prima/materia-prima.component';
 import { NuevoUmComponent } from './pages/forms/nuevo-um/nuevo-um.component';
-<<<<<<< HEAD
 import { from } from 'rxjs';
 
 import { PersonalCalidadComponent } from './pages/filtro/personal-calidad/personal-calidad.component';
@@ -72,12 +71,10 @@ import { PersonalIngenieriaComponent } from './pages/filtro/personal-ingenieria/
 import { PersonalMaterialesComponent } from './pages/filtro/personal-materiales/personal-materiales.component';
 import { PersonalOperativoComponent } from './pages/filtro/personal-operativo/personal-operativo.component';
 import { PersonalTecnicoComponent } from './pages/filtro/personal-tecnico/personal-tecnico.component';
-=======
 import { ControlComponent } from './pages/control/control.component';
 import { EmpresaComponent } from './pages/filtro/empresa/empresa.component';
 import { NuevoContempComponent } from './pages/forms/nuevo-contemp/nuevo-contemp.component';
 import { NuevoEmpresaComponent } from './pages/forms/nuevo-empresa/nuevo-empresa.component';
->>>>>>> 128681e2d67a7ecdbe5e52a1a5c26d091dea3328
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
