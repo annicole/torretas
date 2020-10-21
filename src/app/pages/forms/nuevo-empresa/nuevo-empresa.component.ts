@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
 import { NuevoContempComponent } from '@app/pages/forms/nuevo-contemp/nuevo-contemp.component';
+import { NuevoRelcompComponent } from '@app/pages/forms/nuevo-relacion/nuevo-relacion.component'
+import { NuevoCondpagoComponent } from '@app/pages/forms/nuevo-condpago/nuevo-condpago.component'
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@app/services/auth.service';
 import { EmpresaService } from '@app/services/empresa.service';
@@ -59,8 +61,6 @@ export class NuevoEmpresaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-   
-    
     this.token = this.auth.token;
     this.idempresa = this.activate.snapshot.paramMap.get('id');
     this.getRelcomp();
@@ -311,7 +311,41 @@ export class NuevoEmpresaComponent implements OnInit {
       }
     });
   }
- 
+
+  newRelcomp() {
+    const dialogRef = this.dialog.open(NuevoRelcompComponent, {
+      width: '30rem',
+      data: {
+        title: 'Nueva relación comercial',
+        btnText: 'Guardar',
+        alertSuccesText: 'Agregado correctamente!',
+        alertErrorText: "No se puedo guardar el registro!",
+        modalMode: 'new'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.getRelcomp();
+    });
+  }
+
+  newCondpago() {
+    const dialogRef = this.dialog.open(NuevoCondpagoComponent, {
+      width: '30rem',
+      data: {
+        title: 'Nueva condición de pago',
+        btnText: 'Guardar',
+        alertSuccesText: 'Agregado correctamente!',
+        alertErrorText: "No se puedo guardar el registro!",
+        modalMode: 'new'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.getRelcomp();
+    });
+  }
+
   showSpinner() {
     const opt1: Spinner = {
       bdColor: "rgba(51,51,51,0.8)",

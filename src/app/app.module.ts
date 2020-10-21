@@ -67,7 +67,10 @@ import { NuevoUmComponent } from './pages/forms/nuevo-um/nuevo-um.component';
 import { ControlComponent } from './pages/control/control.component';
 import { EmpresaComponent } from './pages/filtro/empresa/empresa.component';
 import { NuevoContempComponent } from './pages/forms/nuevo-contemp/nuevo-contemp.component';
+import { NuevoRelcompComponent } from './pages/forms/nuevo-relacion/nuevo-relacion.component';
 import { NuevoEmpresaComponent } from './pages/forms/nuevo-empresa/nuevo-empresa.component';
+import { NuevoCondpagoComponent } from './pages/forms/nuevo-condpago/nuevo-condpago.component';
+
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -123,6 +126,9 @@ registerLocaleData(localeEsMX, 'es-Mx');
     EmpresaComponent,
     NuevoContempComponent,
     NuevoEmpresaComponent,
+    NuevoRelcompComponent,
+    NuevoCondpagoComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -146,8 +152,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
   bootstrap: [AppComponent],
   entryComponents: [
     NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
-    NuevoTipoEquipoComponent,NuevoModuloComponent, NuevoPerfilconfigComponent,NuevoProductoComponent,NuevoMateriapComponent,NuevoSubensambleComponent,
-    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent,
+    NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
+    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, 
   ]
 })
 export class AppModule { }
