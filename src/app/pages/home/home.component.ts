@@ -70,17 +70,24 @@ export class HomeComponent implements OnInit {
         class: 'orange-bg'
       },
       {
-        icon: 'assignment',
-        text: 'Control de producción',
-        function: '/producto',
-        class: 'gray-bg'
-      },
-      {
         icon: 'book',
         text: 'Clientes y proveedores',
         function: '/control',
         class: 'orange-bg'
-      }
+      },
+      {
+        icon: 'assignment',
+        text: 'Productos',
+        function: '/producto',
+        class: 'gray-bg'
+      },
+      {
+        icon: 'note_add',
+        text: 'Control de Producción',
+        function: '/control-de-produccion',
+        class: 'gray-bg'
+      },
+      
     ];
   }
 
