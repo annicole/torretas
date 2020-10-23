@@ -1,4 +1,5 @@
 import { Departamento} from './departamento';
+import { EventoSensor } from './eventoSensor';
 
 export class Usuario{
     username:string;
@@ -10,8 +11,11 @@ export class Usuario{
     id:number;
     iddep:number;
     Departamento:Departamento;
-
+    evento:EventoSensor;
+    nip:number;
+    
     constructor(){
         this.Departamento = new Departamento();
+        this.evento = new EventoSensor();
     }  
 }

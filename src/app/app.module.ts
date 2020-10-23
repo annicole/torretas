@@ -77,6 +77,7 @@ import { NuevoContempComponent } from './pages/forms/nuevo-contemp/nuevo-contemp
 import { NuevoRelcompComponent } from './pages/forms/nuevo-relacion/nuevo-relacion.component';
 import { NuevoEmpresaComponent } from './pages/forms/nuevo-empresa/nuevo-empresa.component';
 import { NuevoCondpagoComponent } from './pages/forms/nuevo-condpago/nuevo-condpago.component';
+import { IngresaNipComponent } from './pages/forms/ingresa-nip/ingresa-nip/ingresa-nip.component';
 
 
 registerLocaleData(localeEsMX, 'es-Mx');
@@ -140,6 +141,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoEmpresaComponent,
     NuevoRelcompComponent,
     NuevoCondpagoComponent,
+    IngresaNipComponent,
     
   ],
   imports: [
@@ -165,7 +167,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
   entryComponents: [
     NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
-    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, 
+    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, IngresaNipComponent,
   ]
 })
 export class AppModule { }

@@ -109,12 +109,13 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     this.modalMode = modalMode;
 
     if (usuario) {
-      const { username, id, email, password, celular, iddep } = usuario;
+      const { username, id, email, password, celular, iddep, nip } = usuario;
       this.usuario.iddep = iddep;
       this.usuario.username = username;
       this.usuario.celular = celular;
       this.usuario.email = email;
       this.usuario.id = id;
+      this.usuario.nip = nip;
     }
 
     if(idDepto){
