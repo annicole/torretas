@@ -10,12 +10,11 @@ export class Usuario{
     celular:string;
     id:number;
     iddep:number;
-    Departamento:Departamento;
-    evento:EventoSensor;
+    nivelseg:number;
     nip:number;
+    idevento:number;
+    Username_last:string;
     
     constructor(){
-        this.Departamento = new Departamento();
-        this.evento = new EventoSensor();
     }  
 }

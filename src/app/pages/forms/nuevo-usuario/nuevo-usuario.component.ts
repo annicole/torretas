@@ -34,13 +34,14 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   ngOnInit() {
     const disabled = this.data.idDepto ? true : false;
     this.usuarioForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
+      nip: ['', Validators.required],
+      nip2:['', Validators.required],
       password: ['', [Validators.required,Validators.min(6)]],
       password2: ['', Validators.required],
-      celular: ['', [Validators.min(5)]],
-      iddep: [{ value: '', disabled: disabled }, Validators.required]
-    }, { validator: this.MustMatch('password', 'password2') });
+      correo: ['', [Validators.required, Validators.email]],
+      celular: ['',],
+    }, 
+    { validator: [this.MustMatch('password', 'password2'), this.MustMatch('nip', 'nip2')] });
     this.token= this.auth.token;
     this.getDeptos();
     this.loadModalTexts();
@@ -101,17 +102,21 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   }
 
   loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode, usuario,idDepto } = this.data;
+    const { title, btnText, alertErrorText, alertSuccesText, modalMode, username, Username_last, iddep, idevento, usuario,idDepto } = this.data;
     this.title = title;
     this.btnText = btnText;
     this.alertSuccesText = alertSuccesText;
     this.alertErrorText = alertErrorText;
     this.modalMode = modalMode;
+    this.usuario.username = username;
+    this.usuario.Username_last = Username_last;
+    this.usuario.iddep = parseInt(iddep);
+    this.usuario.idevento = parseInt(idevento);  
 
     if (usuario) {
-      const { username, id, email, password, celular, iddep, nip } = usuario;
+      const { nombre, id, email, password, celular, iddep, nip } = usuario;
       this.usuario.iddep = iddep;
-      this.usuario.username = username;
+      this.usuario.username = nombre;
       this.usuario.celular = celular;
       this.usuario.email = email;
       this.usuario.id = id;

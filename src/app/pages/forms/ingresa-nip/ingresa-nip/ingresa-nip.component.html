@@ -2,11 +2,12 @@
     <form [formGroup]="IngresaNipForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="nip">NIP</label>
-        <input type="text" class="form-control" id="nip" nombre="nip" [(ngModel)]="Usuario.nip"
-            formControlName="departamento" [ngClass]="{ 'is-invalid': submitted && f.departamento.errors }">
+        <input type="password" class="form-control" id="nip" nombre="nip" [(ngModel)]="nipaux"
+            formControlName="nip" [ngClass]="{ 'is-invalid': submitted && f.nip.errors }">
           <!--  -->
         <div *ngIf="submitted && f.nip.errors" class="invalid-feedback">
-          <div *ngIf="f.nip.errors.required">Departamento es requerido</div>
+          <div *ngIf="f.nip.errors.required">NIP es requerido</div>
+          <div *ngIf="f.nip.errors.mustMatch">NIP no coincide</div>
         </div>
       </div>
       <div class="d-flex justify-content-end">

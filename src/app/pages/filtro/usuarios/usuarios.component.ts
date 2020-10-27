@@ -23,6 +23,7 @@ import { IngresaNipComponent } from '@app/pages/forms/ingresa-nip/ingresa-nip/in
 export class UsuariosComponent implements OnInit {
 
   usuarios: Usuario[];
+  usuario : Usuario; 
   // listaEvento:EventoSensor[];
   listaEvento=[
     {id: 1,nombre:"Operando"},
@@ -52,11 +53,12 @@ export class UsuariosComponent implements OnInit {
     private dialog: MatDialog, private spinner: NgxSpinnerService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.usuario = new Usuario();
     this.formUser = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      departamento: ['', Validators.required],
-      evento: ['', Validators.required],
+      nombre: ['Test', Validators.required],
+      apellido: ['Test', Validators.required],
+      departamento: ['Test', Validators.required],
+      evento: ['Test', Validators.required],
     });
     this.getUsuarios('');
     this.getDepartamentos();
@@ -110,18 +112,23 @@ export class UsuariosComponent implements OnInit {
 
   addUsuario() {
     const dialogRef = this.dialog.open(IngresaNipComponent, {
-      //width: '50rem',
+      //width: '25rem',
       data: {
         title: 'Ingresa el NIP',
         btnText: 'Ingresar',
-        alertSuccesText: 'Usuario creado!',
+        alertSuccesText: 'Entraste!',
         alertErrorText: "No se puedo crear el usuario",
-        modalMode: 'create'
+        modalMode: 'create',
+        username:this.usuario.username,
+        Username_last:this.usuario.Username_last,
+        iddep:this.usuario.iddep,
+        idevento: this.usuario.idevento
       }
     });
 
     dialogRef.afterClosed().subscribe(data => {
       this.getUsuarios('');
+      this.formUser.reset({});
     });
   }
 
@@ -183,7 +190,8 @@ export class UsuariosComponent implements OnInit {
     if (this.formUser.invalid) {
       return;
     } else {
-      this.save();
+      this.addUsuario();
+      this.submitted=false;
     }
   }
 
