@@ -18,7 +18,7 @@ import { NuevoUmComponent } from '@app/pages/forms/nuevo-um/nuevo-um.component'
 export class ProductosComponent implements OnInit {
 
   listaProductos: [];
-  form: FormGroup
+  form: FormGroup;
   total: number;
   listaUm: [];
   submitted = false;

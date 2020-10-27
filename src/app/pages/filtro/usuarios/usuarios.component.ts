@@ -7,6 +7,14 @@ import { NuevoUsuarioComponent } from '@app/pages/forms/nuevo-usuario/nuevo-usua
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from "ngx-spinner";
 import { AuthService } from '@app/services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { List } from '@amcharts/amcharts4/core';
+import { EventoSensor } from '@app/models/eventoSensor';
+import { EventoUsuarioService } from '@app/services/evento-usuario.service';
+import { Departamento } from '@app/models/departamento';
+import { DepartamentoService } from '@app/services/departamento.service';
+import { IngresaNipComponent } from '@app/pages/forms/ingresa-nip/ingresa-nip/ingresa-nip.component';
+import { CatalogoFuncionesComponent } from '../catalogo-funciones/catalogo-funciones.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -16,15 +24,47 @@ import { AuthService } from '@app/services/auth.service';
 export class UsuariosComponent implements OnInit {
 
   usuarios: Usuario[];
+  usuario : Usuario; 
+  // listaEvento:EventoSensor[];
+  listaEvento=[
+    {id: 1,nombre:"Operando"},
+    {id: 2,nombre:"En paro"},
+    {id: 3,nombre:"Stand by"},
+    {id: 4,nombre:"Mantenimiento"},
+    {id: 5,nombre:"Materiales"},
+    {id: 6,nombre:"Ingenieria"},
+    {id: 7,nombre:"Producción"},
+    {id: 8,nombre:"Calidad"}     
+  ];
+  listaDepart:Departamento[];
+  formUser: FormGroup;
   total: number = 0;
+  submitted = false;
   listNav=[
-    {"name":"Usuarios", "router":"/usuario"}, 
+    {"name":"Usuarios del sistema", "router":"/usuario"}, 
+    {"name":"Personal tecnico", "router":"/personal-tecnico"}, 
+    {"name":"Personal operativo", "router":"/personal-operativo"}, 
+    {"name":"Personal ingenieria", "router":"/personal-ingenieria"}, 
+    {"name":"Personal calidad", "router":"/personal-calidad"}, 
+    {"name":"Personal materiales", "router":"/personal-materiales"}, 
   ]
-  constructor(private usuarioService: UsuarioService, private auth: AuthService,
-    private dialog: MatDialog, private spinner: NgxSpinnerService) { }
+  token: string;
+  constructor(private usuarioService: UsuarioService, private eventousuarioService: EventoUsuarioService , 
+    private departamentoService: DepartamentoService,private auth: AuthService,
+    private dialog: MatDialog, private spinner: NgxSpinnerService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.usuario = new Usuario();
+    this.formUser = this.formBuilder.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      departamento: ['', Validators.required],
+      evento: ['', Validators.required],
+    });
     this.getUsuarios('');
+    this.getDepartamentos();
+    //this.getEventos();
+    
   }
 
 
@@ -33,26 +73,62 @@ export class UsuariosComponent implements OnInit {
       let resp = await this.usuarioService.getUsuarios(searchValue, '', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
+        //console.log(this.usuarios);
+
         this.total = this.usuarios.length;
       }
     } catch (e) {
     }
   }
 
+  async getEventos(){
+    console.log("Antes de try");
+    try{
+      console.log("dentro de try");
+      let resp = await this.eventousuarioService.get(this.auth.token).toPromise();
+      console.log("paso await");
+      if(resp.code == 200){
+        // console.log(resp);
+        // console.log(resp.code);
+        // console.log(resp.eventos)
+        this.listaEvento = resp.eventos;
+        //console.log(this.listaEvento);
+      }
+      console.log("hey paso");
+    }catch(e){
+      console.log(e);
+    }
+  }
+
+  async getDepartamentos() {
+    try {
+      let resp = await this.departamentoService.getDepartamentos('',this.auth.token).toPromise();
+      if (resp.code == 200) {
+        this.listaDepart = resp.depto;
+      }
+    } catch (e) {
+    }
+  }
+
   addUsuario() {
-    const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
-      width: '50rem',
+    const dialogRef = this.dialog.open(IngresaNipComponent, {
+      //width: '25rem',
       data: {
-        title: 'Agregar usuario',
-        btnText: 'Guardar',
-        alertSuccesText: 'Usuario creado!',
+        title: 'Ingresa el NIP',
+        btnText: 'Ingresar',
+        alertSuccesText: 'Entraste!',
         alertErrorText: "No se puedo crear el usuario",
-        modalMode: 'create'
+        modalMode: 'create',
+        username:this.usuario.username,
+        Username_last:this.usuario.Username_last,
+        iddep:this.usuario.iddep,
+        idevento: this.usuario.idevento
       }
     });
 
     dialogRef.afterClosed().subscribe(data => {
       this.getUsuarios('');
+      this.formUser.reset({});
     });
   }
 
@@ -105,6 +181,44 @@ export class UsuariosComponent implements OnInit {
 
   async onSearchChange(searchValue: string) {
     this.getUsuarios(searchValue);
+  }
+
+  get f() { return this.formUser.controls; }
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.formUser.invalid) {
+      return;
+    } else {
+      this.addUsuario();
+      this.submitted=false;
+    }
+  }
+
+  async save() {
+    try {
+      let response = await this.usuarioService.create(this.formUser.value, this.auth.token).toPromise();
+      if (response.code == 200) {
+        Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
+        this.getUsuarios('');
+        this.submitted = false;
+        this.formUser.reset({});
+      }
+    } catch (error) {
+      Swal.fire('Error', 'No fue posible guardar el registro!', 'error');
+    }
+  }
+
+  openFunciones(){
+    const dialogRef = this.dialog.open(CatalogoFuncionesComponent, {
+      width: '40rem',
+      data: {
+        title: 'Catalogo de funciones autorizadas en el sistema',
+        btnText: 'Guardar',
+        alertSuccesText: 'Funcion agregada correctamente',
+        alertErrorText: "No se puede agregar función",
+      }
+    });    
   }
 
 }

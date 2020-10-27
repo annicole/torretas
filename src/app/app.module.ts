@@ -64,6 +64,13 @@ import { NuevoMateriapComponent } from './pages/forms/nuevo-materiap/nuevo-mater
 import { SubensambleComponent } from './pages/filtro/subensamble/subensamble.component';
 import { MateriaPrimaComponent } from './pages/filtro/materia-prima/materia-prima.component';
 import { NuevoUmComponent } from './pages/forms/nuevo-um/nuevo-um.component';
+import { from } from 'rxjs';
+
+import { PersonalCalidadComponent } from './pages/filtro/personal-calidad/personal-calidad.component';
+import { PersonalIngenieriaComponent } from './pages/filtro/personal-ingenieria/personal-ingenieria.component';
+import { PersonalMaterialesComponent } from './pages/filtro/personal-materiales/personal-materiales.component';
+import { PersonalOperativoComponent } from './pages/filtro/personal-operativo/personal-operativo.component';
+import { PersonalTecnicoComponent } from './pages/filtro/personal-tecnico/personal-tecnico.component';
 import { ControlComponent } from './pages/control/control.component';
 import { EmpresaComponent } from './pages/filtro/empresa/empresa.component';
 import { NuevoContempComponent } from './pages/forms/nuevo-contemp/nuevo-contemp.component';
@@ -72,6 +79,9 @@ import { NuevoEmpresaComponent } from './pages/forms/nuevo-empresa/nuevo-empresa
 import { NuevoCondpagoComponent } from './pages/forms/nuevo-condpago/nuevo-condpago.component';
 import { NuevoStatuswoComponent } from './pages/forms/nuevo-statuswo/nuevo-statuswo.component';
 import { OrdenManufacturaComponent } from './pages/filtro/orden-manufactura/orden-manufactura.component';
+import { IngresaNipComponent } from './pages/forms/ingresa-nip/ingresa-nip/ingresa-nip.component';
+import { CatalogoFuncionesComponent } from './pages/filtro/catalogo-funciones/catalogo-funciones.component';
+
 
 
 registerLocaleData(localeEsMX, 'es-Mx');
@@ -100,6 +110,11 @@ registerLocaleData(localeEsMX, 'es-Mx');
     MaquinasComponent,
     SensoresComponent,
     UsuariosComponent,
+    PersonalCalidadComponent,
+    PersonalIngenieriaComponent,
+    PersonalMaterialesComponent,
+    PersonalOperativoComponent,
+    PersonalTecnicoComponent,
     GraficaSensorComponent,
     BarraComponent,
     TimeLineComponent,
@@ -132,6 +147,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoCondpagoComponent,
     NuevoStatuswoComponent,
     OrdenManufacturaComponent,
+    IngresaNipComponent,
+    CatalogoFuncionesComponent,    
   ],
   imports: [
     BrowserModule,
@@ -157,6 +174,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
     NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, 
+    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, IngresaNipComponent, CatalogoFuncionesComponent,
   ]
 })
 export class AppModule { }
