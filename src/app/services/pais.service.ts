@@ -12,9 +12,11 @@ export class PaisService {
   private url: string = environment.environment.urlEndPoint + '/pais';
   constructor(private http: HttpClient) { }
 
-  get(token): Observable<any> {
+  get(name: string, token): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda', name);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
-    return this.http.get(this.url + '/pais', { headers });
+    return this.http.get(this.url + '/pais', { headers, params: params });
   }
 
   create(pais, token): Observable<any> {

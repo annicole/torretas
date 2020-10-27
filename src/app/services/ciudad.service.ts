@@ -12,9 +12,11 @@ export class CiudadService {
   private url: string = environment.environment.urlEndPoint + '/ciudad';
   constructor(private http: HttpClient) { }
 
-  get(token): Observable<any> {
+  get(name: string, token): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda', name);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
-    return this.http.get(this.url + '/ciudad', { headers });
+    return this.http.get(this.url + '/ciudad', { headers, params: params });
   }
 
   create(ciudad, token): Observable<any> {

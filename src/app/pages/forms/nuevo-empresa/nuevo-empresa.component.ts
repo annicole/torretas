@@ -27,6 +27,8 @@ import { NgxSpinnerService } from "ngx-spinner";
 
 export class NuevoEmpresaComponent implements OnInit {
 
+  id: string;
+  id2: string;
   form: FormGroup;
   formc: FormGroup;
   submitted = false;
@@ -64,9 +66,9 @@ export class NuevoEmpresaComponent implements OnInit {
     this.token = this.auth.token;
     this.idempresa = this.activate.snapshot.paramMap.get('id');
     this.getRelcomp();
-    this.getPais();
-    this.getEstado();
-    this.getCiudad();
+    this.getPais('');
+    this.getCiudade('');
+    this.getEstadoe('');
     this.getCondpago();
 
     this.status = this.activate.snapshot.paramMap.get('status');
@@ -115,6 +117,18 @@ export class NuevoEmpresaComponent implements OnInit {
     });
 
   }
+
+  onChange(event) {
+    this.id = event.target.value
+    console.log("el id: " + this.id)
+    this.getEstado();
+  }
+
+  onChange2(event) {
+    this.id2 = event.target.value
+    console.log("el id2: " + this.id2)
+    this.getCiudad();
+  } 
 
   async getContemp() {
     try {
@@ -186,9 +200,9 @@ export class NuevoEmpresaComponent implements OnInit {
   }
 
 
-  async getPais() {
+  async getPais(searchValue: string) {
     try {
-      let resp = await this.paisService.get(this.token).toPromise();
+      let resp = await this.paisService.get(searchValue,this.token).toPromise();
       if (resp.code == 200) {
         this.pais = resp.response;
       }
@@ -196,10 +210,33 @@ export class NuevoEmpresaComponent implements OnInit {
     }
   }
 
+  async getEstadoe(searchValue: string) {
+    try {
+      let resp = await this.estadoService.get(searchValue, this.token).toPromise();
+      if (resp.code == 200) {
+        console.log("Pais?: " + resp)
+        this.estado = resp.response;
+      }
+    } catch (e) {
+    }
+  }
+
+  async getCiudade(searchValue: string) {
+    try {
+      let resp = await this.ciudadService.get(searchValue, this.token).toPromise();
+      if (resp.code == 200) {
+        console.log("Ciudad?: " + resp)
+        this.ciudad = resp.response;
+      }
+    } catch (e) {
+    }
+  }
+
   async getEstado() {
     try {
-      let resp = await this.estadoService.get(this.token).toPromise();
+      let resp = await this.estadoService.get(this.id,this.token).toPromise();
       if (resp.code == 200) {
+        console.log("Pais?: " + resp)
         this.estado = resp.response;
       }
     } catch (e) {
@@ -208,8 +245,9 @@ export class NuevoEmpresaComponent implements OnInit {
 
   async getCiudad() {
     try {
-      let resp = await this.ciudadService.get(this.token).toPromise();
+      let resp = await this.ciudadService.get(this.id2,this.token).toPromise();
       if (resp.code == 200) {
+        console.log("Ciudad?: " + resp)
         this.ciudad = resp.response;
       }
     } catch (e) {

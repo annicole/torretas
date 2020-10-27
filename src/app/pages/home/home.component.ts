@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
       {
         icon: 'book',
         text: 'Clientes y proveedores',
-        function: '/control',
+        function: '/empresa',
         class: 'orange-bg'
       },
       {
@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
       {
         icon: 'note_add',
         text: 'Control de Producción',
-        function: '/control-de-produccion',
+        function: '/control',
         class: 'gray-bg'
       },
       

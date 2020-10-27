@@ -9,8 +9,8 @@ export class Empresa {
   numintemp: number;
   colemp: string;
   idpais: number;
-  idestado: number;
-  idciudad: number;
+  idestado: string;
+  idciudad: string;
   pbx1emp: string;
   pbx2emp: string;
   webemp: string;

@@ -12,9 +12,11 @@ export class EstadoService {
   private url: string = environment.environment.urlEndPoint + '/estado';
   constructor(private http: HttpClient) { }
 
-  get(token): Observable<any> {
+  get(name: string, token): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda', name);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
-    return this.http.get(this.url + '/estado', { headers });
+    return this.http.get(this.url + '/estado', { headers, params: params });
   }
 
   create(estado, token): Observable<any> {

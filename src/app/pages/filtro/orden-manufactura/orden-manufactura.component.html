@@ -1,0 +1,157 @@
+<div class="mt-3">
+    <app-header-table [renderButton]="false" [titleHeader]="'Modulo Interfaz'" [titleSelect]="'Buscar Orden de Manufactura..'"
+        (buttonOutput)="add()" (searchOutput)="onSearchChange($event)"  [listNav]="listNav">
+    </app-header-table>
+</div>
+<div class="moduloI card mb-4 mx-5">
+    <div class="table-responsive-lg px-4">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 9%">No. de Sistema</th>
+                    <th scope="col" style="width: 10%">Cliente</th>
+                    <th scope="col" style="width: 10%">Contacto del Cliente</th>
+                    <th scope="col" style="width: 10%">Registrada por</th>
+                    <th scope="col" style="width: 10%">Fecha de registro</th>
+                    <th scope="col" style="width: 10%">Fecha de vencimiento</th>
+                    <th scope="col" style="width: 10%">Status <a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar "
+                       (click)="newStatuswo()"><i class="material-icons">add_circle</i></a></th>
+                    <th scope="col" style="width: 10%">No. de control interno</th>
+                    <th scope="col" style="width: 10%">Orden de compra del cliente</th>
+                    <th scope="col" style="width: 11%">Opciones</th>
+                    <th></th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <div class="">
+                      </div>
+                    </th>
+                    <th>
+                      <div class="">
+                        <select class="form-control" id="idempresa" nombre="idempresa"
+                                formControlName="idempresa" (change)="onChange($event)"
+                                [ngClass]="{ 'is-invalid': submitted && f.idempresa.errors }">
+                          <option *ngFor="let e of empresa" [value]="e.idempresa">
+                            {{e.nomemp}}
+                          </option>
+                        </select>
+                        <div *ngIf="submitted && f.idempresa.errors" class="invalid-feedback">
+                          <div *ngIf="f.idempresa.errors.required">Cliente es requerido</div>
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="">
+                        <select class="form-control" id="idcontacto" nombre="idcontacto"
+                                formControlName="idcontacto"
+                                [ngClass]="{ 'is-invalid': submitted && f.idcontacto.errors }">
+                          <option *ngFor="let con of contemp" [value]="con.idcontemp">
+                            {{con.nomcontemp}}
+                          </option>
+                        </select>
+                        <div *ngIf="submitted && f.idempresa.errors" class="invalid-feedback">
+                          <div *ngIf="f.idempresa.errors.required">Um es requerido</div>
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="">
+                        <select class="form-control" id="idempleado" nombre="idempleado"
+                                formControlName="idempleado" (change)="fechaChanged()"
+                                [ngClass]="{ 'is-invalid': submitted && f.idempleado.errors }">
+                          <option *ngFor="let us of usuario" [value]="us.id">
+                            {{us.username}}
+                          </option>
+                        </select>
+                        <div *ngIf="submitted && f.idempresa.errors" class="invalid-feedback">
+                          <div *ngIf="f.idempresa.errors.required">Um es requerido</div>
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="">
+                        <input type="date" id="fechasol" class="form-control"
+                               formControlName="fechasol" [ngClass]="{ 'is-invalid': submitted && f.fechasol.errors }">
+                        <div *ngIf="submitted && f.fechasol.errors" class="invalid-feedback">
+                          <div *ngIf="f.fechasol.errors.required">Fecha de inicio es requerida</div>
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="">
+                        <input type="date" id="fechavenoc" class="form-control"
+                               formControlName="fechavenoc" [ngClass]="{ 'is-invalid': submitted && f.fechavenoc.errors }">
+                        <div *ngIf="submitted && f.fechavenoc.errors" class="invalid-feedback">
+                          <div *ngIf="f.fechavenoc.errors.required">Fecha de vencimiento es requerida</div>
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="">
+                        <select class="form-control" id="idstatuswo" nombre="idstatuswo"
+                                formControlName="idstatuswo"
+                                [ngClass]="{ 'is-invalid': submitted && f.idstatus.errors }">
+                          <option *ngFor="let st of statuswo" [value]="st.idstatuswo">
+                            {{st.statuswo}}
+                          </option>
+                        </select>
+                        <div *ngIf="submitted && f.idempresa.errors" class="invalid-feedback">
+                          <div *ngIf="f.idempresa.errors.required">Um es requerido</div>
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="">
+                        <input type="text" class="form-control" id="woasig" nombre="woasig"
+                               formControlName="woasig"
+                               [ngClass]="{ 'is-invalid': submitted && f.woasig.errors }">
+                        <div *ngIf="submitted && f.woasig.errors" class="invalid-feedback">
+                          <div *ngIf="f.woasig.errors.required">No. de control interno es requerido</div>
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="">
+                        <input type="text" class="form-control" id="ocliente" nombre="ocliente"
+                               formControlName="ocliente"
+                               [ngClass]="{ 'is-invalid': submitted && f.ocliente.errors }">
+                        <div *ngIf="submitted && f.ocliente.errors" class="invalid-feedback">
+                          <div *ngIf="f.ocliente.errors.required">Orden de compra del cliente es requerido</div>
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let wo of wo">
+                    <td>{{wo.idwo }}</td>
+                    <td>{{wo.Empresa.nomemp }}</td>
+                    <td>{{wo.Contemp.nomcontemp | titlecase}}</td>
+                    <td>{{wo.Usuario.username | titlecase}}</td>
+                    <td>{{wo.fechasol | date}}</td>
+                    <td>{{wo.fechavenoc  | date:'mediumDate' }}</td>
+                    <td>{{wo.Statuswo.statuswo | titlecase}}</td>
+                    <td>{{wo.woasig }}</td>
+                    <td>{{wo.ocliente | titlecase}}</td>
+                    
+                    <td>
+                      <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar"
+                         (click)="update(wo)"><i class="material-icons">create</i></a>
+                      <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar "
+                         (click)="delete(wo)"><i class="material-icons">delete</i></a>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="footer">
+        <span class="badge badge-light">Total:{{total}} </span>
+    </div>
+</div>

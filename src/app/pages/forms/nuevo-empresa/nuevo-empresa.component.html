@@ -63,8 +63,9 @@
         <div class="form-group col-md-3">
           <label for="idpais">Pais</label>
           <select class="form-control" id="idpais" nombre="idpais" [(ngModel)]="empresa.idpais"
-                  
+                  (change)="onChange($event)"
                   formControlName="idpais" [ngClass]="{ 'is-invalid': submitted && f.idpais.errors }">
+            <option value="null">Seleccionar Pais</option>
             <option *ngFor="let p of pais" [value]="p.idpais">
               {{p.pais}}
             </option>
@@ -76,7 +77,9 @@
         <div class="form-group col-md-3">
           <label for="idestado">Estado</label>
           <select class="form-control" id="idestado" nombre="idestado" [(ngModel)]="empresa.idestado"
+                  (change)="onChange2($event)"
                   formControlName="idestado" [ngClass]="{ 'is-invalid': submitted && f.idestado.errors }">
+            <option value="">Seleccionar Estado</option>
             <option *ngFor="let es of estado" [value]="es.idestado">
               {{es.estado}}
             </option>
@@ -89,6 +92,7 @@
           <label for="idciudad">Ciudad</label>
           <select class="form-control" id="idciudad" nombre="idciudad" [(ngModel)]="empresa.idciudad"
                   formControlName="idciudad" [ngClass]="{ 'is-invalid': submitted && f.idciudad.errors }">
+            <option value="">Seleccionar Ciudad</option>
             <option *ngFor="let ci of ciudad" [value]="ci.idciudad">
               {{ci.ciudad}}
             </option>

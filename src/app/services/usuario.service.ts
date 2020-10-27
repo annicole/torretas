@@ -19,6 +19,13 @@ export class UsuarioService {
     return this.http.get(this.url + '/usuarios',{headers,params:params});
   }
 
+  getUsuario(name: string, token): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda', name);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/usuarios', { headers, params: params });
+  }
+
   create(usuario: Usuario,token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url + '/usuarios', usuario, { headers });

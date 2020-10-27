@@ -23,7 +23,7 @@ export class ControlComponent implements OnInit {
       {
         icon: 'build',
         text: 'Orden de Manufactura',
-        function: '/ordenManufactura',
+        function: '/OrdenManufactura',
         class: 'black-bg'
       },
       {
@@ -37,12 +37,6 @@ export class ControlComponent implements OnInit {
         text: 'Registro de Operadores',
         function: '/RegistroDeOperadores',
         class: 'blue-bg'
-      },
-      {
-        icon: 'contacts',
-        text: 'Clientes y Provedores',
-        function: '/empresa',
-        class: 'pink-bg'
       },
       {
         icon: 'perm_data_setting',

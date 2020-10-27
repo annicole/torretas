@@ -70,6 +70,8 @@ import { NuevoContempComponent } from './pages/forms/nuevo-contemp/nuevo-contemp
 import { NuevoRelcompComponent } from './pages/forms/nuevo-relacion/nuevo-relacion.component';
 import { NuevoEmpresaComponent } from './pages/forms/nuevo-empresa/nuevo-empresa.component';
 import { NuevoCondpagoComponent } from './pages/forms/nuevo-condpago/nuevo-condpago.component';
+import { NuevoStatuswoComponent } from './pages/forms/nuevo-statuswo/nuevo-statuswo.component';
+import { OrdenManufacturaComponent } from './pages/filtro/orden-manufactura/orden-manufactura.component';
 
 
 registerLocaleData(localeEsMX, 'es-Mx');
@@ -128,7 +130,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoEmpresaComponent,
     NuevoRelcompComponent,
     NuevoCondpagoComponent,
-    
+    NuevoStatuswoComponent,
+    OrdenManufacturaComponent,
   ],
   imports: [
     BrowserModule,
@@ -153,7 +156,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
   entryComponents: [
     NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
-    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, 
+    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, 
   ]
 })
 export class AppModule { }
