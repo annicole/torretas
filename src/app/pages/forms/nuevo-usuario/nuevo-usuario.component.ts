@@ -34,8 +34,8 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   ngOnInit() {
     const disabled = this.data.idDepto ? true : false;
     this.usuarioForm = this.formBuilder.group({
-      nip: ['', Validators.required],
-      nip2:['', Validators.required],
+      nip: ['', Validators.required,],
+      nip2:['', Validators.required,],
       password: ['', [Validators.required,Validators.min(6)]],
       password2: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
@@ -61,6 +61,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   get f() { return this.usuarioForm.controls; }
 
   onSubmit() {
+    console.log(this.usuarioForm.invalid)
     this.submitted = true;
     if (this.usuarioForm.invalid) {
       return;

@@ -78,6 +78,7 @@ import { NuevoRelcompComponent } from './pages/forms/nuevo-relacion/nuevo-relaci
 import { NuevoEmpresaComponent } from './pages/forms/nuevo-empresa/nuevo-empresa.component';
 import { NuevoCondpagoComponent } from './pages/forms/nuevo-condpago/nuevo-condpago.component';
 import { IngresaNipComponent } from './pages/forms/ingresa-nip/ingresa-nip/ingresa-nip.component';
+import { CatalogoFuncionesComponent } from './pages/filtro/catalogo-funciones/catalogo-funciones.component';
 
 
 registerLocaleData(localeEsMX, 'es-Mx');
@@ -142,6 +143,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoRelcompComponent,
     NuevoCondpagoComponent,
     IngresaNipComponent,
+    CatalogoFuncionesComponent,
     
   ],
   imports: [
@@ -167,7 +169,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
   entryComponents: [
     NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
-    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, IngresaNipComponent,
+    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, IngresaNipComponent, CatalogoFuncionesComponent,
   ]
 })
 export class AppModule { }

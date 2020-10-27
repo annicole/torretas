@@ -14,6 +14,7 @@ import { EventoUsuarioService } from '@app/services/evento-usuario.service';
 import { Departamento } from '@app/models/departamento';
 import { DepartamentoService } from '@app/services/departamento.service';
 import { IngresaNipComponent } from '@app/pages/forms/ingresa-nip/ingresa-nip/ingresa-nip.component';
+import { CatalogoFuncionesComponent } from '../catalogo-funciones/catalogo-funciones.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -55,16 +56,15 @@ export class UsuariosComponent implements OnInit {
   ngOnInit() {
     this.usuario = new Usuario();
     this.formUser = this.formBuilder.group({
-      nombre: ['Test', Validators.required],
-      apellido: ['Test', Validators.required],
-      departamento: ['Test', Validators.required],
-      evento: ['Test', Validators.required],
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      departamento: ['', Validators.required],
+      evento: ['', Validators.required],
     });
     this.getUsuarios('');
     this.getDepartamentos();
     //this.getEventos();
     
-    //console.log(this.listaDepart);
   }
 
 
@@ -73,7 +73,7 @@ export class UsuariosComponent implements OnInit {
       let resp = await this.usuarioService.getUsuarios(searchValue, '', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
-        console.log(this.usuarios);
+        //console.log(this.usuarios);
 
         this.total = this.usuarios.length;
       }
@@ -207,6 +207,18 @@ export class UsuariosComponent implements OnInit {
     } catch (error) {
       Swal.fire('Error', 'No fue posible guardar el registro!', 'error');
     }
+  }
+
+  openFunciones(){
+    const dialogRef = this.dialog.open(CatalogoFuncionesComponent, {
+      width: '40rem',
+      data: {
+        title: 'Catalogo de funciones autorizadas en el sistema',
+        btnText: 'Guardar',
+        alertSuccesText: 'Funcion agregada correctamente',
+        alertErrorText: "No se puede agregar función",
+      }
+    });    
   }
 
 }

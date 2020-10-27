@@ -10,9 +10,11 @@ export class HeaderTableComponent implements OnInit {
   @Input() public titleSelect;
   @Input() public renderSelect;
   @Input() public renderButton;
+  @Input() public funcionButton;
   @Input() public listNav;
   @Output() buttonOutput = new EventEmitter();
   @Output() searchOutput = new EventEmitter();
+  @Output() funcionesOutput = new EventEmitter();
 
   constructor() { }
 
@@ -26,4 +28,6 @@ export class HeaderTableComponent implements OnInit {
   onClickButon(){
     this.buttonOutput.emit();
   }
+  onClickFunciones(){
+    this.funcionesOutput.emit();  }
 }
