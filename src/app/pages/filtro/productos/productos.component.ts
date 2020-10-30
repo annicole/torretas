@@ -9,6 +9,7 @@ import { AuthService } from '@app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UmService } from '@app/services/um.service'
 import { NuevoUmComponent } from '@app/pages/forms/nuevo-um/nuevo-um.component'
+import {EmpresaService} from '@app/services/empresa.service'
 
 @Component({
   selector: 'app-productos',
@@ -22,6 +23,7 @@ export class ProductosComponent implements OnInit {
   total: number;
   listaUm: [];
   submitted = false;
+  listaEmpresa:[];
   listNav = [
     { "name": "Producto", "router": "/producto" },
     { "name": "Subensamble", "router": "/subensamble" },
@@ -29,7 +31,8 @@ export class ProductosComponent implements OnInit {
   ]
   constructor(private productoService: ProductoService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,
-    private auth: AuthService, private formBuilder: FormBuilder, private umService: UmService
+    private auth: AuthService, private formBuilder: FormBuilder, private umService: UmService,
+    private empresaServise:EmpresaService
   ) { }
 
   ngOnInit() {
@@ -37,10 +40,12 @@ export class ProductosComponent implements OnInit {
       producto: ['', Validators.required],
       desc_producto: ['', Validators.required],
       te_producto: ['', [Validators.required, Validators.min(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
-      um_producto: ['', Validators.required]
+      um_producto: ['', Validators.required],
+      idempresa:['',Validators.required]
     });
-    this.getProductos('');
     this.getUm();
+    this.getEmpresa();
+    this.getProductos('');
   }
 
   async getProductos(searchValue: string) {
@@ -52,6 +57,16 @@ export class ProductosComponent implements OnInit {
         this.total = this.listaProductos.length;
       }
     } catch (e) {
+    }
+  }
+
+  async getEmpresa(){
+    try{
+      let response= await this.empresaServise.getEmpresa("",this.auth.token).toPromise();
+        if(response.code== 200){
+          this.listaEmpresa = response.response;
+        }
+    }catch(e){
     }
   }
 

@@ -16,6 +16,7 @@
                             <a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar "
                                 (click)="newUm()"><i class="material-icons">add_circle</i></a>
                         </th>
+                        <th scope="col">Empresa</th>
                         <th></th>
                     </tr>
                     <tr>
@@ -55,13 +56,23 @@
                                 <select class="form-control" id="um_producto" nombre="um_producto"
                                     formControlName="um_producto"
                                     [ngClass]="{ 'is-invalid': submitted && f.um_producto.errors }">
-                                    <option *ngFor="let um of listaUm" [value]="um.idum">{{um.um}}
+                                    <option *ngFor="let um of listaUm" [value]="um.idum">{{um.um|titlecase}}
                                     </option>
                                 </select>
                                 <div *ngIf="submitted && f.um_producto.errors" class="invalid-feedback">
                                     <div *ngIf="f.um_producto.errors.required">Um es requerido</div>
                                 </div>
                             </div>
+                        </th>
+                        <th>
+                        <select class="form-control" id="idempresa" nombre="idempresa" formControlName="idempresa"
+                            [ngClass]="{ 'is-invalid': submitted && f.idempresa.errors }">
+                            <option *ngFor="let empresa of listaEmpresa" [value]="empresa.idempresa">{{empresa.nomemp|titlecase}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f.idempresa.errors" class="invalid-feedback">
+                            <div *ngIf="f.idempresa.errors.required">Empresa es requerido</div>
+                        </div>
                         </th>
                         <th>
                             <div class="">
@@ -76,6 +87,7 @@
                         <td>{{p.desc_producto | titlecase}}</td>
                         <td>{{p.te_producto}} </td>
                         <td>{{p.Um.um|titlecase}}</td>
+                        <td>{{p.Empresa.nomemp|titlecase}}</td>
                         <td>
                             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar"
                                 (click)="update(p)"><i class="material-icons">create</i></a>
