@@ -17,9 +17,4 @@ export class EventoUsuarioService {
     console.log("Holagetservice");
     return this.http.get(this.url + '/eventos', { headers });
   }
-
-  // get(token): Observable<any> {
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
-  //   return this.http.get(this.url + '/evento', { headers });
-  // }
 }

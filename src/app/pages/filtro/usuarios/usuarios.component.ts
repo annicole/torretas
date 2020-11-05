@@ -63,7 +63,7 @@ export class UsuariosComponent implements OnInit {
     });
     this.getUsuarios('');
     this.getDepartamentos();
-    //this.getEventos();
+    ///this.getEventos();
     
   }
 
