@@ -23,6 +23,7 @@ import { CatalogoFuncionesComponent } from '../catalogo-funciones/catalogo-funci
 })
 export class PersonalTecnicoComponent implements OnInit {
 
+
   usuarios: Usuario[];
   usuario : Usuario; 
   // listaEvento:EventoSensor[];
@@ -59,11 +60,10 @@ export class PersonalTecnicoComponent implements OnInit {
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       departamento: ['', Validators.required],
-      evento: ['', Validators.required],
     });
     this.getUsuarios('');
     this.getDepartamentos();
-    //this.getEventos();
+    ///this.getEventos();
     
   }
 
@@ -117,7 +117,7 @@ export class PersonalTecnicoComponent implements OnInit {
         title: 'Ingresa el NIP',
         btnText: 'Ingresar',
         alertSuccesText: 'Entraste!',
-        alertErrorText: "No se puedo crear el usuario",
+        alertErrorText: "El NIP no coincide",
         modalMode: 'create',
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
@@ -133,14 +133,18 @@ export class PersonalTecnicoComponent implements OnInit {
   }
 
   updateUsuario(usuario) {
-    const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
-      width: '40rem',
+    const dialogRef = this.dialog.open(IngresaNipComponent, {
+      //width: '25rem',
       data: {
-        title: 'Editar usuario',
-        btnText: 'Guardar',
-        alertSuccesText: 'Usuario modificado correctamente',
-        alertErrorText: "No se puedo modificar el usuario",
-        modalMode: 'edit',
+        title: 'Ingresa el NIP',
+        btnText: 'Ingresar',
+        alertSuccesText: 'Entraste!',
+        alertErrorText: "El NIP no coincide",
+        modalMode: 'create',
+        username:this.usuario.username,
+        Username_last:this.usuario.Username_last,
+        iddep:this.usuario.iddep,
+        idevento: this.usuario.idevento,
         usuario
       }
     });
