@@ -122,7 +122,8 @@ export class UsuariosComponent implements OnInit {
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento
+        idevento: this.usuario.idevento,
+        tipousuario:'sistema'
       }
     });
 
@@ -145,7 +146,9 @@ export class UsuariosComponent implements OnInit {
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
         idevento: this.usuario.idevento,
-        usuario
+        usuario,
+        tipousuario:'sistema'
+
       }
     });
 

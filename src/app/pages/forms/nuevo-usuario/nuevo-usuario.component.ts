@@ -23,6 +23,13 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   departamentos: Departamento[];
   enabledDepartamento:boolean=false;
   token;
+  tipousuario: string;
+  sistema:boolean;
+  listaFunciones=[
+    {id:1, Funcion: "Funcion 1"},
+    {id:2, Funcion: "Funcion 2"},
+    {id:3, Funcion: "Funcion 3"},
+  ]
 
   constructor(private deptoService: DepartamentoService, private formBuilder: FormBuilder,
      private usuarioService: UsuarioService, private auth: AuthService,
@@ -45,6 +52,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     this.token= this.auth.token;
     this.getDeptos();
     this.loadModalTexts();
+    console.log(this.sistema)
   }
 
   async getDeptos() {
@@ -61,7 +69,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   get f() { return this.usuarioForm.controls; }
 
   onSubmit() {
-    console.log(this.usuarioForm.invalid)
+    console.log(this.usuarioForm.errors)
     this.submitted = true;
     if (this.usuarioForm.invalid) {
       return;
@@ -103,7 +111,8 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   }
 
   loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode, username, Username_last, iddep, idevento, usuario,idDepto } = this.data;
+    console.log(this.data)
+    const { title, btnText, alertErrorText, alertSuccesText, modalMode, username, Username_last, iddep, idevento, tipousuario,usuario,idDepto, } = this.data;
     this.title = title;
     this.btnText = btnText;
     this.alertSuccesText = alertSuccesText;
@@ -113,6 +122,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     this.usuario.Username_last = Username_last;
     this.usuario.iddep = parseInt(iddep);
     this.usuario.idevento = parseInt(idevento);  
+    this.tipousuario=tipousuario;
 
     if (usuario) {
       const { nombre, id, email, password, celular, iddep, nip } = usuario;
@@ -123,7 +133,9 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       this.usuario.id = id;
       this.usuario.nip = nip;
     }
-
+    if(tipousuario){
+      this.sistema=true
+    }
     if(idDepto){
       this.enabledDepartamento = true;
       this.usuario.iddep = idDepto;
