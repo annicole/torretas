@@ -5,9 +5,10 @@
         <a class="nav-link active" [routerLink]="[li.router]" [routerLinkActive]="['activate']">{{li.name}}</a>
       </li>
       <li>
-        <a class="nav-link" (click)="onClickFunciones()" *ngIf="funcionButton">Funciones</a>
+          <a class="button-func" (click)="onClickFunciones()" *ngIf="funcionButton"> <b>Funciones</b></a>
       </li>
     </ul>
+    
   </div>
   <div class="d-flex justify-content-end" >
     <div class="form-group has-search mr-1">

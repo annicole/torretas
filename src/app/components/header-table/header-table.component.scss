@@ -61,3 +61,20 @@
 .button-add{
     background-color: #007bff;
 }
+
+.button-func{
+    user-select: none;
+    color: #393a3bd1;
+    padding: 4px;
+    margin-left: 16px;
+    border: 3px solid #1695d48f; 
+    border-radius: 10px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button-func:hover{
+    color: #393a3bd1;
+    font-weight: bold;  
+}
