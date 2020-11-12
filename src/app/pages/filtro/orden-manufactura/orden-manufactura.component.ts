@@ -24,7 +24,7 @@ import { Wo } from '@app/models/wo';
 export class OrdenManufacturaComponent implements OnInit {
   id: string;
   token;
-  maxDate: string;
+  date: string;
   wo: [];
   form: FormGroup
   total: 0;
@@ -49,8 +49,8 @@ export class OrdenManufacturaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.maxDate = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
-    console.log(this.maxDate);
+    this.date = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+    console.log(this.date);
 
     this.form = this.formBuilder.group({
       idwo: [],
@@ -139,8 +139,8 @@ export class OrdenManufacturaComponent implements OnInit {
   }
 
   fechaChanged() {
-    this.form.value.fechasol = this.maxDate;
-    this.form.controls['fechasol'].setValue(this.maxDate);
+    this.form.value.fechasol = this.date;
+    this.form.controls['fechasol'].setValue(this.date);
   }
 
   get f() { return this.form.controls; }

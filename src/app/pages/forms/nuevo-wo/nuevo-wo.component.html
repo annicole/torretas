@@ -1,0 +1,124 @@
+<div class="nuevo-wo card h-100 d-flex mx-5">
+  <div class="card-body">
+    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="on">
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label for="idwo">Orden de Manufactura</label>
+          <input type="text" class="form-control" id="idwo" nombre="idwo" [(ngModel)]="wo.idwo"
+                 formControlName="idwo" [ngClass]="{ 'is-invalid': submitted && f.idwo.errors }">
+          <div *ngIf="submitted && f.idwo.errors" class="invalid-feedback">
+            <div *ngIf="f.idwo.errors.required">numero de orden de manufactura es requerida</div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="idempresa">Cliente</label>
+          <input type="text" class="form-control" id="idempresa" nombre="idempresa" [(ngModel)]="wo.idempresa"
+                 formControlName="idempresa" [ngClass]="{ 'is-invalid': submitted && f.idempresa.errors }">
+          <div *ngIf="submitted && f.idempresa.errors" class="invalid-feedback">
+            <div *ngIf="f.idempresa.errors.required">empresa es requerida</div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label for="woasig">Orden del cliente</label>
+          <input type="text" class="form-control" id="woasig" nombre="woasig" [(ngModel)]="wo.woasig"
+                 formControlName="woasig" [ngClass]="{ 'is-invalid': submitted && f.woasig.errors }">
+          <div *ngIf="submitted && f.woasig.errors" class="invalid-feedback">
+            <div *ngIf="f.woasig.errors.required">Orden del cliente requerido</div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label for="ocliente">Orden interna: </label>
+          <input type="text" class="form-control" id="ocliente" nombre="ocliente" [(ngModel)]="wo.ocliente"
+                 formControlName="ocliente" [ngClass]="{ 'is-invalid': submitted && f.ocliente.errors }">
+          <div *ngIf="submitted && f.ocliente.errors" class="invalid-feedback">
+            <div *ngIf="f.ocliente.errors.required">Cliente interno es requerido</div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-row">
+            <div class="form-group col-md-1">
+              <label for="cantwosub">Cantidad</label>
+              <input type="text" class="form-control" id="cantwosub" nombre="cantwosub" [(ngModel)]="wosub.cantwosub"
+                     formControlName="cantwosub" [ngClass]="{ 'is-invalid': submitted && f.cantwosub.errors }">
+              <div *ngIf="submitted && f.cantwosub.errors" class="invalid-feedback">
+                <div *ngIf="f.cantwosub.errors.required">Cantidad producto es requerido</div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="idproducto">SKU del producto</label>
+              <input type="text" class="form-control" id="idproducto" nombre="idproducto" [(ngModel)]="wo.idproducto"
+                     formControlName="idproducto" [ngClass]="{ 'is-invalid': submitted && f.idproducto.errors }">
+              <div *ngIf="submitted && f.idproducto.errors" class="invalid-feedback">
+                <div *ngIf="f.idproducto.errors.required">SKU del producto es requerido</div>
+              </div>
+            </div>
+            <div>
+              <br/> 
+              <button type="submit" class="btn btn-secondary" (click)="save()">Guardar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-1">
+            <label for="cantwosub">Cantidad</label>
+            <input type="text" class="form-control" id="cantwosub" nombre="cantwosub" [(ngModel)]="wosub.cantwosub"
+                   formControlName="cantwosub" [ngClass]="{ 'is-invalid': submitted && f.cantwosub.errors }">
+            <div *ngIf="submitted && f.cantwosub.errors" class="invalid-feedback">
+              <div *ngIf="f.cantwosub.errors.required">Cantidad producto es requerido</div>
+            </div>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="idproducto">SKU del producto</label>
+            <input type="text" class="form-control" id="idproducto" nombre="idproducto" [(ngModel)]="wo.idproducto"
+                   formControlName="idproducto" [ngClass]="{ 'is-invalid': submitted && f.idproducto.errors }">
+            <div *ngIf="submitted && f.idproducto.errors" class="invalid-feedback">
+              <div *ngIf="f.idproducto.errors.required">SKU del producto es requerido</div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-2">
+            <label for="desc_producto">Descripción</label>
+            <input type="text" class="form-control" id="desc_producto" nombre="desc_producto" [(ngModel)]="wo.Producto.desc_producto"
+                   formControlName="desc_producto">
+          </div>
+
+          <div class="form-group col-md-1">
+            <label for="um_producto">Medida</label>
+            <input type="text" class="form-control" id="um_producto" nombre="um_producto" [(ngModel)]="wo.Producto.um_producto"
+                   formControlName="um_producto">
+          </div>
+
+          <div class="form-group col-md-2">
+            <label for="te_producto">TAK time</label>
+            <input type="text" class="form-control" id="te_producto" nombre="te_producto" [(ngModel)]="wo.Producto.te_producto"
+                   formControlName="te_producto">
+          </div>
+
+          <div class="form-group col-md-2">
+            <label for="cxt">Tiempo de carga en horas</label>
+            <input type="text" class="form-control" id="cxt" nombre="cxt" [(ngModel)]="cxt"
+                   formControlName="te_producto">
+          </div>
+
+          <div class="form-group col-md-2">
+            <label for="status">Status de fabricación</label>
+            <select class="form-control" id="status" nombre="status" [(ngModel)]="status"
+                    formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+              <option value="">Seleccionar status</option>
+              <option *ngFor="" [value]="">
+              </option>
+            </select>
+            <div *ngIf="submitted && f.idciudad.errors" class="invalid-feedback">
+              <div *ngIf="f.idciudad.errors.required">La Ciudad es requerida</div>
+            </div>
+          </div>
+        </div>
+</form>
+  </div>
+</div>
