@@ -17,6 +17,7 @@ import Swal from 'sweetalert2'
 export class NuevoConfiguracionModuloComponent implements OnInit {
 
   status: string;
+  autoManual: string;
   submitted = false;
   token;
   listEventos: EventoSensor[];
@@ -44,6 +45,7 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     this.listEstacion = Array(16).fill(null).map((x, i) => ({ 'estacion': i + 1 }));
     this.idPerfil = this.activate.snapshot.paramMap.get('idPerfil');
     this.status = this.activate.snapshot.paramMap.get('status');
+    this.autoManual = this.activate.snapshot.paramMap.get('auto');
     this.listNav[1].router = "/configuracionModulo/" + this.idPerfil;
     this.getEventos();
     if (this.status === 'create') {
@@ -62,7 +64,9 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
         idevento: '',
         idperfil: this.idPerfil,
         listEstacion: Array(16).fill(null).map((x, i) => ({ 'id': 'estacion_' + (i + 1), 'checked': false })),
-        errorEvento: false
+        errorEvento: false,
+        show: true,
+        intermitente: false
       }
     ));
     this.lisConfiguracion[0].idevento = "1";
@@ -71,13 +75,33 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     this.lisConfiguracion[8].idevento = "1";
     this.lisConfiguracion[9].idevento = "2";
     this.lisConfiguracion[10].idevento = "3";
+    //si es manual, esconder los renglones 9,10,11
+    if (this.autoManual == '1') {
+      this.lisConfiguracion[8].show = false;
+      this.lisConfiguracion[9].show = false;
+      this.lisConfiguracion[10].show = false;
+    } else {
+      //automatico, el tipo de entrada es PLC
+      this.lisConfiguracion[0].tipoentrada = "1";
+      this.lisConfiguracion[1].tipoentrada = "1";
+      this.lisConfiguracion[2].tipoentrada = "1";
+      this.lisConfiguracion[8].tipoentrada = "1";
+      this.lisConfiguracion[9].tipoentrada = "1";
+      this.lisConfiguracion[10].tipoentrada = "1";
+    }
   }
 
   fillTable() {
     this.lisConfiguracion.forEach((key) => {
-      key.errorEvento = false
+      key.errorEvento = false,
+      key.show = true,
       key.listEstacion = Array(16).fill(null).map((x, i) => ({ 'id': 'estacion_' + (i + 1), 'checked': key['estacion_' + (i + 1)] }))
     });
+    if (this.autoManual == '1') {
+      this.lisConfiguracion[8].show = false;
+      this.lisConfiguracion[9].show = false;
+      this.lisConfiguracion[10].show = false;
+    }
   }
 
   async getEventos() {
@@ -95,6 +119,7 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
       let resp = await this.configService.read(this.idPerfil, this.token).toPromise();
       if (resp.code == 200) {
         this.lisConfiguracion = resp.listaconfig;
+        console.log(this.lisConfiguracion)
         this.fillTable();
       }
     } catch (e) {
@@ -119,25 +144,49 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
 
   async guardar() {
     try {
-      let response;
-      switch (this.status) {
-        case 'create': response = await this.configService.create(this.lisConfiguracion, this.token).toPromise();
-          break;
-        case 'edit': response = await this.configService.update(this.lisConfiguracion, this.token).toPromise();
-          break;
-      }
-      if (response.code == 200) {
-        Swal.fire('Se guardó correctamente la configuración!', '', 'success');
-        this.router.navigate(['/perfilConfig']);
-      }
-      else {
-        this.validate = false;
+      //Valida que tenga sólo máximo 8 estaciones para una entrada
+      console.log(this.lisConfiguracion)
+      if (this.validarConfiguracion()) {
+        let response;
+        switch (this.status) {
+          case 'create': response = await this.configService.create(this.lisConfiguracion, this.token).toPromise();
+            break;
+          case 'edit': response = await this.configService.update(this.lisConfiguracion, this.token).toPromise();
+            break;
+        }
+        if (response.code == 200) {
+          Swal.fire('Se guardó correctamente la configuración!', '', 'success');
+          this.router.navigate(['/perfilConfig']);
+        }
+        else {
+          this.validate = false;
+        }
+      } else {
+        Swal.fire('Máximo 8 estaciones seleccionadas por entrada', '', 'error');
       }
     } catch (e) {
-      this.messageError = "Error al guardar la configuración!"
+      Swal.fire('Error al guardar los registros', '', 'error');
+      console.log(e)
       this.validate = false;
     }
   }
+
+  validarConfiguracion() {
+    let bandera = true;
+    this.lisConfiguracion.forEach((key) => {
+      let contador = 0;
+      key.listEstacion.forEach(estacion => {
+        if ( estacion.checked) {
+          contador++;
+           if(contador > 8 ) {
+            bandera = false;
+          }
+        }
+      })
+    });
+    return bandera;
+  }
+
 
   onEventoChange(eve: any, index) {
     this.lisConfiguracion[index].errorEvento = false;
@@ -148,7 +197,7 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     });
   }
 
-  onTipoEntradaChange(eve: any, index, key: string){
+  onTipoEntradaChange(eve: any, index, key: string) {
     //la entrada 1 es igual a  9
     //Entrada 2 igual 10
     //Entrada 3 igual 11
@@ -174,14 +223,35 @@ export class NuevoConfiguracionModuloComponent implements OnInit {
     return index;
   }
 
-  onEstacionChange(eve: any) {
-    this.lisConfiguracion.forEach((key) => {
-      key.listEstacion.forEach(estacion => {
-        if (estacion.id === eve.id && estacion.checked) {
-          estacion.checked = false;
-        }
-      })
-    });
-    eve.checked = !eve.checked;
+  onEstacionChange(eve: any, index, indexEstacion) {
+    let isChecked = eve.checked;
+    if (index != 8 || index != 9 || index != 10) {
+      this.lisConfiguracion.forEach((key) => {
+        key.listEstacion.forEach(estacion => {
+          if (estacion.id === eve.id && estacion.checked) {
+            estacion.checked = false;
+          }
+        })
+      });
+      if(!isChecked){
+        eve.checked = !eve.checked;
+      }
+      let indexChange;
+      switch (index) {
+        case 0:
+          indexChange = 8;
+          break;
+        case 1:
+          indexChange = 9;
+          break;
+        case 2:
+          indexChange = 10;
+          break;
+      }
+      if (indexChange !== undefined) {
+        let objectConfig = this.lisConfiguracion[indexChange].listEstacion[indexEstacion];
+        objectConfig['checked'] = eve.checked;
+      }
+    }
   }
 }

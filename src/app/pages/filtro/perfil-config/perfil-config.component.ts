@@ -25,7 +25,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 export class PerfilConfigComponent implements OnInit {
 
   dataSource;
-  columnsToDisplay = ['nombre', 'desc', 'config', 'opciones'];
+  columnsToDisplay = ['arrow','nombre', 'desc', 'config', 'opciones'];
   expandedElement: PerfilConfig | null;
   lista: PerfilConfig[];
   total: number;
