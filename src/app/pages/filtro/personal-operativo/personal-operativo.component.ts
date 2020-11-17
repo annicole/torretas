@@ -69,7 +69,7 @@ export class PersonalOperativoComponent implements OnInit {
   
     async getUsuarios(searchValue: string) {
       try {
-        let resp = await this.usuarioService.getUsuarios(searchValue, '', this.auth.token).toPromise();
+        let resp = await this.usuarioService.getUsuarios(searchValue,  '','7', this.auth.token).toPromise();
         if (resp.code == 200) {
           this.usuarios = resp.usuario;
           console.log(this.usuarios);
