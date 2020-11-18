@@ -1,4 +1,12 @@
 <title>Hola</title>
+<div class="mt-3">
+  <app-header-table [renderButton]="false" [titleHeader]="'Modulo Interfaz'" [titleSelect]="'Producto..'"
+                    (buttonOutput)="add()" (searchOutput)="onSearchChange($event)" [listNav]="listNav"
+                    [statuswosubButton]="true" (statuswosubOutput)="update()"
+                    >
+  </app-header-table>
+</div>
+
 <div class="nuevo-wo card h-100 d-flex mx-5">
   <div class="card-body">
 
@@ -18,7 +26,7 @@
           <input type="text" class="form-control" id="idempresa" nombre="idempresa" [(ngModel)]="wo.Empresa.nomemp"
                  formControlName="idempresa" [ngClass]="{ 'is-invalid': submitted && f.idempresa.errors }">
           <div *ngIf="submitted && f.idempresa.errors" class="invalid-feedback">
-            <div *ngIf="f.idempresa.errors.required">empresa es requerida</div>
+            <div *ngIf="f.idempresa.errors.required">Empresa es requerida</div>
           </div>
         </div>
 
@@ -77,7 +85,7 @@
               </option>
             </select>
             <div *ngIf="submitted && f.idciudad.errors" class="invalid-feedback">
-              <div *ngIf="f.idciudad.errors.required">La Ciudad es requerida</div>
+              <div *ngIf="f.idciudad.errors.required">El status es requerida</div>
             </div>
           </div>
           <div>
@@ -112,7 +120,7 @@
           <td>{{wos.Statuswosub.stwosub | titlecase}}</td>
           <td>
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar"
-               (click)="update(wos)"><i class="material-icons">create</i></a>
+               (click)="editar(wos)"><i class="material-icons">create</i></a>
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar "
                (click)="delete(wos)"><i class="material-icons">delete</i></a>
           </td>

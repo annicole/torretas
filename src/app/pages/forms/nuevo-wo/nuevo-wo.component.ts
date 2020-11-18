@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
+import { NuevoStatuswosubComponent } from '@app/pages/forms/nuevo-statuswosub/nuevo-statuswosub.component';
+import { NuevoWosubComponent } from '@app/pages/forms/nuevo-wosub/nuevo-wosub.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@app/services/auth.service';
 import { WoService } from '@app/services/wo.service';
@@ -41,7 +43,6 @@ export class NuevoWoComponent implements OnInit {
   statuswosub: [];
   listNav = [
     { "name": "Orden de manufactura", "router": "/OrdenManufactura" },
-    { "name": "Clientes y proveedores", "router": "/empresa" },
   ]
 
   constructor(
@@ -106,8 +107,40 @@ export class NuevoWoComponent implements OnInit {
     }
   }
 
+  update() {
+    const dialogRef = this.dialog.open(NuevoStatuswosubComponent, {
+      width: '30rem',
+      data: {
+        title: 'Nuevo status',
+        btnText: 'Guardar',
+        alertSuccesText: 'Agregado correctamente!',
+        alertErrorText: "No se puedo guardar el registro!",
+        modalMode: 'new'
+      }
+    });
 
+    dialogRef.afterClosed().subscribe(data => {
+      this.getStatuswosub('');
+    });
+  }
 
+  editar(wosub) {
+    const dialogRef = this.dialog.open(NuevoWosubComponent, {
+      width: '40rem',
+      data: {
+        title: 'Editar Orden: ' + wosub.idwo,
+        btnText: 'Guardar',
+        alertSuccesText: 'Orden modificada correctamente',
+        alertErrorText: "No se puedo modificar el registro",
+        modalMode: 'edit',
+        _wosub: wosub
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.getWosub();
+    });
+  }
   async getWo() {
     try {
       let resp = await this.woService.read(this.idwo, this.auth.token).toPromise();

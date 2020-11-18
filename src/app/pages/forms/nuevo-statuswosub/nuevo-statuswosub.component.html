@@ -4,13 +4,10 @@
             <table class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th scope="col" style="border-top:none;">Nuevo status</th>
-                    </tr>
-                    <tr>
                         <th>
                             <div class=" ">
-                                <input type="text" class="form-control" id="stwosub" nombre="stwosub" formControlName="stwosub"
-                                    [ngClass]="{ 'is-invalid': submitted && f.stwosub.errors }">
+                                <input type="text" class="form-control" id="idstwosub" nombre="idstwosub" formControlName="idstwosub"
+                                    [ngClass]="{ 'is-invalid': submitted && f.idstwosub.errors }">
                                 <div *ngIf="submitted && f.stwosub.errors" class="invalid-feedback">
                                     <div *ngIf="f.stwosub.errors.required">Status es requerido</div>
                                 </div>

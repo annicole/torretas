@@ -79,6 +79,8 @@ import { NuevoEmpresaComponent } from './pages/forms/nuevo-empresa/nuevo-empresa
 import { NuevoCondpagoComponent } from './pages/forms/nuevo-condpago/nuevo-condpago.component';
 import { NuevoStatuswoComponent } from './pages/forms/nuevo-statuswo/nuevo-statuswo.component';
 import { NuevoWoComponent } from './pages/forms/nuevo-wo/nuevo-wo.component';
+import { NuevoWosubComponent } from './pages/forms/nuevo-wosub/nuevo-wosub.component';
+import { NuevoStatuswosubComponent } from './pages/forms/nuevo-statuswosub/nuevo-statuswosub.component';
 import { OrdenManufacturaComponent } from './pages/filtro/orden-manufactura/orden-manufactura.component';
 import { IngresaNipComponent } from './pages/forms/ingresa-nip/ingresa-nip/ingresa-nip.component';
 import { CatalogoFuncionesComponent } from './pages/filtro/catalogo-funciones/catalogo-funciones.component';
@@ -151,6 +153,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
     IngresaNipComponent,
     CatalogoFuncionesComponent,
     NuevoWoComponent,
+    NuevoWosubComponent,
+    NuevoStatuswosubComponent,
   ],
   imports: [
     BrowserModule,
@@ -177,7 +181,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
     NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, 
     NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, IngresaNipComponent, CatalogoFuncionesComponent,
-    NuevoWoComponent,
+    NuevoWoComponent, NuevoStatuswosubComponent, NuevoWosubComponent,
   ]
 })
 export class AppModule { }
