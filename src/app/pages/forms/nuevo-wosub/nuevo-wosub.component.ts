@@ -9,9 +9,9 @@ import { AuthService } from '@app/services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-nuevo-Wosub',
-  templateUrl: './nuevo-Wosub.component.html',
-  styleUrls: ['./nuevo-Wosub.component.scss'],
+  selector: 'app-nuevo-wosub',
+  templateUrl: './nuevo-wosub.component.html',
+  styleUrls: ['./nuevo-wosub.component.scss'],
   encapsulation:ViewEncapsulation.None
 })
 export class NuevoWosubComponent extends Dialog implements OnInit {
