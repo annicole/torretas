@@ -2,7 +2,7 @@
     <form [formGroup]="IngresaNipForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="nip">NIP</label>
-        <input type="password" class="form-control" id="nip" nombre="nip" [(ngModel)]="nipaux"
+        <input type="password" class="form-control" id="nip" nombre="nip" [(ngModel)]="nip"
             formControlName="nip" [ngClass]="{ 'is-invalid': submitted && f.nip.errors }">
           <!--  -->
         <div *ngIf="submitted && f.nip.errors" class="invalid-feedback">

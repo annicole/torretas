@@ -63,14 +63,14 @@ export class UsuariosComponent implements OnInit {
     });
     this.getUsuarios('');
     this.getDepartamentos();
-    //this.getEventos();
+    ///this.getEventos();
     
   }
 
 
   async getUsuarios(searchValue: string) {
     try {
-      let resp = await this.usuarioService.getUsuarios(searchValue, '', this.auth.token).toPromise();
+      let resp = await this.usuarioService.getUsuarios(searchValue, '', '', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
         console.log(this.usuarios);
@@ -117,12 +117,13 @@ export class UsuariosComponent implements OnInit {
         title: 'Ingresa el NIP',
         btnText: 'Ingresar',
         alertSuccesText: 'Entraste!',
-        alertErrorText: "No se puedo crear el usuario",
+        alertErrorText: "El NIP no coincide",
         modalMode: 'create',
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento
+        idevento: this.usuario.idevento,
+        tipousuario:'sistema'
       }
     });
 
@@ -133,15 +134,21 @@ export class UsuariosComponent implements OnInit {
   }
 
   updateUsuario(usuario) {
-    const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
-      width: '40rem',
+    const dialogRef = this.dialog.open(IngresaNipComponent, {
+      //width: '25rem',
       data: {
-        title: 'Editar usuario',
-        btnText: 'Guardar',
-        alertSuccesText: 'Usuario modificado correctamente',
-        alertErrorText: "No se puedo modificar el usuario",
-        modalMode: 'edit',
-        usuario
+        title: 'Ingresa el NIP',
+        btnText: 'Ingresar',
+        alertSuccesText: 'Entraste!',
+        alertErrorText: "El NIP no coincide",
+        modalMode: 'create',
+        username:this.usuario.username,
+        Username_last:this.usuario.Username_last,
+        iddep:this.usuario.iddep,
+        idevento: this.usuario.idevento,
+        usuario,
+        tipousuario:'sistema'
+
       }
     });
 

@@ -16,7 +16,7 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
   usuario: Usuario = new Usuario();
   IngresaNipForm: FormGroup;
   submitted = false;
-  nipaux:string;
+  nip:string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,27 +24,29 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data) {
     super();
-    if(this.usuario.nip == null){
-      this.usuario.nip = 1234;
-    }
   }
   ngOnInit() {
+    this.loadModalTexts();
+    console.log(this.data);
     this.IngresaNipForm = this.formBuilder.group({
       nip:['',[Validators.required]]
-    },{ validator: this.MustMatch('nip')});//, { validator: this.MustMatch('nip', this.usuario.nip.toString()) }    { validator: this.MustMatch('nip')}
-    this.loadModalTexts();
-    console.log(this.usuario);
-    console.log(this.data);
+    });//, { validator: this.MustMatch('nip', this.usuario.nip.toString()) }    { validator: this.MustMatch('nip')}
+    if(this.usuario.nip == 0 || this.usuario.nip == null ){
+      this.usuario.nip = 1234;
+    }
   }
 
   get f() { return this.IngresaNipForm.controls; }
 
   onSubmit() {
     this.submitted = true;
+    if(this.nip != this.usuario.nip.toString()){
+      this.showAlert(this.alertErrorText, false)
+    }
     if (this.IngresaNipForm.invalid) {
       return;
     } else {
-      if(this.nipaux == this.usuario.nip.toString()){
+      if(this.nip == this.usuario.nip.toString()){
         this.addUsuario();
         this.closeModal();
       }
@@ -64,38 +66,31 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
         Username_last: this.data.Username_last,
         iddep: this.data.iddep,
         idevento: this.data.idevento,
+        tipousuario: this.data.tipousuario,
+        usuario: this.usuario,
       }
     });
-  }
-  MustMatch(matchingControlName: string) {
-    const controlName = this.usuario.nip.toString(); 
-    return (formGroup: FormGroup) => {
-      const control = controlName;
-      const matchingControl = formGroup.controls[matchingControlName];
-
-      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
-        return;
-      }
-
-      if (control !== matchingControl.value) {
-        matchingControl.setErrors({ mustMatch: true });
-      } else {
-        matchingControl.setErrors(null);
-      }
-    }
   }
   closeModal(): void {
     this.dialogRef.close();
   }
 
   loadModalTexts(): void {
-  const { title, btnText, alertErrorText, alertSuccesText, modalMode} = this.data;
+  const { title, btnText, alertErrorText, alertSuccesText, modalMode, usuario} = this.data;
   this.title = title;
   this.btnText = btnText;
   this.alertSuccesText = alertSuccesText;
   this.alertErrorText = alertErrorText;
   this.modalMode = modalMode;
-
+  if(usuario){
+    const { nombre, id, email, password, celular, iddep, nip } = usuario;
+      this.usuario.iddep = iddep;
+      this.usuario.username = nombre;
+      this.usuario.celular = celular;
+      this.usuario.email = email;
+      this.usuario.id = id;
+      this.usuario.nip = nip;
+  }
   }
 
 }

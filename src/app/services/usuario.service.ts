@@ -11,10 +11,11 @@ export class UsuarioService {
   private url: string = environment.environment.urlEndPoint + '/usuario';
   constructor(private http: HttpClient) { }
 
-  getUsuarios(name:string,depatamento:string,token): Observable<any> {
+  getUsuarios(name:string,depatamento:string,evento:string,token): Observable<any> {
     let params = new HttpParams();
     params = params.append('busqueda',name);
     params = params.append('departamento',depatamento);
+    params = params.append('evento',evento);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.get(this.url + '/usuarios',{headers,params:params});
   }
@@ -25,7 +26,6 @@ export class UsuarioService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.get(this.url + '/usuarios', { headers, params: params });
   }
-
   create(usuario: Usuario,token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url + '/usuarios', usuario, { headers });
