@@ -1,9 +1,10 @@
-<title>Hola</title>
+<head>
+  <title>Título de esta página</title>
+</head>
 <div class="mt-3">
   <app-header-table [renderButton]="false" [titleHeader]="'Modulo Interfaz'" [titleSelect]="'Producto..'"
                     (buttonOutput)="add()" (searchOutput)="onSearchChange($event)" [listNav]="listNav"
-                    [statuswosubButton]="true" (statuswosubOutput)="update()"
-                    >
+                    [statuswosubButton]="true" (statuswosubOutput)="update()">
   </app-header-table>
 </div>
 
