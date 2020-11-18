@@ -9,9 +9,10 @@
         <table class="table table-borderless table-sm" id="table">
             <thead>
                 <tr>
-                    <th scope="col" rowspan="2">Entrada</th>
-                    <th scope="col" rowspan="2">Tipo entrada</th>
-                    <th scope="col" rowspan="2">Evento</th>
+                    <th scope="col" rowspan="2"style="width: 5%;">Entrada</th>
+                    <th scope="col" rowspan="2" style="width: 8%;">Tipo entrada</th>
+                    <th scope="col" rowspan="2" style="width: 13%;">Evento</th>
+                    <th scope="col" rowspan="2" style="width: 10px;">Intermitente</th>
                     <th scope="col" rowspan="1" colspan="16">Estaciones</th>
                 </tr>
                 <tr>
@@ -20,6 +21,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let conf of lisConfiguracion; let i = index; trackBy: trackByFn;">
+                    <ng-container *ngIf="conf.show">
                     <td>
                         <p class="text-center">{{conf.entrada}}</p>
                     </td>
@@ -27,8 +29,9 @@
                         <select class="custom-select" id="{{'select' + i}}"
                             [ngClass]="{ 'is-invalid': submitted && conf.tipoentrada === '' }"
                             (change)="onTipoEntradaChange($event.target.value,i,'tipoentrada')"
+                            [disabled] ="i ==0 || i ==1 || i ==2 || i ==8 || i==9 || i==10"
                             [(ngModel)]="conf.tipoentrada">
-                            <option value="0">HDMI</option>
+                            <option value="0">HMI</option>
                             <option value="1">PLC</option>
                         </select>
                         <div *ngIf="submitted && conf.tipoentrada === ''" class="invalid-feedback">
@@ -48,14 +51,24 @@
                             <div *ngIf="submitted && conf.idevento  === ''">Evento requerido</div>
                           </div>
                     </td>
-                    <td *ngFor="let number of conf.listEstacion">
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input class="form-check-input" type="checkbox" id="{{conf.entrada}}"
+                            [(ngModel)]="conf.intermitente" [disabled] ="i ==0 || i ==1 || i ==2 || i ==8 || i==9 || i==10">
+                            <label class="form-check-label" for="{{conf.entrada}}">
+                            </label>
+                        </div>
+                    </td>
+                    <td *ngFor="let number of conf.listEstacion; let indexEstacion = index;">
                         <div class="custom-control custom-checkbox">
                             <input class="form-check-input" type="checkbox" id="{{number.id}}"
-                                [checked]="number.checked" (change)="onEstacionChange(number)">
+                                [checked]="number.checked" (change)="onEstacionChange(number,i,indexEstacion)"
+                                [disabled] =" i ==8 || i==9 || i==10">
                             <label class="form-check-label" for="{{number.id}}">
                             </label>
                         </div>
                     </td>
+                    </ng-container>
                 </tr>
             </tbody>
         </table>

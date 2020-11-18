@@ -10,12 +10,12 @@
                 <thead>
                   <tr>
                     <th scope="col" style="width: 9%">No. de Sistema</th>
-                    <th scope="col" style="width: 10%">Cliente</th>
-                    <th scope="col" style="width: 10%">Contacto del Cliente</th>
+                    <th scope="col" style="width: 15%">Cliente</th>
+                    <th scope="col" style="width: 15%">Contacto del Cliente</th>
                     <th scope="col" style="width: 10%">Registrada por</th>
-                    <th scope="col" style="width: 10%">Fecha de registro</th>
-                    <th scope="col" style="width: 10%">Fecha de vencimiento</th>
-                    <th scope="col" style="width: 10%">Status <a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar "
+                    <th scope="col" style="width: 5%">Fecha de registro</th>
+                    <th scope="col" style="width: 5%">Fecha de vencimiento</th>
+                    <th scope="col" style="width: 10%">Status<a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar "
                        (click)="newStatuswo()"><i class="material-icons">add_circle</i></a></th>
                     <th scope="col" style="width: 10%">No. de control interno</th>
                     <th scope="col" style="width: 10%">Orden de compra del cliente</th>
@@ -135,7 +135,7 @@
                     <td>{{wo.Contemp.nomcontemp | titlecase}}</td>
                     <td>{{wo.Usuario.username | titlecase}}</td>
                     <td>{{wo.fechasol | date}}</td>
-                    <td>{{wo.fechavenoc  | date:'mediumDate' }}</td>
+                    <td>{{wo.fechavenoc  | date }}</td>
                     <td>{{wo.Statuswo.statuswo | titlecase}}</td>
                     <td>{{wo.woasig }}</td>
                     <td>{{wo.ocliente | titlecase}}</td>
