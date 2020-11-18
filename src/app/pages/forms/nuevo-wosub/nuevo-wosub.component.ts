@@ -94,7 +94,7 @@ export class NuevoWosubComponent extends Dialog implements OnInit {
   async guardar() {
     try {
       let response;
-      response = await this.wosubService.create(this.form.value, this.token).toPromise();
+      response = await this.wosubService.update(this.form.value, this.token).toPromise();
       if (response.code == 200) {
         this.showAlert(this.alertSuccesText, true);
         this.closeModal();

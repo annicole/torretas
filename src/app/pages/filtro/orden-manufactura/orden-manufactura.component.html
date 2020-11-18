@@ -87,8 +87,8 @@
                     {{con.nomcontemp}}
                   </option>
                 </select>
-                <div *ngIf="submitted && f.idempresa.errors" class="invalid-feedback">
-                  <div *ngIf="f.idempresa.errors.required">Um es requerido</div>
+                <div *ngIf="submitted && f.idcontacto.errors" class="invalid-feedback">
+                  <div *ngIf="f.idcontacto.errors.required">Contacto es requerido</div>
                 </div>
               </div>
             </th>
@@ -101,8 +101,8 @@
                     {{us.username}}
                   </option>
                 </select>
-                <div *ngIf="submitted && f.idempresa.errors" class="invalid-feedback">
-                  <div *ngIf="f.idempresa.errors.required">Um es requerido</div>
+                <div *ngIf="submitted && f.idempleado.errors" class="invalid-feedback">
+                  <div *ngIf="f.idempleado.errors.required">Usuario es requerido</div>
                 </div>
               </div>
             </th>
@@ -133,8 +133,8 @@
                     {{st.statuswo}}
                   </option>
                 </select>
-                <div *ngIf="submitted && f.idempresa.errors" class="invalid-feedback">
-                  <div *ngIf="f.idempresa.errors.required">Um es requerido</div>
+                <div *ngIf="submitted && f.idstatuswo.errors" class="invalid-feedback">
+                  <div *ngIf="f.idstatuswo.errors.required">Status es requerido</div>
                 </div>
               </div>
             </th>

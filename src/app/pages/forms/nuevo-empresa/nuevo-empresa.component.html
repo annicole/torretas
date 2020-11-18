@@ -9,7 +9,7 @@
           <input type="text" class="form-control" id="nomemp" nombre="nomemp" [(ngModel)]="empresa.nomemp"
                  formControlName="nomemp" [ngClass]="{ 'is-invalid': submitted && f.nomemp.errors }">
           <div *ngIf="submitted && f.nomemp.errors" class="invalid-feedback">
-            <div *ngIf="f.nomemp.errors.required">La Razón es requerida</div>
+            <div *ngIf="f.nomemp.errors.required">Razón es requerida</div>
           </div>
         </div>
         <div class="form-group col-md-3">
@@ -17,7 +17,7 @@
           <input type="text" class="form-control" id="nombcortemp" nombre="nombcortemp" [(ngModel)]="empresa.nombcortemp"
                  formControlName="nombcortemp" [ngClass]="{ 'is-invalid': submitted && f.nombcortemp.errors }">
           <div *ngIf="submitted && f.nombcortemp.errors" class="invalid-feedback">
-            <div *ngIf="f.nombcortemp.errors.required">Nombre corto es requerida</div>
+            <div *ngIf="f.nombcortemp.errors.required">Nombre corto es requerido</div>
           </div>
         </div>
         <div class="form-group col-md-3">
@@ -71,7 +71,7 @@
             </option>
           </select>
           <div *ngIf="submitted && f.idpais.errors" class="invalid-feedback">
-            <div *ngIf="f.idpais.errors.required">El Pais es requerido</div>
+            <div *ngIf="f.idpais.errors.required">Pais es requerido</div>
           </div>
         </div>
         <div class="form-group col-md-3">
@@ -85,7 +85,7 @@
             </option>
           </select>
           <div *ngIf="submitted && f.idestado.errors" class="invalid-feedback">
-            <div *ngIf="f.idestado.errors.required">El Estado es requerido</div>
+            <div *ngIf="f.idestado.errors.required">Estado es requerido</div>
           </div>
         </div>
         <div class="form-group col-md-3">
@@ -98,7 +98,7 @@
             </option>
           </select>
           <div *ngIf="submitted && f.idciudad.errors" class="invalid-feedback">
-            <div *ngIf="f.idciudad.errors.required">La Ciudad es requerida</div>
+            <div *ngIf="f.idciudad.errors.required">Ciudad es requerida</div>
           </div>
         </div>
         <div class="form-group col-md-1">
@@ -145,7 +145,7 @@
             </option>
           </select>
           <div *ngIf="submitted && f.idrelacion.errors" class="invalid-feedback">
-            <div *ngIf="f.idrelacion.errors.required">La Relacion es requerida</div>
+            <div *ngIf="f.idrelacion.errors.required">Relacion es requerida</div>
           </div>
         </div>
         <div class="form-group col-md-3">
@@ -191,7 +191,7 @@
             <th scope="col" style="width: 20%">Nombre completo</th>
             <th scope="col" style="width: 10%">Departamento </th>
             <th scope="col" style="width: 10%">Puesto</th>
-            <th scope="col" style="width: 10%">PBX</th>
+            <th scope="col" style="width: 10%">Telefono</th>
             <th scope="col" style="width: 10%">Ext.</th>
             <th scope="col" style="width: 10%">Movil</th>
             <th scope="col" style="width: 19%">E-mail</th>
@@ -232,7 +232,7 @@
                 <input type="text" class="form-control" id="pbxcontemp" nombre="pbxcontemp"
                        formControlName="pbxcontemp" [ngClass]="{ 'is-invalid': submitted && f.pbxcontemp.errors }">
                 <div *ngIf="submitted && f.pbxcontemp.errors" class="invalid-feedback">
-                  <div *ngIf="f.pbxcontemp.errors.required">PBX es requerido</div>
+                  <div *ngIf="f.pbxcontemp.errors.required">Telefono es requerido</div>
                 </div>
               </div>
             </th>
