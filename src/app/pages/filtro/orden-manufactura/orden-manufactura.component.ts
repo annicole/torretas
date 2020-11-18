@@ -24,15 +24,27 @@ import { Wo } from '@app/models/wo';
 export class OrdenManufacturaComponent implements OnInit {
   id: string;
   token;
-  date: string;
-  wo: [];
+  idf: string;
+  ide: string;
+  minDate: string;
+  dateStr: Date;
+  date: any;
+  selectedCliente: string = '';
+  selectedContacto: string = '';
+  selectedEmpleado: string = '';
+  selectedStatus: string = '';
+  selectedOrden: string = '';
+  submitted = false;
   form: FormGroup
   total: 0;
+  wo: [];
   empresa: [];
   contemp: [];
   usuario: [];
   statuswo: [];
-  submitted = false;
+  contemp1: [];
+  usuario1: [];
+  statuswo1: [];
   listNav = [
     { "name": "Orden de manufactura", "router": "/OrdenManufactura" },
     { "name": "Clientes y proveedores", "router": "/empresa" },
@@ -49,9 +61,7 @@ export class OrdenManufacturaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.date = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
-    console.log(this.date);
-
+ //   this.date = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
     this.form = this.formBuilder.group({
       idwo: [],
       idempresa: ['', Validators.required],
@@ -70,18 +80,121 @@ export class OrdenManufacturaComponent implements OnInit {
     });
     this.getOrdenManufactura('');
     this.getEmpresa('');
-    
     this.getUsuarios('');
     this.getStatuswo('');
+    this.getContempSearch();
+    this.getUsuariosSearch();
+    this.getStatuswoSearch();
+    this.getWoSearch();
   }
 
-  
   onChange(event) {
+    this.id = "";
     this.id = event.target.value
     console.log("el id: " +this.id)
     this.getContemp();
+    this.id = "";
   } 
 
+  onChangeFiltro(event) {
+    this.idf = "";
+    this.idf = event.target.value
+    console.log("el id: " + this.idf)
+    this.getContempSearch();
+    this.idf = "";
+  } 
+
+  //Filtros
+  async getWo(SearchValue: string, SearchValueV: string) {
+    try {
+      let resp = await this.woService.get2(
+        (this.selectedCliente != "") ? this.selectedCliente : "",
+        (this.selectedContacto != "") ? this.selectedContacto : "",
+        (this.selectedEmpleado != "") ? this.selectedEmpleado : "",
+        (this.selectedStatus != "") ? this.selectedStatus : "",
+        (this.selectedOrden != "") ? this.selectedOrden : "",
+        SearchValue, SearchValueV,
+        this.auth.token).toPromise();
+
+      if (resp.code == 200) {
+        this.wo = resp.response;
+        console.log(this.wo)
+        this.total = this.wo.length;
+      }
+    } catch (e) {
+    }
+  }
+
+  async getContempSearch() {
+    try {
+      let resp = await this.contempService.getContemp(this.idf, this.auth.token).toPromise();
+      if (resp.code == 200) {
+        this.contemp1 = resp.rescontemp;
+      }
+    } catch (e) {
+    }
+  }
+
+  async getUsuariosSearch() {
+    try {
+      let resp = await this.usuarioService.getUsuario("", this.auth.token).toPromise();
+      if (resp.code == 200) {
+        this.usuario1 = resp.usuario;
+      }
+    } catch (e) {
+    }
+  }
+
+  async getStatuswoSearch() {
+    try {
+      let resp = await this.statuswoService.getStatuswo("", this.auth.token).toPromise();
+      if (resp.code == 200) {
+        this.statuswo1 = resp.response;
+      }
+    } catch (e) {
+    }
+  }
+
+  async getWoSearch() {
+    try {
+      let resp = await this.woService.get("", this.auth.token).toPromise();
+      if (resp.code == 200) {
+        this.wo = resp.response;
+      }
+    } catch (e) {
+    }
+  }
+
+  SearchByCliente() {
+    this.getWo('', '');
+  }
+
+  SearchByContacto() {
+    this.getWo('', '');
+  }
+
+  SearchByEmpleado() {
+    this.getWo('', '');
+  }
+
+  SearchByStatus() {
+    this.getWo('', '');
+  }
+
+  SearchByOrden() {
+    this.getWo('', '');
+  }
+
+  onSearchChangeR(searchValueR: string) {
+    this.getWo(searchValueR, '');
+  }
+
+  onSearchChangeV(searchValueV: string) {
+    this.getWo('', searchValueV);
+
+  }
+
+  //Tabla
   async getOrdenManufactura(searchValue: string) {
     try {
       let resp = await this.woService.get(searchValue, this.auth.token).toPromise();
@@ -139,8 +252,10 @@ export class OrdenManufacturaComponent implements OnInit {
   }
 
   fechaChanged() {
-    this.form.value.fechasol = this.date;
-    this.form.controls['fechasol'].setValue(this.date);
+    var doo = new Date();
+    let dates = new Date(doo.getTime() + Math.abs(doo.getTimezoneOffset() - 60000))
+    this.minDate = this.datePipe.transform(dates, 'yyyy-MM-dd');
+    this.form.controls['fechasol'].setValue(this.minDate);
   }
 
   get f() { return this.form.controls; }

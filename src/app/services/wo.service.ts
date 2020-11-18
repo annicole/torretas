@@ -19,15 +19,30 @@ export class WoService {
     return this.http.get(this.url + '/wo', { headers, params: params });
   }
 
+  get2(nam, contacto, empleado, status, orden, registro, vencimiento, token): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda', nam);
+    params = params.append('contacto', contacto);
+    params = params.append('empleado', empleado);
+    params = params.append('status', status);
+    params = params.append('orden', orden);
+    params = params.append('registro', registro);
+    params = params.append('vencimiento', vencimiento);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/buscar', { headers, params: params });
+  }
+
+
   create(wo, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url + '/wo', wo, { headers });
   }
 
-  read(id: number, token): Observable<any> {
+  read(id: number | string, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.get(`${this.url + '/read'}/${id}`, { headers });
   }
+
 
   update(wo, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
