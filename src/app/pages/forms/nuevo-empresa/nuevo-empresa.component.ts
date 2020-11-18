@@ -82,7 +82,7 @@ export class NuevoEmpresaComponent implements OnInit {
     this.formc = this.formBuilder.group({
       idcontemp: [],
       idempresa: [],
-       nomcontemp: ['', Validators.required],
+      nomcontemp: ['', Validators.required],
       depcontemp: ['', Validators.required],
       puestocontemp: ['', Validators.required],
       pbxcontemp: ['', Validators.required],

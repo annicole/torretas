@@ -2,7 +2,7 @@
   <div class="card-body">
     <h3>Editar empresa</h3>
     <hr>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="on">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="nomemp">Razón</label>
@@ -183,7 +183,7 @@
     </form>
   </div>
   <div class="table-responsive-lg px-4">
-    <form [formGroup]="formc" autocomplete="on" (ngSubmit)="onSubmitContemp()">
+    <form [formGroup]="formc" (ngSubmit)="onSubmitContemp()">
       <h3>Contactos</h3>
       <table class="table table-hover">
         <thead>

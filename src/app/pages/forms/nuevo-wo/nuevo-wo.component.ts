@@ -39,6 +39,10 @@ export class NuevoWoComponent implements OnInit {
   wosub: [];
   timp;
   statuswosub: [];
+  listNav = [
+    { "name": "Orden de manufactura", "router": "/OrdenManufactura" },
+    { "name": "Clientes y proveedores", "router": "/empresa" },
+  ]
 
   constructor(
     private woService: WoService,
