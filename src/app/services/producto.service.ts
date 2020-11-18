@@ -19,6 +19,14 @@ export class ProductoService {
     return this.http.get(this.url + '/get', { headers, params: params });
   }
 
+  get2(emp, token): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('emp', emp);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/buscar', { headers, params: params });
+  }
+
+
   create(producto, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url + '/get', producto, { headers });

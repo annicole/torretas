@@ -3,11 +3,18 @@ import { FormBuilder, FormGroup, Validators, FormControl, NgForm } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@app/services/auth.service';
 import { WoService } from '@app/services/wo.service';
+import { WosubService } from '@app/services/wosub.service';
 import Swal from 'sweetalert2';
 import { Wo } from '@app/models/wo';
+import { Wosub } from '@app/models/wosub';
+import { Producto } from '@app/models/producto';
+import { Empresa } from '@app/models/empresa';
 import { MatDialog } from '@angular/material/dialog';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from "ngx-spinner";
+import { EmpresaService } from '../../../services/empresa.service';
+import { ProductoService } from '../../../services/producto.service';
+import { StatuswosubService } from '../../../services/statuswosub.service';
 
 @Component({
   selector: 'app-nuevo-wo',
@@ -17,22 +24,28 @@ import { NgxSpinnerService } from "ngx-spinner";
 
 export class NuevoWoComponent implements OnInit {
 
-  id: string;
+  ide: string;
   id2: string;
   form: FormGroup;
   formc: FormGroup;
   submitted = false;
-
   wo: Wo = new Wo;
   token;
-  idempresa;
+  idwo;
   status: string;
   total = 0;
-
+  empresa: Empresa = new Empresa;
+  producto: [];
+  wosub: [];
+  timp;
+  statuswosub: [];
 
   constructor(
     private woService: WoService,
-
+    private empresaService: EmpresaService,
+    private productoService: ProductoService,
+    private statuswosubService: StatuswosubService,
+    private wosubService: WosubService,
     private formBuilder: FormBuilder,
     private auth: AuthService,
     private activate: ActivatedRoute,
@@ -43,283 +56,119 @@ export class NuevoWoComponent implements OnInit {
 
   ngOnInit() {
     this.token = this.auth.token;
-    this.idempresa = this.activate.snapshot.paramMap.get('id');
-   
+    this.idwo = this.activate.snapshot.paramMap.get('id');
 
-    this.status = this.activate.snapshot.paramMap.get('status');
-    console.log(this.status)
-    if (this.status === null) {
-      
-    } else if (this.status === 'edit') {
 
-    }
+    this.getWo();
+    this.getStatuswosub('');
+    this.getWosub();
+    this.formc = this.formBuilder.group({
+      idwo: ['', Validators.required],
+      idempresa: ['', Validators.required],
+      woasig: ['', Validators.required],
+      ocliente: ['', Validators.required],
+
+    });
+
 
     this.form = this.formBuilder.group({
-      idwo: ['', Validators.required],
-   
-
+      idwosub: [],
+      idwo: [],
+      descwosub: ['', Validators.required],
+      puwosub: ['', Validators.required],
+      idempresa: ['', Validators.required],
+      idstwosub: ['', Validators.required],
+      cantwosub: ['', Validators.required],
+      idproducto: ['', Validators.required],
+      nomemp: ['', Validators.required],
     });
 
   }
 
-     /*
-  onChange(event) {
-    this.id = event.target.value
-    console.log("el id: " + this.id)
-    this.getEstado();
-  }
-
-  onChange2(event) {
-    this.id2 = event.target.value
-    console.log("el id2: " + this.id2)
-    this.getCiudad();
-  } 
-
-
-
-  get g() { return this.formc.controls; }
-
-  onSubmitContemp() {
-    this.submitted = true;
-    if (this.formc.invalid) {
-      return;
-    } else {
-      this.saveContemp();
+  async save() {
+    try {
+      this.form.value.descuentoemp = this.empresa.descuentoemp;
+      this.form.value.idwo = this.idwo;
+      let response = await this.wosubService.create(this.form.value, this.auth.token).toPromise();
+      if (response.code == 200) {
+        Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
+        this.getWosub();
+        this.submitted = false;
+        this.form.reset({});
+        console.log(this.form)
+      }
+    } catch (error) {
+      Swal.fire('Error', 'No fue posible guardar el registro!', 'error');
     }
   }
 
-  async saveContemp() {
+
+
+  async getWo() {
     try {
-      let response;
-      this.formc.value.idempresa = this.idempresa;
-       response = this.contempService.create(this.formc.value, this.token).toPromise();
-          console.log(this.formc)
-          if (response.code = 200) {
-            Swal.fire('', 'Contacto guardada correctamente', 'success');
-
-            this.getContemp();
-          }
-          else {
-            Swal.fire('Error', 'No fue posible guardar el contacto', 'error');
-          }
-      }catch (e) {
-        Swal.fire('Error', 'No fue posible actualizar el contacto', 'error');
-      }
-  }
-
-  editar(contemp) {
-    const dialogRef = this.dialog.open(NuevoContempComponent, {
-      width: '55rem',
-      data: {
-        title: 'Editar producto: ' + contemp.nomcontemp,
-        btnText: 'Guardar',
-        alertSuccesText: 'Producto modificado correctamente',
-        alertErrorText: "No se puedo modificar el registro",
-        modalMode: 'edit',
-        _contemp: contemp
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(data => {
-      this.getContemp();
-    });
-  }
-
-  async getRelcomp() {
-    try {
-      let resp = await this.relcompService.get(this.token).toPromise();
+      let resp = await this.woService.read(this.idwo, this.auth.token).toPromise();
       if (resp.code == 200) {
-        this.relcomp = resp.response;
+        this.wo = resp.response;
+        this.ide = this.wo.idempresa;
+        this.getProducto();
       }
     } catch (e) {
     }
   }
 
-
-  async getPais(searchValue: string) {
-    try {
-      let resp = await this.paisService.get(searchValue,this.token).toPromise();
-      if (resp.code == 200) {
-        this.pais = resp.response;
-      }
-    } catch (e) {
-    }
-  }
-
-  async getEstadoe(searchValue: string) {
-    try {
-      let resp = await this.estadoService.get(searchValue, this.token).toPromise();
-      if (resp.code == 200) {
-        console.log("Pais?: " + resp)
-        this.estado = resp.response;
-      }
-    } catch (e) {
-    }
-  }
-
-  async getCiudade(searchValue: string) {
-    try {
-      let resp = await this.ciudadService.get(searchValue, this.token).toPromise();
-      if (resp.code == 200) {
-        console.log("Ciudad?: " + resp)
-        this.ciudad = resp.response;
-      }
-    } catch (e) {
-    }
-  }
-
-  async getEstado() {
-    try {
-      let resp = await this.estadoService.get(this.id,this.token).toPromise();
-      if (resp.code == 200) {
-        console.log("Pais?: " + resp)
-        this.estado = resp.response;
-      }
-    } catch (e) {
-    }
-  }
-
-  async getCiudad() {
-    try {
-      let resp = await this.ciudadService.get(this.id2,this.token).toPromise();
-      if (resp.code == 200) {
-        console.log("Ciudad?: " + resp)
-        this.ciudad = resp.response;
-      }
-    } catch (e) {
-    }
-  }
-
-  async getCondpago() {
-    try {
-      let resp = await this.condpagoService.get(this.token).toPromise();
-      if (resp.code == 200) {
-        this.condpago = resp.response;
-      }
-    } catch (e) {
-    }
-  }
 
   async getEmpresa() {
     try {
-      console.log(this.idempresa)
-      let resp = await this.empresaService.read(this.idempresa, this.auth.token).toPromise();
+      let resp = await this.empresaService.getEmpresa(this.form.value.idempresa, this.auth.token).toPromise();
       if (resp.code == 200) {
-        this.empresa = resp.empresa;
-
+        this.empresa = resp.response;
       }
     } catch (e) {
-      Swal.fire('Error', 'No se pudo obtener la empresa', 'error');
     }
   }
 
-  get f() { return this.form.controls; }
-
-  onSubmit() {
-    this.submitted = true;
-    if (this.form.invalid) {
-      return;
-    } else {
-      this.update();
-    }
-  }
-
-   update() {
+  async getProducto() {
+    console.log(this.ide);
     try {
-      let response;
-      switch (this.status) {
-        case null: response = this.empresaService.create(this.empresa, this.token).toPromise();
-          console.log(this.empresa)
-          if (response.code = 200) {
-            Swal.fire('', 'Empresa guardada correctamente', 'success');
-            this.router.navigate(['/empresa']);
-            this.getEmpresa();
-          }
-          else {
-            Swal.fire('Error', 'No fue posible guardar la empresa', 'error');
-          }
-          break;
-
-        case 'edit': response = this.empresaService.update(this.empresa, this.token)
-          .subscribe(
-            res => {
-              console.log(res)
-              this.empresa = res;
-              this.getEmpresa();
-            }
-          )
-          if (response.code = 200) {
-            Swal.fire('', 'Empresa actualizada correctamente', 'success');
-            this.router.navigate(['/empresa']);
-            this.getEmpresa();
-          }
-          else {
-            Swal.fire('Error', 'No fue posible actualizar la empresa', 'error');
-          }
-
-          break;
+      let resp = await this.productoService.get2(this.ide, this.auth.token).toPromise();
+      if (resp.code == 200) {
+        this.producto = resp.response;
       }
+    } catch (e) {
     }
-    catch (e) {
-      Swal.fire('Error', 'No fue posible actualizar la empresa', 'error');
+  }
+
+  async getStatuswosub(SearchValue: string) {
+    try {
+      let resp = await this.statuswosubService.get(SearchValue, this.auth.token).toPromise();
+      if (resp.code == 200) {
+        this.statuswosub = resp.response;
+      }
+    } catch (e) {
     }
-
   }
 
-  deleteContemp(id: number) {
-    Swal.fire({
-      title: '¿Estas seguro?', text: "Desea eliminar el equipo",
-      type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
-    }).then((result) => {
-      if (result.value) {
-        this.contempService.delete(id, this.auth.token).subscribe(res => {
-          console.log("se elimino")
-          if (res.code == 200) {
-            Swal.fire('Eliminado', 'El Contacto ha sido eliminado correctamente', 'success');
-            this.getContemp();
-          } else {
-            Swal.fire('Error', 'No fue posible eliminar la empresa', 'error');
-          }
-        });
+  async getWosub() {
+    try {
+      let resp = await this.wosubService.get(this.idwo, this.auth.token).toPromise();
+      if (resp.code == 200) {
+        this.wosub = resp.response;
+      }
+    } catch (e) {
+    }
+  }
+
+
+  delete(wosub) {
+    this.wosubService.delete(wosub.idwosub, this.auth.token).subscribe(res => {
+      if (res.code == 200) {
+        Swal.fire('Eliminado', 'El registro ha sido borrado!', 'success');
+        this.getWosub();
+      } else {
+        Swal.fire('Error', 'No fue posible borrar el registro!', 'error');
       }
     });
   }
-
-  newRelcomp() {
-    const dialogRef = this.dialog.open(NuevoRelcompComponent, {
-      width: '30rem',
-      data: {
-        title: 'Nueva relación comercial',
-        btnText: 'Guardar',
-        alertSuccesText: 'Agregado correctamente!',
-        alertErrorText: "No se puedo guardar el registro!",
-        modalMode: 'new'
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(data => {
-      this.getRelcomp();
-    });
-  }
-
-  newCondpago() {
-    const dialogRef = this.dialog.open(NuevoCondpagoComponent, {
-      width: '30rem',
-      data: {
-        title: 'Nueva condición de pago',
-        btnText: 'Guardar',
-        alertSuccesText: 'Agregado correctamente!',
-        alertErrorText: "No se puedo guardar el registro!",
-        modalMode: 'new'
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(data => {
-      this.getRelcomp();
-    });
-  }
-  */
 
   showSpinner() {
     const opt1: Spinner = {
@@ -331,3 +180,4 @@ export class NuevoWoComponent implements OnInit {
     this.spinner.show("mySpinner", opt1);
   }
 }
+

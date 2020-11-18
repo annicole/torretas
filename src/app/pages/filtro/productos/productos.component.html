@@ -67,7 +67,7 @@
                         <th>
                         <select class="form-control" id="idempresa" nombre="idempresa" formControlName="idempresa"
                             [ngClass]="{ 'is-invalid': submitted && f.idempresa.errors }">
-                            <option *ngFor="let empresa of listaEmpresa" [value]="empresa.idempresa">{{empresa.nomemp|titlecase}}
+                            <option *ngFor="let empresa of listaEmpresa" [value]="empresa.idempresa">{{empresa.nomemp | titlecase}}
                             </option>
                         </select>
                         <div *ngIf="submitted && f.idempresa.errors" class="invalid-feedback">
@@ -83,11 +83,11 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let p of listaProductos">
-                        <td>{{p.producto| titlecase}}</td>
+                        <td>{{p.producto | titlecase}}</td>
                         <td>{{p.desc_producto | titlecase}}</td>
                         <td>{{p.te_producto}} </td>
-                        <td>{{p.Um.um|titlecase}}</td>
-                        <td>{{p.Empresa.nomemp|titlecase}}</td>
+                        <td>{{p.Um.um | titlecase}}</td>
+                        <td>{{p.Empresa.nomemp | titlecase}}</td>
                         <td>
                             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar"
                                 (click)="update(p)"><i class="material-icons">create</i></a>

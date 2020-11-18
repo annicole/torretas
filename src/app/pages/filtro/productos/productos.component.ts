@@ -62,7 +62,7 @@ export class ProductosComponent implements OnInit {
 
   async getEmpresa(){
     try{
-      let response= await this.empresaServise.getEmpresa("",this.auth.token).toPromise();
+      let response = await this.empresaServise.getEmpresa("",this.auth.token).toPromise();
         if(response.code== 200){
           this.listaEmpresa = response.response;
         }
