@@ -121,7 +121,7 @@ export class PersonalCalidadComponent implements OnInit {
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento
+        idevento: 8
       }
     });
 
@@ -143,7 +143,7 @@ export class PersonalCalidadComponent implements OnInit {
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento,
+        idevento: 6,
         usuario
       }
     });

@@ -4,13 +4,13 @@
       <li class="nav-item" *ngFor="let li of listNav">
         <a class="nav-link active" [routerLink]="[li.router]" [routerLinkActive]="['activate']">{{li.name}}</a>
       </li>
-      <li>
-          <a class="button-func" (click)="onClickFunciones()" *ngIf="funcionButton"> <b>Funciones</b></a>
-      </li>
     </ul>
     
   </div>
   <div class="d-flex justify-content-end" >
+    <div class="mr-3">
+        <a class="button-func" (click)="onClickFunciones()" *ngIf="funcionButton"> <b>Funciones</b></a>
+    </div>
     <div class="form-group has-search mr-1">
       <span class="material-icons form-control-feedback">
         search

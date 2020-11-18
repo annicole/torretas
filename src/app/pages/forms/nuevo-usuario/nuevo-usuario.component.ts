@@ -79,6 +79,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   }
 
   async guardar() {
+    console.log(this.usuario)
     try {
       let response = await this.usuarioService.create(this.usuario,this.token).toPromise();
       if (response.code = 200) {
@@ -125,6 +126,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     this.tipousuario=tipousuario;
 
     if (usuario) {
+      console.log("hay usuario");
       const { nombre, id, email, password, celular, iddep, nip } = usuario;
       this.usuario.iddep = iddep;
       this.usuario.username = nombre;
@@ -134,12 +136,14 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       this.usuario.nip = nip;
     }
     if(tipousuario){
-      this.sistema=true
+      this.sistema=true;
     }
     if(idDepto){
       this.enabledDepartamento = true;
       this.usuario.iddep = idDepto;
     }
+    console.log(this.usuario);
+
   }
 
   closeModal() {

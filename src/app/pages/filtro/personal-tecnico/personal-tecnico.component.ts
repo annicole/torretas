@@ -122,7 +122,7 @@ export class PersonalTecnicoComponent implements OnInit {
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento
+        idevento: 4
       }
     });
 
@@ -144,7 +144,7 @@ export class PersonalTecnicoComponent implements OnInit {
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento,
+        idevento: 4,
         usuario
       }
     });

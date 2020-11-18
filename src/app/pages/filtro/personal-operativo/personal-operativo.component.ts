@@ -121,7 +121,7 @@ export class PersonalOperativoComponent implements OnInit {
           username:this.usuario.username,
           Username_last:this.usuario.Username_last,
           iddep:this.usuario.iddep,
-          idevento: this.usuario.idevento
+          idevento: 7
         }
       });
   
@@ -143,7 +143,7 @@ export class PersonalOperativoComponent implements OnInit {
           username:this.usuario.username,
           Username_last:this.usuario.Username_last,
           iddep:this.usuario.iddep,
-          idevento: this.usuario.idevento,
+          idevento: 7,
           usuario
         }
       });
