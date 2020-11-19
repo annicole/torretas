@@ -4,6 +4,15 @@
       <li class="nav-item" *ngFor="let li of listNav">
         <a class="nav-link active" [routerLink]="[li.router]" [routerLinkActive]="['activate']">{{li.name}}</a>
       </li>
+<<<<<<< HEAD
+=======
+      <li>
+        <a class="button-func" (click)="onClickFunciones()" *ngIf="funcionButton"> <b>Funciones</b></a>
+      </li>
+      <li>
+        <a class="button-s" (click)="onClickStatuswosub()" *ngIf="statuswosubButton"> <b>Catálogo de status de fabricación</b></a>
+      </li>
+>>>>>>> f4f1b9d241bab76a9e9450dd80a897e83eb1c6da
     </ul>
     
   </div>

@@ -44,7 +44,8 @@ export class NuevoEmpresaComponent implements OnInit {
   empresa: Empresa = new Empresa;
   status: string;
   total = 0;
-
+  idp: string;
+  ide: string;
 
   constructor(
     private empresaService: EmpresaService,
@@ -65,14 +66,12 @@ export class NuevoEmpresaComponent implements OnInit {
   ngOnInit() {
     this.token = this.auth.token;
     this.idempresa = this.activate.snapshot.paramMap.get('id');
+    this.status = this.activate.snapshot.paramMap.get('status');
     this.getRelcomp();
     this.getPais('');
-    this.getCiudade('');
-    this.getEstadoe('');
     this.getCondpago();
+    this.getContemp();
 
-    this.status = this.activate.snapshot.paramMap.get('status');
-    console.log(this.status)
     if (this.status === null) {
       
     } else if (this.status === 'edit') {
@@ -83,7 +82,7 @@ export class NuevoEmpresaComponent implements OnInit {
     this.formc = this.formBuilder.group({
       idcontemp: [],
       idempresa: [],
-       nomcontemp: ['', Validators.required],
+      nomcontemp: ['', Validators.required],
       depcontemp: ['', Validators.required],
       puestocontemp: ['', Validators.required],
       pbxcontemp: ['', Validators.required],
@@ -113,9 +112,7 @@ export class NuevoEmpresaComponent implements OnInit {
       numfiscalemp: ['', Validators.required],
       taxemp: ['', Validators.required],
       idcondpago: ['', Validators.required],
-
     });
-
   }
 
   onChange(event) {
@@ -152,22 +149,23 @@ export class NuevoEmpresaComponent implements OnInit {
     }
   }
 
+
+
+
+
+
   async saveContemp() {
     try {
-      let response;
       this.formc.value.idempresa = this.idempresa;
-       response = this.contempService.create(this.formc.value, this.token).toPromise();
-          console.log(this.formc)
+      let response = await this.contempService.create(this.formc.value, this.token).toPromise();
           if (response.code = 200) {
-            Swal.fire('', 'Contacto guardada correctamente', 'success');
-
+            Swal.fire('Guardado', 'Contacto guardado correctamente', 'success');
             this.getContemp();
-          }
-          else {
-            Swal.fire('Error', 'No fue posible guardar el contacto', 'error');
+            this.submitted = false;
+            this.formc.reset({});
           }
       }catch (e) {
-        Swal.fire('Error', 'No fue posible actualizar el contacto', 'error');
+        Swal.fire('Error', 'No fue posible guardar el contacto', 'error');
       }
   }
 
@@ -214,7 +212,6 @@ export class NuevoEmpresaComponent implements OnInit {
     try {
       let resp = await this.estadoService.get(searchValue, this.token).toPromise();
       if (resp.code == 200) {
-        console.log("Pais?: " + resp)
         this.estado = resp.response;
       }
     } catch (e) {
@@ -225,7 +222,6 @@ export class NuevoEmpresaComponent implements OnInit {
     try {
       let resp = await this.ciudadService.get(searchValue, this.token).toPromise();
       if (resp.code == 200) {
-        console.log("Ciudad?: " + resp)
         this.ciudad = resp.response;
       }
     } catch (e) {
@@ -236,7 +232,6 @@ export class NuevoEmpresaComponent implements OnInit {
     try {
       let resp = await this.estadoService.get(this.id,this.token).toPromise();
       if (resp.code == 200) {
-        console.log("Pais?: " + resp)
         this.estado = resp.response;
       }
     } catch (e) {
@@ -247,7 +242,6 @@ export class NuevoEmpresaComponent implements OnInit {
     try {
       let resp = await this.ciudadService.get(this.id2,this.token).toPromise();
       if (resp.code == 200) {
-        console.log("Ciudad?: " + resp)
         this.ciudad = resp.response;
       }
     } catch (e) {
@@ -270,7 +264,10 @@ export class NuevoEmpresaComponent implements OnInit {
       let resp = await this.empresaService.read(this.idempresa, this.auth.token).toPromise();
       if (resp.code == 200) {
         this.empresa = resp.empresa;
-
+        this.idp = this.empresa.idpais.toString();
+        this.ide = this.empresa.idestado.toString();
+        this.getEstadoe(this.idp)
+        this.getCiudade(this.ide)
       }
     } catch (e) {
       Swal.fire('Error', 'No se pudo obtener la empresa', 'error');
@@ -295,9 +292,9 @@ export class NuevoEmpresaComponent implements OnInit {
         case null: response = this.empresaService.create(this.empresa, this.token).toPromise();
           console.log(this.empresa)
           if (response.code = 200) {
-            Swal.fire('', 'Empresa guardada correctamente', 'success');
-            this.router.navigate(['/empresa']);
-            this.getEmpresa();
+            Swal.fire('Guardada', 'Empresa guardada correctamente', 'success');
+            this.router.navigate(['/']);
+           
           }
           else {
             Swal.fire('Error', 'No fue posible guardar la empresa', 'error');
@@ -314,7 +311,6 @@ export class NuevoEmpresaComponent implements OnInit {
           )
           if (response.code = 200) {
             Swal.fire('', 'Empresa actualizada correctamente', 'success');
-            this.router.navigate(['/empresa']);
             this.getEmpresa();
           }
           else {

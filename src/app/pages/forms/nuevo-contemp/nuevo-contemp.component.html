@@ -30,11 +30,11 @@
       </div>
 
       <div class="form-group col-md-2">
-        <label for="">PBX</label>
+        <label for="">Telefono</label>
         <input type="text" class="form-control" id="pbxcontemp" nombre="pbxcontemp"
                formControlName="pbxcontemp" [ngClass]="{ 'is-invalid': submitted && f.pbxcontemp.errors }">
         <div *ngIf="submitted && f.pbxcontemp.errors" class="invalid-feedback">
-          <div *ngIf="f.pbxcontemp.errors.required">PBX es requerido</div>
+          <div *ngIf="f.pbxcontemp.errors.required">Telefono es requerido</div>
         </div>
       </div>
 
