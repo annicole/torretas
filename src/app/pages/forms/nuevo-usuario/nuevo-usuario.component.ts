@@ -24,7 +24,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   enabledDepartamento:boolean=false;
   token;
   tipousuario: string;
-  sistema:boolean;
+  sistema:boolean = false;
   listaFunciones=[
     {id:1, Funcion: "Funcion 1"},
     {id:2, Funcion: "Funcion 2"},
@@ -40,19 +40,35 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
 
   ngOnInit() {
     const disabled = this.data.idDepto ? true : false;
-    this.usuarioForm = this.formBuilder.group({
-      nip: ['', Validators.required,],
-      nip2:['', Validators.required,],
-      password: ['', [Validators.required,Validators.min(6)]],
-      password2: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      celular: ['',],
-    }, 
-    { validator: [this.MustMatch('password', 'password2'), this.MustMatch('nip', 'nip2')] });
-    this.token= this.auth.token;
-    this.getDeptos();
     this.loadModalTexts();
     console.log(this.sistema)
+    if(this.sistema){
+      this.usuarioForm = this.formBuilder.group({
+        nip: ['', Validators.required,],
+        nip2:['', Validators.required,],
+        password: ['', [Validators.required,Validators.min(6)]],
+        password2: ['', Validators.required],
+        correo: ['', [Validators.required, Validators.email]],
+        celular: ['',],
+      }, 
+      { validator: [this.MustMatch('password', 'password2'), this.MustMatch('nip', 'nip2')] });
+    }else{
+      this.usuarioForm = this.formBuilder.group({
+        nip: ['', Validators.required,],
+        nip2:['', Validators.required,],
+        correo: ['', [Validators.required, Validators.email]],
+        celular: ['',],
+      }, 
+      { validator: [this.MustMatch('nip', 'nip2')] });
+    }
+    this.token= this.auth.token;
+    this.getDeptos();
+
+    this.usuario.password = "password123";
+
+    console.log(this.usuarioForm.value.password);
+    console.log(this.usuarioForm.value.password2);
+    console.log(this.sistema);
   }
 
   async getDeptos() {
@@ -69,11 +85,13 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   get f() { return this.usuarioForm.controls; }
 
   onSubmit() {
-    console.log(this.usuarioForm.errors)
+    console.log(this.usuarioForm.invalid);
+
     this.submitted = true;
     if (this.usuarioForm.invalid) {
       return;
     } else {
+      console.log('Guardando..');
       this.guardar();
     }
   }
