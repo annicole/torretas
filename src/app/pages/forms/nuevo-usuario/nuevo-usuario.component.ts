@@ -127,6 +127,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
 
     if (usuario) {
       console.log("hay usuario");
+      console.log(usuario);
       const { nombre, id, email, password, celular, iddep, nip } = usuario;
       this.usuario.iddep = iddep;
       this.usuario.username = nombre;

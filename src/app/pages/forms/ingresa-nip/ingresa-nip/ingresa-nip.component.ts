@@ -13,7 +13,7 @@ import { NuevoUsuarioComponent } from '../../nuevo-usuario/nuevo-usuario.compone
 })
 export class IngresaNipComponent extends Dialog implements OnInit  {
 
-  usuario: Usuario = new Usuario();
+  usuario: Usuario;
   IngresaNipForm: FormGroup;
   submitted = false;
   nip:string;
@@ -31,29 +31,42 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
     this.IngresaNipForm = this.formBuilder.group({
       nip:['',[Validators.required]]
     });//, { validator: this.MustMatch('nip', this.usuario.nip.toString()) }    { validator: this.MustMatch('nip')}
-    if(this.usuario.nip == 0 || this.usuario.nip == null ){
-      this.usuario.nip = 1234;
-    }
+    
+    console.log("dentro de Oni ingresanip")
+    console.log(this.usuario);
   }
 
   get f() { return this.IngresaNipForm.controls; }
 
   onSubmit() {
     this.submitted = true;
-    if(this.nip != this.usuario.nip.toString()){
-      this.showAlert(this.alertErrorText, false)
-    }
     if (this.IngresaNipForm.invalid) {
       return;
     } else {
-      if(this.nip == this.usuario.nip.toString()){
-        this.addUsuario();
-        this.closeModal();
+
+
+      if(this.usuario == null){
+        if(this.nip == "1234"){
+          this.addUsuario();
+          this.closeModal();
+        }else{
+          this.showAlert(this.alertErrorText, false)
+        }
+      }else {
+        if(this.nip == this.usuario.nip.toString()){
+          this.addUsuario();
+          this.closeModal();
+        }else{
+          this.showAlert(this.alertErrorText, false)
+        }
       }
-      
+
+
     }
   }
   addUsuario(){
+    console.log("dentro de Adusuario ingresanip")
+    console.log(this.usuario);
     const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
       //width: '25rem',
       data: {

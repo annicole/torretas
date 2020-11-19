@@ -141,10 +141,10 @@ export class UsuariosComponent implements OnInit {
         alertSuccesText: 'Entraste!',
         alertErrorText: "El NIP no coincide",
         modalMode: 'create',
-        username:this.usuario.username,
-        Username_last:this.usuario.Username_last,
-        iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento,
+        username:usuario.username,
+        Username_last:usuario.Username_last,
+        iddep:usuario.iddep,
+        idevento:usuario.idevento,
         usuario,
         tipousuario:'sistema'
 
