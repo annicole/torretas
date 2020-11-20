@@ -27,13 +27,10 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
   }
   ngOnInit() {
     this.loadModalTexts();
-    console.log(this.data);
     this.IngresaNipForm = this.formBuilder.group({
       nip:['',[Validators.required]]
     });//, { validator: this.MustMatch('nip', this.usuario.nip.toString()) }    { validator: this.MustMatch('nip')}
     
-    console.log("dentro de Oni ingresanip")
-    console.log(this.usuario);
   }
 
   get f() { return this.IngresaNipForm.controls; }
@@ -64,9 +61,7 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
 
     }
   }
-  addUsuario(){
-    console.log("dentro de Adusuario ingresanip")
-    console.log(this.usuario);
+  async addUsuario(){
     const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
       //width: '25rem',
       data: {
@@ -97,6 +92,7 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
   this.modalMode = modalMode;
   if(usuario){
     const { nombre, id, email, password, celular, iddep, nip } = usuario;
+    this.usuario =  new Usuario();
       this.usuario.iddep = iddep;
       this.usuario.username = nombre;
       this.usuario.celular = celular;

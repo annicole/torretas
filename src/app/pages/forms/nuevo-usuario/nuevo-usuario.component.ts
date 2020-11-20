@@ -41,7 +41,6 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   ngOnInit() {
     const disabled = this.data.idDepto ? true : false;
     this.loadModalTexts();
-    console.log(this.sistema)
     if(this.sistema){
       this.usuarioForm = this.formBuilder.group({
         nip: ['', Validators.required,],
@@ -65,10 +64,6 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     this.getDeptos();
 
     this.usuario.password = "password123";
-
-    console.log(this.usuarioForm.value.password);
-    console.log(this.usuarioForm.value.password2);
-    console.log(this.sistema);
   }
 
   async getDeptos() {
@@ -85,19 +80,16 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   get f() { return this.usuarioForm.controls; }
 
   onSubmit() {
-    console.log(this.usuarioForm.invalid);
 
     this.submitted = true;
     if (this.usuarioForm.invalid) {
       return;
     } else {
-      console.log('Guardando..');
       this.guardar();
     }
   }
 
   async guardar() {
-    console.log(this.usuario)
     try {
       let response = await this.usuarioService.create(this.usuario,this.token).toPromise();
       if (response.code = 200) {
@@ -105,9 +97,11 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
         this.closeModal();
       }
       else {
+      console.log('AlertError');
         this.showAlert(this.alertErrorText, false);
       }
     } catch (e) {
+      console.log('error');
       this.showAlert(e.error.message, false);
     }
   }
@@ -130,7 +124,6 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   }
 
   loadModalTexts() {
-    console.log(this.data)
     const { title, btnText, alertErrorText, alertSuccesText, modalMode, username, Username_last, iddep, idevento, tipousuario,usuario,idDepto, } = this.data;
     this.title = title;
     this.btnText = btnText;
@@ -144,8 +137,6 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     this.tipousuario=tipousuario;
 
     if (usuario) {
-      console.log("hay usuario");
-      console.log(usuario);
       const { nombre, id, email, password, celular, iddep, nip } = usuario;
       this.usuario.iddep = iddep;
       this.usuario.username = nombre;
@@ -161,7 +152,6 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       this.enabledDepartamento = true;
       this.usuario.iddep = idDepto;
     }
-    console.log(this.usuario);
 
   }
 

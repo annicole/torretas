@@ -72,7 +72,6 @@ export class PersonalIngenieriaComponent implements OnInit {
         let resp = await this.usuarioService.getUsuarios(searchValue, '', '6', this.auth.token).toPromise();
         if (resp.code == 200) {
           this.usuarios = resp.usuario;
-          console.log(this.usuarios);
   
           this.total = this.usuarios.length;
         }
@@ -143,7 +142,7 @@ export class PersonalIngenieriaComponent implements OnInit {
           username:this.usuario.username,
           Username_last:this.usuario.Username_last,
           iddep:this.usuario.iddep,
-          idevento: 6,
+          idevento: 6 ,
           usuario
         }
       });

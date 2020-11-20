@@ -72,7 +72,6 @@ export class PersonalMaterialesComponent implements OnInit {
         let resp = await this.usuarioService.getUsuarios(searchValue,  '','5', this.auth.token).toPromise();
         if (resp.code == 200) {
           this.usuarios = resp.usuario;
-          console.log(this.usuarios);
   
           this.total = this.usuarios.length;
         }

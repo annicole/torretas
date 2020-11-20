@@ -73,7 +73,6 @@ export class UsuariosComponent implements OnInit {
       let resp = await this.usuarioService.getUsuarios(searchValue, '', '', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
-
         this.total = this.usuarios.length;
       }
     } catch (e) {
@@ -109,7 +108,7 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  addUsuario() {
+  async   addUsuario() {
     const dialogRef = this.dialog.open(IngresaNipComponent, {
       //width: '25rem',
       data: {
