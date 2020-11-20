@@ -128,7 +128,7 @@ export class NuevoWoComponent implements OnInit {
     const dialogRef = this.dialog.open(NuevoWosubComponent, {
       width: '40rem',
       data: {
-        title: 'Editar Orden: ' + wosub.idwo,
+        title: 'Editar ',
         btnText: 'Guardar',
         alertSuccesText: 'Orden modificada correctamente',
         alertErrorText: "No se puedo modificar el registro",

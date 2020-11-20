@@ -13,10 +13,12 @@ export class HeaderTableComponent implements OnInit {
   @Input() public funcionButton;
   @Input() public statuswosubButton;
   @Input() public listNav;
+  @Input() public contemp;
   @Output() buttonOutput = new EventEmitter();
   @Output() searchOutput = new EventEmitter();
   @Output() funcionesOutput = new EventEmitter();
   @Output() statuswosubOutput = new EventEmitter();
+  @Output() contempOutput = new EventEmitter();
 
   constructor() { }
 
@@ -36,6 +38,10 @@ export class HeaderTableComponent implements OnInit {
 
   onClickStatuswosub() {
     this.statuswosubOutput.emit();
+  }
+
+  onClickContemp() {
+    this.contempOutput.emit();
   }
 
 }

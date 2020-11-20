@@ -10,48 +10,25 @@
 
 <div class="nuevo-wo card h-100 d-flex mx-5">
   <div class="card-body">
-
-    <form [formGroup]="formc">
       <div class="form-row">
         <div class="form-group col-md-2">
-          <label for="idwo">Orden de Manufactura</label>
-          <input type="text" class="form-control" id="idwo" nombre="idwo" [(ngModel)]="wo.idwo"
-                 formControlName="idwo" [ngClass]="{ 'is-invalid': submitted && f.idwo.errors }">
-          <div *ngIf="submitted && f.idwo.errors" class="invalid-feedback">
-            <div *ngIf="f.idwo.errors.required">numero de orden de manufactura es requerida</div>
-          </div>
+          <label for="idwo"> <b>Orden de Manufactura:</b> {{wo.idwo}}</label>
         </div>
 
         <div class="form-group col-md-4">
-          <label for="idempresa">Cliente </label>
-          <input type="text" class="form-control" id="idempresa" nombre="idempresa" [(ngModel)]="wo.Empresa.nomemp"
-                 formControlName="idempresa" [ngClass]="{ 'is-invalid': submitted && f.idempresa.errors }">
-          <div *ngIf="submitted && f.idempresa.errors" class="invalid-feedback">
-            <div *ngIf="f.idempresa.errors.required">Empresa es requerida</div>
-          </div>
+          <label for="idempresa"><b>Cliente:</b> {{wo.Empresa.nomemp}}</label>
         </div>
 
         <div class="form-group col-md-3">
-          <label for="woasig">Orden del cliente</label>
-          <input type="text" class="form-control" id="woasig" nombre="woasig" [(ngModel)]="wo.woasig"
-                 formControlName="woasig" [ngClass]="{ 'is-invalid': submitted && f.woasig.errors }">
-          <div *ngIf="submitted && f.woasig.errors" class="invalid-feedback">
-            <div *ngIf="f.woasig.errors.required">Orden del cliente requerido</div>
-          </div>
+          <label for="woasig"><b>Orden del cliente:</b> {{wo.woasig}}</label>
         </div>
 
         <div class="form-group col-md-3">
-          <label for="ocliente">Orden interna: </label>
-          <input type="text" class="form-control" id="ocliente" nombre="ocliente" [(ngModel)]="wo.ocliente"
-                 formControlName="ocliente" [ngClass]="{ 'is-invalid': submitted && f.ocliente.errors }">
-          <div *ngIf="submitted && f.ocliente.errors" class="invalid-feedback">
-            <div *ngIf="f.ocliente.errors.required">Cliente interno es requerido</div>
-          </div>
+          <label for="ocliente"><b>Orden interna:</b>   {{wo.ocliente}}</label>
+         
         </div>
       </div>
-    </form>
     <form [formGroup]="form">
-      <div class="col-md-12">
         <div class="form-row">
           <div class="form-group col-md-1">
             <label for="cantwosub">Cantidad</label>
@@ -91,10 +68,9 @@
           </div>
           <div>
             <br />
-            <button type="submit" class="btn btn-secondary" (click)="save()">Guardar</button>
+            <button type="submit" class="btn btn-primary" (click)="save()">Guardar</button>
           </div>
         </div>
-      </div>
     </form>
     <table class="table table-hover">
       <thead>
