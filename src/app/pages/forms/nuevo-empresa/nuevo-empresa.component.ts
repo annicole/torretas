@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
 import { NuevoContempComponent } from '@app/pages/forms/nuevo-contemp/nuevo-contemp.component';
 import { NuevoRelcompComponent } from '@app/pages/forms/nuevo-relacion/nuevo-relacion.component'
@@ -26,6 +26,8 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 
 export class NuevoEmpresaComponent implements OnInit {
+
+  @Input() private contemps;
 
   id: string;
   id2: string;
@@ -78,40 +80,40 @@ export class NuevoEmpresaComponent implements OnInit {
       this.getEmpresa();
       this.getContemp();
     }
-
+  
     this.formc = this.formBuilder.group({
       idcontemp: [],
       idempresa: [],
       nomcontemp: ['', Validators.required],
       depcontemp: ['', Validators.required],
       puestocontemp: ['', Validators.required],
-      pbxcontemp: ['', Validators.required],
-      extcontemp: ['', Validators.required],
-      movcontemp: ['', Validators.required],
-      emailcontemp: ['', Validators.required],
+      pbxcontemp: [],
+      extcontemp: [],
+      movcontemp: [],
+      emailcontemp: [],
     });
 
     this.form = this.formBuilder.group({
       idempresa: [],
       nomemp: ['', Validators.required],
       nombcortemp: ['', Validators.required],
-      calleemp: ['', Validators.required],
-      numextemp: ['', Validators.required],
-      numintemp: ['', Validators.required],
-      colemp: ['', Validators.required],
-      cpemp: ['', Validators.required],
-      idpais: ['', Validators.required],
-      idestado: ['', Validators.required],
-      idciudad: ['', Validators.required],
-      pbx1emp: ['', Validators.required],
-      pbx2emp: ['', Validators.required],
-      webemp: ['', Validators.required],
+      calleemp: [''],
+      numextemp: [''],
+      numintemp: [''],
+      colemp: [''],
+      cpemp: [''],
+      idpais: [''],
+      idestado: [''],
+      idciudad: [''],
+      pbx1emp: [''],
+      pbx2emp: [''],
+      webemp: [''],
       idrelacion: ['', Validators.required],
-      descuentoemp: ['', Validators.required],
-      nomchequeemp: ['', Validators.required],
-      numfiscalemp: ['', Validators.required],
-      taxemp: ['', Validators.required],
-      idcondpago: ['', Validators.required],
+      descuentoemp: [''],
+      nomchequeemp: [''],
+      numfiscalemp: [''],
+      taxemp: [''],
+      idcondpago: [''],
     });
   }
 
@@ -140,9 +142,16 @@ export class NuevoEmpresaComponent implements OnInit {
 
   get g() { return this.formc.controls; }
 
+  get statusG() {
+    if (this.status == 'edit')
+      return this.status
+  }
+
   onSubmitContemp() {
     this.submitted = true;
-    if (this.formc.invalid) {
+    if (this.status == null) {
+      Swal.fire('', 'No existe la empresa, debes guardar una primero', 'error');
+    } else if (this.formc.invalid) {
       return;
     } else {
       this.saveContemp();
@@ -150,32 +159,28 @@ export class NuevoEmpresaComponent implements OnInit {
   }
 
 
-
-
-
-
   async saveContemp() {
-    try {
-      this.formc.value.idempresa = this.idempresa;
-      let response = await this.contempService.create(this.formc.value, this.token).toPromise();
-          if (response.code = 200) {
-            Swal.fire('Guardado', 'Contacto guardado correctamente', 'success');
-            this.getContemp();
-            this.submitted = false;
-            this.formc.reset({});
-          }
-      }catch (e) {
-        Swal.fire('Error', 'No fue posible guardar el contacto', 'error');
+      try {
+        this.formc.value.idempresa = this.idempresa;
+        let response = await this.contempService.create(this.formc.value, this.token).toPromise();
+        if (response.code = 200) {
+          Swal.fire('Guardado', 'Contacto guardado correctamente', 'success');
+          this.getContemp();
+          this.submitted = false;
+          this.formc.reset({});
+        }
+      } catch (e) {
+        Swal.fire('', 'No fue posible guardar el contacto', 'error');
       }
   }
 
   editar(contemp) {
     const dialogRef = this.dialog.open(NuevoContempComponent, {
-      width: '55rem',
+      width: '40rem',
       data: {
-        title: 'Editar producto: ' + contemp.nomcontemp,
+        title: 'Editar Contacto: ' + contemp.nomcontemp,
         btnText: 'Guardar',
-        alertSuccesText: 'Producto modificado correctamente',
+        alertSuccesText: 'Contacto modificado correctamente',
         alertErrorText: "No se puedo modificar el registro",
         modalMode: 'edit',
         _contemp: contemp
@@ -270,7 +275,6 @@ export class NuevoEmpresaComponent implements OnInit {
         this.getCiudade(this.ide)
       }
     } catch (e) {
-      Swal.fire('Error', 'No se pudo obtener la empresa', 'error');
     }
   }
 

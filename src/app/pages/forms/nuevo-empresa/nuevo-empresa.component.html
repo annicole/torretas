@@ -1,4 +1,5 @@
 <div class="nuevo-empresa card h-100 d-flex mx-5">
+
   <div class="card-body">
     <h3>Editar empresa</h3>
     <hr>
@@ -23,23 +24,31 @@
         <div class="form-group col-md-3">
           <label for="numfiscalemp">RFC</label>
           <input type="text" class="form-control" id="numfiscalemp" nombre="numfiscalemp" [(ngModel)]="empresa.numfiscalemp"
-                 formControlName="numfiscalemp" [ngClass]="{ 'is-invalid': submitted && f.numfiscalemp.errors }">
+                 formControlName="numfiscalemp">
           <div *ngIf="submitted && f.numfiscalemp.errors" class="invalid-feedback">
             <div *ngIf="f.numfiscalemp.errors.required">RFC es requerido</div>
           </div>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-5">
+          <label for="colemp">Colonia</label>
+          <input type="text" class="form-control" id="colemp" nombre="colemp" [(ngModel)]="empresa.colemp"
+                 formControlName="colemp">
+          <div *ngIf="submitted && f.colemp.errors" class="invalid-feedback">
+            <div *ngIf="f.colemp.errors.required">Colonia es requerida</div>
+          </div>
+        </div>
+        <div class="form-group col-md-5">
           <label for="calleemp">Calle</label>
           <input type="text" class="form-control" id="calleemp" nombre="calleemp" [(ngModel)]="empresa.calleemp"
-                 formControlName="calleemp" [ngClass]="{ 'is-invalid': submitted && f.calleemp.errors }">
-          <div *ngIf="submitted && f.calleemp.errors" class="invalid-feedback">
+                 formControlName="calleemp">
+          <!-- <div *ngIf="submitted && f.calleemp.errors" class="invalid-feedback">
             <div *ngIf="f.calleemp.errors.required">Calle es requerida</div>
-          </div>
+          </div> -->
         </div>
         <div class="form-group col-md-1">
           <label for="numextemp">Número Ext.</label>
           <input type="text" class="form-control" id="numextemp" nombre="numextemp" [(ngModel)]="empresa.numextemp"
-                 formControlName="numextemp" [ngClass]="{ 'is-invalid': submitted && f.numextemp.errors }">
+                 formControlName="numextemp">
           <div *ngIf="submitted && f.numextemp.errors" class="invalid-feedback">
             <div *ngIf="f.numextemp.errors.required">Número exterior es requerido</div>
           </div>
@@ -47,24 +56,17 @@
         <div class="form-group col-md-1">
           <label for="numintemp">Número Int.</label>
           <input type="text" class="form-control" id="numintemp" nombre="numintemp" [(ngModel)]="empresa.numintemp"
-                 formControlName="numintemp" [ngClass]="{ 'is-invalid': submitted && f.numintemp.errors }">
+                 formControlName="numintemp">
           <div *ngIf="submitted && f.numintemp.errors" class="invalid-feedback">
             <div *ngIf="f.numintemp.errors.required">Número interior es requerido</div>
           </div>
         </div>
-        <div class="form-group col-md-4">
-          <label for="colemp">Colonia</label>
-          <input type="text" class="form-control" id="colemp" nombre="colemp" [(ngModel)]="empresa.colemp"
-                 formControlName="colemp" [ngClass]="{ 'is-invalid': submitted && f.colemp.errors }">
-          <div *ngIf="submitted && f.colemp.errors" class="invalid-feedback">
-            <div *ngIf="f.colemp.errors.required">Colonia es requerida</div>
-          </div>
-        </div>
+
         <div class="form-group col-md-3">
           <label for="idpais">Pais</label>
           <select class="form-control" id="idpais" nombre="idpais" [(ngModel)]="empresa.idpais"
                   (change)="onChange($event)"
-                  formControlName="idpais" [ngClass]="{ 'is-invalid': submitted && f.idpais.errors }">
+                  formControlName="idpais">
             <option value="null">Seleccionar Pais</option>
             <option *ngFor="let p of pais" [value]="p.idpais">
               {{p.pais}}
@@ -78,7 +80,7 @@
           <label for="idestado">Estado</label>
           <select class="form-control" id="idestado" nombre="idestado" [(ngModel)]="empresa.idestado"
                   (change)="onChange2($event)"
-                  formControlName="idestado" [ngClass]="{ 'is-invalid': submitted && f.idestado.errors }">
+                  formControlName="idestado">
             <option value="">Seleccionar Estado</option>
             <option *ngFor="let es of estado" [value]="es.idestado">
               {{es.estado}}
@@ -91,7 +93,7 @@
         <div class="form-group col-md-3">
           <label for="idciudad">Ciudad</label>
           <select class="form-control" id="idciudad" nombre="idciudad" [(ngModel)]="empresa.idciudad"
-                  formControlName="idciudad" [ngClass]="{ 'is-invalid': submitted && f.idciudad.errors }">
+                  formControlName="idciudad">
             <option value="">Seleccionar Ciudad</option>
             <option *ngFor="let ci of ciudad" [value]="ci.idciudad">
               {{ci.ciudad}}
@@ -104,7 +106,7 @@
         <div class="form-group col-md-1">
           <label for="cpemp">Codigo Postal</label>
           <input type="text" class="form-control" id="cpemp" nombre="cpemp" [(ngModel)]="empresa.cpemp"
-                 formControlName="cpemp" [ngClass]="{ 'is-invalid': submitted && f.cpemp.errors }">
+                 formControlName="cpemp">
           <div *ngIf="submitted && f.cpemp.errors" class="invalid-feedback">
             <div *ngIf="f.cpemp.errors.required">Codigo Postal es requerido</div>
           </div>
@@ -112,7 +114,7 @@
         <div class="form-group col-md-1">
           <label for="pbx1emp">PBX 1</label>
           <input type="text" class="form-control" id="pbx1emp" nombre="pbx1emp" [(ngModel)]="empresa.pbx1emp"
-                 formControlName="pbx1emp" [ngClass]="{ 'is-invalid': submitted && f.pbx1emp.errors }">
+                 formControlName="pbx1emp">
           <div *ngIf="submitted && f.pbx1emp.errors" class="invalid-feedback">
             <div *ngIf="f.pbx1emp.errors.required">PBX 1 es requerido</div>
           </div>
@@ -120,7 +122,7 @@
         <div class="form-group col-md-1">
           <label for="pbx2emp">PBX 2</label>
           <input type="text" class="form-control" id="pbx2emp" nombre="pbx2emp" [(ngModel)]="empresa.pbx2emp"
-                 formControlName="pbx2emp" [ngClass]="{ 'is-invalid': submitted && f.pbx2emp.errors }">
+                 formControlName="pbx2emp">
           <div *ngIf="submitted && f.pbx2emp.errors" class="invalid-feedback">
             <div *ngIf="f.pbx2emp.errors.required">PBX 2 es requerido</div>
           </div>
@@ -129,14 +131,14 @@
         <div class="form-group col-md-4">
           <label for="webemp">Sitio Web</label>
           <input type="text" class="form-control" id="webemp" nombre="webemp" [(ngModel)]="empresa.webemp"
-                 formControlName="webemp" [ngClass]="{ 'is-invalid': submitted && f.webemp.errors }">
+                 formControlName="webemp">
           <div *ngIf="submitted && f.webemp.errors" class="invalid-feedback">
             <div *ngIf="f.webemp.errors.required">Sitio Web es requerido</div>
           </div>
         </div>
         <div class="form-group col-md-3">
           <label for="idrelacion">Relacion con la Empresa</label>
-          <a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar "
+          <a class="btn-add btn" data-toggle="tooltip" data-placement="top" title="Agregar "
              (click)="newRelcomp()"><i class="material-icons">add_circle</i></a>
           <select class="form-control" id="idrelacion" nombre="idrelacion" [(ngModel)]="empresa.idrelacion"
                   formControlName="idrelacion" [ngClass]="{ 'is-invalid': submitted && f.idrelacion.errors }">
@@ -150,10 +152,10 @@
         </div>
         <div class="form-group col-md-3">
           <label for="idcondpago">Condiciones de Pago</label>
-          <a class="btn" data-toggle="tooltip" data-placement="top" title="Agregar "
+          <a class="btn-add btn" data-toggle="tooltip" data-placement="top" title="Agregar "
              (click)="newCondpago()"><i class="material-icons">add_circle</i></a>
           <select class="form-control" id="idcondpago" nombre="idcondpago" [(ngModel)]="empresa.idcondpago"
-                  formControlName="idcondpago" [ngClass]="{ 'is-invalid': submitted && f.idcondpago.errors }">
+                  formControlName="idcondpago">
             <option *ngFor="let c of condpago" [value]="c.idcondpago">
               {{c.condpago}}
             </option>
@@ -165,24 +167,25 @@
         <div class="form-group col-md-2">
           <label for="taxemp">Impuestos</label>
           <input type="text" class="form-control" id="taxemp" nombre="taxemp" [(ngModel)]="empresa.taxemp"
-                 formControlName="taxemp" [ngClass]="{ 'is-invalid': submitted && f.taxemp.errors }">
+                 formControlName="taxemp">
           <div *ngIf="submitted && f.taxemp.errors" class="invalid-feedback">
             <div *ngIf="f.taxemp.errors.required">Impuestos es requerido</div>
           </div>
         </div>
         <!--   </div>
-     <div class="form-group col-md-5">
-       <label for="locmaps">
-         Localizacion en el Mapa
-       </label>
-       <iframe width="500" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="locmaps" src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=%20Aguascalientes+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe> <a href='http://maps-generator.com/'> </a>
-       <script type='text/javascript' src='https://maps-generator.com/google-maps-authorization/script.js?id=209fc6fa638c6a58f4658c723e29fc9e5d755e94'></script>
-     </div> -->
+        <div class="form-group col-md-5">
+          <label for="locmaps">
+            Localizacion en el Mapa
+          </label>
+          <iframe width="500" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="locmaps" src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=%20Aguascalientes+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe> <a href='http://maps-generator.com/'> </a>
+          <script type='text/javascript' src='https://maps-generator.com/google-maps-authorization/script.js?id=209fc6fa638c6a58f4658c723e29fc9e5d755e94'></script>
+        </div> -->
       </div>
-      <button type="submit" class="btn btn-secondary" (click)="update()">Guardar</button>
+      <button type="submit" class="btn btn-secondary" (click)="onSubmit()">Guardar</button>
     </form>
   </div>
-  <div class="table-responsive-lg px-4">
+  
+  <div class="table-responsive-lg px-4" *ngIf="statusG">
     <form [formGroup]="formc" (ngSubmit)="onSubmitContemp()">
       <h3>Contactos</h3>
       <table class="table table-hover">
@@ -203,69 +206,69 @@
             <th>
               <div class="form-group">
                 <input type="text" class="form-control" id="nomcontemp" nombre="nomcontemp"
-                       formControlName="nomcontemp" [ngClass]="{ 'is-invalid': submitted && f.nomcontemp.errors }">
-                <div *ngIf="submitted && f.nomcontemp.errors" class="invalid-feedback">
-                  <div *ngIf="f.nomcontemp.errors.required">Nombre es requerido</div>
+                       formControlName="nomcontemp" [ngClass]="{ 'is-invalid': submitted && g.nomcontemp.errors }">
+                <div *ngIf="submitted && g.nomcontemp.errors" class="invalid-feedback">
+                  <div *ngIf="g.nomcontemp.errors.required">Nombre es requerido</div>
                 </div>
               </div>
             </th>
             <th>
               <div class="form-group">
                 <input type="text" class="form-control" id="depcontemp" nombre="depcontemp"
-                       formControlName="depcontemp" [ngClass]="{ 'is-invalid': submitted && f.depcontemp.errors }">
-                <div *ngIf="submitted && f.depcontemp.errors" class="invalid-feedback">
-                  <div *ngIf="f.depcontemp.errors.required">Departamento es requerido</div>
+                       formControlName="depcontemp" [ngClass]="{ 'is-invalid': submitted && g.depcontemp.errors }">
+                <div *ngIf="submitted && g.depcontemp.errors" class="invalid-feedback">
+                  <div *ngIf="g.depcontemp.errors.required">Departamento es requerido</div>
                 </div>
               </div>
             </th>
             <th>
               <div class="form-group">
                 <input type="text" class="form-control" id="puestocontemp" nombre="puestocontemp"
-                       formControlName="puestocontemp" [ngClass]="{ 'is-invalid': submitted && f.puestocontemp.errors }">
-                <div *ngIf="submitted && f.puestocontemp.errors" class="invalid-feedback">
-                  <div *ngIf="f.puestocontemp.errors.required">Puesto es requerido</div>
+                       formControlName="puestocontemp" [ngClass]="{ 'is-invalid': submitted && g.puestocontemp.errors }">
+                <div *ngIf="submitted && g.puestocontemp.errors" class="invalid-feedback">
+                  <div *ngIf="g.puestocontemp.errors.required">Puesto es requerido</div>
                 </div>
               </div>
             </th>
             <th>
               <div class="form-group">
                 <input type="text" class="form-control" id="pbxcontemp" nombre="pbxcontemp"
-                       formControlName="pbxcontemp" [ngClass]="{ 'is-invalid': submitted && f.pbxcontemp.errors }">
-                <div *ngIf="submitted && f.pbxcontemp.errors" class="invalid-feedback">
-                  <div *ngIf="f.pbxcontemp.errors.required">Telefono es requerido</div>
+                       formControlName="pbxcontemp" [ngClass]="{ 'is-invalid': submitted && g.pbxcontemp.errors }">
+                <div *ngIf="submitted && g.pbxcontemp.errors" class="invalid-feedback">
+                  <div *ngIf="g.pbxcontemp.errors.required">Telefono es requerido</div>
                 </div>
               </div>
             </th>
             <th>
               <div class="form-group">
                 <input type="text" class="form-control" id="extcontemp" nombre="extcontemp"
-                       formControlName="extcontemp" [ngClass]="{ 'is-invalid': submitted && f.extcontemp.errors }">
-                <div *ngIf="submitted && f.extcontemp.errors" class="invalid-feedback">
-                  <div *ngIf="f.extcontemp.errors.required">Extencion es requerida</div>
+                       formControlName="extcontemp" [ngClass]="{ 'is-invalid': submitted && g.extcontemp.errors }">
+                <div *ngIf="submitted && g.extcontemp.errors" class="invalid-feedback">
+                  <div *ngIf="g.extcontemp.errors.required">Extencion es requerida</div>
                 </div>
               </div>
             </th>
             <th>
               <div class="form-group">
                 <input type="text" class="form-control" id="movcontemp" nombre="movcontemp"
-                       formControlName="movcontemp" [ngClass]="{ 'is-invalid': submitted && f.movcontemp.errors }">
-                <div *ngIf="submitted && f.movcontemp.errors" class="invalid-feedback">
-                  <div *ngIf="f.movcontemp.errors.required">Movil es requerido</div>
+                       formControlName="movcontemp" [ngClass]="{ 'is-invalid': submitted && g.movcontemp.errors }">
+                <div *ngIf="submitted && g.movcontemp.errors" class="invalid-feedback">
+                  <div *ngIf="g.movcontemp.errors.required">Movil es requerido</div>
                 </div>
               </div>
             </th>
             <th>
               <div class="form-group">
                 <input type="text" class="form-control" id="emailcontemp" nombre="emailcontemp"
-                       formControlName="emailcontemp" [ngClass]="{ 'is-invalid': submitted && f.emailcontemp.errors }">
-                <div *ngIf="submitted && f.emailcontemp.errors" class="invalid-feedback">
-                  <div *ngIf="f.emailcontemp.errors.required">Correo es requerido</div>
+                       formControlName="emailcontemp" [ngClass]="{ 'is-invalid': submitted && g.emailcontemp.errors }">
+                <div *ngIf="submitted && g.emailcontemp.errors" class="invalid-feedback">
+                  <div *ngIf="g.emailcontemp.errors.required">Correo es requerido</div>
                 </div>
               </div>
             </th>
             <th>
               <div class="">
-                <button type="submit" class="btn btn-primary" >Guardar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
               </div>
             </th>
           </tr>
@@ -281,7 +284,7 @@
             <td>{{con.emailcontemp | titlecase }} </td>
             <td>
               <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar"
-                (click)="editar(con)" ><i class="material-icons">create</i></a>
+                 (click)="editar(con)"><i class="material-icons">create</i></a>
               <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar"
                  (click)="deleteContemp(con.idcontemp)"><i class="material-icons">delete</i></a>
             </td>
@@ -289,8 +292,5 @@
         </tbody>
       </table>
     </form>
-  </div>
-  <div class="footer">
-    <span class="badge badge-light">Total:{{total}} </span>
   </div>
 </div>

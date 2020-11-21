@@ -2,7 +2,7 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-row">
     
-      <div class="form-group col-md-3" >
+      <div class="form-group col-md-6" >
         <label for="nomcontemp">Nombre</label>
         <input type="text" class="form-control" id="nomcontemp" nombre="nomcontemp"
                formControlName="nomcontemp" [ngClass]="{ 'is-invalid': submitted && f.nomcontemp.errors }">
@@ -11,7 +11,7 @@
         </div>
       </div>
 
-      <div class="form-group col-md-3">
+      <div class="form-group col-md-6">
         <label for="depcontemp">Departamento</label>
         <input type="text" class="form-control" id="depcontemp" nombre="depcontemp"
                formControlName="depcontemp" [ngClass]="{ 'is-invalid': submitted && f.depcontemp.errors }">
@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <div class="form-group col-md-3">
+      <div class="form-group col-md-6">
         <label for="">Puesto</label>
         <input type="text" class="form-control" id="puestocontemp" nombre="puestocontemp"
                formControlName="puestocontemp" [ngClass]="{ 'is-invalid': submitted && f.puestocontemp.errors }">
@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-6">
         <label for="">Telefono</label>
         <input type="text" class="form-control" id="pbxcontemp" nombre="pbxcontemp"
                formControlName="pbxcontemp" [ngClass]="{ 'is-invalid': submitted && f.pbxcontemp.errors }">
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-6">
         <label for="">Extencion</label>
         <input type="text" class="form-control" id="extcontemp" nombre="extcontemp"
                formControlName="extcontemp" [ngClass]="{ 'is-invalid': submitted && f.extcontemp.errors }">
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-6">
         <label for="">Movil</label>
         <input type="text" class="form-control" id="movcontemp" nombre="movcontemp"
                formControlName="movcontemp" [ngClass]="{ 'is-invalid': submitted && f.movcontemp.errors }">
@@ -56,7 +56,7 @@
         </div>
       </div>
 
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-12">
         <label for="">Correo</label>
         <input type="text" class="form-control" id="emailcontemp" nombre="emailcontemp"
                formControlName="emailcontemp" [ngClass]="{ 'is-invalid': submitted && f.emailcontemp.errors }">
