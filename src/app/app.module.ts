@@ -81,6 +81,7 @@ import { NuevoStatuswoComponent } from './pages/forms/nuevo-statuswo/nuevo-statu
 import { OrdenManufacturaComponent } from './pages/filtro/orden-manufactura/orden-manufactura.component';
 import { IngresaNipComponent } from './pages/forms/ingresa-nip/ingresa-nip/ingresa-nip.component';
 import { CatalogoFuncionesComponent } from './pages/filtro/catalogo-funciones/catalogo-funciones.component';
+import { AsignacionEquipoComponent } from './pages/forms/asignacion-equipo/asignacion-equipo.component';
 
 
 
@@ -148,7 +149,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoStatuswoComponent,
     OrdenManufacturaComponent,
     IngresaNipComponent,
-    CatalogoFuncionesComponent,    
+    CatalogoFuncionesComponent,
+    AsignacionEquipoComponent,    
   ],
   imports: [
     BrowserModule,
@@ -173,8 +175,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
   entryComponents: [
     NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
-    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, 
-    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, IngresaNipComponent, CatalogoFuncionesComponent,
+    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, AsignacionEquipoComponent,
+    IngresaNipComponent, CatalogoFuncionesComponent
   ]
 })
 export class AppModule { }
