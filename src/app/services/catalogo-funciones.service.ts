@@ -3,33 +3,23 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as environment from '../../environments/environment';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class ProductoService {
-
-  private url: string = environment.environment.urlEndPoint + '/producto';
+export class CatalogoFuncionesService {
+  
+  private url: string = environment.environment.urlEndPoint + '/funcusu';
+  
   constructor(private http: HttpClient) { }
 
-  get(busqueda, token): Observable<any> {
-    let params = new HttpParams();
-    params = params.append('busqueda', busqueda);
+  get(token): Observable<any> {  
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
-    return this.http.get(this.url + '/get', { headers, params: params });
+    return this.http.get(this.url + '/get', { headers });
   }
 
-  get2(emp, token): Observable<any> {
-    let params = new HttpParams();
-    params = params.append('emp', emp);
+  create(obj, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
-    return this.http.get(this.url + '/buscar', { headers, params: params });
-  }
-
-
-  create(producto, token): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
-    return this.http.post<any>(this.url + '/get', producto, { headers });
+    return this.http.post<any>(this.url + '/get', obj, { headers });
   }
 
   read(id: number, token): Observable<any> {
@@ -37,9 +27,9 @@ export class ProductoService {
     return this.http.get(`${this.url + '/read'}/${id}`, { headers });
   }
 
-  update(producto, token): Observable<any> {
+  update(obj, token, id: number) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
-    return this.http.put(`${this.url + '/read'}/${producto.idproducto}`, producto, { headers });
+    return this.http.put(`${this.url + '/read'}/${id}`, obj, { headers });
   }
 
   delete(id: number, token): Observable<any> {

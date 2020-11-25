@@ -5,12 +5,15 @@
         <a class="nav-link active" [routerLink]="[li.router]" [routerLinkActive]="['activate']">{{li.name}}</a>
       </li>
       <li>
-          <a class="button-func" (click)="onClickFunciones()" *ngIf="funcionButton"> <b>Funciones</b></a>
+        <a class="button-s" (click)="onClickStatuswosub()" *ngIf="statuswosubButton"> <b>Catálogo de status de fabricación</b></a>
       </li>
     </ul>
     
   </div>
   <div class="d-flex justify-content-end" >
+    <div class="mr-3">
+        <a class="button-func" (click)="onClickFunciones()" *ngIf="funcionButton"> <b>Funciones</b></a>
+    </div>
     <div class="form-group has-search mr-1">
       <span class="material-icons form-control-feedback">
         search
