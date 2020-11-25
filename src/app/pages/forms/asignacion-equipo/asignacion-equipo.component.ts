@@ -106,6 +106,30 @@ export class AsignacionEquipoComponent extends Dialog implements OnInit {
     }
   }
 
+  async updateDown(obj){
+    try {
+      let response;
+      response = await this.skuService.updateDown(obj, this.auth.token,obj.idskumaquina).toPromise();
+      if (response.code == 200) {      
+        this.getSKU();
+      }
+    } catch (e) {
+      this.showAlert(e.error.message, false); 
+    }
+  }
+
+  async updateUp(obj){
+    try {
+      let response;
+      response = await this.skuService.updateUp(obj, this.auth.token,obj.idskumaquina).toPromise();
+      if (response.code == 200) {      
+        this.getSKU();
+      }
+    } catch (e) {
+      this.showAlert(e.error.message, false); 
+    }
+  }
+
   delete(obj) {
     console.log(obj)
     Swal.fire({

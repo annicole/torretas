@@ -42,13 +42,13 @@
                     <tr *ngFor="let obj of listaSKU">
                         <td>{{obj.Maquina.maquina}}</td>
                         <td>{{obj.prioridad}}</td>
-                        <td>
-                            <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar "
-                                (click)="delete(obj)"><i class="material-icons">delete</i></a>
+                        <td>                           
                             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar"
-                                (click)="update(obj)"><i class="material-icons">arrow_upward</i></a>
+                                (click)="updateUp(obj)"><i class="material-icons" *ngIf="obj.prioridad!=1">arrow_upward</i></a>
                             <a class="btn" data-toggle="tooltip" data-placement="top" title="Asignación de equipos"
-                                (click)="update(obj)"><i class="material-icons">arrow_downward</i></a>
+                                (click)="updateDown(obj)"><i class="material-icons">arrow_downward</i></a>
+                            <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar "
+                                (click)="delete(obj)"><i class="material-icons" >delete</i></a>
                         </td>
                     </tr>
                 </tbody>

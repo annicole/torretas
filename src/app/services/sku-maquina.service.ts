@@ -28,9 +28,14 @@ export class SkuMaquinaService {
     return this.http.get(`${this.url + '/read'}/${id}`, { headers });
   }
 
-  update(obj, token, id: number) {
+  updateDown(obj, token, id: number) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
-    return this.http.put(`${this.url + '/read'}/${id}`, obj, { headers });
+    return this.http.put(`${this.url + '/updateDown'}/${id}`, obj, { headers });
+  }
+
+  updateUp(obj, token, id: number) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.put(`${this.url + '/updateUp'}/${id}`, obj, { headers });
   }
 
   delete(id: number, token): Observable<any> {
