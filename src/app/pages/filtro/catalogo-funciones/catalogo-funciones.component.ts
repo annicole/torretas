@@ -7,7 +7,7 @@ import { IngresaNipComponent } from '@app/pages/forms/ingresa-nip/ingresa-nip/in
 @Component({
   selector: 'app-catalogo-funciones',
   templateUrl: './catalogo-funciones.component.html',
-  styleUrls: ['./catalogo-funciones.component.css']
+  styleUrls: ['./catalogo-funciones.component.scss']
 })
 export class CatalogoFuncionesComponent extends Dialog implements OnInit {
   
