@@ -22,6 +22,7 @@ export class AsignacionEquipoComponent extends Dialog implements OnInit {
   listaSKU=[];
   listaEquipos=[];
   idProducto:number;
+  prioridad;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,7 +37,7 @@ export class AsignacionEquipoComponent extends Dialog implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       idmaquina: ['',Validators.required],
-      prioridad:['',Validators.required],
+      prioridad:[''],
       idproducto:['']
     });
     this.loadModalTexts();
@@ -84,6 +85,9 @@ export class AsignacionEquipoComponent extends Dialog implements OnInit {
       let resp = await this.skuService.get(this.auth.token,this.idProducto).toPromise();
       if (resp.code == 200) {
         this.listaSKU = resp.response;
+        let sku =  this.listaSKU[this.listaSKU.length-1];
+        this.prioridad = sku.prioridad;
+        this.form.controls['prioridad'].setValue(this.prioridad +1);
       }
     } catch (e) {
     }
