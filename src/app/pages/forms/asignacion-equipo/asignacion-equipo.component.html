@@ -5,8 +5,10 @@
                 <thead>
                     <tr>
                         <th scope="col" style="border-top:none;">Equipo</th>
-                        <th scope="col" style="border-top:none;width: 10px;">Prioridad</th>
-                        <th style="border-top:none;"></th>
+                        <th scope="col" style="border-top:none;width: 15px;">Prioridad</th>
+                        <th style="border-top:none;width: 8px;"></th>
+                        <th style="border-top:none;width: 5px;"></th>
+                        <th style="border-top:none;width: 5px;"></th>
                     </tr>
                     <tr>
                         <th>
@@ -24,17 +26,15 @@
                         </th>
                         <th>
                             <div class=" ">
-                                <input type="text" class="form-control" id="prioridad" nombre="prioridad"
+                              <!--  <input type="text" class="form-control" id="prioridad" nombre="prioridad"
                     formControlName="prioridad" [ngClass]="{ 'is-invalid': submitted && f.prioridad.errors }">
                                 <div *ngIf="submitted && f.prioridad.errors" class="invalid-feedback">
                                     <div *ngIf="f.prioridad.errors.required">Prioridad es requerido</div>
-                                </div>
+                                </div>-->
                             </div>
                         </th>
                         <th>
-                            <div class="">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
-                            </div>
                         </th>
                     </tr>
                 </thead>
@@ -42,13 +42,17 @@
                     <tr *ngFor="let obj of listaSKU">
                         <td>{{obj.Maquina.maquina}}</td>
                         <td>{{obj.prioridad}}</td>
-                        <td>                           
+                        <td style="text-align: center;">                         
                             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar"
-                                (click)="updateUp(obj)"><i class="material-icons" *ngIf="obj.prioridad!=1">arrow_upward</i></a>
-                            <a class="btn" data-toggle="tooltip" data-placement="top" title="Asignación de equipos"
-                                (click)="updateDown(obj)"><i class="material-icons">arrow_downward</i></a>
-                            <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar "
-                                (click)="delete(obj)"><i class="material-icons" >delete</i></a>
+                                (click)="updateUp(obj)" *ngIf="obj.prioridad!=1" ><i class="material-icons" >arrow_upward</i></a>
+                        </td>
+                        <td>
+                                <a class="btn" data-toggle="tooltip" data-placement="top" title="Asignación de equipos"
+                                (click)="updateDown(obj)" *ngIf="obj.prioridad!= prioridad" ><i class="material-icons" >arrow_downward</i></a>
+                        </td>
+                        <td>
+                        <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " 
+                        (click)="delete(obj)"><i class="material-icons"  >delete</i></a>
                         </td>
                     </tr>
                 </tbody>
