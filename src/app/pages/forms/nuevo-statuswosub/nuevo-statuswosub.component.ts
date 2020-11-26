@@ -1,28 +1,29 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { StatuswosubService } from '@app/services/statuswosub.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
 import { Dialog } from '@app/classes/Dialog';
 import { AuthService } from '@app/services/auth.service';
 import Swal from 'sweetalert2';
-import { CatalogoFuncionesService } from '@app/services/catalogo-funciones.service';
 
 @Component({
-  selector: 'app-catalogo-funciones',
-  templateUrl: './catalogo-funciones.component.html',
-  styleUrls: ['./catalogo-funciones.component.scss']
+  selector: 'app-nuevo-statuswosub',
+  templateUrl: './nuevo-statuswosub.component.html',
+  styleUrls: ['./nuevo-statuswosub.component.scss'],
+  encapsulation:ViewEncapsulation.None
 })
-export class CatalogoFuncionesComponent extends Dialog implements OnInit {
-  
-  formFuncusu: FormGroup;
+export class NuevoStatuswosubComponent extends Dialog implements OnInit {
+
+  form: FormGroup;
   submitted = false;
-  listaFuncusu: [];
+  statuswosub: [];
   token;
 
   constructor(
-    private funcusuService: CatalogoFuncionesService,
+    private statuswosubService: StatuswosubService,
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<CatalogoFuncionesComponent>,
+    public dialogRef: MatDialogRef<NuevoStatuswosubComponent>,
     private auth: AuthService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
@@ -30,19 +31,19 @@ export class CatalogoFuncionesComponent extends Dialog implements OnInit {
   }
 
   ngOnInit() {
-    this.formFuncusu = this.formBuilder.group({
-      funcusu: ['',Validators.required],
+    this.form = this.formBuilder.group({
+      stwosub: ['',Validators.required],
     });
     this.token = this.auth.token;
     this.loadModalTexts();
-    this.getUm();
+    this.getStatuswosub('');
   }
 
-  async getUm() {
+  async getStatuswosub(searchValue: string) {
     try {
-      let resp = await this.funcusuService.get(this.auth.token).toPromise();
+      let resp = await this.statuswosubService.get(searchValue,this.auth.token).toPromise();
       if (resp.code == 200) {
-        this.listaFuncusu = resp.response;
+        this.statuswosub = resp.response;
       }
     } catch (e) {
     }
@@ -57,11 +58,11 @@ export class CatalogoFuncionesComponent extends Dialog implements OnInit {
     this.modalMode = modalMode;
   }
 
-  get f() { return this.formFuncusu.controls; }
+  get f() { return this.form.controls; }
 
   onSubmit() {
     this.submitted = true;
-    if (this.formFuncusu.invalid) {
+    if (this.form.invalid) {
       return;
     } else {
       this.guardar();
@@ -71,7 +72,7 @@ export class CatalogoFuncionesComponent extends Dialog implements OnInit {
   async guardar() {
     try {
       let response;
-      response = await this.funcusuService.create(this.formFuncusu.value, this.token).toPromise();
+      response = await this.statuswosubService.create(this.form.value, this.token).toPromise();
       if (response.code == 200) {
         this.showAlert(this.alertSuccesText, true);
         this.closeModal();
@@ -95,10 +96,10 @@ export class CatalogoFuncionesComponent extends Dialog implements OnInit {
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.funcusuService.delete(obj.IDfuncusu, this.auth.token).subscribe(res => {
+        this.statuswosubService.delete(obj.idstwosub, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El registro ha sido borrado!', 'success');
-            this.getUm();
+            this.getStatuswosub('');
           } else {
             Swal.fire('Error', 'No fue posible borrar el registro!', 'error');
           }
@@ -106,9 +107,5 @@ export class CatalogoFuncionesComponent extends Dialog implements OnInit {
       }
     });
   }
-
-
-
-
 
 }

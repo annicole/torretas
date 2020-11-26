@@ -24,7 +24,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   enabledDepartamento:boolean=false;
   token;
   tipousuario: string;
-  sistema:boolean;
+  sistema:boolean = false;
   listaFunciones=[
     {id:1, Funcion: "Funcion 1"},
     {id:2, Funcion: "Funcion 2"},
@@ -40,19 +40,30 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
 
   ngOnInit() {
     const disabled = this.data.idDepto ? true : false;
-    this.usuarioForm = this.formBuilder.group({
-      nip: ['', Validators.required,],
-      nip2:['', Validators.required,],
-      password: ['', [Validators.required,Validators.min(6)]],
-      password2: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      celular: ['',],
-    }, 
-    { validator: [this.MustMatch('password', 'password2'), this.MustMatch('nip', 'nip2')] });
+    this.loadModalTexts();
+    if(this.sistema){
+      this.usuarioForm = this.formBuilder.group({
+        nip: ['', Validators.required,],
+        nip2:['', Validators.required,],
+        password: ['', [Validators.required,Validators.min(6)]],
+        password2: ['', Validators.required],
+        correo: ['', [Validators.required, Validators.email]],
+        celular: ['',],
+      }, 
+      { validator: [this.MustMatch('password', 'password2'), this.MustMatch('nip', 'nip2')] });
+    }else{
+      this.usuarioForm = this.formBuilder.group({
+        nip: ['', Validators.required,],
+        nip2:['', Validators.required,],
+        correo: ['', [Validators.required, Validators.email]],
+        celular: ['',],
+      }, 
+      { validator: [this.MustMatch('nip', 'nip2')] });
+    }
     this.token= this.auth.token;
     this.getDeptos();
-    this.loadModalTexts();
-    console.log(this.sistema)
+
+    this.usuario.password = "password123";
   }
 
   async getDeptos() {
@@ -69,7 +80,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   get f() { return this.usuarioForm.controls; }
 
   onSubmit() {
-    console.log(this.usuarioForm.errors)
+
     this.submitted = true;
     if (this.usuarioForm.invalid) {
       return;
@@ -86,9 +97,11 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
         this.closeModal();
       }
       else {
+      console.log('AlertError');
         this.showAlert(this.alertErrorText, false);
       }
     } catch (e) {
+      console.log('error');
       this.showAlert(e.error.message, false);
     }
   }
@@ -111,7 +124,6 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   }
 
   loadModalTexts() {
-    console.log(this.data)
     const { title, btnText, alertErrorText, alertSuccesText, modalMode, username, Username_last, iddep, idevento, tipousuario,usuario,idDepto, } = this.data;
     this.title = title;
     this.btnText = btnText;
@@ -134,12 +146,13 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       this.usuario.nip = nip;
     }
     if(tipousuario){
-      this.sistema=true
+      this.sistema=true;
     }
     if(idDepto){
       this.enabledDepartamento = true;
       this.usuario.iddep = idDepto;
     }
+
   }
 
   closeModal() {

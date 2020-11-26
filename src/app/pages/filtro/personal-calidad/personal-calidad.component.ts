@@ -72,7 +72,6 @@ export class PersonalCalidadComponent implements OnInit {
       let resp = await this.usuarioService.getUsuarios(searchValue,'', '8', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
-        console.log(this.usuarios);
 
         this.total = this.usuarios.length;
       }
@@ -121,7 +120,7 @@ export class PersonalCalidadComponent implements OnInit {
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento
+        idevento: 8
       }
     });
 
@@ -143,7 +142,7 @@ export class PersonalCalidadComponent implements OnInit {
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento,
+        idevento: 8,
         usuario
       }
     });

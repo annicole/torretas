@@ -73,8 +73,6 @@ export class UsuariosComponent implements OnInit {
       let resp = await this.usuarioService.getUsuarios(searchValue, '', '', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
-        console.log(this.usuarios);
-
         this.total = this.usuarios.length;
       }
     } catch (e) {
@@ -110,7 +108,7 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  addUsuario() {
+  async   addUsuario() {
     const dialogRef = this.dialog.open(IngresaNipComponent, {
       //width: '25rem',
       data: {
@@ -142,10 +140,10 @@ export class UsuariosComponent implements OnInit {
         alertSuccesText: 'Entraste!',
         alertErrorText: "El NIP no coincide",
         modalMode: 'create',
-        username:this.usuario.username,
-        Username_last:this.usuario.Username_last,
-        iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento,
+        username:usuario.username,
+        Username_last:usuario.Username_last,
+        iddep:usuario.iddep,
+        idevento:usuario.idevento,
         usuario,
         tipousuario:'sistema'
 

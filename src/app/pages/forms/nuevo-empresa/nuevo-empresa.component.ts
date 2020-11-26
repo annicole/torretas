@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
 import { NuevoContempComponent } from '@app/pages/forms/nuevo-contemp/nuevo-contemp.component';
 import { NuevoRelcompComponent } from '@app/pages/forms/nuevo-relacion/nuevo-relacion.component'
@@ -27,6 +27,8 @@ import { NgxSpinnerService } from "ngx-spinner";
 
 export class NuevoEmpresaComponent implements OnInit {
 
+  @Input() private contemps;
+
   id: string;
   id2: string;
   form: FormGroup;
@@ -44,7 +46,8 @@ export class NuevoEmpresaComponent implements OnInit {
   empresa: Empresa = new Empresa;
   status: string;
   total = 0;
-
+  idp: string;
+  ide: string;
 
   constructor(
     private empresaService: EmpresaService,
@@ -65,57 +68,53 @@ export class NuevoEmpresaComponent implements OnInit {
   ngOnInit() {
     this.token = this.auth.token;
     this.idempresa = this.activate.snapshot.paramMap.get('id');
+    this.status = this.activate.snapshot.paramMap.get('status');
     this.getRelcomp();
     this.getPais('');
-    this.getCiudade('');
-    this.getEstadoe('');
     this.getCondpago();
+    this.getContemp();
 
-    this.status = this.activate.snapshot.paramMap.get('status');
-    console.log(this.status)
     if (this.status === null) {
       
     } else if (this.status === 'edit') {
       this.getEmpresa();
       this.getContemp();
     }
-
+  
     this.formc = this.formBuilder.group({
       idcontemp: [],
       idempresa: [],
-       nomcontemp: ['', Validators.required],
+      nomcontemp: ['', Validators.required],
       depcontemp: ['', Validators.required],
       puestocontemp: ['', Validators.required],
-      pbxcontemp: ['', Validators.required],
-      extcontemp: ['', Validators.required],
-      movcontemp: ['', Validators.required],
-      emailcontemp: ['', Validators.required],
+      pbxcontemp: [],
+      extcontemp: [],
+      movcontemp: [],
+      emailcontemp: [],
     });
 
     this.form = this.formBuilder.group({
       idempresa: [],
       nomemp: ['', Validators.required],
       nombcortemp: ['', Validators.required],
-      calleemp: ['', Validators.required],
-      numextemp: ['', Validators.required],
-      numintemp: ['', Validators.required],
-      colemp: ['', Validators.required],
-      cpemp: ['', Validators.required],
-      idpais: ['', Validators.required],
-      idestado: ['', Validators.required],
-      idciudad: ['', Validators.required],
-      pbx1emp: ['', Validators.required],
-      pbx2emp: ['', Validators.required],
-      webemp: ['', Validators.required],
+      calleemp: [''],
+      numextemp: [''],
+      numintemp: [''],
+      colemp: [''],
+      cpemp: [''],
+      idpais: [''],
+      idestado: [''],
+      idciudad: [''],
+      pbx1emp: [''],
+      pbx2emp: [''],
+      webemp: [''],
       idrelacion: ['', Validators.required],
-      descuentoemp: ['', Validators.required],
-      nomchequeemp: ['', Validators.required],
-      numfiscalemp: ['', Validators.required],
-      taxemp: ['', Validators.required],
-      idcondpago: ['', Validators.required],
-
+      descuentoemp: [''],
+      nomchequeemp: [''],
+      numfiscalemp: [''],
+      taxemp: [''],
+      idcondpago: [''],
     });
-
   }
 
   onChange(event) {
@@ -143,41 +142,45 @@ export class NuevoEmpresaComponent implements OnInit {
 
   get g() { return this.formc.controls; }
 
+  get statusG() {
+    if (this.status == 'edit')
+      return this.status
+  }
+
   onSubmitContemp() {
     this.submitted = true;
-    if (this.formc.invalid) {
+    if (this.status == null) {
+      Swal.fire('', 'No existe la empresa, debes guardar una primero', 'error');
+    } else if (this.formc.invalid) {
       return;
     } else {
       this.saveContemp();
     }
   }
 
-  async saveContemp() {
-    try {
-      let response;
-      this.formc.value.idempresa = this.idempresa;
-       response = this.contempService.create(this.formc.value, this.token).toPromise();
-          console.log(this.formc)
-          if (response.code = 200) {
-            Swal.fire('', 'Contacto guardada correctamente', 'success');
 
-            this.getContemp();
-          }
-          else {
-            Swal.fire('Error', 'No fue posible guardar el contacto', 'error');
-          }
-      }catch (e) {
-        Swal.fire('Error', 'No fue posible actualizar el contacto', 'error');
+  async saveContemp() {
+      try {
+        this.formc.value.idempresa = this.idempresa;
+        let response = await this.contempService.create(this.formc.value, this.token).toPromise();
+        if (response.code = 200) {
+          Swal.fire('Guardado', 'Contacto guardado correctamente', 'success');
+          this.getContemp();
+          this.submitted = false;
+          this.formc.reset({});
+        }
+      } catch (e) {
+        Swal.fire('', 'No fue posible guardar el contacto', 'error');
       }
   }
 
   editar(contemp) {
     const dialogRef = this.dialog.open(NuevoContempComponent, {
-      width: '55rem',
+      width: '40rem',
       data: {
-        title: 'Editar producto: ' + contemp.nomcontemp,
+        title: 'Editar Contacto: ' + contemp.nomcontemp,
         btnText: 'Guardar',
-        alertSuccesText: 'Producto modificado correctamente',
+        alertSuccesText: 'Contacto modificado correctamente',
         alertErrorText: "No se puedo modificar el registro",
         modalMode: 'edit',
         _contemp: contemp
@@ -214,7 +217,6 @@ export class NuevoEmpresaComponent implements OnInit {
     try {
       let resp = await this.estadoService.get(searchValue, this.token).toPromise();
       if (resp.code == 200) {
-        console.log("Pais?: " + resp)
         this.estado = resp.response;
       }
     } catch (e) {
@@ -225,7 +227,6 @@ export class NuevoEmpresaComponent implements OnInit {
     try {
       let resp = await this.ciudadService.get(searchValue, this.token).toPromise();
       if (resp.code == 200) {
-        console.log("Ciudad?: " + resp)
         this.ciudad = resp.response;
       }
     } catch (e) {
@@ -236,7 +237,6 @@ export class NuevoEmpresaComponent implements OnInit {
     try {
       let resp = await this.estadoService.get(this.id,this.token).toPromise();
       if (resp.code == 200) {
-        console.log("Pais?: " + resp)
         this.estado = resp.response;
       }
     } catch (e) {
@@ -247,7 +247,6 @@ export class NuevoEmpresaComponent implements OnInit {
     try {
       let resp = await this.ciudadService.get(this.id2,this.token).toPromise();
       if (resp.code == 200) {
-        console.log("Ciudad?: " + resp)
         this.ciudad = resp.response;
       }
     } catch (e) {
@@ -270,10 +269,12 @@ export class NuevoEmpresaComponent implements OnInit {
       let resp = await this.empresaService.read(this.idempresa, this.auth.token).toPromise();
       if (resp.code == 200) {
         this.empresa = resp.empresa;
-
+        this.idp = this.empresa.idpais.toString();
+        this.ide = this.empresa.idestado.toString();
+        this.getEstadoe(this.idp)
+        this.getCiudade(this.ide)
       }
     } catch (e) {
-      Swal.fire('Error', 'No se pudo obtener la empresa', 'error');
     }
   }
 
@@ -295,9 +296,9 @@ export class NuevoEmpresaComponent implements OnInit {
         case null: response = this.empresaService.create(this.empresa, this.token).toPromise();
           console.log(this.empresa)
           if (response.code = 200) {
-            Swal.fire('', 'Empresa guardada correctamente', 'success');
-            this.router.navigate(['/empresa']);
-            this.getEmpresa();
+            Swal.fire('Guardada', 'Empresa guardada correctamente', 'success');
+            this.router.navigate(['/']);
+           
           }
           else {
             Swal.fire('Error', 'No fue posible guardar la empresa', 'error');
@@ -314,7 +315,6 @@ export class NuevoEmpresaComponent implements OnInit {
           )
           if (response.code = 200) {
             Swal.fire('', 'Empresa actualizada correctamente', 'success');
-            this.router.navigate(['/empresa']);
             this.getEmpresa();
           }
           else {

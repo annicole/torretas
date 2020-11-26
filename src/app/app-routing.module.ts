@@ -22,6 +22,7 @@ import { MateriaPrimaComponent } from '@app/pages/filtro/materia-prima/materia-p
 import { EmpresaComponent } from '@app/pages/filtro/empresa/empresa.component'
 import { OrdenManufacturaComponent } from '@app/pages/filtro/orden-manufactura/orden-manufactura.component'
 import { NuevoEmpresaComponent } from '@app/pages/forms/nuevo-empresa/nuevo-empresa.component'
+import { NuevoWoComponent } from '@app/pages/forms/nuevo-wo/nuevo-wo.component'
 import { ControlComponent } from './pages/control/control.component';
 import { from } from 'rxjs';
 import { PersonalCalidadComponent } from './pages/filtro/personal-calidad/personal-calidad.component';
@@ -54,6 +55,7 @@ const routes:Routes=[
   {path: 'control', component: ControlComponent, canActivate: [AuthGuard] },
   {path: 'empresa', component: EmpresaComponent, canActivate: [AuthGuard] },
   {path: 'OrdenManufactura', component: OrdenManufacturaComponent, canActivate: [AuthGuard] },
+  {path: 'OrdenManufactura/:id', component: NuevoWoComponent, canActivate: [AuthGuard] },
   {path:'materiaPrima',component:MateriaPrimaComponent,canActivate:[AuthGuard]},
   {path:'personal-calidad', component:PersonalCalidadComponent,canActivate:[AuthGuard]},
   {path:'personal-ingenieria', component:PersonalIngenieriaComponent,canActivate:[AuthGuard]},

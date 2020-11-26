@@ -20,6 +20,10 @@ export class EmpresaComponent implements OnInit {
   empresa: Empresa[];
   total: number = 0;
   listaRelcomp: [];
+  listNav = [
+    { "name": "Orden de manufactura", "router": "/OrdenManufactura" },
+    { "name": "Clientes y proveedores", "router": "/empresa" },
+  ]
 
   constructor(
     private empresaService: EmpresaService,
@@ -49,7 +53,7 @@ export class EmpresaComponent implements OnInit {
 
   add() {
     this.router.navigate(['/empresa/add']);
-
+    this.getEmpresa("");
   }
 
   delete(id: number) {
