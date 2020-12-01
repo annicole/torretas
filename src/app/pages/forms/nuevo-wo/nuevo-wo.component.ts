@@ -17,6 +17,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { EmpresaService } from '../../../services/empresa.service';
 import { ProductoService } from '../../../services/producto.service';
 import { StatuswosubService } from '../../../services/statuswosub.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-nuevo-wo',
@@ -57,12 +58,13 @@ export class NuevoWoComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private spinner: NgxSpinnerService,
-  ) { }
+    private titleService: Title
+  ) {  }
 
   ngOnInit() {
     this.token = this.auth.token;
     this.idwo = this.activate.snapshot.paramMap.get('id');
-
+    this.titleService.setTitle('Orden ' + this.idwo); 
 
     this.getWo();
     this.getStatuswosub('');

@@ -33,9 +33,13 @@ export class ContempService {
   }
 
   delete(id: number, token): Observable<any> {
-
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.delete<any>(`${this.url + '/read'}/${id}`, { headers });
+  }
+
+  deleteall(id: number, token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.delete<any>(`${this.url + '/del'}/${id}`, { headers });
   }
 
   update(contemp, token) {

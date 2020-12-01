@@ -7,6 +7,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { AuthService } from '@app/services/auth.service';
 import { EmpresaService } from '@app/services/empresa.service';
 import { RelcompService } from '@app/services/relcomp.service';
+import { ContempService } from '@app/services/contemp.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Empresa } from '../../../models/empresa';
 
@@ -32,6 +33,7 @@ export class EmpresaComponent implements OnInit {
     private auth: AuthService,
     private relcompService: RelcompService,
     private activatedRoute: ActivatedRoute,
+    private contempService: ContempService,
     private router: Router,
   ) { }
 
@@ -58,7 +60,7 @@ export class EmpresaComponent implements OnInit {
 
   delete(id: number) {
     Swal.fire({
-      title: '¿Estas seguro?', text: "Desea eliminar el equipo",
+      title: '¿Estas seguro?', text: "Desea eliminar la empresa",
       type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
@@ -69,6 +71,14 @@ export class EmpresaComponent implements OnInit {
             this.getEmpresa("");
           } else {
             Swal.fire('Error', 'No fue posible eliminar la empresa', 'error');
+          }
+        });
+        this.contempService.deleteall(id, this.auth.token).subscribe(res => {
+          console.log("se eliminaron")
+          if (res.code == 200) {
+           // Swal.fire('Eliminados', 'Los contactos se han eliminados', 'success');
+          } else {
+           // Swal.fire('Error', 'No fue posible eliminar los contactos', 'error');
           }
         });
       }

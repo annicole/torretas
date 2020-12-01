@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { WoService } from '@app/services/wo.service';
 import { EmpresaService } from '@app/services/empresa.service';
 import { ContempService } from '@app/services/contemp.service';
@@ -14,6 +14,7 @@ import { NuevoStatuswoComponent } from '@app/pages/forms/nuevo-statuswo/nuevo-st
 import { AuthService } from '@app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Wo } from '@app/models/wo';
+import { Meta, Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -22,6 +23,7 @@ import { Wo } from '@app/models/wo';
   styleUrls: ['./orden-manufactura.component.scss']
 })
 export class OrdenManufacturaComponent implements OnInit {
+  
   id: string;
   token;
   idf: string;
@@ -34,6 +36,8 @@ export class OrdenManufacturaComponent implements OnInit {
   selectedEmpleado: string = '';
   selectedStatus: string = '';
   selectedOrden: string = '';
+  selectedFechaR: Date;
+  selectedFechaV: Date;
   submitted = false;
   form: FormGroup
   total: 0;
@@ -57,8 +61,8 @@ export class OrdenManufacturaComponent implements OnInit {
     private statuswoService: StatuswoService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,
     private auth: AuthService, private formBuilder: FormBuilder,
-    private datePipe: DatePipe,
-  ) { }
+    private datePipe: DatePipe, private titleService: Title,
+  ) { this.titleService.setTitle('Orden de Manufactura'); }
 
   ngOnInit() {
  //   this.date = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
@@ -88,6 +92,7 @@ export class OrdenManufacturaComponent implements OnInit {
     this.getWoSearch();
   }
 
+ 
   onChange(event) {
     this.id = "";
     this.id = event.target.value
@@ -102,7 +107,18 @@ export class OrdenManufacturaComponent implements OnInit {
     console.log("el id: " + this.idf)
     this.getContempSearch();
     this.idf = "";
-  } 
+  }
+
+  onDefault() {
+    this.selectedCliente = '';
+    this.selectedContacto = '';
+    this.selectedEmpleado = '';
+    this.selectedStatus = '';
+    this.selectedOrden = '';
+    this.selectedFechaV = null;
+    this.selectedFechaR = null;
+    this.getOrdenManufactura('');
+  }
 
   //Filtros
   async getWo(SearchValue: string, SearchValueV: string) {
@@ -311,7 +327,6 @@ export class OrdenManufacturaComponent implements OnInit {
       if (result.value) {
         this.woService.delete(wo.idwo, this.auth.token).subscribe(res => {
           if (res.code == 200) {
-            Swal.fire('Eliminado', 'El registro ha sido borrado!', 'success');
             this.getOrdenManufactura('');
           } else {
             Swal.fire('Error', 'No fue posible borrar el registro!', 'error');
