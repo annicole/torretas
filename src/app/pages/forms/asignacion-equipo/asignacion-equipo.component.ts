@@ -42,6 +42,7 @@ export class AsignacionEquipoComponent extends Dialog implements OnInit {
     });
     this.loadModalTexts();
     this.form.controls['idproducto'].setValue(this.idProducto);
+    this.form.controls['prioridad'].setValue(1);
     this.getMaquinas();
     this.getSKU();
   }
@@ -135,14 +136,13 @@ export class AsignacionEquipoComponent extends Dialog implements OnInit {
   }
 
   delete(obj) {
-    console.log(obj)
     Swal.fire({
       title: '¿Desea eliminar el registro?', text: "",
       type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.skuService.delete(obj.idskumaquina, this.auth.token).subscribe(res => {
+        this.skuService.delete(obj, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El registro ha sido borrado!', 'success');
             this.getSKU();
