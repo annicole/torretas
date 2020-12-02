@@ -38,8 +38,10 @@ export class SkuMaquinaService {
     return this.http.put(`${this.url + '/updateUp'}/${id}`, obj, { headers });
   }
 
-  delete(id: number, token): Observable<any> {
+  delete(obj, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
-    return this.http.delete<any>(`${this.url + '/read'}/${id}`, { headers });
+    let params = new HttpParams();
+    params = params.append('sku',obj);
+    return this.http.delete<any>(`${this.url + '/read'}/${obj.idskumaquina}`, { headers,params });
   }
 }
