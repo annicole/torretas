@@ -4,7 +4,7 @@
           <table class="table table-sm table-hover">
               <thead>
                   <tr>
-                      <th scope="col" style="border-top:none;">Catalogo de funciones</th>
+                      <th scope="col" style="border-top:none;">Funciones</th>
                   </tr>
                   <tr>
                       <th>
@@ -25,7 +25,7 @@
               </thead>
               <tbody>
                   <tr *ngFor="let obj of listaFuncusu">
-                      <td>{{obj.funcusu| titlecase}}</td>
+                      <td>{{obj.funcusu}}</td>
                       <td>
                           <a class="btn icon" data-toggle="tooltip" data-placement="top" title="Eliminar "
                               (click)="delete(obj)"><i class="material-icons">delete</i></a>

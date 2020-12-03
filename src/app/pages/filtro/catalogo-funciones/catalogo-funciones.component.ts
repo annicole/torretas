@@ -35,10 +35,10 @@ export class CatalogoFuncionesComponent extends Dialog implements OnInit {
     });
     this.token = this.auth.token;
     this.loadModalTexts();
-    this.getUm();
+    this.getfunc();
   }
 
-  async getUm() {
+  async getfunc() {
     try {
       let resp = await this.funcusuService.get(this.auth.token).toPromise();
       if (resp.code == 200) {
@@ -98,7 +98,7 @@ export class CatalogoFuncionesComponent extends Dialog implements OnInit {
         this.funcusuService.delete(obj.IDfuncusu, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El registro ha sido borrado!', 'success');
-            this.getUm();
+            this.getfunc();
           } else {
             Swal.fire('Error', 'No fue posible borrar el registro!', 'error');
           }

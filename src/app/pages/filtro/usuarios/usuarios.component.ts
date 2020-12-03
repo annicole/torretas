@@ -164,10 +164,10 @@ export class UsuariosComponent implements OnInit {
       if (result.value) {
         this.usuarioService.delete(id, this.auth.token).subscribe(res => {
           if (res.code == 200) {
-            Swal.fire('Eliminado', 'El usuario se ha sido eliminado correctamente', 'success');
+            //Swal.fire('Eliminado', 'El usuario se ha sido eliminado correctamente', 'success');
             this.getUsuarios('');
           } else {
-            Swal.fire('Error', 'No fue posible eliminar el usuario', 'error');
+            //Swal.fire('Error', 'No fue posible eliminar el usuario', 'error');
           }
         });
       }

@@ -45,15 +45,17 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
       if(this.usuario == null){
         if(this.nip == "1234"){
           this.addUsuario();
-          this.closeModal();
+          //this.closeModal();
         }else{
+          this.IngresaNipForm.reset();
           this.showAlert(this.alertErrorText, false)
         }
       }else {
         if(this.nip == this.usuario.nip.toString()){
           this.addUsuario();
-          this.closeModal();
+          //this.closeModal();
         }else{
+          this.IngresaNipForm.reset();
           this.showAlert(this.alertErrorText, false)
         }
       }
