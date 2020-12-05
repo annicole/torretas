@@ -8,6 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
 import { Dialog } from '@app/classes/Dialog';
 import { AuthService } from '@app/services/auth.service';
+import { IngresaNipComponent } from '../ingresa-nip/ingresa-nip/ingresa-nip.component';
 
 @Component({
   selector: 'app-nuevo-usuario',
@@ -34,6 +35,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   constructor(private deptoService: DepartamentoService, private formBuilder: FormBuilder,
      private usuarioService: UsuarioService, private auth: AuthService,
     public dialogRef: MatDialogRef<NuevoUsuarioComponent>,
+    public dialogRef1: MatDialogRef<IngresaNipComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
     super();
   }
@@ -156,6 +158,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   }
 
   closeModal() {
+    this.dialogRef1.close();
     this.dialogRef.close();
   }
 
