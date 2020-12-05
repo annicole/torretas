@@ -54,7 +54,6 @@ export class ProductosComponent implements OnInit {
       let resp = await this.productoService.get(searchValue, this.auth.token).toPromise();
       if (resp.code == 200) {
         this.listaProductos = resp.response;
-        console.log(this.listaProductos)
         this.total = this.listaProductos.length;
       }
     } catch (e) {

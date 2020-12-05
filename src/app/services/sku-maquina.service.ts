@@ -41,7 +41,8 @@ export class SkuMaquinaService {
   delete(obj, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     let params = new HttpParams();
-    params = params.append('sku',obj);
-    return this.http.delete<any>(`${this.url + '/read'}/${obj.idskumaquina}`, { headers,params });
+    params = params.append('prioridad',obj.prioridad);
+    params = params.append('idproducto',obj.idproducto);
+    return this.http.delete<any>(`${this.url + '/read'}/${obj.idskumaquina}`, { headers,params:params });
   }
 }

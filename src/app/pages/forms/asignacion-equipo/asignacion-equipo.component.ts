@@ -23,12 +23,14 @@ export class AsignacionEquipoComponent extends Dialog implements OnInit {
   listaEquipos=[];
   idProducto:number;
   prioridad;
+  tipos=[];
 
   constructor(
     private formBuilder: FormBuilder,
     private skuService:SkuMaquinaService,
     public dialogRef: MatDialogRef<AsignacionEquipoComponent>,
     private auth: AuthService,private maquinaService:MaquinaService,
+    private tipoService:TipoEquipoService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
     super();
@@ -41,8 +43,8 @@ export class AsignacionEquipoComponent extends Dialog implements OnInit {
       idproducto:['']
     });
     this.loadModalTexts();
-    this.form.controls['idproducto'].setValue(this.idProducto);
     this.form.controls['prioridad'].setValue(1);
+    this.getTipos();
     this.getMaquinas();
     this.getSKU();
   }
@@ -66,6 +68,7 @@ export class AsignacionEquipoComponent extends Dialog implements OnInit {
     if (this.form.invalid) {
       return;
     } else {
+      this.hiddeAlert();
       this.guardar();
     }
   }
@@ -94,18 +97,28 @@ export class AsignacionEquipoComponent extends Dialog implements OnInit {
     }
   }
 
+  async getTipos() {
+    try {
+      let resp = await this.tipoService.getTipos(this.auth.token).toPromise();
+      if (resp.code == 200) {
+        this.tipos = resp.tipo_equipos;
+      }
+    } catch (e) {
+    }
+  }
+
   async guardar() {
     try {
       let response;
+      this.form.controls['idproducto'].setValue(this.idProducto);
       response = await this.skuService.create(this.form.value, this.auth.token).toPromise();
       if (response.code == 200) {      
         this.getSKU();
-        this.submitted = false;
-        this.form.reset({});
       }
       else {
         this.showAlert(this.alertErrorText, false);
       }
+      this.submitted = false;
     } catch (e) {
       this.showAlert(e.error.message, false);
     }
