@@ -19,6 +19,13 @@ export class EmpresaService {
     return this.http.get(this.url + '/empresa', { headers, params: params });
   }
 
+  getEmpresa2(name: string, token): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda', name);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/get', { headers, params: params });
+  }
+  
   create(empresa, token): Observable<any> {
     console.log(empresa)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });

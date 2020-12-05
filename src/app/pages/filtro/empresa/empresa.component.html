@@ -13,7 +13,13 @@
           <th scope="col">Razon Social</th>
           <th scope="col">Nombre Corto</th>
           <th scope="col">Relación con la Empresa</th>
-          <th scope="col">Opciones</th>
+          <th scope="col">
+            Opciones
+            <select style="width:auto;"class="form-control" id="activoem" nombre="activoem"
+                    [(ngModel)]="s" (ngModelChange)="StatusEmp($event)">
+              <option *ngFor="let st of statusr" [ngValue]="st.activoem">{{st.statuse}}</option>
+            </select>
+          </th>
         </tr>
       </thead>
       <tbody>

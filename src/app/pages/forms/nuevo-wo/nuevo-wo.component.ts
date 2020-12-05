@@ -41,7 +41,12 @@ export class NuevoWoComponent implements OnInit {
   producto: [];
   wosub: [];
   timp;
+  tipo: number = 0;
   statuswosub: [];
+  tipoP: any[] = [
+    { id: 0, tipo: 'Normal' },
+    { id: 1, tipo: 'Muestra' },
+  ];
   listNav = [
     { "name": "Orden de manufactura", "router": "/OrdenManufactura" },
   ]
@@ -84,10 +89,11 @@ export class NuevoWoComponent implements OnInit {
       descwosub: ['', Validators.required],
       puwosub: ['', Validators.required],
       idempresa: ['', Validators.required],
-      idstwosub: ['', Validators.required],
+      idstwosub: [2],
       cantwosub: ['', Validators.required],
       idproducto: ['', Validators.required],
       nomemp: ['', Validators.required],
+      tipowosub: ['', Validators.required],
     });
 
   }
@@ -100,6 +106,7 @@ export class NuevoWoComponent implements OnInit {
       if (response.code == 200) {
         Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
         this.getWosub();
+        
         this.submitted = false;
         this.form.reset({});
         console.log(this.form)
@@ -192,11 +199,21 @@ export class NuevoWoComponent implements OnInit {
       let resp = await this.wosubService.get(this.idwo, this.auth.token).toPromise();
       if (resp.code == 200) {
         this.wosub = resp.response;
+        console.log(this.wosub)
+
       }
     } catch (e) {
     }
   }
 
+  TWosub(tip) {
+    if (tip == '0') {
+      this.form.value.tipowosub = 0;
+    }
+    else if (tip == '1') {
+      this.form.value.tipowosub = 1;
+    } 
+  }
 
   delete(wosub) {
     this.wosubService.delete(wosub.idwosub, this.auth.token).subscribe(res => {

@@ -21,7 +21,11 @@ export class NuevoWosubComponent extends Dialog implements OnInit {
   wosub: [];
   statuswosub: [];
   token;
-
+  tipo: number;
+  tipoP: any[] = [
+    { id: 0, tipo: 'Normal' },
+    { id: 1, tipo: 'Muestra' },
+  ];
   constructor(
     private wosubService: WosubService,
     private statuswosubService: StatuswosubService,
@@ -34,14 +38,15 @@ export class NuevoWosubComponent extends Dialog implements OnInit {
   }
 
   ngOnInit() {
+
     this.form = this.formBuilder.group({
       idwosub: [],
       cantwosub: ['',Validators.required],
-      idstwosub: ['',Validators.required],
+      tipowosub: ['',Validators.required],
     });
     this.token = this.auth.token;
     this.loadModalTexts();
-    this.getStatuswosub('');
+    this.getWosub('');
   }
 
   async getWosub(searchValue: string) {
@@ -51,6 +56,17 @@ export class NuevoWosubComponent extends Dialog implements OnInit {
         this.wosub = resp.response;
       }
     } catch (e) {
+    }
+  }
+
+  TWosub(tip) {
+    if (tip == '0') {
+      this.tipo = 0;
+      this.form.value.tipowosub = 0;
+    }
+    else if (tip == '1') {
+      this.tipo = 1;
+      this.form.value.tipowosub = 1;
     }
   }
 
@@ -73,9 +89,9 @@ export class NuevoWosubComponent extends Dialog implements OnInit {
     this.modalMode = modalMode;
 
     if (_wosub) {
-      const { idwosub, cantwosub} = _wosub;
+      const { idwosub, cantwosub,tipowosub} = _wosub;
       const idstwosub = _wosub.Statuswosub.idstwosub;
-      this.form.patchValue({ idwosub, cantwosub, idstwosub});
+      this.form.patchValue({ idwosub, cantwosub, idstwosub,tipowosub});
     }
   }
 

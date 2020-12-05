@@ -20,6 +20,8 @@ export class NuevoContempComponent extends Dialog implements OnInit {
   contemp: [];
   token;
   idempresa;
+  activo: false;
+  status: string;
 
   constructor(
     private contempService: ContempService,
@@ -44,9 +46,11 @@ export class NuevoContempComponent extends Dialog implements OnInit {
       extcontemp: ['', Validators.required],
       movcontemp: ['', Validators.required],
       emailcontemp: ['', Validators.required],
+      activocontemp: ['', Validators.required],
     });
     this.token = this.auth.token;
     this.loadModalTexts();
+    this.ToggleStatus();
   }
 
   loadModalTexts() {
@@ -58,9 +62,9 @@ export class NuevoContempComponent extends Dialog implements OnInit {
     this.modalMode = modalMode;
 
     if (_contemp) {
-      const { idcontemp, idempresa, nomcontemp, depcontemp, puestocontemp, pbxcontemp, extcontemp, movcontemp, emailcontemp } = _contemp;
+      const { idcontemp, idempresa, nomcontemp, depcontemp, puestocontemp, pbxcontemp, extcontemp, movcontemp, emailcontemp, activocontemp } = _contemp;
      
-      this.form.patchValue({ idcontemp, idempresa, nomcontemp, depcontemp, puestocontemp, pbxcontemp, extcontemp, movcontemp, emailcontemp});
+      this.form.patchValue({ idcontemp, idempresa, nomcontemp, depcontemp, puestocontemp, pbxcontemp, extcontemp, movcontemp, emailcontemp, activocontemp});
     }
   }
   get f() { return this.form.controls; }
@@ -72,6 +76,18 @@ export class NuevoContempComponent extends Dialog implements OnInit {
     } else {
       this.guardar();
     }
+  }
+
+  ToggleStatus() {
+    console.log(this.form.value.activocontemp)
+    if (this.form.value.activocontemp == 1){
+      this.status = 'Activo';
+      console.log('Activo' )
+    } else {
+      this.status = 'Inactivo';
+      this.form.value.activocontemp = 0;
+      console.log('Inactivo')
+    }  
   }
 
   async guardar() {

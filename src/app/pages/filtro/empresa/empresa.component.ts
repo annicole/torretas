@@ -10,6 +10,7 @@ import { RelcompService } from '@app/services/relcomp.service';
 import { ContempService } from '@app/services/contemp.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Empresa } from '../../../models/empresa';
+import { FormBuilder, FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-empresa',
@@ -18,9 +19,19 @@ import { Empresa } from '../../../models/empresa';
 })
 export class EmpresaComponent implements OnInit {
 
+  form: FormGroup;
   empresa: Empresa[];
   total: number = 0;
   listaRelcomp: [];
+  activoemp = '1';
+  status: string;
+  s: number = 1; 
+  statusr: any[] = [
+    { activoem: 0, statuse: 'Todos'},
+    { activoem: 1, statuse: 'Activo'},
+    { activoem: 2, statuse: 'Inactivo'},
+  ];
+
   listNav = [
     { "name": "Orden de manufactura", "router": "/OrdenManufactura" },
     { "name": "Clientes y proveedores", "router": "/empresa" },
@@ -35,15 +46,37 @@ export class EmpresaComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private contempService: ContempService,
     private router: Router,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
-    this.getEmpresa("");
+    
+    this.getEmpresa();  
+    this.StatusEmp('');
   }
 
-  async getEmpresa(searchValue: string) {
+  StatusEmp(activoem) {
+    if (activoem == '0') {
+      this.activoemp = '';
+      this.getEmpresa();
+      console.log('Todos')
+    }
+    else if (activoem == '1') {
+      this.activoemp = '1';
+      this.getEmpresa();
+      console.log('Activo')
+
+    } else if (activoem == '2') {
+      this.activoemp = '0';
+      this.getEmpresa();
+      console.log('Inactivo')
+    }  
+  }
+
+
+  async getEmpresa() {
     try {
-      let resp = await this.empresaService.getEmpresa(searchValue, this.auth.token).toPromise();
+      let resp = await this.empresaService.getEmpresa2(this.activoemp, this.auth.token).toPromise();
       console.log(resp)
       if (resp.code == 200) {
         this.empresa = resp.response;
@@ -55,7 +88,7 @@ export class EmpresaComponent implements OnInit {
 
   add() {
     this.router.navigate(['/empresa/add']);
-    this.getEmpresa("");
+    this.getEmpresa();
   }
 
   delete(id: number) {
@@ -68,7 +101,7 @@ export class EmpresaComponent implements OnInit {
         this.empresaService.delete(id, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'La Empresa ha sido eliminada correctamente', 'success');
-            this.getEmpresa("");
+            this.getEmpresa();
           } else {
             Swal.fire('Error', 'No fue posible eliminar la empresa', 'error');
           }
@@ -95,7 +128,5 @@ export class EmpresaComponent implements OnInit {
     this.spinner.show("mySpinner", opt1);
   }
 
-  onSearchChange(searchValue: string) {
-    this.getEmpresa(searchValue);
-  }
+  
 }
