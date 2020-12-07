@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { CatalogoFuncionesComponent } from '@app/pages/filtro/catalogo-funciones/catalogo-funciones.component';
 
 @Component({
   selector: 'app-header-table',
@@ -20,7 +22,7 @@ export class HeaderTableComponent implements OnInit {
   @Output() statuswosubOutput = new EventEmitter();
   @Output() contempOutput = new EventEmitter();
 
-  constructor() { }
+  constructor( private dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -42,6 +44,17 @@ export class HeaderTableComponent implements OnInit {
 
   onClickContemp() {
     this.contempOutput.emit();
+  }
+  openFunciones(){
+    const dialogRef = this.dialog.open(CatalogoFuncionesComponent, {
+      width: '40rem',
+      data: {
+        title: 'Catalogo de funciones autorizadas en el sistema',
+        btnText: 'Guardar',
+        alertSuccesText: 'Funcion agregada correctamente',
+        alertErrorText: "No se puede agregar función",
+      }
+    });    
   }
 
 }

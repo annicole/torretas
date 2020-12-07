@@ -46,7 +46,7 @@ export class UsuariosComponent implements OnInit {
     {"name":"Personal operativo", "router":"/personal-operativo"}, 
     {"name":"Personal ingenieria", "router":"/personal-ingenieria"}, 
     {"name":"Personal calidad", "router":"/personal-calidad"}, 
-    {"name":"Personal materiales", "router":"/personal-materiales"}, 
+    {"name":"Personal materiales", "router":"/personal-materiales"},
   ]
   token: string;
   constructor(private usuarioService: UsuarioService, private eventousuarioService: EventoUsuarioService , 

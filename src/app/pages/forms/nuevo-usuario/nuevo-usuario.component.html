@@ -11,7 +11,7 @@
       </div>
       <div class="form-group col-md-6">
         <label for="nip2">Confirmar NIP</label>
-        <input type="password" class="form-control" id="nip2" nombre="nip2"
+        <input type="password" class="form-control" id="nip2" nombre="nip2"  [(ngModel)]="auxnip2"
           formControlName="nip2" [ngClass]="{ 'is-invalid': submitted && f.nip2.errors }">
         <div *ngIf="submitted && f.nip2.errors" class="invalid-feedback">
           <div *ngIf="f.nip2.errors.required">NIP es requerido</div>
@@ -21,7 +21,7 @@
       <div class="form-group col-md-6" *ngIf="sistema">
         <label for="password">Contraseña</label>
         <input type="password" class="form-control" id="password" nombre="password" [(ngModel)]="usuario.password"
-          formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" value="password123">
+          formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
           <div *ngIf="f.password.errors.required">Contraseña es requerida</div>
         </div>
@@ -29,7 +29,7 @@
       <div class="form-group col-md-6" *ngIf="sistema"> 
         <label for="password2">Confirma Contraseña</label>
         <input type="password" class="form-control" id="password2" nombre="password2" formControlName="password2"
-          [ngClass]="{ 'is-invalid': submitted && f.password2.errors }" value="password123">
+          [ngClass]="{ 'is-invalid': submitted && f.password2.errors }">
         <div *ngIf="submitted && f.password2.errors" class="invalid-feedback">
           <div *ngIf="f.password2.errors.required">Contraseña es requerido</div>
           <div *ngIf="f.password2.errors.mustMatch">Contraseña no coincide</div>

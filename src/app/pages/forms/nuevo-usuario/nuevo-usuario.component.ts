@@ -31,7 +31,8 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     {id:2, Funcion: "Funcion 2"},
     {id:3, Funcion: "Funcion 3"},
   ]
-
+  auxnip2:string = '';
+  auxpassword2:string = '';
   constructor(private deptoService: DepartamentoService, private formBuilder: FormBuilder,
      private usuarioService: UsuarioService, private auth: AuthService,
     public dialogRef: MatDialogRef<NuevoUsuarioComponent>,
@@ -146,6 +147,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       this.usuario.email = email;
       this.usuario.id = id;
       this.usuario.nip = nip;
+      this.auxnip2= nip;
     }
     if(tipousuario){
       this.sistema=true;
