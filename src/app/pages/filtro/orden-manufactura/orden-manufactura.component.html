@@ -1,8 +1,10 @@
+
 <div class="mt-3">
   <app-header-table [renderButton]="false" [titleHeader]="'Modulo Interfaz'" [titleSelect]="'No. de Sistema..'"
                     (buttonOutput)="add()" (searchOutput)="onSearchChange($event)" [listNav]="listNav">
   </app-header-table>
 </div>
+
 <div class="moduloI card mb-4 mx-5">
   <div class="card-header header">
     <select class="form-control search" id="empresa" [(ngModel)]="selectedCliente" (ngModelChange)="SearchByCliente()" (change)="onChangeFiltro($event)">
@@ -30,12 +32,13 @@
       <option *ngFor="let w of wo" [value]="w.ocliente">{{w.ocliente | titlecase}}</option>
     </select>
 
-    <input type="date" class="form-control search" placeholder="Fecha de Registro..."
+    <input type="date" class="form-control search"  [(ngModel)]="selectedFechaR" placeholder="Fecha de Registro..."
            (input)="onSearchChangeR($event.target.value)">
 
-    <input type="date" class="form-control search" placeholder="Fecha de Vencimiento..."
+    <input type="date" class="form-control search"  [(ngModel)]="selectedFechaV" placeholder="Fecha de Vencimiento..."
            (input)="onSearchChangeV($event.target.value)">
 
+    <button (click)="onDefault()" class="btn btn-secondary">Restablecer</button>
   </div>
   <div class="table-responsive-lg px-4">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -169,14 +172,14 @@
         </thead>
         <tbody>
           <tr *ngFor="let wo of wo">
-            <td>{{wo.idwo }}</td>
-            <td>{{wo.Empresa.nomemp }}</td>
+            <td>{{wo.idwo}}</td>
+            <td>{{wo.Empresa.nomemp | titlecase}}</td>
             <td>{{wo.Contemp.nomcontemp | titlecase}}</td>
             <td>{{wo.Usuario.username | titlecase}}</td>
             <td>{{wo.fechasol | date}}</td>
             <td>{{wo.fechavenoc  | date }}</td>
             <td>{{wo.Statuswo.statuswo | titlecase}}</td>
-            <td>{{wo.woasig }}</td>
+            <td>{{wo.woasig}}</td>
             <td>{{wo.ocliente | titlecase}}</td>
 
             <td>

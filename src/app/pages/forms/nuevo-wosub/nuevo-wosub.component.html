@@ -12,15 +12,15 @@
           </div>
 
           <div class="form-group col-md-6">
-            <label for="idstwosub">Status de fabricación</label>
-            <select class="form-control" id="idstwosub" nombre="idstwosub" 
-                    formControlName="idstwosub" [ngClass]="{ 'is-invalid': submitted && f.idstwosub.errors }">
-              <option *ngFor="let sws of statuswosub" [value]="sws.idstwosub">
-                {{sws.stwosub}}
+            <label for="tipowosub">Tipo de Producción</label>
+            <select class="form-control" id="tipowosub" nombre="tipowosub"  formControlName="tipowosub"
+                 [ngClass]="{ 'is-invalid': submitted && f.tipowosub.errors }">
+              <option *ngFor="let tp of tipoP" [value]="tp.id">
+                {{tp.tipo}}
               </option>
             </select>
-            <div *ngIf="submitted && f.idstwosub.errors" class="invalid-feedback">
-              <div *ngIf="f.idstwosub.errors.required">Status es requerido</div>
+            <div *ngIf="submitted && f.tipowosub.errors" class="invalid-feedback">
+              <div *ngIf="f.tipowosub.errors.required">Status es requerido</div>
             </div>
           </div>
 

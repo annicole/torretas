@@ -40,6 +40,7 @@ export class NuevoEmpresaComponent implements OnInit {
   ciudad: [];
   condpago: [];
   contemp: [];
+  statusemp: string;
   contem: Contemp = new Contemp;
   token;
   idempresa;
@@ -79,6 +80,7 @@ export class NuevoEmpresaComponent implements OnInit {
     } else if (this.status === 'edit') {
       this.getEmpresa();
       this.getContemp();
+     // this.ToggleStatus();
     }
   
     this.formc = this.formBuilder.group({
@@ -114,6 +116,7 @@ export class NuevoEmpresaComponent implements OnInit {
       numfiscalemp: [''],
       taxemp: [''],
       idcondpago: [''],
+      activoemp: ['', Validators.required],
     });
   }
 
@@ -293,7 +296,8 @@ export class NuevoEmpresaComponent implements OnInit {
     try {
       let response;
       switch (this.status) {
-        case null: response = this.empresaService.create(this.empresa, this.token).toPromise();
+        case null:
+          response = this.empresaService.create(this.empresa, this.token).toPromise();
           console.log(this.empresa)
           if (response.code = 200) {
             Swal.fire('Guardada', 'Empresa guardada correctamente', 'success');
@@ -382,6 +386,19 @@ export class NuevoEmpresaComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       this.getRelcomp();
     });
+  }
+
+
+  ToggleStatusEmp() {
+    console.log(this.form.value.activoemp)
+    if (this.form.value.activoemp == 1) {
+      this.statusemp = 'Activo';
+      console.log('Activo')
+    } else {
+      this.statusemp = 'Inactivo';
+      this.form.value.activoemp = 0;
+      console.log('Inactivo')
+    }
   }
 
   showSpinner() {

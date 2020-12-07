@@ -1,8 +1,8 @@
 <dialog-component [title]="title" (closeEmit)="closeModal()" [alertMessage]="alertMessage">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-row">
-    
-      <div class="form-group col-md-6" >
+
+      <div class="form-group col-md-6">
         <label for="nomcontemp">Nombre</label>
         <input type="text" class="form-control" id="nomcontemp" nombre="nomcontemp"
                formControlName="nomcontemp" [ngClass]="{ 'is-invalid': submitted && f.nomcontemp.errors }">
@@ -63,6 +63,13 @@
         <div *ngIf="submitted && f.emailcontemp.errors" class="invalid-feedback">
           <div *ngIf="f.emailcontemp.errors.required">Correo es requerido</div>
         </div>
+      </div>
+
+      <div class="col-md-12">
+        Status <mat-slide-toggle id="activocontemp" nombre="activocontemp" (change)="ToggleStatus()"
+              formControlName="activocontemp" [ngClass]="{ 'is-invalid': submitted && f.activocontemp.errors }">
+          {{status}}
+        </mat-slide-toggle>
       </div>
 
       </div>

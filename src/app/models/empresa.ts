@@ -19,4 +19,5 @@ export class Empresa {
   nomchequeemp: string;
   taxemp: number;
   idcondpago: number;
+  activoemp: number;
 }
