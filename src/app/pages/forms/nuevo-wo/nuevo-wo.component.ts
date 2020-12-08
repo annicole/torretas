@@ -89,8 +89,8 @@ export class NuevoWoComponent implements OnInit {
       descwosub: ['', Validators.required],
       puwosub: ['', Validators.required],
       idempresa: ['', Validators.required],
-      idstwosub: [2],
-      cantwosub: ['', Validators.required],
+      idstwosub: 2,
+      cantwosub: ['', Validators.required, Validators.pattern('^(0|[1-9][0-9]*)$')],
       idproducto: ['', Validators.required],
       nomemp: ['', Validators.required],
       tipowosub: ['', Validators.required],
@@ -98,17 +98,19 @@ export class NuevoWoComponent implements OnInit {
 
   }
 
+  get f() { return this.form.controls; }
+
   async save() {
     try {
       this.form.value.descuentoemp = this.empresa.descuentoemp;
       this.form.value.idwo = this.idwo;
+      this.form.value.idstwosub = 2;
       let response = await this.wosubService.create(this.form.value, this.auth.token).toPromise();
       if (response.code == 200) {
         Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
         this.getWosub();
-        
         this.submitted = false;
-        this.form.reset({});
+        this.form.reset();
         console.log(this.form)
       }
     } catch (error) {

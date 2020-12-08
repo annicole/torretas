@@ -30,10 +30,11 @@
         <div class="form-row">
           <div class="form-group col-md-1">
             <label for="cantwosub">Cantidad</label>
-            <input type="text" class="form-control" id="cantwosub" nombre="cantwosub"
+            <input type="number" class="form-control" id="cantwosub" nombre="cantwosub"
                    formControlName="cantwosub" [ngClass]="{ 'is-invalid': submitted && f.cantwosub.errors }">
             <div *ngIf="submitted && f.cantwosub.errors" class="invalid-feedback">
               <div *ngIf="f.cantwosub.errors.required">Cantidad producto es requerido</div>
+              <div *ngIf="f.cantwosub.errors.pattern">Cantidad es mayor a cero</div>
             </div>
           </div>
 
