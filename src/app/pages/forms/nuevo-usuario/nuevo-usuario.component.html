@@ -11,7 +11,7 @@
       </div>
       <div class="form-group col-md-6">
         <label for="nip2">Confirmar NIP</label>
-        <input type="password" class="form-control" id="nip2" nombre="nip2"  [(ngModel)]="auxnip2"
+        <input type="password" class="form-control" id="nip2" nombre="nip2" [(ngModel)]="auxnip2"
           formControlName="nip2" [ngClass]="{ 'is-invalid': submitted && f.nip2.errors }">
         <div *ngIf="submitted && f.nip2.errors" class="invalid-feedback">
           <div *ngIf="f.nip2.errors.required">NIP es requerido</div>
@@ -182,8 +182,20 @@
         </table> 
       </div> -->
     </div>
-    <div class="col-md-12 d-flex justify-content-end">
-      <button type="submit" class="btn btn-secondary">{{btnText}}</button>
+    <div class="row col-md-12">
+      <div class="col-md-6 toggle">
+        Status <mat-slide-toggle id="activousu" nombre="activousu" (change)="ToggleStatusUsu()" [(ngModel)]="usuario.activousr"
+                                 formControlName="activousu" [ngClass]="{ 'is-invalid': submitted && f.activousu.errors }">
+                      {{statusUsu}}
+                </mat-slide-toggle>
+        <div *ngIf="submitted && f.activousu.errors" class="invalid-feedback">
+          <div *ngIf="f.activousu.errors.required">Estado de la empresa requerido</div>
+        </div>
+      </div>
+      <div class="col-md-6 d-flex justify-content-end">
+        <button type="submit" class="btn btn-secondary">{{btnText}}</button>
+      </div>
     </div>
+    
   </form>
 </dialog-component>

@@ -24,7 +24,7 @@ import { CatalogoFuncionesComponent } from '../catalogo-funciones/catalogo-funci
 export class UsuariosComponent implements OnInit {
 
   usuarios: Usuario[];
-  usuario : Usuario; 
+  usuario : Usuario;
   // listaEvento:EventoSensor[];
   listaEvento=[
     {id: 1,nombre:"Operando"},
@@ -34,22 +34,22 @@ export class UsuariosComponent implements OnInit {
     {id: 5,nombre:"Materiales"},
     {id: 6,nombre:"Ingenieria"},
     {id: 7,nombre:"Producción"},
-    {id: 8,nombre:"Calidad"}     
+    {id: 8,nombre:"Calidad"}
   ];
   listaDepart:Departamento[];
   formUser: FormGroup;
   total: number = 0;
   submitted = false;
   listNav=[
-    {"name":"Usuarios del sistema", "router":"/usuario"}, 
-    {"name":"Personal tecnico", "router":"/personal-tecnico"}, 
-    {"name":"Personal operativo", "router":"/personal-operativo"}, 
-    {"name":"Personal ingenieria", "router":"/personal-ingenieria"}, 
-    {"name":"Personal calidad", "router":"/personal-calidad"}, 
+    {"name":"Usuarios del sistema", "router":"/usuario"},
+    {"name":"Personal tecnico", "router":"/personal-tecnico"},
+    {"name":"Personal operativo", "router":"/personal-operativo"},
+    {"name":"Personal ingenieria", "router":"/personal-ingenieria"},
+    {"name":"Personal calidad", "router":"/personal-calidad"},
     {"name":"Personal materiales", "router":"/personal-materiales"},
   ]
   token: string;
-  constructor(private usuarioService: UsuarioService, private eventousuarioService: EventoUsuarioService , 
+  constructor(private usuarioService: UsuarioService, private eventousuarioService: EventoUsuarioService ,
     private departamentoService: DepartamentoService,private auth: AuthService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,private formBuilder: FormBuilder) { }
 
@@ -64,7 +64,7 @@ export class UsuariosComponent implements OnInit {
     this.getUsuarios('');
     this.getDepartamentos();
     ///this.getEventos();
-    
+
   }
 
 
@@ -74,6 +74,7 @@ export class UsuariosComponent implements OnInit {
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
         this.total = this.usuarios.length;
+        console.log(this.usuarios);
       }
     } catch (e) {
     }
@@ -140,13 +141,13 @@ export class UsuariosComponent implements OnInit {
         alertSuccesText: 'Entraste!',
         alertErrorText: "El NIP no coincide",
         modalMode: 'create',
-        username:usuario.username,
-        Username_last:usuario.Username_last,
-        iddep:usuario.iddep,
-        idevento:usuario.idevento,
+        // username:usuario.username,
+        // Username_last:usuario.Username_last,
+        // iddep:usuario.iddep,
+        // idevento:usuario.idevento,
         usuario,
-        tipousuario:'sistema'
-
+        tipousuario:'sistema',
+        //status: usuario.activousr,
       }
     });
 
@@ -223,7 +224,7 @@ export class UsuariosComponent implements OnInit {
         alertSuccesText: 'Funcion agregada correctamente',
         alertErrorText: "No se puede agregar función",
       }
-    });    
+    });
   }
 
 }
