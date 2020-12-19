@@ -96,15 +96,15 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
   this.alertErrorText = alertErrorText;
   this.modalMode = modalMode;
   if(usuario){
-    const { nombre, id, email, password, celular, iddep, nip, status } = usuario;
+    const { username, id, email, password, celular, iddep, nip, activousr } = usuario;
       this.usuario =  new Usuario();
       this.usuario.iddep = iddep;
-      this.usuario.username = nombre;
+      this.usuario.username = username;
       this.usuario.celular = celular;
       this.usuario.email = email;
       this.usuario.id = id;
       this.usuario.nip = nip;
-      this.usuario.activousr = status;
+      this.usuario.activousr = activousr;
   }
   console.log(this.usuario);
   }

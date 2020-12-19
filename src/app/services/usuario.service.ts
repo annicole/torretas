@@ -19,7 +19,14 @@ export class UsuarioService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.get(this.url + '/usuarios',{headers,params:params});
   }
-
+  getUsuariosSistema(name:string,depatamento:string,status:string,token): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda',name);
+    params = params.append('departamento',depatamento);
+    params = params.append('status',status);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/usuariossistema',{headers,params:params});
+  }
   getUsuario(name: string, token): Observable<any> {
     let params = new HttpParams();
     params = params.append('busqueda', name);

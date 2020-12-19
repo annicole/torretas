@@ -40,6 +40,14 @@ export class UsuariosComponent implements OnInit {
   formUser: FormGroup;
   total: number = 0;
   submitted = false;
+  activoUsuario = '1';
+  status: string;
+  s: number ; 
+  statusr: any[] = [
+    { status: 0, statnom: 'Todos'},
+    { status: 1, statnom: 'Activo'},
+    { status: 2, statnom: 'Inactivo'},
+  ];
   listNav=[
     {"name":"Usuarios del sistema", "router":"/usuario"},
     {"name":"Personal tecnico", "router":"/personal-tecnico"},
@@ -54,6 +62,7 @@ export class UsuariosComponent implements OnInit {
     private dialog: MatDialog, private spinner: NgxSpinnerService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.s = 1;
     this.usuario = new Usuario();
     this.formUser = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -61,16 +70,28 @@ export class UsuariosComponent implements OnInit {
       departamento: ['', Validators.required],
       evento: ['', Validators.required],
     });
-    this.getUsuarios('');
+    this.getUsuarios2('');
     this.getDepartamentos();
     ///this.getEventos();
 
   }
 
 
-  async getUsuarios(searchValue: string) {
+  // async getUsuarios(searchValue: string) {
+  //   try {
+  //     let resp = await this.usuarioService.getUsuarios(searchValue, '', '', this.auth.token).toPromise();
+  //     if (resp.code == 200) {
+  //       this.usuarios = resp.usuario;
+  //       this.total = this.usuarios.length;
+  //       console.log(this.usuarios);
+  //     }
+  //   } catch (e) {
+  //   }
+  // }
+
+  async getUsuarios2(searchValue: string){
     try {
-      let resp = await this.usuarioService.getUsuarios(searchValue, '', '', this.auth.token).toPromise();
+      let resp = await this.usuarioService.getUsuariosSistema(searchValue, '', this.activoUsuario, this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
         this.total = this.usuarios.length;
@@ -127,7 +148,7 @@ export class UsuariosComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getUsuarios('');
+      this.getUsuarios2('');
       this.formUser.reset({});
     });
   }
@@ -152,7 +173,7 @@ export class UsuariosComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getUsuarios('');
+      this.getUsuarios2('');
     });
   }
 
@@ -166,7 +187,7 @@ export class UsuariosComponent implements OnInit {
         this.usuarioService.delete(id, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             //Swal.fire('Eliminado', 'El usuario se ha sido eliminado correctamente', 'success');
-            this.getUsuarios('');
+            this.getUsuarios2('');
           } else {
             //Swal.fire('Error', 'No fue posible eliminar el usuario', 'error');
           }
@@ -186,7 +207,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   async onSearchChange(searchValue: string) {
-    this.getUsuarios(searchValue);
+    this.getUsuarios2(searchValue);
   }
 
   get f() { return this.formUser.controls; }
@@ -206,7 +227,7 @@ export class UsuariosComponent implements OnInit {
       let response = await this.usuarioService.create(this.formUser.value, this.auth.token).toPromise();
       if (response.code == 200) {
         Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
-        this.getUsuarios('');
+        this.getUsuarios2('');
         this.submitted = false;
         this.formUser.reset({});
       }
@@ -225,6 +246,20 @@ export class UsuariosComponent implements OnInit {
         alertErrorText: "No se puede agregar función",
       }
     });
+  }
+  StatusUsu(activousu) {
+    if (activousu == '0') {
+      this.activoUsuario = '';
+      this.getUsuarios2('');
+    }
+    else if (activousu == '1') {
+      this.activoUsuario = '1';
+      this.getUsuarios2('');
+
+    } else if (activousu == '2') {
+      this.activoUsuario = '0';
+      this.getUsuarios2('');
+    }  
   }
 
 }

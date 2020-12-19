@@ -136,15 +136,15 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     this.tipousuario=tipousuario;
 
     if (usuario) {
-      const { nombre, id, email, password, celular, iddep, nip, status } = usuario;
+      const { username, id, email, password, celular, iddep, nip, activousr } = usuario;
       this.usuario.iddep = iddep;
-      this.usuario.username = nombre;
+      this.usuario.username = username;
       this.usuario.celular = celular;
       this.usuario.email = email;
       this.usuario.id = id;
       this.usuario.nip = nip;
       this.auxnip2= nip;
-      this.usuario.activousr = parseInt(status);
+      this.usuario.activousr = parseInt(activousr);
     }
     if(tipousuario){
       this.sistema=true;
