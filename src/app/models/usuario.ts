@@ -14,6 +14,7 @@ export class Usuario{
     nip:number;
     idevento:number;
     Username_last:string;
+    activousr:number;
     
     constructor(){
     }  

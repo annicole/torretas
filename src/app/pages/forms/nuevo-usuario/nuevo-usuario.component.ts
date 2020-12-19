@@ -26,17 +26,12 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   token;
   tipousuario: string;
   sistema:boolean = false;
-  listaFunciones=[
-    {id:1, Funcion: "Funcion 1"},
-    {id:2, Funcion: "Funcion 2"},
-    {id:3, Funcion: "Funcion 3"},
-  ]
   auxnip2:string = '';
   auxpassword2:string = '';
+  statusUsu: string;
   constructor(private deptoService: DepartamentoService, private formBuilder: FormBuilder,
      private usuarioService: UsuarioService, private auth: AuthService,
     public dialogRef: MatDialogRef<NuevoUsuarioComponent>,
-    public dialogRef1: MatDialogRef<IngresaNipComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
     super();
   }
@@ -52,6 +47,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
         password2: ['', Validators.required],
         correo: ['', [Validators.required, Validators.email]],
         celular: ['',],
+        activousu: ['', Validators.required],
       }, 
       { validator: [this.MustMatch('password', 'password2'), this.MustMatch('nip', 'nip2')] });
     }else{
@@ -60,13 +56,13 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
         nip2:['', Validators.required,],
         correo: ['', [Validators.required, Validators.email]],
         celular: ['',],
+        activoemp: ['', Validators.required],
       }, 
       { validator: [this.MustMatch('nip', 'nip2')] });
     }
     this.token= this.auth.token;
     this.getDeptos();
 
-    this.usuario.password = "password123";
   }
 
   async getDeptos() {
@@ -140,14 +136,15 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     this.tipousuario=tipousuario;
 
     if (usuario) {
-      const { nombre, id, email, password, celular, iddep, nip } = usuario;
+      const { username, id, email, password, celular, iddep, nip, activousr } = usuario;
       this.usuario.iddep = iddep;
-      this.usuario.username = nombre;
+      this.usuario.username = username;
       this.usuario.celular = celular;
       this.usuario.email = email;
       this.usuario.id = id;
       this.usuario.nip = nip;
       this.auxnip2= nip;
+      this.usuario.activousr = parseInt(activousr);
     }
     if(tipousuario){
       this.sistema=true;
@@ -156,12 +153,23 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       this.enabledDepartamento = true;
       this.usuario.iddep = idDepto;
     }
-
+    console.log(this.usuario)
   }
 
   closeModal() {
-    this.dialogRef1.close();
     this.dialogRef.close();
+  }
+
+  ToggleStatusUsu() {
+    console.log(this.usuarioForm.value.activousu)
+    if (this.usuarioForm.value.activousu == 1) {
+      this.statusUsu = 'Activo';
+      console.log('Activo')
+    } else {
+      this.statusUsu = 'Inactivo';
+      this.usuarioForm.value.activoemp = 0;
+      console.log('Inactivo')
+    }
   }
 
 }
