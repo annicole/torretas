@@ -35,21 +35,21 @@
             <form class="div-flex" [formGroup]="formFilter">
                 <div class="">
                     <select class="form-control select-filter" id="idmaquina" nombre="idmaquina" (change)="getProgprodf()" formControlName="idMaquina">
-                    <option disabled selected value=""></option>
+                    <option  selected value="">Ver máquinas</option>
                     <option *ngFor="let obj of maquinas" [value]="obj.idmaquina">{{obj.maquina}}
                     </option>
                 </select>
                 </div>
                 <div class="">
                     <select class="form-control select-filter" nombre="idEmpresa" nombre="idEmpresa" (change)="getProgprodf()" formControlName="idEmpresa">
-                        <option disabled selected value=""></option>
+                        <option  selected value="">Ver empresas</option>
                         <option *ngFor="let obj of empresa" [value]="obj.idempresa">{{obj.nomemp}}
                         </option>
                     </select>
                 </div>
                 <div class="">
                     <select class="form-control select-filter" id="idProducto" nombre="idProducto" (change)="getProgprodf()" formControlName="idProducto">
-                        <option disabled selected value=""></option>
+                        <option  selected value="">Ver productos</option>
                         <option *ngFor="let obj of productos" [value]="obj.idproducto">{{obj.producto}}
                         </option>
                     </select>
@@ -74,9 +74,9 @@
                         <th scope="col" class="table-td"> Pendiente   </th>
                         <th scope="col" class="table-td"> En proceso</th>
                         <th scope="col" class="table-td"> Terminado </th>
-                        <th scope="col" style="border-top:none;width: 5px;"></th>
-                        <th scope="col" style="border-top:none;width: 5px;"></th>
-                        <th scope="col"></th>
+                        <th scope="col" style="width: 5px;"></th>
+                        <th scope="col" style="width: 5px;"></th>
+                        <th scope="col " class="table-td"></th>
                     </tr>                  
                 </thead>
                 <tbody>
@@ -90,7 +90,7 @@
                         <td>{{obj.producto}}</td>
                         <td>{{obj.cantwosub}}</td>
                         <td>{{obj.cant}}</td>
-                        <td></td>
+                        <td>{{obj.cantwosub * obj.te_producto}}</td>
                         <td></td>
                         <td><div class="form-check">
                             <input class="form-check-input position-static" [checked]="obj.idestatus ==1" type="checkbox" id="estatus1" aria-label="..." [disabled]="true">
@@ -110,10 +110,10 @@
                         </td>
                         <td>
                                 <a class="btn" data-toggle="tooltip" data-placement="top" title="Asignación de equipos"
-                                (click)="updateDown(obj)" *ngIf="obj.prioridad!= listaProgprod.length" ><i class="material-icons" >arrow_downward</i></a>
+                                (click)="updateDown(obj)" *ngIf="obj.maxprio!=obj.prioridad" ><i class="material-icons" >arrow_downward</i></a>
                         </td>
                         <td>
-                        <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="updateUsuario(u)"><i
+                        <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="editProgprod(obj.idprogprod)"><i
                                 class="material-icons">create</i></a>
                         <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " 
                         (click)="delete(obj)"><i class="material-icons"  >delete</i></a>

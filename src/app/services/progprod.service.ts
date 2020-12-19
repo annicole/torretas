@@ -63,7 +63,14 @@ export class ProgprodService {
   delete(obj, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     let params = new HttpParams();
-    params = params.append('id',obj.id);
-    return this.http.delete<any>(`${this.url + '/read'}/${obj.idskumaquina}`, { headers,params:params });
+    params = params.append('prioridad',obj.prioridad);
+    params = params.append('idmaquina',obj.idmaquina);
+    params = params.append('idwosub',obj.idwosub);
+    return this.http.delete<any>(`${this.url + '/read'}/${obj.idprogprod}`, { headers,params:params });
+  }
+
+  update(obj, token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.put(`${this.url + '/read'}/${obj.idprogprod}`, obj, { headers });
   }
 }

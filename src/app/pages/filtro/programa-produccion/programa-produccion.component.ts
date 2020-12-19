@@ -94,9 +94,10 @@ export class ProgramaProduccionComponent implements OnInit {
         Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
         this.submitted = false;
         this.form.reset({});
+        this.getProgprodf();
       }
     } catch (error) {
-      
+      Swal.fire('Error', 'No se pudo guardar el registro', 'error');
     }
   }
 
@@ -145,7 +146,7 @@ export class ProgramaProduccionComponent implements OnInit {
   async updateDown(obj){
     try {
       let response;
-      response = await this.progprodService.updateDown(obj, this.auth.token,obj.idskumaquina).toPromise();
+      response = await this.progprodService.updateDown(obj, this.auth.token,obj.idprogprod).toPromise();
       if (response.code == 200) {      
         this.getProgprodf();
       }
@@ -157,7 +158,7 @@ export class ProgramaProduccionComponent implements OnInit {
   async updateUp(obj){
     try {
       let response;
-      response = await this.progprodService.updateUp(obj, this.auth.token,obj.idskumaquina).toPromise();
+      response = await this.progprodService.updateUp(obj, this.auth.token,obj.idprogprod).toPromise();
       if (response.code == 200) {      
         this.getProgprodf();
       }
