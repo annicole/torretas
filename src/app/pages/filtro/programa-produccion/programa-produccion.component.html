@@ -1,0 +1,126 @@
+<div class="mt-3">
+    <app-header-table [renderButton]="false" [titleHeader]="'Programa de produccion'" [titleSelect]="'Buscar ..'"
+        (buttonOutput)="add()" (searchOutput)="onSearchChange($event)" [listNav]="listNav">
+    </app-header-table>
+</div>
+<div class="moduloI card mb-4 mx-5">
+    <div class="card-header">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="row">
+        <div class="col-md-4">
+            <label for="idOrden" class="form-label">Orden de manufactura</label>
+            <select class="form-control " id="idOrden" nombre="idOrden"
+                formControlName="idOrden" (change)="getSKU($event.target.value)">
+                <option *ngFor="let wo of listaWo" [value]="wo.idwo">{{wo.descwo}}
+                </option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="idwosub" class="form-label">Sku del prodcuto</label>
+            <select class="form-control" id="idwosub" nombre="idwosub"
+                formControlName="idwosub"
+                [ngClass]="{ 'is-invalid': submitted && f.idwosub.errors }">
+                <option *ngFor="let sku of listaSKU" [value]="sku.idwosub ">{{sku.coment}}
+                </option>
+            </select>
+            <div *ngIf="submitted && f.idwosub.errors" class="invalid-feedback">
+                <div *ngIf="f.idwosub.errors.required">SKU es requerido</div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-4">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    </form>
+    </div>
+    <div class="card-body">
+            <form class="div-flex" [formGroup]="formFilter">
+                <div class="">
+                    <select class="form-control select-filter" id="idmaquina" nombre="idmaquina" (change)="getProgprodf()" formControlName="idMaquina">
+                    <option  selected value="">Ver máquinas</option>
+                    <option *ngFor="let obj of maquinas" [value]="obj.idmaquina">{{obj.maquina}}
+                    </option>
+                </select>
+                </div>
+                <div class="">
+                    <select class="form-control select-filter" nombre="idEmpresa" nombre="idEmpresa" (change)="getProgprodf()" formControlName="idEmpresa">
+                        <option  selected value="">Ver empresas</option>
+                        <option *ngFor="let obj of empresa" [value]="obj.idempresa">{{obj.nomemp}}
+                        </option>
+                    </select>
+                </div>
+                <div class="">
+                    <select class="form-control select-filter" id="idProducto" nombre="idProducto" (change)="getProgprodf()" formControlName="idProducto">
+                        <option  selected value="">Ver productos</option>
+                        <option *ngFor="let obj of productos" [value]="obj.idproducto">{{obj.producto}}
+                        </option>
+                    </select>
+                </div>
+                </form>
+            
+    <div class="table-responsive-lg px-4">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col" style="border-bottom: none;" class="table-td">Línea de producción</th>
+                        <th scope="col" class="table-td">Prioridad</th>
+                        <th scope="col" class="table-td">No sistema</th>
+                        <th scope="col" class="table-td">Empresa</th>
+                        <th scope="col" class="table-td">Orden compra</th>
+                        <th scope="col" class="table-td">SKU producto</th>
+                        <th scope="col" class="table-td">Descripción producto</th>  
+                        <th scope="col" class="table-td">Cantidad en orden</th>
+                        <th scope="col" class="table-td">Cantidad programada</th>
+                        <th scope="col" class="table-td">Cargas horas</th>
+                        <th scope="col" class="table-td">Lote</th>
+                        <th scope="col" class="table-td"> Pendiente   </th>
+                        <th scope="col" class="table-td"> En proceso</th>
+                        <th scope="col" class="table-td"> Terminado </th>
+                        <th scope="col" style="width: 5px;"></th>
+                        <th scope="col" style="width: 5px;"></th>
+                        <th scope="col " class="table-td"></th>
+                    </tr>                  
+                </thead>
+                <tbody>
+                    <tr *ngFor="let obj of listaProgprod">
+                        <td>{{obj.idmaquina }}</td>
+                        <td>{{obj.prioridad }}</td>
+                        <td>{{obj.idwo }}</td>
+                        <td>{{obj.nombcortemp }}</td>
+                        <td>{{obj.ocliente }}</td>
+                        <td>{{obj.idproducto}}</td>
+                        <td>{{obj.producto}}</td>
+                        <td>{{obj.cantwosub}}</td>
+                        <td>{{obj.cant}}</td>
+                        <td>{{obj.cantwosub * obj.te_producto}}</td>
+                        <td></td>
+                        <td><div class="form-check">
+                            <input class="form-check-input position-static" [checked]="obj.idestatus ==1" type="checkbox" id="estatus1" aria-label="..." [disabled]="true">
+                          </div>
+                        </td>
+                        <td><div class="form-check">
+                            <input class="form-check-input position-static" type="checkbox"  [checked]="obj.idestatus ==2" id="estatus2"  aria-label="..." disabled>
+                          </div>
+                        </td>
+                        <td><div class="form-check">
+                            <input class="form-check-input position-static" type="checkbox"  [checked]="obj.idestatus ==3" id="estatus2"  aria-label="..." disabled>
+                          </div>
+                        </td>
+                        <td style="text-align: center;">                         
+                            <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar"
+                                (click)="updateUp(obj)" *ngIf="obj.prioridad!=1" ><i class="material-icons" >arrow_upward</i></a>
+                        </td>
+                        <td>
+                                <a class="btn" data-toggle="tooltip" data-placement="top" title="Asignación de equipos"
+                                (click)="updateDown(obj)" *ngIf="obj.maxprio!=obj.prioridad" ><i class="material-icons" >arrow_downward</i></a>
+                        </td>
+                        <td>
+                        <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="editProgprod(obj)"><i
+                                class="material-icons">create</i></a>
+                        <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " 
+                        (click)="delete(obj)"><i class="material-icons"  >delete</i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+    </div>
+</div>
