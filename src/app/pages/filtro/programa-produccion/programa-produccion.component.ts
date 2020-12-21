@@ -186,7 +186,7 @@ export class ProgramaProduccionComponent implements OnInit {
     });
   }
 
-  editProgprod(id) {
+  editProgprod(obj) {
     const dialogRef = this.dialog.open(EditarProgprodComponent, {
       width: '40rem',
       data: {
@@ -195,7 +195,7 @@ export class ProgramaProduccionComponent implements OnInit {
         alertSuccesText: 'Registro modificado!',
         alertErrorText: "Error modificando el registro",
         modalMode: 'create',
-        id:id
+        obj:obj
       }
     });
   }

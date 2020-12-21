@@ -28,28 +28,29 @@ export class EditarProgprodComponent extends Dialog implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      maquina: ['', Validators.required],
-      idproducto: [ '', Validators.required],
+      idmaquina: ['', Validators.required],
+      idwosub: [ '', Validators.required],
       cantidad: ['', Validators.required],
       idprogprod: ['']
     });
     this.token = this.auth.token;
     this.getMaquinas();
     this.getProductos()
+    this.loadModalTexts();
   }
 
   loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode, _maquina, idArea } = this.data;
+    const { title, btnText, alertErrorText, alertSuccesText, modalMode, obj } = this.data;
     this.title = title;
     this.btnText = btnText;
     this.alertSuccesText = alertSuccesText;
     this.alertErrorText = alertErrorText;
     this.modalMode = modalMode;
 
-    if (_maquina) {
+    if (obj) {
       //this.maquina = _maquina;
-      const { idmaquina, idproducto, cantidad} = _maquina;
-      this.form.patchValue({ idmaquina, idproducto, cantidad });
+      const { idmaquina, idwosub, cantidad,idprogprod} = obj;
+      this.form.patchValue({ idmaquina, idwosub, cantidad,idprogprod });
     }
   }
 
