@@ -10,4 +10,5 @@ export class Contemp {
     movcontemp: string;
   emailcontemp: string;
   length: number;
+  activocontemp: number;
 }

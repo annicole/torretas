@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
-import { NuevoEmpresaComponent } from '@app/pages/forms/nuevo-empresa/nuevo-empresa.component';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from "ngx-spinner";
 import { AuthService } from '@app/services/auth.service';
 import { EmpresaService } from '@app/services/empresa.service';
 import { RelcompService } from '@app/services/relcomp.service';
 import { ContempService } from '@app/services/contemp.service';
+import { WoService } from '@app/services/wo.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Empresa } from '../../../models/empresa';
+import { Wo } from '../../../models/wo';
+import { Contemp } from '../../../models/contemp';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
+import { pushAll } from '@amcharts/amcharts4/.internal/core/utils/Array';
+
 
 @Component({
   selector: 'app-empresa',
@@ -20,7 +24,11 @@ import { FormBuilder, FormGroup, Validators, FormControl, NgForm } from '@angula
 export class EmpresaComponent implements OnInit {
 
   form: FormGroup;
+  formc: FormGroup;
   empresa: Empresa[];
+  empresat: Empresa[];
+  contemp: Contemp[];
+  wo: Wo[];
   total: number = 0;
   listaRelcomp: [];
   activoemp = '1';
@@ -39,6 +47,7 @@ export class EmpresaComponent implements OnInit {
 
   constructor(
     private empresaService: EmpresaService,
+    private woService: WoService,
     private dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private auth: AuthService,
@@ -50,7 +59,6 @@ export class EmpresaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
     this.getEmpresa();  
     this.StatusEmp('');
   }
@@ -77,7 +85,6 @@ export class EmpresaComponent implements OnInit {
   async getEmpresa() {
     try {
       let resp = await this.empresaService.getEmpresa2(this.activoemp, this.auth.token).toPromise();
-      console.log(resp)
       if (resp.code == 200) {
         this.empresa = resp.response;
         this.total = this.empresa.length;
@@ -91,31 +98,66 @@ export class EmpresaComponent implements OnInit {
     this.getEmpresa();
   }
 
-  delete(id: number) {
-    Swal.fire({
-      title: '¿Estas seguro?', text: "Desea eliminar la empresa",
-      type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
-    }).then((result) => {
-      if (result.value) {
-        this.empresaService.delete(id, this.auth.token).subscribe(res => {
-          if (res.code == 200) {
-            Swal.fire('Eliminado', 'La Empresa ha sido eliminada correctamente', 'success');
-            this.getEmpresa();
-          } else {
-            Swal.fire('Error', 'No fue posible eliminar la empresa', 'error');
-          }
-        });
-        this.contempService.deleteall(id, this.auth.token).subscribe(res => {
-          console.log("se eliminaron")
-          if (res.code == 200) {
-           // Swal.fire('Eliminados', 'Los contactos se han eliminados', 'success');
-          } else {
-           // Swal.fire('Error', 'No fue posible eliminar los contactos', 'error');
-          }
-        });
+  async delete(id: string) {
+    try {
+      let respc = await this.empresaService.getEmpresa(id, this.auth.token).toPromise();
+      if (respc.code == 200) {
+        this.empresat = respc.response;
+        console.log(this.empresat)
+        this.total = this.empresat.length;
       }
-    });
+      let resp = await this.woService.getE(id, this.auth.token).toPromise();
+      if (resp.code == 200) {
+        this.wo = resp.response;
+
+        if (this.wo.length >= 1) {
+          console.log('A Inactivo')
+          Swal.fire({
+            title: '¿Estas seguro?', text: "La empresa no puede ser eliminada porque tiene registradas ordenes de manufactura, su estado se cambiarà a Inactiva",
+            type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
+          }).then((result) => {
+            if (result.value) {
+              this.empresat[0].activoemp = 0;
+              this.empresaService.update(this.empresat[0], this.auth.token).subscribe(res => {
+                if (res.code == 200) {
+                  Swal.fire('Actualizado', 'La Empresa ha sido cambiada a Inactiva', 'success');
+                  console.log(this.empresat[0])
+                  this.getEmpresa();
+                } else {
+                  Swal.fire('Error', 'No fue posible cambiar el estado', 'error');
+                }
+              });
+            }
+          });
+        } else {
+          console.log('se elimina')
+          Swal.fire({
+            title: '¿Estas seguro?', text: "Desea eliminar la empresa",
+            type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
+          }).then((result2) => {
+            if (result2.value) {
+              this.empresaService.delete(id, this.auth.token).subscribe(res => {
+                if (res.code == 200) {
+                  Swal.fire('Eliminado', 'La Empresa ha sido eliminada correctamente', 'success');
+                  this.getEmpresa();
+                } else {
+                  Swal.fire('Error', 'No fue posible eliminar la empresa', 'error');
+                }
+              });
+              this.contempService.deleteall(id, this.auth.token).subscribe(res => {
+                console.log("se eliminaron")
+                if (res.code == 200) {
+                } else {
+                }
+              });
+            }
+          });
+        }
+      }
+    } catch (e) {
+    }
   }
 
   showSpinner() {

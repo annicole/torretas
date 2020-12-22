@@ -19,6 +19,13 @@ export class WoService {
     return this.http.get(this.url + '/wo', { headers, params: params });
   }
 
+  getE(name, token): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('woe', name);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/empresa', { headers, params: params });
+  }
+
   get2(nam, contacto, empleado, status, orden, registro, vencimiento, token): Observable<any> {
     let params = new HttpParams();
     params = params.append('busqueda', nam);
