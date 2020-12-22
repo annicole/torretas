@@ -24,7 +24,7 @@ import { CatalogoFuncionesComponent } from '../catalogo-funciones/catalogo-funci
 export class UsuariosComponent implements OnInit {
 
   usuarios: Usuario[];
-  usuario : Usuario; 
+  usuario : Usuario;
   // listaEvento:EventoSensor[];
   listaEvento=[
     {id: 1,nombre:"Operando"},
@@ -34,26 +34,35 @@ export class UsuariosComponent implements OnInit {
     {id: 5,nombre:"Materiales"},
     {id: 6,nombre:"Ingenieria"},
     {id: 7,nombre:"Producción"},
-    {id: 8,nombre:"Calidad"}     
+    {id: 8,nombre:"Calidad"}
   ];
   listaDepart:Departamento[];
   formUser: FormGroup;
   total: number = 0;
   submitted = false;
+  activoUsuario = '1';
+  status: string;
+  s: number ; 
+  statusr: any[] = [
+    { status: 0, statnom: 'Todos'},
+    { status: 1, statnom: 'Activo'},
+    { status: 2, statnom: 'Inactivo'},
+  ];
   listNav=[
-    {"name":"Usuarios del sistema", "router":"/usuario"}, 
-    {"name":"Personal tecnico", "router":"/personal-tecnico"}, 
-    {"name":"Personal operativo", "router":"/personal-operativo"}, 
-    {"name":"Personal ingenieria", "router":"/personal-ingenieria"}, 
-    {"name":"Personal calidad", "router":"/personal-calidad"}, 
-    {"name":"Personal materiales", "router":"/personal-materiales"}, 
+    {"name":"Usuarios del sistema", "router":"/usuario"},
+    {"name":"Personal tecnico", "router":"/personal-tecnico"},
+    {"name":"Personal operativo", "router":"/personal-operativo"},
+    {"name":"Personal ingenieria", "router":"/personal-ingenieria"},
+    {"name":"Personal calidad", "router":"/personal-calidad"},
+    {"name":"Personal materiales", "router":"/personal-materiales"},
   ]
   token: string;
-  constructor(private usuarioService: UsuarioService, private eventousuarioService: EventoUsuarioService , 
+  constructor(private usuarioService: UsuarioService, private eventousuarioService: EventoUsuarioService ,
     private departamentoService: DepartamentoService,private auth: AuthService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.s = 1;
     this.usuario = new Usuario();
     this.formUser = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -61,21 +70,32 @@ export class UsuariosComponent implements OnInit {
       departamento: ['', Validators.required],
       evento: ['', Validators.required],
     });
-    this.getUsuarios('');
+    this.getUsuarios2('');
     this.getDepartamentos();
     ///this.getEventos();
-    
+
   }
 
 
-  async getUsuarios(searchValue: string) {
+  // async getUsuarios(searchValue: string) {
+  //   try {
+  //     let resp = await this.usuarioService.getUsuarios(searchValue, '', '', this.auth.token).toPromise();
+  //     if (resp.code == 200) {
+  //       this.usuarios = resp.usuario;
+  //       this.total = this.usuarios.length;
+  //       console.log(this.usuarios);
+  //     }
+  //   } catch (e) {
+  //   }
+  // }
+
+  async getUsuarios2(searchValue: string){
     try {
-      let resp = await this.usuarioService.getUsuarios(searchValue, '', '', this.auth.token).toPromise();
+      let resp = await this.usuarioService.getUsuariosSistema(searchValue, '', this.activoUsuario, this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
-        console.log(this.usuarios);
-
         this.total = this.usuarios.length;
+        console.log(this.usuarios);
       }
     } catch (e) {
     }
@@ -110,7 +130,7 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  addUsuario() {
+  async   addUsuario() {
     const dialogRef = this.dialog.open(IngresaNipComponent, {
       //width: '25rem',
       data: {
@@ -128,7 +148,7 @@ export class UsuariosComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getUsuarios('');
+      this.getUsuarios2('');
       this.formUser.reset({});
     });
   }
@@ -142,18 +162,18 @@ export class UsuariosComponent implements OnInit {
         alertSuccesText: 'Entraste!',
         alertErrorText: "El NIP no coincide",
         modalMode: 'create',
-        username:this.usuario.username,
-        Username_last:this.usuario.Username_last,
-        iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento,
+        // username:usuario.username,
+        // Username_last:usuario.Username_last,
+        // iddep:usuario.iddep,
+        // idevento:usuario.idevento,
         usuario,
-        tipousuario:'sistema'
-
+        tipousuario:'sistema',
+        //status: usuario.activousr,
       }
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getUsuarios('');
+      this.getUsuarios2('');
     });
   }
 
@@ -166,10 +186,10 @@ export class UsuariosComponent implements OnInit {
       if (result.value) {
         this.usuarioService.delete(id, this.auth.token).subscribe(res => {
           if (res.code == 200) {
-            Swal.fire('Eliminado', 'El usuario se ha sido eliminado correctamente', 'success');
-            this.getUsuarios('');
+            //Swal.fire('Eliminado', 'El usuario se ha sido eliminado correctamente', 'success');
+            this.getUsuarios2('');
           } else {
-            Swal.fire('Error', 'No fue posible eliminar el usuario', 'error');
+            //Swal.fire('Error', 'No fue posible eliminar el usuario', 'error');
           }
         });
       }
@@ -187,7 +207,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   async onSearchChange(searchValue: string) {
-    this.getUsuarios(searchValue);
+    this.getUsuarios2(searchValue);
   }
 
   get f() { return this.formUser.controls; }
@@ -207,7 +227,7 @@ export class UsuariosComponent implements OnInit {
       let response = await this.usuarioService.create(this.formUser.value, this.auth.token).toPromise();
       if (response.code == 200) {
         Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
-        this.getUsuarios('');
+        this.getUsuarios2('');
         this.submitted = false;
         this.formUser.reset({});
       }
@@ -225,7 +245,21 @@ export class UsuariosComponent implements OnInit {
         alertSuccesText: 'Funcion agregada correctamente',
         alertErrorText: "No se puede agregar función",
       }
-    });    
+    });
+  }
+  StatusUsu(activousu) {
+    if (activousu == '0') {
+      this.activoUsuario = '';
+      this.getUsuarios2('');
+    }
+    else if (activousu == '1') {
+      this.activoUsuario = '1';
+      this.getUsuarios2('');
+
+    } else if (activousu == '2') {
+      this.activoUsuario = '0';
+      this.getUsuarios2('');
+    }  
   }
 
 }

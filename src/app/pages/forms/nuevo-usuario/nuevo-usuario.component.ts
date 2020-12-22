@@ -8,6 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
 import { Dialog } from '@app/classes/Dialog';
 import { AuthService } from '@app/services/auth.service';
+import { IngresaNipComponent } from '../ingresa-nip/ingresa-nip/ingresa-nip.component';
 
 @Component({
   selector: 'app-nuevo-usuario',
@@ -24,13 +25,10 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   enabledDepartamento:boolean=false;
   token;
   tipousuario: string;
-  sistema:boolean;
-  listaFunciones=[
-    {id:1, Funcion: "Funcion 1"},
-    {id:2, Funcion: "Funcion 2"},
-    {id:3, Funcion: "Funcion 3"},
-  ]
-
+  sistema:boolean = false;
+  auxnip2:string = '';
+  auxpassword2:string = '';
+  statusUsu: string;
   constructor(private deptoService: DepartamentoService, private formBuilder: FormBuilder,
      private usuarioService: UsuarioService, private auth: AuthService,
     public dialogRef: MatDialogRef<NuevoUsuarioComponent>,
@@ -40,19 +38,31 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
 
   ngOnInit() {
     const disabled = this.data.idDepto ? true : false;
-    this.usuarioForm = this.formBuilder.group({
-      nip: ['', Validators.required,],
-      nip2:['', Validators.required,],
-      password: ['', [Validators.required,Validators.min(6)]],
-      password2: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      celular: ['',],
-    }, 
-    { validator: [this.MustMatch('password', 'password2'), this.MustMatch('nip', 'nip2')] });
+    this.loadModalTexts();
+    if(this.sistema){
+      this.usuarioForm = this.formBuilder.group({
+        nip: ['', Validators.required,],
+        nip2:['', Validators.required,],
+        password: ['', [Validators.required,Validators.min(6)]],
+        password2: ['', Validators.required],
+        correo: ['', [Validators.required, Validators.email]],
+        celular: ['',],
+        activousu: ['', Validators.required],
+      }, 
+      { validator: [this.MustMatch('password', 'password2'), this.MustMatch('nip', 'nip2')] });
+    }else{
+      this.usuarioForm = this.formBuilder.group({
+        nip: ['', Validators.required,],
+        nip2:['', Validators.required,],
+        correo: ['', [Validators.required, Validators.email]],
+        celular: ['',],
+        activoemp: ['', Validators.required],
+      }, 
+      { validator: [this.MustMatch('nip', 'nip2')] });
+    }
     this.token= this.auth.token;
     this.getDeptos();
-    this.loadModalTexts();
-    console.log(this.sistema)
+
   }
 
   async getDeptos() {
@@ -69,7 +79,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   get f() { return this.usuarioForm.controls; }
 
   onSubmit() {
-    console.log(this.usuarioForm.errors)
+
     this.submitted = true;
     if (this.usuarioForm.invalid) {
       return;
@@ -86,9 +96,11 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
         this.closeModal();
       }
       else {
+      console.log('AlertError');
         this.showAlert(this.alertErrorText, false);
       }
     } catch (e) {
+      console.log('error');
       this.showAlert(e.error.message, false);
     }
   }
@@ -111,7 +123,6 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   }
 
   loadModalTexts() {
-    console.log(this.data)
     const { title, btnText, alertErrorText, alertSuccesText, modalMode, username, Username_last, iddep, idevento, tipousuario,usuario,idDepto, } = this.data;
     this.title = title;
     this.btnText = btnText;
@@ -125,25 +136,40 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     this.tipousuario=tipousuario;
 
     if (usuario) {
-      const { nombre, id, email, password, celular, iddep, nip } = usuario;
+      const { username, id, email, password, celular, iddep, nip, activousr } = usuario;
       this.usuario.iddep = iddep;
-      this.usuario.username = nombre;
+      this.usuario.username = username;
       this.usuario.celular = celular;
       this.usuario.email = email;
       this.usuario.id = id;
       this.usuario.nip = nip;
+      this.auxnip2= nip;
+      this.usuario.activousr = parseInt(activousr);
     }
     if(tipousuario){
-      this.sistema=true
+      this.sistema=true;
     }
     if(idDepto){
       this.enabledDepartamento = true;
       this.usuario.iddep = idDepto;
     }
+    console.log(this.usuario)
   }
 
   closeModal() {
     this.dialogRef.close();
+  }
+
+  ToggleStatusUsu() {
+    console.log(this.usuarioForm.value.activousu)
+    if (this.usuarioForm.value.activousu == 1) {
+      this.statusUsu = 'Activo';
+      console.log('Activo')
+    } else {
+      this.statusUsu = 'Inactivo';
+      this.usuarioForm.value.activoemp = 0;
+      console.log('Inactivo')
+    }
   }
 
 }

@@ -9,6 +9,7 @@ import { AuthService } from '@app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UmService } from '@app/services/um.service'
 import { NuevoUmComponent } from '@app/pages/forms/nuevo-um/nuevo-um.component'
+import { AsignacionEquipoComponent } from '@app/pages/forms/asignacion-equipo/asignacion-equipo.component'
 import {EmpresaService} from '@app/services/empresa.service'
 
 @Component({
@@ -53,7 +54,6 @@ export class ProductosComponent implements OnInit {
       let resp = await this.productoService.get(searchValue, this.auth.token).toPromise();
       if (resp.code == 200) {
         this.listaProductos = resp.response;
-        console.log(this.listaProductos)
         this.total = this.listaProductos.length;
       }
     } catch (e) {
@@ -119,6 +119,22 @@ export class ProductosComponent implements OnInit {
         alertErrorText: "No se puedo modificar el registro",
         modalMode: 'edit',
         _producto: producto
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.getProductos('');
+    });
+  }
+
+  verSKU(producto){
+    const dialogRef = this.dialog.open(AsignacionEquipoComponent, {
+      width: '50rem',
+      data: {
+        title: 'Asignación de equipos para producción de SKU',
+        alertSuccesText: 'SKU guardado',
+        alertErrorText: "No se puedo modificar el SKU",
+        idproducto: producto.idproducto
       }
     });
 

@@ -13,7 +13,7 @@ import { NuevoUsuarioComponent } from '../../nuevo-usuario/nuevo-usuario.compone
 })
 export class IngresaNipComponent extends Dialog implements OnInit  {
 
-  usuario: Usuario = new Usuario();
+  usuario: Usuario;
   IngresaNipForm: FormGroup;
   submitted = false;
   nip:string;
@@ -27,33 +27,43 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
   }
   ngOnInit() {
     this.loadModalTexts();
-    console.log(this.data);
     this.IngresaNipForm = this.formBuilder.group({
       nip:['',[Validators.required]]
     });//, { validator: this.MustMatch('nip', this.usuario.nip.toString()) }    { validator: this.MustMatch('nip')}
-    if(this.usuario.nip == 0 || this.usuario.nip == null ){
-      this.usuario.nip = 1234;
-    }
+    
   }
 
   get f() { return this.IngresaNipForm.controls; }
 
   onSubmit() {
     this.submitted = true;
-    if(this.nip != this.usuario.nip.toString()){
-      this.showAlert(this.alertErrorText, false)
-    }
     if (this.IngresaNipForm.invalid) {
       return;
     } else {
-      if(this.nip == this.usuario.nip.toString()){
-        this.addUsuario();
-        this.closeModal();
+
+
+      if(this.usuario == null){
+        if(this.nip == "1234"){
+          this.addUsuario();
+          //this.closeModal();
+        }else{
+          this.IngresaNipForm.reset();
+          this.showAlert(this.alertErrorText, false)
+        }
+      }else {
+        if(this.nip == this.usuario.nip.toString()){
+          this.addUsuario();
+          //this.closeModal();
+        }else{
+          this.IngresaNipForm.reset();
+          this.showAlert(this.alertErrorText, false)
+        }
       }
-      
+
+
     }
   }
-  addUsuario(){
+  async addUsuario(){
     const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
       //width: '25rem',
       data: {
@@ -70,6 +80,9 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
         usuario: this.usuario,
       }
     });
+    dialogRef.afterClosed().subscribe(data => {
+      this.closeModal();
+    });
   }
   closeModal(): void {
     this.dialogRef.close();
@@ -83,14 +96,17 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
   this.alertErrorText = alertErrorText;
   this.modalMode = modalMode;
   if(usuario){
-    const { nombre, id, email, password, celular, iddep, nip } = usuario;
+    const { username, id, email, password, celular, iddep, nip, activousr } = usuario;
+      this.usuario =  new Usuario();
       this.usuario.iddep = iddep;
-      this.usuario.username = nombre;
+      this.usuario.username = username;
       this.usuario.celular = celular;
       this.usuario.email = email;
       this.usuario.id = id;
       this.usuario.nip = nip;
+      this.usuario.activousr = activousr;
   }
+  console.log(this.usuario);
   }
 
 }

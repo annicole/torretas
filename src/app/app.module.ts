@@ -85,9 +85,11 @@ import { NuevoStatuswosubComponent } from './pages/forms/nuevo-statuswosub/nuevo
 import { OrdenManufacturaComponent } from './pages/filtro/orden-manufactura/orden-manufactura.component';
 import { IngresaNipComponent } from './pages/forms/ingresa-nip/ingresa-nip/ingresa-nip.component';
 import { CatalogoFuncionesComponent } from './pages/filtro/catalogo-funciones/catalogo-funciones.component';
+import { AsignacionEquipoComponent } from './pages/forms/asignacion-equipo/asignacion-equipo.component';
+import { ProgramaProduccionComponent } from './pages/filtro/programa-produccion/programa-produccion.component';
+import { EditarProgprodComponent } from './pages/forms/editar-progprod/editar-progprod.component';
 import { TurnosProductivosComponent } from './pages/filtro/turnos/registro-turnos-productivos.component';
 import { NuevoTurnosComponent } from './pages/forms/nuevo-turnos/nuevo-turnos.component';
-
 
 
 registerLocaleData(localeEsMX, 'es-Mx');
@@ -155,9 +157,12 @@ registerLocaleData(localeEsMX, 'es-Mx');
     OrdenManufacturaComponent,
     IngresaNipComponent,
     CatalogoFuncionesComponent,
+    AsignacionEquipoComponent,    
     NuevoWoComponent,
     NuevoWosubComponent,
     NuevoStatuswosubComponent,
+    ProgramaProduccionComponent,
+    EditarProgprodComponent,
     TurnosProductivosComponent,
     NuevoTurnosComponent,
   ],
@@ -185,9 +190,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
   entryComponents: [
     NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
-    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, 
-    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, IngresaNipComponent, CatalogoFuncionesComponent,
-    NuevoWoComponent, NuevoStatuswosubComponent, NuevoWosubComponent, NuevoTurnosComponent
+    NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, AsignacionEquipoComponent,
+    IngresaNipComponent, CatalogoFuncionesComponent,NuevoWoComponent, NuevoStatuswosubComponent, NuevoWosubComponent,EditarProgprodComponent,NuevoTurnosComponent,
   ]
 })
 export class AppModule { }

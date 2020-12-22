@@ -13,6 +13,10 @@ export abstract class Dialog {
         this.alertSuccess = isSuccess;
     }
 
+    hiddeAlert(){
+      this.alertMessage = null;
+    }
+
     abstract closeModal(): void;
     abstract loadModalTexts(): void;
 

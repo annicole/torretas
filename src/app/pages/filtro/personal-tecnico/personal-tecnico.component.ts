@@ -73,7 +73,6 @@ export class PersonalTecnicoComponent implements OnInit {
       let resp = await this.usuarioService.getUsuarios('','','4', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
-        console.log(this.usuarios);
 
         this.total = this.usuarios.length;
       }
@@ -122,7 +121,7 @@ export class PersonalTecnicoComponent implements OnInit {
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento
+        idevento: 4
       }
     });
 
@@ -144,7 +143,7 @@ export class PersonalTecnicoComponent implements OnInit {
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
-        idevento: this.usuario.idevento,
+        idevento: 4,
         usuario
       }
     });

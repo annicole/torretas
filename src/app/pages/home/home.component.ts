@@ -87,7 +87,12 @@ export class HomeComponent implements OnInit {
         function: '/control',
         class: 'gray-bg'
       },
-      
+      {
+        icon: 'assignment',
+        text: 'Producción',
+        function: '/produccion',
+        class: 'gray-bg'
+      }
     ];
   }
 
