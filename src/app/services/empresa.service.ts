@@ -37,15 +37,18 @@ export class EmpresaService {
     return this.http.get<any>(`${this.url + '/read'}/${id}`, { headers });
   }
 
-  delete(id: number, token): Observable<any> {
+  delete(id: number|string, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.delete<any>(`${this.url + '/read'}/${id}`, { headers });
   }
 
-  update( empresa, token): Observable<any> {
+  update(empresa, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.put<any>(`${this.url + '/read'}/${empresa.idempresa}`, empresa, { headers});
-    
   }
-  
+
+  updateS(empresa: number | string, token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.put<any>(`${this.url + '/read'}/${empresa}`, empresa, { headers });
+  }
 }

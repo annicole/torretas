@@ -21,6 +21,8 @@ import {SubensambleComponent} from './pages/filtro/subensamble/subensamble.compo
 import { MateriaPrimaComponent } from '@app/pages/filtro/materia-prima/materia-prima.component'
 import { EmpresaComponent } from '@app/pages/filtro/empresa/empresa.component'
 import { OrdenManufacturaComponent } from '@app/pages/filtro/orden-manufactura/orden-manufactura.component'
+import { TurnosProductivosComponent } from '@app/pages/filtro/turnos/registro-turnos-productivos.component'
+import { NuevoTurnosComponent } from '@app/pages/forms/nuevo-turnos/nuevo-turnos.component'
 import { NuevoEmpresaComponent } from '@app/pages/forms/nuevo-empresa/nuevo-empresa.component'
 import { NuevoWoComponent } from '@app/pages/forms/nuevo-wo/nuevo-wo.component'
 import { ControlComponent } from './pages/control/control.component';
@@ -67,7 +69,9 @@ const routes:Routes=[
   {path: 'empresa/add', component: NuevoEmpresaComponent, canActivate: [AuthGuard] },
   {path: 'control', component: ControlComponent, canActivate: [AuthGuard] },
   {path: 'empresa', component: EmpresaComponent, canActivate: [AuthGuard] },
-  {path: 'produccion',component: ProgramaProduccionComponent,canActivate:[AuthGuard]}
+  {path: 'TurnosProductivos', component: TurnosProductivosComponent, canActivate: [AuthGuard] },
+  {path: 'RegistroTurnosProductivos', component: NuevoTurnosComponent, canActivate: [AuthGuard] },
+  {path: 'produccion',component: ProgramaProduccionComponent,canActivate:[AuthGuard]},
 ];
 @NgModule({
   declarations: [],

@@ -12,7 +12,7 @@ export class ContempService {
   private url: string = environment.environment.urlEndPoint + '/contemp';
   constructor(private http: HttpClient) { }
 
-  getContemp(name: string, token): Observable<any> {
+  getContemp(name: string  , token): Observable<any> {
     let params = new HttpParams();
     params = params.append('busqueda', name);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
@@ -37,14 +37,18 @@ export class ContempService {
     return this.http.delete<any>(`${this.url + '/read'}/${id}`, { headers });
   }
 
-  deleteall(id: number, token): Observable<any> {
+  deleteall(id: number|string, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.delete<any>(`${this.url + '/del'}/${id}`, { headers });
   }
 
   update(contemp, token) {
-    console.log("ppp" + contemp.idcontemp)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.put(`${this.url + '/read'}/${contemp.idcontemp}`, contemp, { headers });
+  }
+
+  updateS(contemp, token) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.put(`${this.url + '/status'}/${contemp.idempresa}`, contemp, { headers });
   }
 }
