@@ -29,8 +29,7 @@ export class EditarProgprodComponent extends Dialog implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       idmaquina: ['', Validators.required],
-      idwosub: [ '', Validators.required],
-      cantidad: ['', Validators.required],
+      cant: ['', Validators.required],
       idprogprod: ['']
     });
     this.token = this.auth.token;
@@ -49,8 +48,8 @@ export class EditarProgprodComponent extends Dialog implements OnInit {
 
     if (obj) {
       //this.maquina = _maquina;
-      const { idmaquina, idwosub, cantidad,idprogprod} = obj;
-      this.form.patchValue({ idmaquina, idwosub, cantidad,idprogprod });
+      const { idmaquina,cant,idprogprod} = obj;
+      this.form.patchValue({ idmaquina, cant,idprogprod });
     }
   }
 

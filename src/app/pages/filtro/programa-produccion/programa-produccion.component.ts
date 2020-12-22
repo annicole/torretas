@@ -136,7 +136,6 @@ export class ProgramaProduccionComponent implements OnInit {
       let resp = await this.progprodService.getProgprodf(this.auth.token,this.formFilter.value).toPromise();
       if (resp.code == 200) {
         this.listaProgprod = resp.progprod;
-        console.log(this.listaProgprod)
       }
     } catch (error) {
       Swal.fire('Error', '', 'error');
@@ -197,6 +196,9 @@ export class ProgramaProduccionComponent implements OnInit {
         modalMode: 'create',
         obj:obj
       }
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      this.getProgprodf();
     });
   }
 }
