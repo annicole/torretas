@@ -1,7 +1,7 @@
 <dialog-component [title]="title" (closeEmit)="closeModal()" [alertMessage]="alertMessage">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-row">
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-6">
         <label for="idmaquina">Máquinas</label>
         <select class="form-control select-filter" id="idmaquina" nombre="idmaquina"
           formControlName="idmaquina">
@@ -12,23 +12,12 @@
           <div *ngIf="f.idmaquina.errors.required">Maquina es requerido</div>
         </div>
       </div>
-      <div class="form-group col-md-4">
-        <label for="idwosub">Producto</label>
-        <select class="form-control select-filter" id="idwosub" nombre="idwosub"
-          formControlName="idwosub">
-          <option *ngFor="let obj of productos" [value]="obj.idwosub">{{obj.producto}}
-          </option>
-        </select>
-        <div *ngIf="submitted && f.idwosub.errors" class="invalid-feedback">
-          <div *ngIf="f.idwosub.errors.required">Producto es requerido</div>
-        </div>
-      </div>
-      <div class="form-group col-md-4">
-        <label for="cantidad">Cantidad</label>
-        <input type="number" class="form-control" id="cantidad" nombre="cantidad" formControlName="cantidad"
-          [ngClass]="{ 'is-invalid': submitted && f.cantidad.errors }">
-        <div *ngIf="submitted && f.cantidad.errors" class="invalid-feedback">
-          <div *ngIf="f.area.cantidad.required">Área es requerida</div>
+      <div class="form-group col-md-6">
+        <label for="cant">Cantidad</label>
+        <input type="number" class="form-control" id="cant" nombre="cant" formControlName="cant"
+          [ngClass]="{ 'is-invalid': submitted && f.cant.errors }">
+        <div *ngIf="submitted && f.cant.errors" class="invalid-feedback">
+          <div *ngIf="f.area.cant.required">Área es requerida</div>
         </div>
       </div>
     </div>
