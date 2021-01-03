@@ -29,7 +29,8 @@ export class ProgramaProduccionComponent implements OnInit {
   form:FormGroup
   formFilter:FormGroup
   listNav = [
-    { "name": "Orden de factura", "router": "/producto" }
+    { "name": "Producción", "router": "/produccion" },
+    { "name": "Orden de factura", "router": "/OrdenManufactura" }
   ]
   constructor(private dialog: MatDialog, private spinner: NgxSpinnerService,
     private auth: AuthService, private formBuilder:FormBuilder,private progprodService:ProgprodService,
@@ -140,6 +141,13 @@ export class ProgramaProduccionComponent implements OnInit {
     } catch (error) {
       Swal.fire('Error', '', 'error');
     }
+  }
+
+  async limpiarFiltro(){
+    this.formFilter.controls['idMaquina'].setValue('');
+    this.formFilter.controls['idEmpresa'].setValue('');
+    this.formFilter.controls['idProducto'].setValue('');
+    this.getProgprodf();
   }
 
   async updateDown(obj){
