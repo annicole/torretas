@@ -35,25 +35,27 @@
             <form class="div-flex" [formGroup]="formFilter">
                 <div class="">
                     <select class="form-control select-filter" id="idmaquina" nombre="idmaquina" (change)="getProgprodf()" formControlName="idMaquina">
-                    <option  selected value="">Ver máquinas</option>
+                    <option  selected value="" selected disabled hidden>Ver máquinas</option>
                     <option *ngFor="let obj of maquinas" [value]="obj.idmaquina">{{obj.maquina}}
                     </option>
                 </select>
                 </div>
                 <div class="">
                     <select class="form-control select-filter" nombre="idEmpresa" nombre="idEmpresa" (change)="getProgprodf()" formControlName="idEmpresa">
-                        <option  selected value="">Ver empresas</option>
+                        <option  selected value="" selected disabled hidden>Ver empresas</option>
                         <option *ngFor="let obj of empresa" [value]="obj.idempresa">{{obj.nomemp}}
                         </option>
                     </select>
                 </div>
                 <div class="">
                     <select class="form-control select-filter" id="idProducto" nombre="idProducto" (change)="getProgprodf()" formControlName="idProducto">
-                        <option  selected value="">Ver productos</option>
+                        <option  selected value="" selected disabled hidden>Ver productos</option>
                         <option *ngFor="let obj of productos" [value]="obj.idproducto">{{obj.producto}}
                         </option>
                     </select>
                 </div>
+                <a class="btn" data-toggle="tooltip" data-placement="top" title="Limpiar filtros" 
+                        (click)="limpiarFiltro()"><i class="material-icons"  >filter_list</i></a>
                 </form>
             
     <div class="table-responsive-lg px-4">
@@ -90,7 +92,7 @@
                         <td>{{obj.producto}}</td>
                         <td>{{obj.cantwosub}}</td>
                         <td>{{obj.cant}}</td>
-                        <td>{{obj.cantwosub * obj.te_producto}}</td>
+                        <td>{{(obj.cant * obj.te_producto)/3600 | number}}</td>
                         <td></td>
                         <td><div class="form-check">
                             <input class="form-check-input position-static" [checked]="obj.idestatus ==1" type="checkbox" id="estatus1" aria-label="..." [disabled]="true">
