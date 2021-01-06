@@ -90,6 +90,7 @@ import { ProgramaProduccionComponent } from './pages/filtro/programa-produccion/
 import { EditarProgprodComponent } from './pages/forms/editar-progprod/editar-progprod.component';
 import { TurnosProductivosComponent } from './pages/filtro/turnos/registro-turnos-productivos.component';
 import { NuevoTurnosComponent } from './pages/forms/nuevo-turnos/nuevo-turnos.component';
+import { FuncionUsuComponent } from './pages/filtro/funcion-usu/funcion-usu.component';
 
 
 registerLocaleData(localeEsMX, 'es-Mx');
@@ -165,6 +166,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     EditarProgprodComponent,
     TurnosProductivosComponent,
     NuevoTurnosComponent,
+    FuncionUsuComponent,
   ],
   imports: [
     BrowserModule,
@@ -192,6 +194,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
     NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, AsignacionEquipoComponent,
     IngresaNipComponent, CatalogoFuncionesComponent,NuevoWoComponent, NuevoStatuswosubComponent, NuevoWosubComponent,EditarProgprodComponent,NuevoTurnosComponent,
+    FuncionUsuComponent,
   ]
 })
 export class AppModule { }

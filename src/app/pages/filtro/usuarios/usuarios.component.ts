@@ -14,7 +14,7 @@ import { EventoUsuarioService } from '@app/services/evento-usuario.service';
 import { Departamento } from '@app/models/departamento';
 import { DepartamentoService } from '@app/services/departamento.service';
 import { IngresaNipComponent } from '@app/pages/forms/ingresa-nip/ingresa-nip/ingresa-nip.component';
-import { CatalogoFuncionesComponent } from '../catalogo-funciones/catalogo-funciones.component';
+import { FuncionUsuComponent } from '../funcion-usu/funcion-usu.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -236,17 +236,19 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  openFunciones(){
-    const dialogRef = this.dialog.open(CatalogoFuncionesComponent, {
+  openFuncionUsu(id){
+    const dialogRef = this.dialog.open( FuncionUsuComponent, {
       width: '40rem',
       data: {
-        title: 'Catalogo de funciones autorizadas en el sistema',
+        title: 'Funciones permitidas',
         btnText: 'Guardar',
         alertSuccesText: 'Funcion agregada correctamente',
         alertErrorText: "No se puede agregar función",
+        id,
       }
     });
   }
+
   StatusUsu(activousu) {
     if (activousu == '0') {
       this.activoUsuario = '';
