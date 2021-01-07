@@ -70,7 +70,7 @@ const routes:Routes=[
   {path: 'control', component: ControlComponent, canActivate: [AuthGuard] },
   {path: 'empresa', component: EmpresaComponent, canActivate: [AuthGuard] },
   {path: 'TurnosProductivos', component: TurnosProductivosComponent, canActivate: [AuthGuard] },
-  {path: 'RegistroTurnosProductivos', component: NuevoTurnosComponent, canActivate: [AuthGuard] },
+  {path: 'RegistroTurnosProductivos/:id', component: NuevoTurnosComponent, canActivate: [AuthGuard] },
   {path: 'produccion',component: ProgramaProduccionComponent,canActivate:[AuthGuard]},
 ];
 @NgModule({

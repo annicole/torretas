@@ -19,6 +19,14 @@ export class ContempService {
     return this.http.get(this.url + '/contemp', { headers, params: params });
   }
 
+  getContemp2(name: string, nu:string , token): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('busqueda', name);
+    params = params.append('activoc', nu);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/get', { headers, params: params });
+  }
+
   create(contemp, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url + '/contemp', contemp, { headers });
