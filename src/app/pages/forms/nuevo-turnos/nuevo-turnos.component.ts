@@ -11,6 +11,8 @@ import { DiaTurnoService } from '@app/services/diaturno.service';
 import { Diaturno } from '@app/models/diaturno';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DATE } from '@amcharts/amcharts4/core';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-nuevo-turnos',
@@ -22,11 +24,14 @@ export class NuevoTurnosComponent implements OnInit {
   form: FormGroup;
   submitted = false;
   listaDiaturnos: any = [];
+  anterior;
   token;
   idurl;
   checked: Boolean;
   NumT: any[];
   NumC: any[];
+  diaturn: Date;
+  diaturn2: Date;
   DiaSemana: any[] = [
     { id: 1, dia: 'Lunes' },
     { id: 2, dia: 'Martes' },
@@ -63,6 +68,7 @@ export class NuevoTurnosComponent implements OnInit {
     private cdref: ChangeDetectorRef,
     private dialog: MatDialog,
     private activate: ActivatedRoute,
+    private datePipe: DatePipe, 
   ) {
   }
 
@@ -80,6 +86,8 @@ export class NuevoTurnosComponent implements OnInit {
     });
     this.token = this.auth.token;
     this.getDiaturno();
+    console.log(this.anterior)
+
   }
 
   ngAfterContentChecked() {
@@ -91,6 +99,14 @@ export class NuevoTurnosComponent implements OnInit {
       let resp = await this.diaturnoService.get(this.idurl, this.auth.token).toPromise();
       if (resp.code == 200) {
         this.listaDiaturnos = resp.response;
+        let anteriord = this.listaDiaturnos.length - 1;
+
+        /*
+        let secDiff = Math.floor((this.listaDiaturnos[0].hrenttur) / 10);
+        let v = this.listaDiaturnos[0].hrenttur.replace(':', '');
+        let c = v.replace(':', '')
+        console.log(c) */
+
         this.NormalizaDia(this.listaDiaturnos);
         this.NormalizaSeg(this.listaDiaturnos);
         this.NormalizaTiempo(this.listaDiaturnos);
@@ -100,9 +116,21 @@ export class NuevoTurnosComponent implements OnInit {
           this.NumC = this.NumT;
           this.DiaTurno = this.NumC;
         }
+
       }
     } catch (e) {
     }
+  }
+
+  secondsDiff(d1, d2) {
+    let secDiff = Math.floor((d2 - d1) / 1000);
+    return secDiff;
+  }
+
+  minutesDiff(d1, d2) {
+    let seconds = this.secondsDiff(d1, d2);
+    let minutesDiff = Math.floor(seconds / 60);
+    return minutesDiff;
   }
 
   DiaChange(dia) {

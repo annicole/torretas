@@ -19,6 +19,7 @@ export class NuevoDiaTurnoComponent extends Dialog implements OnInit {
   form: FormGroup;
   submitted = false;
   listaDiaturno: [];
+  listaDiaturnolast: [];
   token;
 
   constructor(
@@ -52,12 +53,13 @@ export class NuevoDiaTurnoComponent extends Dialog implements OnInit {
       let resp = await this.diaturnoService.get('',this.auth.token).toPromise();
       if (resp.code == 200) {
         this.listaDiaturno = resp.response;
+        this.listaDiaturno.length;
       }
     } catch (e) {
     }
   }
 
-  ToggleEfecD(a) {
+  ToggleEfecD() {
     if (this.form.value.tiempoefec == false) {
       this.form.value.tiempoefec = 0;
       console.log(this.form.value.tiempoefec)
