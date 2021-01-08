@@ -1,0 +1,20 @@
+<dialog-component [title]="title" (closeEmit)="closeModal()" [alertMessage]="alertMessage">
+    <div class="table-responsive-sm px-4">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <table class="table table-sm table-hover">
+                <thead>
+                  <tr>
+                    <div class="toggle">
+                      <mat-slide-toggle id="tiempoefec1" nombre="tiempoefec1" (change)="ToggleEfecD($event)"
+                       formControlName="tiempoefec" [ngClass]="{ 'is-invalid': submitted && f.tiempoefec.errors }">
+                        <button type="submit" class="btn btn-secondary">{{btnText}}</button></mat-slide-toggle>
+                      <div *ngIf="submitted && f.tiempoefec.errors" class="invalid-feedback">
+                        <div *ngIf="f.tiempoefec.errors.required">Tiempo efectivo requerido</div>
+                      </div>
+                    </div>
+                  </tr>
+                </thead>
+            </table>
+        </form>
+    </div>
+</dialog-component>

@@ -39,7 +39,7 @@ export class OrdenManufacturaComponent implements OnInit {
   selectedFechaR: Date;
   selectedFechaV: Date;
   submitted = false;
-  form: FormGroup
+  form: FormGroup;
   total: 0;
   wo: [];
   empresa: [];
@@ -83,7 +83,7 @@ export class OrdenManufacturaComponent implements OnInit {
       cotizacion: [],
     });
     this.getOrdenManufactura('');
-    this.getEmpresa('');
+    this.getEmpresa();
     this.getUsuarios('');
     this.getStatuswo('');
     this.getContempSearch();
@@ -143,7 +143,7 @@ export class OrdenManufacturaComponent implements OnInit {
 
   async getContempSearch() {
     try {
-      let resp = await this.contempService.getContemp(this.idf, this.auth.token).toPromise();
+      let resp = await this.contempService.getContemp2(this.idf, '1',this.auth.token).toPromise();
       if (resp.code == 200) {
         this.contemp1 = resp.rescontemp;
       }
@@ -223,9 +223,9 @@ export class OrdenManufacturaComponent implements OnInit {
     }
   }
 
-  async getEmpresa(searchValue: string) {
+  async getEmpresa() {
     try {
-      let resp = await this.empresaService.getEmpresa(searchValue,this.auth.token).toPromise();
+      let resp = await this.empresaService.getEmpresa2('1',this.auth.token).toPromise();
       if (resp.code == 200) {
         this.empresa = resp.response;
       }
@@ -234,7 +234,7 @@ export class OrdenManufacturaComponent implements OnInit {
   }
   async getContemp() {
     try {
-      let resp = await this.contempService.getContemp(this.id,this.auth.token).toPromise();
+      let resp = await this.contempService.getContemp2(this.id,'1',this.auth.token).toPromise();
       if (resp.code == 200) {
         this.contemp = resp.rescontemp;
       }
@@ -275,6 +275,7 @@ export class OrdenManufacturaComponent implements OnInit {
   }
 
   get f() { return this.form.controls; }
+
 
   onSubmit() {
     this.submitted = true;
