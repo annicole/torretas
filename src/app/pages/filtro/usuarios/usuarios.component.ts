@@ -236,7 +236,7 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  openFuncionUsu(id){
+  openFuncionUsu(usuario){
     const dialogRef = this.dialog.open( FuncionUsuComponent, {
       width: '40rem',
       data: {
@@ -244,7 +244,7 @@ export class UsuariosComponent implements OnInit {
         btnText: 'Guardar',
         alertSuccesText: 'Funcion agregada correctamente',
         alertErrorText: "No se puede agregar función",
-        id,
+        usuario,
       }
     });
   }
