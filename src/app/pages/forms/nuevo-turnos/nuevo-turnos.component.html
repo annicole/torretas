@@ -9,18 +9,20 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col" style="border-bottom: none;">Dia del turno</th>
-            <th scope="col" style="border-bottom: none;">Dia de la semana</th>
+            <th scope="col" style="border-bottom: none;width: 10%">Dia del turno</th>
+            <th scope="col" style="border-bottom: none;">Dia de inicio</th>
             <th scope="col" style="border-bottom: none;">Hora de inicio</th>
-            <th scope="col" style="border-bottom: none;">Duración en minutos</th>
+            <th scope="col" style="border-bottom: none;">Dia de terminación</th>
+            <th scope="col" style="border-bottom: none;">Hora de terminación</th>
             <th scope="col" style="border-bottom: none;">Tipo de segmento</th>
             <th scope="col" style="border-bottom: none; width: 10%">Tiempo efectivo</th>
-            <th></th>
+            <th scope="col"></th>
           </tr>
           <tr>
             <th>
               <select class="form-control" id="diaturno" nombre="diaturno" formControlName="diaturno"
-                    [ngClass]="{ 'is-invalid': submitted && f.diaturno.errors }">
+                      [ngClass]="{ 'is-invalid': submitted && f.diaturno.errors }">
+                <option value="">Seleccionar dia</option>
                 <option *ngFor="let dts of DiaTurno" [value]="dts.id">
                   {{dts.id}}
                 </option>
@@ -37,25 +39,35 @@
                 </option>
               </select>
               <div *ngIf="submitted && f.diasem.errors" class="invalid-feedback">
-                <div *ngIf="f.diasem.errors.required">Dia del turno es requerido</div>
+                <div *ngIf="f.diasem.errors.required">Dia de inicio es requerido</div>
               </div>
             </th>
             <th>
               <div class=" ">
-                <input type="time" id="hrenttur" class="form-control" [(max)]="maxDate" 
+                <input type="time" id="hrenttur" class="form-control" [(max)]="maxDate"
                        formControlName="hrenttur" [ngClass]="{ 'is-invalid': submitted && f.hrenttur.errors }">
                 <div *ngIf="submitted && f.hrenttur.errors" class="invalid-feedback">
-                  <div *ngIf="f.hrenttur.errors.required">Fecha inicio es requerida</div>
+                  <div *ngIf="f.hrenttur.errors.required">Fecha de inicio es requerida</div>
                 </div>
               </div>
             </th>
             <th>
+              <select class="form-control" id="diasemter" nombre="diasemter" formControlName="diasemter"
+                      (onChange)="DiaChange2()" [(ngModel)]="DiaSemana2.dia" [ngClass]="{ 'is-invalid': submitted && f.diasemter.errors }">
+                <option *ngFor="let ds2 of DiaSemana2" [value]="ds2.id">
+                  {{ds2.dia}}
+                </option>
+              </select>
+              <div *ngIf="submitted && f.diasemter.errors" class="invalid-feedback">
+                <div *ngIf="f.diasemter.errors.required">Dia de terminacion es requerido</div>
+              </div>
+            </th>
+            <th>
               <div class=" ">
-                <input type="number" class="form-control" id="duracion" nombre="duracion"
-                       formControlName="duracion"
-                       [ngClass]="{ 'is-invalid': submitted && f.duracion.errors }">
-                <div *ngIf="submitted && f.duracion.errors" class="invalid-feedback">
-                  <div *ngIf="f.duracion.errors.required">Duración es requerida</div>
+                <input type="time" id="hrentturter" class="form-control" [(max)]="maxDate"
+                       formControlName="hrentturter" [ngClass]="{ 'is-invalid': submitted && f.hrentturter.errors }">
+                <div *ngIf="submitted && f.hrentturter.errors" class="invalid-feedback">
+                  <div *ngIf="f.hrentturter.errors.required">Fecha de terminación es requerida</div>
                 </div>
               </div>
             </th>
@@ -71,8 +83,8 @@
               </div>
             </th>
             <th>
-              <div style="text-align:center" >
-                <mat-slide-toggle id="tiempoefec" nombre="tiempoefec" (change)="ToggleEfec($event)" 
+              <div style="text-align:center">
+                <mat-slide-toggle id="tiempoefec" nombre="tiempoefec" (change)="ToggleEfec($event)" value="false"
                                   formControlName="tiempoefec" [ngClass]="{ 'is-invalid': submitted && f.tiempoefec.errors }">
                 </mat-slide-toggle>
                 <div *ngIf="submitted && f.tiempoefec.errors" class="invalid-feedback">
@@ -91,11 +103,15 @@
           <tr *ngFor="let dt of listaDiaturnos; index as i">
             <td>{{dt.diaturno}}</td>
             <td>{{dt.nombre_dia}}</td>
-            <td>{{dt.hrenttur }}</td>
-            <td>{{dt.duracion }}</td>
-            <td>{{dt.nombre_seg }}</td>
-            <td><a  class="btn" data-toggle="tooltip" data-placement="top" (click)="update(dt)">
-              <i class="material-icons">create</i></a>{{dt.efec}}</td>
+            <td>{{dt.hrenttur}}</td>
+            <td>{{dt.nombre_dia2}}</td>
+            <td>{{dt.hrentturter}}</td>
+            <td>{{dt.nombre_seg}}</td>
+            <td>
+              <a class="btn" data-toggle="tooltip" data-placement="top" (click)="update(dt)">
+                <i class="material-icons">create</i>
+              </a>{{dt.efec}}
+            </td>
             <td>
               <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar "
                  (click)="delete(dt)"><i class="material-icons">delete</i></a>

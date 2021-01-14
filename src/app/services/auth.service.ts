@@ -10,14 +10,13 @@ import * as environment from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-
   _token:string;
   _userID:string;
   _idCia;
   private url: string = environment.environment.urlEndPoint + '/usuario/login';
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'});
   constructor(private http:HttpClient) {
-   }
+  }
 
    public get token():string{
      if(this._token != null){
@@ -65,7 +64,8 @@ export class AuthService {
    }
 
    isAuthenticated():boolean{
-     if(this.token != null && this.userID){
+     if (this.token != null && this.userID) {
+      
        return true;
      }
      return false;
@@ -76,5 +76,6 @@ export class AuthService {
      this._userID = null;
      this._idCia = null;
      sessionStorage.clear();
-   }
+  }
+
 }

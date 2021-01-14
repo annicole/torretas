@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterContentChecked  } from '@angular/core';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
@@ -56,11 +56,13 @@ export class EmpresaComponent implements OnInit {
     private contempService: ContempService,
     private router: Router,
     private formBuilder: FormBuilder,
+    private cdref: ChangeDetectorRef,
   ) { }
 
   ngOnInit() {
     this.getEmpresa();  
     this.StatusEmp('');
+    this.cdref.detectChanges();
   }
 
   StatusEmp(activoem) {

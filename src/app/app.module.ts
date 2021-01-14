@@ -91,6 +91,7 @@ import { EditarProgprodComponent } from './pages/forms/editar-progprod/editar-pr
 import { TurnosProductivosComponent } from './pages/filtro/turnos/registro-turnos-productivos.component';
 import { NuevoTurnosComponent } from './pages/forms/nuevo-turnos/nuevo-turnos.component';
 import { NuevoDiaTurnoComponent } from './pages/forms/nuevo-diaturno/nuevo-diaturno.component';
+import { PerformanceComponent } from './pages/performance/performance.component';
 
 
 registerLocaleData(localeEsMX, 'es-Mx');
@@ -167,6 +168,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     TurnosProductivosComponent,
     NuevoTurnosComponent,
     NuevoDiaTurnoComponent,
+    PerformanceComponent,
   ],
   imports: [
     BrowserModule,

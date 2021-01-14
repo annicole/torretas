@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
@@ -29,6 +29,7 @@ export class TurnosProductivosComponent implements OnInit {
     private turnosproductivosService: TurnosProductivosService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,
     private auth: AuthService, private formBuilder: FormBuilder,
+    private cdref: ChangeDetectorRef,
   ) { }
 
   ngOnInit() {
@@ -49,7 +50,7 @@ export class TurnosProductivosComponent implements OnInit {
         this.total = this.listaTurnos.length;
 
         let i;
-        for (i= 2; i < 1000; i++) {
+        for (i= 2; i < 11; i++) {
           this.NumTurno.push({ id: i });
         }
 
@@ -58,7 +59,7 @@ export class TurnosProductivosComponent implements OnInit {
           this.NumC = this.NumT;
           this.NumTurno = this.NumC;
         }
-
+        this.cdref.detectChanges();
       }
     } catch (e) {
     }
