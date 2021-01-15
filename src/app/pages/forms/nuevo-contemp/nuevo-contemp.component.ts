@@ -42,10 +42,10 @@ export class NuevoContempComponent extends Dialog implements OnInit {
       nomcontemp: ['', Validators.required],
       depcontemp: ['', Validators.required],
       puestocontemp: ['', Validators.required],
-      pbxcontemp: ['', Validators.required],
-      extcontemp: ['', Validators.required],
-      movcontemp: ['', Validators.required],
-      emailcontemp: ['', Validators.required],
+      pbxcontemp: [],
+      extcontemp: [],
+      movcontemp: [],
+      emailcontemp: [],
       activocontemp: ['', Validators.required],
     });
     this.token = this.auth.token;

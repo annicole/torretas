@@ -1,0 +1,141 @@
+@import '../../../assets/variables.scss';
+
+.back {
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+}
+
+.header {
+  background-color: midnightblue;
+  color: white;
+  font-weight: bolder;
+  font-size: 20px;
+  text-align: center;
+}
+
+.headerp {
+  background-color: midnightblue;
+  color: white;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+}
+
+
+.black {
+  background-color: #131313;
+}
+
+.navbar-brand {
+  width: 100%;
+  height: 100%;
+  display: inline;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-right: 0;
+  font-size: 18px;
+}
+
+.navp {
+  background-color: dimgrey;
+  width: 100%;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 600;
+}
+
+h1 {
+  color: white;
+  font-weight: bolder;
+  font-size: 27px;
+  text-align: center;
+  padding: 6px;
+  margin-bottom: 0rem;
+}
+
+.op {
+  color: white;
+  font-size: 16px;
+  padding: 2px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+[class*="col-"] {
+  float: left;
+  border: 0px solid red;
+  color: white;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.prod-text {
+  font-size: 60px;
+  text-align: center;
+}
+
+.prod {
+  border: 2px solid white;
+  height:16.6666666666%;
+  font-size: 18px;
+}
+
+.der {
+  border: 1px solid white;
+  text-align: center;
+  width: 100%;
+  height: 33.3333333333%;
+}
+
+.dat {
+  height: 33.3333333333%;
+  width: 100%;
+  border: 0px solid white;
+  text-align:center;
+}
+
+.dat-text {
+  font-size: 100px;
+  font-weight: bolder;
+  color: red;
+}
+
+.r{color: red}
+
+p {
+  font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 0rem;
+    padding: 7px;
+}
+
+.di{ height:16.6666666666%; }
+.dd{ height:66.6666666664%; }
+.dh{ height:33.3333333333%; }

@@ -8,10 +8,10 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <table class="table table-hover">
                 <thead>
-                    <tr >
-                        <th scope="col" style="border-bottom: none;">Nombre del turno</th>
-                        <th scope="col" style="border-bottom: none;">Numero de turno</th>
-                        <th></th>
+                    <tr>
+                        <th scope="col" style="border-bottom: none;width: 45%">Nombre del turno</th>
+                        <th scope="col" style="border-bottom: none;width: 45%">Numero de turno</th>
+                        <th scope="col" style="width: 10%"></th>
                     </tr>
                     <tr>
                         <th scope="col">
@@ -27,7 +27,8 @@
                         <th>
                         <select class="form-control" id="numturno" nombre="numturno" formControlName="numturno"
                             [ngClass]="{ 'is-invalid': submitted && f.numturno.errors }">
-                          <option *ngFor="let t of NumTurno" [value]="t.id">
+                          <option value="">No. de Turno</option>
+                          <option *ngFor="let t of NumT" [value]="t.id">
                             {{t.id}}
                           </option>
                         </select>
@@ -48,7 +49,7 @@
                         <td>{{turno.numturno }}</td>
                         <td>
                             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar"
-                                [routerLink]="['/RegistroTurnosProductivos']"><i class="material-icons">create</i></a>
+                                   [routerLink]="['/RegistroTurnosProductivos',turno.idturno]"><i class="material-icons">create</i></a>
                             <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar "
                                 (click)="delete(turno)"><i class="material-icons">delete</i></a>
                         </td>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
@@ -19,7 +19,9 @@ export class TurnosProductivosComponent implements OnInit {
   total: number;
   submitted = false;
   listaTurnos: Turnos[];
-  NumTurno = [];
+  NumTurno = [{id : 1}];
+  NumT = [];
+  NumC = [];
   listNav = [
     { "name": "Control de Producción", "router": "/control" },
   ]
@@ -27,13 +29,14 @@ export class TurnosProductivosComponent implements OnInit {
     private turnosproductivosService: TurnosProductivosService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,
     private auth: AuthService, private formBuilder: FormBuilder,
+    private cdref: ChangeDetectorRef,
   ) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
       idturno: [],
       turno: ['', Validators.required],
-      numturno: ['', [Validators.required, Validators.min(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
+      numturno: ['', [Validators.required, Validators.min(1)]],
     });
     
     this.getTurnos('');
@@ -44,22 +47,19 @@ export class TurnosProductivosComponent implements OnInit {
       let resp = await this.turnosproductivosService.get(searchValue, this.auth.token).toPromise();
       if (resp.code == 200) {
         this.listaTurnos = resp.response;
-        console.log(this.listaTurnos)
         this.total = this.listaTurnos.length;
+
         let i;
-        for (i = 1; i < 1000; i++) {
-           this.NumTurno.push({ id: i });
+        for (i= 2; i < 11; i++) {
+          this.NumTurno.push({ id: i });
         }
 
-        for (i = 1; i < 1000; i++) {
-          this.NumTurno.filter(t =>t.id == this.listaTurnos[i].numturno);
+        for (i = 0; i < this.listaTurnos.length; i++) {
+          this.NumT = this.NumTurno.filter(t => t.id !== this.listaTurnos[i].numturno);
+          this.NumC = this.NumT;
+          this.NumTurno = this.NumC;
         }
-
-        let filtered =  this.NumTurno.filter(t =>
-          t.id != this.listaTurnos[i].numturno);
-        console.log('Después de filtrar')
-        filtered.forEach(t => console.log(t.id));
-
+        this.cdref.detectChanges();
       }
     } catch (e) {
     }
