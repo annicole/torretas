@@ -15,6 +15,8 @@ import { Departamento } from '@app/models/departamento';
 import { DepartamentoService } from '@app/services/departamento.service';
 import { IngresaNipComponent } from '@app/pages/forms/ingresa-nip/ingresa-nip/ingresa-nip.component';
 import { FuncionUsuComponent } from '../funcion-usu/funcion-usu.component';
+import { CambiarNipComponent } from '@app/pages/forms/cambiar-nip/cambiar-nip.component';
+import { EditarUsuarioComponent } from '@app/pages/forms/editar-usuario/editar-usuario.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -154,13 +156,13 @@ export class UsuariosComponent implements OnInit {
   }
 
   updateUsuario(usuario) {
-    const dialogRef = this.dialog.open(IngresaNipComponent, {
+    const dialogRef = this.dialog.open(EditarUsuarioComponent, {
       //width: '25rem',
       data: {
-        title: 'Ingresa el NIP',
-        btnText: 'Ingresar',
+        title: 'Editar usuario',
+        btnText: 'Actualiza',
         alertSuccesText: 'Entraste!',
-        alertErrorText: "El NIP no coincide",
+        alertErrorText: "No se puede actualizar el usuario",
         modalMode: 'create',
         // username:usuario.username,
         // Username_last:usuario.Username_last,

@@ -8,7 +8,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
 import { Dialog } from '@app/classes/Dialog';
 import { AuthService } from '@app/services/auth.service';
-import { IngresaNipComponent } from '../ingresa-nip/ingresa-nip/ingresa-nip.component';
 
 @Component({
   selector: 'app-nuevo-usuario',

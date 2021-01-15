@@ -200,7 +200,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
     NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, AsignacionEquipoComponent,
     IngresaNipComponent, CatalogoFuncionesComponent,NuevoWoComponent, NuevoStatuswosubComponent, NuevoWosubComponent,EditarProgprodComponent,NuevoTurnosComponent,
-    FuncionUsuComponent,EditarUsuarioComponent,CambiarNipComponent,CambiarContrComponent,
+    FuncionUsuComponent,EditarUsuarioComponent,CambiarContrComponent,CambiarNipComponent,
   ]
 })
 export class AppModule { }
