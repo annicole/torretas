@@ -15,11 +15,11 @@
             </select>
         </div>
         <div class="col-md-4">
-            <label for="idwosub" class="form-label">Sku del prodcuto</label>
+            <label for="idwosub" class="form-label">Sku del producto</label>
             <select class="form-control" id="idwosub" nombre="idwosub"
                 formControlName="idwosub"
                 [ngClass]="{ 'is-invalid': submitted && f.idwosub.errors }">
-                <option *ngFor="let sku of listaSKU" [value]="sku.idwosub ">{{sku.coment}}
+                <option *ngFor="let sku of listaSKU" [value]="sku.idwosub " >{{sku.coment}}
                 </option>
             </select>
             <div *ngIf="submitted && f.idwosub.errors" class="invalid-feedback">
@@ -73,11 +73,10 @@
                         <th scope="col" class="table-td">Cantidad programada</th>
                         <th scope="col" class="table-td">Cargas horas</th>
                         <th scope="col" class="table-td">Lote</th>
-                        <th scope="col" class="table-td"> Pendiente   </th>
-                        <th scope="col" class="table-td"> En proceso</th>
-                        <th scope="col" class="table-td"> Terminado </th>
+                        <th scope="col" class="table-td"> Status   </th>
                         <th scope="col" style="width: 5px;"></th>
                         <th scope="col" style="width: 5px;"></th>
+                        <th scope="col " class="table-td"></th>
                         <th scope="col " class="table-td"></th>
                     </tr>                  
                 </thead>
@@ -93,19 +92,8 @@
                         <td>{{obj.cantwosub}}</td>
                         <td>{{obj.cant}}</td>
                         <td>{{(obj.cant * obj.te_producto)/3600 | number}}</td>
-                        <td></td>
-                        <td><div class="form-check">
-                            <input class="form-check-input position-static" [checked]="obj.idestatus ==1" type="checkbox" id="estatus1" aria-label="..." [disabled]="true">
-                          </div>
-                        </td>
-                        <td><div class="form-check">
-                            <input class="form-check-input position-static" type="checkbox"  [checked]="obj.idestatus ==2" id="estatus2"  aria-label="..." disabled>
-                          </div>
-                        </td>
-                        <td><div class="form-check">
-                            <input class="form-check-input position-static" type="checkbox"  [checked]="obj.idestatus ==3" id="estatus2"  aria-label="..." disabled>
-                          </div>
-                        </td>
+                        <td>{{obj.idprogprod}}</td>
+                        <td>{{obj.idstatus | status}} </td>
                         <td style="text-align: center;">                         
                             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar"
                                 (click)="updateUp(obj)" *ngIf="obj.prioridad!=1" ><i class="material-icons" >arrow_upward</i></a>
@@ -116,9 +104,12 @@
                         </td>
                         <td>
                         <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="editProgprod(obj)"><i
-                                class="material-icons">create</i></a>
+                                class="material-icons icon">create</i></a>
                         <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " 
-                        (click)="delete(obj)"><i class="material-icons"  >delete</i></a>
+                        (click)="delete(obj)"><i class="material-icons icon"  >delete</i></a>
+                        </td>
+                        <td>
+                            <button type="button" (click)="editStatus(obj)" class="btn btn-primary status-button">Status</button>
                         </td>
                     </tr>
                 </tbody>

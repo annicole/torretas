@@ -92,6 +92,8 @@ import { TurnosProductivosComponent } from './pages/filtro/turnos/registro-turno
 import { NuevoTurnosComponent } from './pages/forms/nuevo-turnos/nuevo-turnos.component';
 import { NuevoDiaTurnoComponent } from './pages/forms/nuevo-diaturno/nuevo-diaturno.component';
 import { PerformanceComponent } from './pages/performance/performance.component';
+import { StatusPipePipe } from './pipes/status-pipe.pipe';
+import { EditarStatusComponent } from './pages/forms/editar-progprod/editar-status/editar-status.component';
 
 
 registerLocaleData(localeEsMX, 'es-Mx');
@@ -169,6 +171,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoTurnosComponent,
     NuevoDiaTurnoComponent,
     PerformanceComponent,
+    StatusPipePipe,
+    EditarStatusComponent
   ],
   imports: [
     BrowserModule,
@@ -196,7 +200,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
     NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, AsignacionEquipoComponent,
     IngresaNipComponent, CatalogoFuncionesComponent, NuevoWoComponent, NuevoStatuswosubComponent, NuevoWosubComponent, EditarProgprodComponent, NuevoTurnosComponent,
-    NuevoDiaTurnoComponent,
+    NuevoDiaTurnoComponent,EditarStatusComponent
   ]
 })
 export class AppModule { }
