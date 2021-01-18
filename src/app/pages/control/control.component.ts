@@ -40,8 +40,8 @@ export class ControlComponent implements OnInit {
       },
       {
         icon: 'perm_data_setting',
-        text: 'Lineas de Producción',
-        function: '/LineasdeProduccion',
+        text: 'Performance',
+        function: '/performance',
         class: 'red-bg'
       },
       {
