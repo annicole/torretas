@@ -10,6 +10,7 @@ import { MaquinaService} from '@app/services/maquina.service'
 import { EmpresaService } from '@app/services/empresa.service'
 import {ProductoService} from '@app/services/producto.service'
 import {EditarProgprodComponent} from '@app/pages/forms/editar-progprod/editar-progprod.component'
+import {EditarStatusComponent} from '@app/pages/forms/editar-progprod/editar-status/editar-status.component'
 
 @Component({
   selector: 'app-programa-produccion',
@@ -18,18 +19,19 @@ import {EditarProgprodComponent} from '@app/pages/forms/editar-progprod/editar-p
 })
 export class ProgramaProduccionComponent implements OnInit {
 
-  listaWo: [];
-  listaSKU:[];
-  maquinas:[];
-  empresa:[];
-  productos:[];
+  listaWo= [];
+  listaSKU=[];
+  maquinas=[];
+  empresa=[];
+  productos=[];
   listaProgprod:[];
   total: number;
   submitted = false;
   form:FormGroup
   formFilter:FormGroup
   listNav = [
-    { "name": "Orden de factura", "router": "/producto" }
+    { "name": "Producción", "router": "/produccion" },
+    { "name": "Orden de factura", "router": "/OrdenManufactura" }
   ]
   constructor(private dialog: MatDialog, private spinner: NgxSpinnerService,
     private auth: AuthService, private formBuilder:FormBuilder,private progprodService:ProgprodService,
@@ -38,8 +40,9 @@ export class ProgramaProduccionComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      idOrden: [''],
-      idwosub:['',Validators.required]
+      idOrden: ['',Validators.required],
+      idwosub:['',Validators.required],
+      idProducto:['']
     });
 
     this.formFilter = this.formBuilder.group({
@@ -70,6 +73,9 @@ export class ProgramaProduccionComponent implements OnInit {
       let resp =await this.progprodService.getProgprodfprod(this.auth.token,idwo).toPromise();
       if (resp.code == 200) {
         this.listaSKU = resp.progprod;
+        if(this.listaSKU != null && this.listaSKU.length > 0){
+          this.form.controls['idwosub'].setValue(this.listaSKU[0].idwosub);
+        }
       }
     } catch (error) {
       
@@ -97,7 +103,8 @@ export class ProgramaProduccionComponent implements OnInit {
         this.getProgprodf();
       }
     } catch (error) {
-      Swal.fire('Error', 'No se pudo guardar el registro', 'error');
+      console.log(error)
+      Swal.fire('Error', 'No se pudo guardar el registro', error.error);
     }
   }
 
@@ -140,6 +147,13 @@ export class ProgramaProduccionComponent implements OnInit {
     } catch (error) {
       Swal.fire('Error', '', 'error');
     }
+  }
+
+  async limpiarFiltro(){
+    this.formFilter.controls['idMaquina'].setValue('');
+    this.formFilter.controls['idEmpresa'].setValue('');
+    this.formFilter.controls['idProducto'].setValue('');
+    this.getProgprodf();
   }
 
   async updateDown(obj){
@@ -194,6 +208,26 @@ export class ProgramaProduccionComponent implements OnInit {
         alertSuccesText: 'Registro modificado!',
         alertErrorText: "Error modificando el registro",
         modalMode: 'create',
+        obj:obj
+      }
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      this.getProgprodf();
+    });
+  }
+
+  onWoChange(idWoSub){
+    //this.form.controls['idProducto'].setValue(idProducto);
+  }
+
+  editStatus(obj){
+    const dialogRef = this.dialog.open(EditarStatusComponent, {
+      width: '20rem',
+      data: {
+        title: 'Editar status',
+        btnText: 'Guardar',
+        alertSuccesText: 'Registro modificado!',
+        alertErrorText: "Error modificando el registro",
         obj:obj
       }
     });

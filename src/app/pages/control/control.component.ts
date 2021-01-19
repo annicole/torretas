@@ -34,8 +34,8 @@ export class ControlComponent implements OnInit {
       },
       {
         icon: 'book',
-        text: 'Registro de Operadores',
-        function: '/RegistroDeOperadores',
+        text: 'Producción',
+        function: '/produccion',
         class: 'blue-bg'
       },
       {

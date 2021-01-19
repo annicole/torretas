@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit {
         text: '400',
         function: '/400',
         class: 'purple-bg'
-      }
+      },
     ];
   }
 
