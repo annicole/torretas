@@ -86,7 +86,19 @@ export class HomeComponent implements OnInit {
         text: 'Control de Producción',
         function: '/control',
         class: 'gray-bg'
-      }
+      },
+      {
+        icon: 'assignment',
+        text: 'Producción',
+        function: '/produccion',
+        class: 'gray-bg'
+      },
+      {
+        icon: 'assignment',
+        text: '400',
+        function: '/400',
+        class: 'purple-bg'
+      },
     ];
   }
 

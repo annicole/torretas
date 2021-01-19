@@ -92,6 +92,7 @@ import { TurnosProductivosComponent } from './pages/filtro/turnos/registro-turno
 import { NuevoTurnosComponent } from './pages/forms/nuevo-turnos/nuevo-turnos.component';
 import { NuevoDiaTurnoComponent } from './pages/forms/nuevo-diaturno/nuevo-diaturno.component';
 import { PerformanceComponent } from './pages/performance/performance.component';
+import { ProduccionComponent } from './pages/filtro/400/400.component';
 import { StatusPipePipe } from './pipes/status-pipe.pipe';
 import { EditarStatusComponent } from './pages/forms/editar-progprod/editar-status/editar-status.component';
 import { FuncionUsuComponent } from './pages/filtro/funcion-usu/funcion-usu.component';
@@ -175,6 +176,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoTurnosComponent,
     NuevoDiaTurnoComponent,
     PerformanceComponent,
+    ProduccionComponent,
     StatusPipePipe,
     EditarStatusComponent,
     FuncionUsuComponent,
