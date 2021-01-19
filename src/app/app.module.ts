@@ -92,6 +92,7 @@ import { TurnosProductivosComponent } from './pages/filtro/turnos/registro-turno
 import { NuevoTurnosComponent } from './pages/forms/nuevo-turnos/nuevo-turnos.component';
 import { NuevoDiaTurnoComponent } from './pages/forms/nuevo-diaturno/nuevo-diaturno.component';
 import { PerformanceComponent } from './pages/performance/performance.component';
+import { ProduccionComponent } from './pages/filtro/400/400.component';
 
 
 registerLocaleData(localeEsMX, 'es-Mx');
@@ -169,6 +170,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoTurnosComponent,
     NuevoDiaTurnoComponent,
     PerformanceComponent,
+    ProduccionComponent,
   ],
   imports: [
     BrowserModule,

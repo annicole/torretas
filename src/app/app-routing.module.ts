@@ -33,6 +33,7 @@ import { PersonalOperativoComponent } from './pages/filtro/personal-operativo/pe
 import { PersonalTecnicoComponent } from './pages/filtro/personal-tecnico/personal-tecnico.component';
 import { ProgramaProduccionComponent} from '@app/pages/filtro/programa-produccion/programa-produccion.component'
 import { PerformanceComponent } from './pages/performance/performance.component'
+import { ProduccionComponent } from '@app/pages/filtro/400/400.component'
 
 const routes:Routes=[
   {path:'',redirectTo:'/home',pathMatch:'full'},
@@ -74,6 +75,7 @@ const routes:Routes=[
   {path: 'RegistroTurnosProductivos/:id', component: NuevoTurnosComponent, canActivate: [AuthGuard] },
   {path: 'produccion',component: ProgramaProduccionComponent,canActivate:[AuthGuard]},
   {path: 'performance', component: PerformanceComponent},
+  {path: '400', component: ProduccionComponent, canActivate: [AuthGuard]},
 ];
 @NgModule({
   declarations: [],
