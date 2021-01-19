@@ -19,11 +19,11 @@ import {EditarStatusComponent} from '@app/pages/forms/editar-progprod/editar-sta
 })
 export class ProgramaProduccionComponent implements OnInit {
 
-  listaWo: [];
-  listaSKU:[];
-  maquinas:[];
-  empresa:[];
-  productos:[];
+  listaWo= [];
+  listaSKU=[];
+  maquinas=[];
+  empresa=[];
+  productos=[];
   listaProgprod:[];
   total: number;
   submitted = false;
@@ -73,7 +73,9 @@ export class ProgramaProduccionComponent implements OnInit {
       let resp =await this.progprodService.getProgprodfprod(this.auth.token,idwo).toPromise();
       if (resp.code == 200) {
         this.listaSKU = resp.progprod;
-        console.log(this.listaSKU)
+        if(this.listaSKU != null && this.listaSKU.length > 0){
+          this.form.controls['idwosub'].setValue(this.listaSKU[0].idwosub);
+        }
       }
     } catch (error) {
       
@@ -141,7 +143,6 @@ export class ProgramaProduccionComponent implements OnInit {
       let resp = await this.progprodService.getProgprodf(this.auth.token,this.formFilter.value).toPromise();
       if (resp.code == 200) {
         this.listaProgprod = resp.progprod;
-        console.log(this.listaProgprod)
       }
     } catch (error) {
       Swal.fire('Error', '', 'error');
