@@ -10,7 +10,7 @@
           <div *ngIf="f.nip.errors.pattern">NIP solo incluye numeros</div>
         </div>
         <label for="nip">Confirma el NIP</label>
-        <input type="password" class="form-control" id="nip2" nombre="nip2" [(ngModel)]="nip2"
+        <input type="password" class="form-control" id="nip2" nombre="nip2" 
             formControlName="nip2" [ngClass]="{ 'is-invalid': submitted && f.nip2.errors }">
           <!--  -->
         <div *ngIf="submitted && f.nip2.errors" class="invalid-feedback">

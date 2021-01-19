@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Dialog } from '@app/classes/Dialog';
 import { Usuario } from '@app/models/usuario';
+import { AuthService } from '@app/services/auth.service';
+import { UsuarioService } from '@app/services/usuario.service';
 
 @Component({
   selector: 'app-cambia-nip',
@@ -13,18 +15,22 @@ import { Usuario } from '@app/models/usuario';
 export class CambiarNipComponent extends Dialog implements OnInit  {
 
   usuario: Usuario;
+  token;
   CambiaNipForm: FormGroup;
   submitted = false;
   nip:string;
 
   constructor(
     private formBuilder: FormBuilder,
+    private auth: AuthService,
+    private usuarioService: UsuarioService,
     public dialogRef: MatDialogRef<CambiarNipComponent>,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data) {
     super();
   }
   ngOnInit() {
+    this.usuario =  new Usuario();
     this.loadModalTexts();
     this.CambiaNipForm = this.formBuilder.group({
       nip:['',[Validators.required]],
@@ -32,6 +38,7 @@ export class CambiarNipComponent extends Dialog implements OnInit  {
     }, 
     { validator: [this.MustMatch('nip', 'nip2')] });//, { validator: this.MustMatch('nip', this.usuario.nip.toString()) }    { validator: this.MustMatch('nip')}
     
+    this.token= this.auth.token;
   }
 
   get f() { return this.CambiaNipForm.controls; }
@@ -41,31 +48,28 @@ export class CambiarNipComponent extends Dialog implements OnInit  {
     if (this.CambiaNipForm.invalid) {
       return;
     } else {
-      console.log("cambiando")
-
+      this.usuario.nip = Number(this.nip);
+      this.guardar();
     }
   }
-  // async addUsuario(){
-  //   const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
-  //     //width: '25rem',
-  //     data: {
-  //       title: 'Datos adicionales',
-  //       btnText: 'Guardar',
-  //       alertSuccesText: 'Usuario creado!',
-  //       alertErrorText: "No se puedo crear el usuario",
-  //       modalMode: 'create',
-  //       username: this.data.username,
-  //       Username_last: this.data.Username_last,
-  //       iddep: this.data.iddep,
-  //       idevento: this.data.idevento,
-  //       tipousuario: this.data.tipousuario,
-  //       usuario: this.usuario,
-  //     }
-  //   });
-  //   dialogRef.afterClosed().subscribe(data => {
-  //     this.closeModal();
-  //   });
-  // }
+
+  async guardar() {
+    console.log(this.usuario);
+    try {
+      let response = await this.usuarioService.update(this.usuario,this.token).toPromise();
+      if (response.code = 200) {
+        this.showAlert(this.alertSuccesText, true);
+        this.closeModal();
+      }
+      else {
+      console.log('AlertError');
+        this.showAlert(this.alertErrorText, false);
+      }
+    } catch (e) {
+      console.log('error');
+      this.showAlert(e.error.message, false);
+    }
+  }
 
   closeModal(): void {
     this.dialogRef.close();
@@ -78,18 +82,7 @@ export class CambiarNipComponent extends Dialog implements OnInit  {
   this.alertSuccesText = alertSuccesText;
   this.alertErrorText = alertErrorText;
   this.modalMode = modalMode;
-  if(usuario){
-    const { username, id, email, password, celular, iddep, nip, activousr } = usuario;
-      this.usuario =  new Usuario();
-      this.usuario.iddep = iddep;
-      this.usuario.username = username;
-      this.usuario.celular = celular;
-      this.usuario.email = email;
-      this.usuario.id = id;
-      this.usuario.nip = nip;
-      this.usuario.activousr = activousr;
-  }
-  console.log(this.usuario);
+  this.usuario = usuario
   }
 
   MustMatch(controlName: string, matchingControlName: string) {

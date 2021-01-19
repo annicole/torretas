@@ -1,6 +1,11 @@
 <dialog-component [title]="title" (closeEmit)="closeModal()" [alertMessage]="alertMessage">
     <form [formGroup]="usuarioForm">
-      <div class="form-row">
+      <div style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+        <h4>
+          <b>{{this.usuario.username}}&nbsp;{{this.usuario.Username_last}}</b>
+        </h4>
+      </div>
+      <div class="form-row" style="padding-top: 25px;">
         <div class="form-group col-md-6">
           <label for="nip">NIP(4 números): </label>
           <input type="password" class="form-control" id="nip" nombre="nip" [(ngModel)]="usuario.nip"

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Dialog } from '@app/classes/Dialog';
 import { Usuario } from '@app/models/usuario';
+import { EditarUsuarioComponent } from '../../editar-usuario/editar-usuario.component';
 import { NuevoUsuarioComponent } from '../../nuevo-usuario/nuevo-usuario.component';
 
 @Component({
@@ -17,6 +18,7 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
   IngresaNipForm: FormGroup;
   submitted = false;
   nip:string;
+  //editar= false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,25 +42,23 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
     if (this.IngresaNipForm.invalid) {
       return;
     } else {
-
-
-      if(this.usuario == null){
-        if(this.nip == "1234"){
-          this.addUsuario();
-          //this.closeModal();
-        }else{
-          this.IngresaNipForm.reset();
-          this.showAlert(this.alertErrorText, false)
+        if(this.usuario == null){/************************** Agregar Nuevo Usuario *************************/
+          if(this.nip == "1234"){/* Si la primera vez que ingresa es 1234 */
+            this.addUsuario();
+            //this.closeModal();
+          }else{/* No fue correcto el NIP*/
+            this.IngresaNipForm.reset();
+            this.showAlert(this.alertErrorText, false)
+          }
+        }else {                   /************************** Edita Usuario *************************/
+          if(this.nip == this.usuario.nip.toString()){/*El Nip coincide */
+            this.EditUsuario();
+            //this.closeModal();
+          }else{/*El NIP no coincide */
+            this.IngresaNipForm.reset();
+            this.showAlert(this.alertErrorText, false)
+          }
         }
-      }else {
-        if(this.nip == this.usuario.nip.toString()){
-          this.addUsuario();
-          //this.closeModal();
-        }else{
-          this.IngresaNipForm.reset();
-          this.showAlert(this.alertErrorText, false)
-        }
-      }
 
 
     }
@@ -77,13 +77,40 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
         iddep: this.data.iddep,
         idevento: this.data.idevento,
         tipousuario: this.data.tipousuario,
-        usuario: this.usuario,
+        //usuario: this.usuario,
       }
     });
     dialogRef.afterClosed().subscribe(data => {
       this.closeModal();
     });
   }
+
+
+  async EditUsuario(){
+    const dialogRef = this.dialog.open(EditarUsuarioComponent, {
+      //width: '25rem',
+      data: {
+        title: 'Editar usuario',
+        btnText: 'Actualiza',
+        alertSuccesText: 'Entraste!',
+        alertErrorText: "No se puede actualizar el usuario",
+        modalMode: 'create',
+        // username:usuario.username,
+        // Username_last:usuario.Username_last,
+        // iddep:usuario.iddep,
+        // idevento:usuario.idevento,
+        usuario:this.usuario,
+        tipousuario:'sistema',
+        //status: usuario.activousr,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.closeModal();
+    });
+  }
+
+
   closeModal(): void {
     this.dialogRef.close();
   }
@@ -96,15 +123,9 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
   this.alertErrorText = alertErrorText;
   this.modalMode = modalMode;
   if(usuario){
-    const { username, id, email, password, celular, iddep, nip, activousr } = usuario;
       this.usuario =  new Usuario();
-      this.usuario.iddep = iddep;
-      this.usuario.username = username;
-      this.usuario.celular = celular;
-      this.usuario.email = email;
-      this.usuario.id = id;
-      this.usuario.nip = nip;
-      this.usuario.activousr = activousr;
+      this.usuario = usuario;
+      //this.editar = true;
   }
   console.log(this.usuario);
   }

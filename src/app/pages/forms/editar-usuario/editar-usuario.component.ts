@@ -30,6 +30,7 @@ export class EditarUsuarioComponent extends Dialog implements OnInit {
   auxnip2:string = '';
   auxpassword2:string = '';
   statusUsu: string;
+
   constructor(private deptoService: DepartamentoService, private formBuilder: FormBuilder,
      private usuarioService: UsuarioService, private auth: AuthService,private dialog: MatDialog,
     public dialogRef: MatDialogRef<EditarUsuarioComponent>,
@@ -119,7 +120,7 @@ export class EditarUsuarioComponent extends Dialog implements OnInit {
         // Username_last:usuario.Username_last,
         // iddep:usuario.iddep,
         // idevento:usuario.idevento,
-        //usuario,
+        usuario:this.usuario,
         tipousuario:'sistema',
         //status: usuario.activousr,
       }
@@ -138,7 +139,7 @@ export class EditarUsuarioComponent extends Dialog implements OnInit {
         // Username_last:usuario.Username_last,
         // iddep:usuario.iddep,
         // idevento:usuario.idevento,
-        //usuario,
+        usuario:this.usuario,
         tipousuario:'sistema',
         //status: usuario.activousr,
       }
@@ -174,18 +175,7 @@ export class EditarUsuarioComponent extends Dialog implements OnInit {
     this.usuario.iddep = parseInt(iddep);
     this.usuario.idevento = parseInt(idevento);  
     this.tipousuario=tipousuario;
-
-    if (usuario) {
-      const { username, id, email, password, celular, iddep, nip, activousr } = usuario;
-      this.usuario.iddep = iddep;
-      this.usuario.username = username;
-      this.usuario.celular = celular;
-      this.usuario.email = email;
-      this.usuario.id = id;
-      this.usuario.nip = nip;
-      this.auxnip2= nip;
-      this.usuario.activousr = parseInt(activousr);
-    }
+    this.usuario = usuario;
     if(tipousuario){
       this.sistema=true;
     }

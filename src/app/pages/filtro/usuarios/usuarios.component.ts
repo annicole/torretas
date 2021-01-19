@@ -156,26 +156,22 @@ export class UsuariosComponent implements OnInit {
   }
 
   updateUsuario(usuario) {
-    const dialogRef = this.dialog.open(EditarUsuarioComponent, {
+    const dialogRef = this.dialog.open(IngresaNipComponent, {
       //width: '25rem',
       data: {
-        title: 'Editar usuario',
-        btnText: 'Actualiza',
+        title: 'Ingresa el NIP',
+        btnText: 'Ingresar',
         alertSuccesText: 'Entraste!',
-        alertErrorText: "No se puede actualizar el usuario",
+        alertErrorText: "El NIP no coincide",
         modalMode: 'create',
-        // username:usuario.username,
-        // Username_last:usuario.Username_last,
-        // iddep:usuario.iddep,
-        // idevento:usuario.idevento,
         usuario,
-        tipousuario:'sistema',
-        //status: usuario.activousr,
+        tipousuario:'sistema'
       }
     });
 
     dialogRef.afterClosed().subscribe(data => {
       this.getUsuarios2('');
+      this.formUser.reset({});
     });
   }
 
