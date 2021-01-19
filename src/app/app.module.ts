@@ -176,7 +176,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoDiaTurnoComponent,
     PerformanceComponent,
     StatusPipePipe,
-    EditarStatusComponent
+    EditarStatusComponent,
     FuncionUsuComponent,
     EditarUsuarioComponent,
     CambiarNipComponent,
