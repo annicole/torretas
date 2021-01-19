@@ -16,8 +16,7 @@
         </div>
         <div class="col-md-4">
             <label for="idwosub" class="form-label">Sku del producto</label>
-            <select class="form-control" id="idwosub" nombre="idwosub"
-                formControlName="idwosub"
+            <select class="form-control" id="idwosub" nombre="idwosub" formControlName="idwosub"
                 [ngClass]="{ 'is-invalid': submitted && f.idwosub.errors }">
                 <option *ngFor="let sku of listaSKU" [value]="sku.idwosub " >{{sku.coment}}
                 </option>
