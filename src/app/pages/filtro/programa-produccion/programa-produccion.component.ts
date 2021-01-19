@@ -10,6 +10,7 @@ import { MaquinaService} from '@app/services/maquina.service'
 import { EmpresaService } from '@app/services/empresa.service'
 import {ProductoService} from '@app/services/producto.service'
 import {EditarProgprodComponent} from '@app/pages/forms/editar-progprod/editar-progprod.component'
+import {EditarStatusComponent} from '@app/pages/forms/editar-progprod/editar-status/editar-status.component'
 
 @Component({
   selector: 'app-programa-produccion',
@@ -39,8 +40,9 @@ export class ProgramaProduccionComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      idOrden: [''],
-      idwosub:['',Validators.required]
+      idOrden: ['',Validators.required],
+      idwosub:['',Validators.required],
+      idProducto:['']
     });
 
     this.formFilter = this.formBuilder.group({
@@ -71,6 +73,7 @@ export class ProgramaProduccionComponent implements OnInit {
       let resp =await this.progprodService.getProgprodfprod(this.auth.token,idwo).toPromise();
       if (resp.code == 200) {
         this.listaSKU = resp.progprod;
+        console.log(this.listaSKU)
       }
     } catch (error) {
       
@@ -98,7 +101,8 @@ export class ProgramaProduccionComponent implements OnInit {
         this.getProgprodf();
       }
     } catch (error) {
-      Swal.fire('Error', 'No se pudo guardar el registro', 'error');
+      console.log(error)
+      Swal.fire('Error', 'No se pudo guardar el registro', error.error);
     }
   }
 
@@ -137,6 +141,7 @@ export class ProgramaProduccionComponent implements OnInit {
       let resp = await this.progprodService.getProgprodf(this.auth.token,this.formFilter.value).toPromise();
       if (resp.code == 200) {
         this.listaProgprod = resp.progprod;
+        console.log(this.listaProgprod)
       }
     } catch (error) {
       Swal.fire('Error', '', 'error');
@@ -202,6 +207,26 @@ export class ProgramaProduccionComponent implements OnInit {
         alertSuccesText: 'Registro modificado!',
         alertErrorText: "Error modificando el registro",
         modalMode: 'create',
+        obj:obj
+      }
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      this.getProgprodf();
+    });
+  }
+
+  onWoChange(idWoSub){
+    //this.form.controls['idProducto'].setValue(idProducto);
+  }
+
+  editStatus(obj){
+    const dialogRef = this.dialog.open(EditarStatusComponent, {
+      width: '20rem',
+      data: {
+        title: 'Editar status',
+        btnText: 'Guardar',
+        alertSuccesText: 'Registro modificado!',
+        alertErrorText: "Error modificando el registro",
         obj:obj
       }
     });
