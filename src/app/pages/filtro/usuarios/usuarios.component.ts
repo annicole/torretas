@@ -14,7 +14,9 @@ import { EventoUsuarioService } from '@app/services/evento-usuario.service';
 import { Departamento } from '@app/models/departamento';
 import { DepartamentoService } from '@app/services/departamento.service';
 import { IngresaNipComponent } from '@app/pages/forms/ingresa-nip/ingresa-nip/ingresa-nip.component';
-import { CatalogoFuncionesComponent } from '../catalogo-funciones/catalogo-funciones.component';
+import { FuncionUsuComponent } from '../funcion-usu/funcion-usu.component';
+import { CambiarNipComponent } from '@app/pages/forms/cambiar-nip/cambiar-nip.component';
+import { EditarUsuarioComponent } from '@app/pages/forms/editar-usuario/editar-usuario.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -162,18 +164,14 @@ export class UsuariosComponent implements OnInit {
         alertSuccesText: 'Entraste!',
         alertErrorText: "El NIP no coincide",
         modalMode: 'create',
-        // username:usuario.username,
-        // Username_last:usuario.Username_last,
-        // iddep:usuario.iddep,
-        // idevento:usuario.idevento,
         usuario,
-        tipousuario:'sistema',
-        //status: usuario.activousr,
+        tipousuario:'sistema'
       }
     });
 
     dialogRef.afterClosed().subscribe(data => {
       this.getUsuarios2('');
+      this.formUser.reset({});
     });
   }
 
@@ -236,17 +234,19 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  openFunciones(){
-    const dialogRef = this.dialog.open(CatalogoFuncionesComponent, {
+  openFuncionUsu(usuario){
+    const dialogRef = this.dialog.open( FuncionUsuComponent, {
       width: '40rem',
       data: {
-        title: 'Catalogo de funciones autorizadas en el sistema',
+        title: 'Funciones permitidas',
         btnText: 'Guardar',
         alertSuccesText: 'Funcion agregada correctamente',
         alertErrorText: "No se puede agregar función",
+        usuario,
       }
     });
   }
+
   StatusUsu(activousu) {
     if (activousu == '0') {
       this.activoUsuario = '';

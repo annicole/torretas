@@ -4,18 +4,20 @@ import { UsuarioService } from '@app/services/usuario.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Departamento } from '@app/models/departamento';
 import { Usuario } from '@app/models/usuario';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
 import { Dialog } from '@app/classes/Dialog';
 import { AuthService } from '@app/services/auth.service';
+import { CambiarContrComponent } from '../cambiar-contr/cambiar-contr.component';
+import { CambiarNipComponent } from '../cambiar-nip/cambiar-nip.component';
 
 @Component({
-  selector: 'app-nuevo-usuario',
-  templateUrl: './nuevo-usuario.component.html',
-  styleUrls: ['./nuevo-usuario.component.scss'],
+  selector: 'app-editar-usuario',
+  templateUrl: './editar-usuario.component.html',
+  styleUrls: ['./editar-usuario.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class NuevoUsuarioComponent extends Dialog implements OnInit {
+export class EditarUsuarioComponent extends Dialog implements OnInit {
 
   usuario: Usuario = new Usuario();
   usuarioForm: FormGroup;
@@ -28,9 +30,10 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   auxnip2:string = '';
   auxpassword2:string = '';
   statusUsu: string;
+
   constructor(private deptoService: DepartamentoService, private formBuilder: FormBuilder,
-     private usuarioService: UsuarioService, private auth: AuthService,
-    public dialogRef: MatDialogRef<NuevoUsuarioComponent>,
+     private usuarioService: UsuarioService, private auth: AuthService,private dialog: MatDialog,
+    public dialogRef: MatDialogRef<EditarUsuarioComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
     super();
   }
@@ -104,6 +107,45 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     }
   }
 
+  updatePassword() {
+    const dialogRef = this.dialog.open(CambiarContrComponent, {
+      //width: '25rem',
+      data: {
+        title: 'Cambiar Contraseña',
+        btnText: 'Cambiar',
+        alertSuccesText: 'Entraste!',
+        alertErrorText: "No se puede actualizar el usuario",
+        modalMode: 'create',
+        // username:usuario.username,
+        // Username_last:usuario.Username_last,
+        // iddep:usuario.iddep,
+        // idevento:usuario.idevento,
+        usuario:this.usuario,
+        tipousuario:'sistema',
+        //status: usuario.activousr,
+      }
+    });
+  }
+  updateNip() {
+    const dialogRef = this.dialog.open(CambiarNipComponent, {
+      //width: '25rem',
+      data: {
+        title: 'Cambiar NIP',
+        btnText: 'Cambiar',
+        alertSuccesText: 'Entraste!',
+        alertErrorText: "No se puede actualizar el usuario",
+        modalMode: 'create',
+        // username:usuario.username,
+        // Username_last:usuario.Username_last,
+        // iddep:usuario.iddep,
+        // idevento:usuario.idevento,
+        usuario:this.usuario,
+        tipousuario:'sistema',
+        //status: usuario.activousr,
+      }
+    });
+  }
+
   MustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[controlName];
@@ -133,18 +175,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     this.usuario.iddep = parseInt(iddep);
     this.usuario.idevento = parseInt(idevento);  
     this.tipousuario=tipousuario;
-
-    if (usuario) {
-      const { username, id, email, password, celular, iddep, nip, activousr } = usuario;
-      this.usuario.iddep = iddep;
-      this.usuario.username = username;
-      this.usuario.celular = celular;
-      this.usuario.email = email;
-      this.usuario.id = id;
-      this.usuario.nip = nip;
-      this.auxnip2= nip;
-      this.usuario.activousr = parseInt(activousr);
-    }
+    this.usuario = usuario;
     if(tipousuario){
       this.sistema=true;
     }
@@ -158,6 +189,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   closeModal() {
     this.dialogRef.close();
   }
+  
 
   ToggleStatusUsu() {
     console.log(this.usuarioForm.value.activousu)

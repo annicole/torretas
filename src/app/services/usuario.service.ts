@@ -48,7 +48,7 @@ export class UsuarioService {
     return this.http.delete<any>(`${this.url + '/read'}/${id}`,{headers});
   }
 
-  update(usuario: Usuario,token) {
+  update(usuario: Usuario,token): Observable<any>  {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.put(`${this.url + '/read'}/${usuario.id}`, usuario, { headers });
   }

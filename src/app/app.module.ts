@@ -94,6 +94,10 @@ import { NuevoDiaTurnoComponent } from './pages/forms/nuevo-diaturno/nuevo-diatu
 import { PerformanceComponent } from './pages/performance/performance.component';
 import { StatusPipePipe } from './pipes/status-pipe.pipe';
 import { EditarStatusComponent } from './pages/forms/editar-progprod/editar-status/editar-status.component';
+import { FuncionUsuComponent } from './pages/filtro/funcion-usu/funcion-usu.component';
+import { EditarUsuarioComponent } from './pages/forms/editar-usuario/editar-usuario.component';
+import { CambiarNipComponent } from './pages/forms/cambiar-nip/cambiar-nip.component';
+import { CambiarContrComponent } from './pages/forms/cambiar-contr/cambiar-contr.component';
 
 
 registerLocaleData(localeEsMX, 'es-Mx');
@@ -173,6 +177,10 @@ registerLocaleData(localeEsMX, 'es-Mx');
     PerformanceComponent,
     StatusPipePipe,
     EditarStatusComponent
+    FuncionUsuComponent,
+    EditarUsuarioComponent,
+    CambiarNipComponent,
+    CambiarContrComponent,
   ],
   imports: [
     BrowserModule,
@@ -199,8 +207,8 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
     NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, AsignacionEquipoComponent,
-    IngresaNipComponent, CatalogoFuncionesComponent, NuevoWoComponent, NuevoStatuswosubComponent, NuevoWosubComponent, EditarProgprodComponent, NuevoTurnosComponent,
-    NuevoDiaTurnoComponent,EditarStatusComponent
+    IngresaNipComponent, CatalogoFuncionesComponent,NuevoWoComponent, NuevoStatuswosubComponent, NuevoWosubComponent,EditarProgprodComponent,NuevoTurnosComponent,NuevoDiaTurnoComponent,
+    FuncionUsuComponent,EditarUsuarioComponent,CambiarContrComponent,CambiarNipComponent,
   ]
 })
 export class AppModule { }
