@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from "ngx-spinner";
 import { AuthService } from '@app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-400',
@@ -15,6 +16,8 @@ export class ProduccionComponent implements OnInit {
   produccion: [];
   form: FormGroup;
   total: number;
+  intervalTimer = interval(15000);
+  intervalSubs;
 
   constructor(private produccionService: ProduccionService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,
@@ -23,6 +26,7 @@ export class ProduccionComponent implements OnInit {
 
   ngOnInit() {
     this.getProductos('');
+   
   }
 
   async getProductos(searchValue: string) {
@@ -32,10 +36,17 @@ export class ProduccionComponent implements OnInit {
         this.produccion = resp.response;
         console.log(this.produccion)
         this.total = this.produccion.length;
+        this.intervalSubs = this.intervalTimer.subscribe(() => this.getProductos(''));
       }
     } catch (e) {
     }
   } 
+
+  unsubscribeInterval() {
+    if (this.intervalSubs) {
+      this.intervalSubs.unsubscribe();
+    }
+  }
 
   onSearchChange(searchValue: string) {
     this.getProductos(searchValue);
