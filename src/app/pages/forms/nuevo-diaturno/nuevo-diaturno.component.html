@@ -7,7 +7,7 @@
                     <div class="toggle">
                       <mat-slide-toggle id="tiempoefec1" nombre="tiempoefec1" (change)="ToggleEfecD($event)"
                        formControlName="tiempoefec" [ngClass]="{ 'is-invalid': submitted && f.tiempoefec.errors }">
-                        <button type="submit" class="btn btn-secondary">{{btnText}}</button></mat-slide-toggle>
+                        <button type="submit" class="btn btn-secondary" (click)="guardar()">{{btnText}}</button></mat-slide-toggle>
                       <div *ngIf="submitted && f.tiempoefec.errors" class="invalid-feedback">
                         <div *ngIf="f.tiempoefec.errors.required">Tiempo efectivo requerido</div>
                       </div>

@@ -116,6 +116,7 @@ export class NuevoTurnosComponent implements OnInit {
         this.NormalizaDia2(this.listaDiaturnos);
         this.NormalizaSeg(this.listaDiaturnos);
         this.NormalizaTiempo(this.listaDiaturnos);
+        console.log(this.listaDiaturnos)
         /*
         let secDiff = Math.floor((this.listaDiaturnos[0].hrenttur) / 10);
         let v = this.listaDiaturnos[0].hrenttur.replace(':', '');
@@ -301,12 +302,13 @@ export class NuevoTurnosComponent implements OnInit {
     }
   }
 
+
   NormalizaTiempo(tiempos: Array<any>) {
     for (const tiempo of tiempos) {
-      if (tiempo.duracion === tiempo.tiempoefec) {
+      if (tiempo.tiempoefec === 1) {
         tiempo.efec = 'Efectivo';
       }
-      if (tiempo.duracion !== tiempo.tiempoefec) {
+      if (tiempo.tiempoefec === 0) {
         tiempo.efec = 'No Efectivo';
       }
     }
@@ -317,7 +319,7 @@ export class NuevoTurnosComponent implements OnInit {
       this.form.value.tiempoefec = 0;
       console.log(this.form.value.tiempoefec)
     } else {
-      this.form.value.tiempoefec = this.form.value.duracion;
+      this.form.value.tiempoefec = 1;
       console.log(this.form.value.tiempoefec)
     }
   }
