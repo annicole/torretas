@@ -64,7 +64,7 @@ export class NuevoDiaTurnoComponent extends Dialog implements OnInit {
       this.form.value.tiempoefec = 0;
       console.log(this.form.value.tiempoefec)
     } else {
-      this.form.value.tiempoefec = this.form.value.duracion;
+      this.form.value.tiempoefec = 1;
       console.log(this.form.value.tiempoefec)
     }
   }
@@ -113,25 +113,6 @@ export class NuevoDiaTurnoComponent extends Dialog implements OnInit {
 
   closeModal() {
     this.dialogRef.close();
-  }
-
-  delete(obj) {
-    Swal.fire({
-      title: '¿Desea eliminar el registro?', text: "",
-      type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33', confirmButtonText: 'Si!', cancelButtonText: 'Cancelar!'
-    }).then((result) => {
-      if (result.value) {
-        this.diaturnoService.delete(obj.iddiaturno, this.auth.token).subscribe(res => {
-          if (res.code == 200) {
-            Swal.fire('Eliminado', 'El registro ha sido borrado!', 'success');
-            this.getDiaturno();
-          } else {
-            Swal.fire('Error', 'No fue posible borrar el registro!', 'error');
-          }
-        });
-      }
-    });
   }
 
 }

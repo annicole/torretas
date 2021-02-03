@@ -1,6 +1,6 @@
 <div class="mt-3">
   <app-header-table [renderButton]="false" [titleHeader]="'Modulo Interfaz'" [titleSelect]="'Buscar Turno..'"
-                    (buttonOutput)="add()" (searchOutput)="onSearchChange($event)" [listNav]="listNav">
+                    (searchOutput)="onSearchChange($event)" [listNav]="listNav">
   </app-header-table>
 </div>
 <div class="moduloI card mb-4 mx-5">
@@ -44,7 +44,7 @@
             </th>
             <th>
               <div class=" ">
-                <input type="time" id="hrenttur" class="form-control" [(max)]="maxDate"
+                <input type="time" id="hrenttur" class="form-control" 
                        formControlName="hrenttur" [ngClass]="{ 'is-invalid': submitted && f.hrenttur.errors }">
                 <div *ngIf="submitted && f.hrenttur.errors" class="invalid-feedback">
                   <div *ngIf="f.hrenttur.errors.required">Fecha de inicio es requerida</div>
@@ -64,7 +64,7 @@
             </th>
             <th>
               <div class=" ">
-                <input type="time" id="hrentturter" class="form-control" [(max)]="maxDate"
+                <input type="time" id="hrentturter" class="form-control" 
                        formControlName="hrentturter" [ngClass]="{ 'is-invalid': submitted && f.hrentturter.errors }">
                 <div *ngIf="submitted && f.hrentturter.errors" class="invalid-feedback">
                   <div *ngIf="f.hrentturter.errors.required">Fecha de terminación es requerida</div>
