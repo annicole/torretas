@@ -55,7 +55,8 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
         nip2:['', Validators.required,],
         correo: ['', [Validators.required, Validators.email]],
         celular: ['',],
-        activoemp: ['', Validators.required],
+        // activoemp: ['', Validators.required],
+        activousu: ['', Validators.required],
       }, 
       { validator: [this.MustMatch('nip', 'nip2')] });
     }
@@ -78,11 +79,13 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   get f() { return this.usuarioForm.controls; }
 
   onSubmit() {
-
     this.submitted = true;
     if (this.usuarioForm.invalid) {
+      console.log('hola');
+      console.log(this.usuarioForm.errors)
       return;
     } else {
+      console.log(this.usuario)
       this.guardar();
     }
   }
@@ -133,6 +136,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
     this.usuario.iddep = parseInt(iddep);
     this.usuario.idevento = parseInt(idevento);  
     this.tipousuario=tipousuario;
+    this.usuario.activousr = 1;
 
     if (usuario) {
       const { username, id, email, password, celular, iddep, nip, activousr } = usuario;

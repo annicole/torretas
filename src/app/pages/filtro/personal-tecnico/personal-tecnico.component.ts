@@ -14,18 +14,21 @@ import { EventoUsuarioService } from '@app/services/evento-usuario.service';
 import { Departamento } from '@app/models/departamento';
 import { DepartamentoService } from '@app/services/departamento.service';
 import { IngresaNipComponent } from '@app/pages/forms/ingresa-nip/ingresa-nip/ingresa-nip.component';
-import { CatalogoFuncionesComponent } from '../catalogo-funciones/catalogo-funciones.component';
+import { FuncionUsuComponent } from '../funcion-usu/funcion-usu.component';
+import { CambiarNipComponent } from '@app/pages/forms/cambiar-nip/cambiar-nip.component';
+import { EditarUsuarioComponent } from '@app/pages/forms/editar-usuario/editar-usuario.component';
 
 @Component({
-  selector: 'app-personal-tecnico',
-  templateUrl: './personal-tecnico.component.html',
-  styleUrls: ['./personal-tecnico.component.scss']
+selector: 'app-personal-tecnico',
+templateUrl: './personal-tecnico.component.html',
+styleUrls: ['./personal-tecnico.component.scss']
 })
-export class PersonalTecnicoComponent implements OnInit {
 
+
+export class  PersonalTecnicoComponent implements OnInit {
 
   usuarios: Usuario[];
-  usuario : Usuario; 
+  usuario : Usuario;
   // listaEvento:EventoSensor[];
   listaEvento=[
     {id: 1,nombre:"Operando"},
@@ -35,42 +38,52 @@ export class PersonalTecnicoComponent implements OnInit {
     {id: 5,nombre:"Materiales"},
     {id: 6,nombre:"Ingenieria"},
     {id: 7,nombre:"Producción"},
-    {id: 8,nombre:"Calidad"}     
+    {id: 8,nombre:"Calidad"}
   ];
   listaDepart:Departamento[];
   formUser: FormGroup;
   total: number = 0;
   submitted = false;
+  activoUsuario = '1';
+  evento = '4'
+  status: string;
+  s: number ; 
+  statusr: any[] = [
+    { status: 0, statnom: 'Todos'},
+    { status: 1, statnom: 'Activo'},
+    { status: 2, statnom: 'Inactivo'},
+  ];
   listNav=[
-    {"name":"Usuarios del sistema", "router":"/usuario"}, 
-    {"name":"Personal tecnico", "router":"/personal-tecnico"}, 
-    {"name":"Personal operativo", "router":"/personal-operativo"}, 
-    {"name":"Personal ingenieria", "router":"/personal-ingenieria"}, 
-    {"name":"Personal calidad", "router":"/personal-calidad"}, 
-    {"name":"Personal materiales", "router":"/personal-materiales"}, 
+    {"name":"Usuarios del sistema", "router":"/usuario"},
+    {"name":"Personal tecnico", "router":"/personal-tecnico"},
+    {"name":"Personal operativo", "router":"/personal-operativo"},
+    {"name":"Personal ingenieria", "router":"/personal-ingenieria"},
+    {"name":"Personal calidad", "router":"/personal-calidad"},
+    {"name":"Personal materiales", "router":"/personal-materiales"},
   ]
   token: string;
-  constructor(private usuarioService: UsuarioService, private eventousuarioService: EventoUsuarioService , 
+  constructor(private usuarioService: UsuarioService, private eventousuarioService: EventoUsuarioService ,
     private departamentoService: DepartamentoService,private auth: AuthService,
     private dialog: MatDialog, private spinner: NgxSpinnerService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.s = 1;
     this.usuario = new Usuario();
     this.formUser = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       departamento: ['', Validators.required],
     });
-    this.getUsuarios('');
+    this.getUsuarios2('');
     this.getDepartamentos();
     ///this.getEventos();
-    
+
   }
 
 
-  async getUsuarios(searchValue: string) {
+  async getUsuarios2(searchValue: string) {
     try {
-      let resp = await this.usuarioService.getUsuarios('','','4', this.auth.token).toPromise();
+      let resp = await this.usuarioService.getUsuarios(searchValue, '', this.activoUsuario,'4', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
 
@@ -79,6 +92,18 @@ export class PersonalTecnicoComponent implements OnInit {
     } catch (e) {
     }
   }
+  
+  // async getUsuarios2(searchValue: string){
+  //   try {
+  //     let resp = await this.usuarioService.getUsuariosSistema(searchValue, '', this.activoUsuario, this.auth.token).toPromise();
+  //     if (resp.code == 200) {
+  //       this.usuarios = resp.usuario;
+  //       this.total = this.usuarios.length;
+  //       console.log(this.usuarios);
+  //     }
+  //   } catch (e) {
+  //   }
+  // }
 
   async getEventos(){
     console.log("Antes de try");
@@ -109,7 +134,7 @@ export class PersonalTecnicoComponent implements OnInit {
     }
   }
 
-  addUsuario() {
+  async   addUsuario() {
     const dialogRef = this.dialog.open(IngresaNipComponent, {
       //width: '25rem',
       data: {
@@ -121,12 +146,12 @@ export class PersonalTecnicoComponent implements OnInit {
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
-        idevento: 4
+        idevento: this.evento,
       }
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getUsuarios('');
+      this.getUsuarios2('');
       this.formUser.reset({});
     });
   }
@@ -140,16 +165,13 @@ export class PersonalTecnicoComponent implements OnInit {
         alertSuccesText: 'Entraste!',
         alertErrorText: "El NIP no coincide",
         modalMode: 'create',
-        username:this.usuario.username,
-        Username_last:this.usuario.Username_last,
-        iddep:this.usuario.iddep,
-        idevento: 4,
-        usuario
+        usuario,
       }
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      this.getUsuarios('');
+      this.getUsuarios2('');
+      this.formUser.reset({});
     });
   }
 
@@ -162,10 +184,10 @@ export class PersonalTecnicoComponent implements OnInit {
       if (result.value) {
         this.usuarioService.delete(id, this.auth.token).subscribe(res => {
           if (res.code == 200) {
-            Swal.fire('Eliminado', 'El usuario se ha sido eliminado correctamente', 'success');
-            this.getUsuarios('');
+            //Swal.fire('Eliminado', 'El usuario se ha sido eliminado correctamente', 'success');
+            this.getUsuarios2('');
           } else {
-            Swal.fire('Error', 'No fue posible eliminar el usuario', 'error');
+            //Swal.fire('Error', 'No fue posible eliminar el usuario', 'error');
           }
         });
       }
@@ -183,7 +205,7 @@ export class PersonalTecnicoComponent implements OnInit {
   }
 
   async onSearchChange(searchValue: string) {
-    this.getUsuarios(searchValue);
+    this.getUsuarios2(searchValue);
   }
 
   get f() { return this.formUser.controls; }
@@ -203,7 +225,7 @@ export class PersonalTecnicoComponent implements OnInit {
       let response = await this.usuarioService.create(this.formUser.value, this.auth.token).toPromise();
       if (response.code == 200) {
         Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
-        this.getUsuarios('');
+        this.getUsuarios2('');
         this.submitted = false;
         this.formUser.reset({});
       }
@@ -212,16 +234,32 @@ export class PersonalTecnicoComponent implements OnInit {
     }
   }
 
-  openFunciones(){
-    const dialogRef = this.dialog.open(CatalogoFuncionesComponent, {
+  openFuncionUsu(usuario){
+    const dialogRef = this.dialog.open( FuncionUsuComponent, {
       width: '40rem',
       data: {
-        title: 'Catalogo de funciones autorizadas en el sistema',
+        title: 'Funciones permitidas',
         btnText: 'Guardar',
         alertSuccesText: 'Funcion agregada correctamente',
         alertErrorText: "No se puede agregar función",
+        usuario,
       }
-    });    
+    });
+  }
+
+  StatusUsu(activousu) {
+    if (activousu == '0') {
+      this.activoUsuario = '';
+      this.getUsuarios2('');
+    }
+    else if (activousu == '1') {
+      this.activoUsuario = '1';
+      this.getUsuarios2('');
+
+    } else if (activousu == '2') {
+      this.activoUsuario = '0';
+      this.getUsuarios2('');
+    }  
   }
 
 }

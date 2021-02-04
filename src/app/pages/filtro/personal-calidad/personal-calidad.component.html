@@ -6,16 +6,32 @@
 
 <div class="usuario card mb-4 mx-5">
   <div class="table-responsive-lg px-4">
-     <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
       <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
             <th scope="col">Departamento</th>
-            <th scope="col"></th>
+            <th scope="col">
+              <div class="row"> 
+                <div class=" d-flex align-items-end px-3">
+                  Opciones
+                </div>
+                <div class=" d-flex align-items-end">
+                  <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="s" (ngModelChange)="StatusUsu($event)">
+                    <option *ngFor="let st of statusr" [ngValue]="st.status">{{st.statnom}}</option>
+                  </select>
+                </div> 
+              </div>
+              
+            </th>
           </tr>
+
           <tr>
+          <!-- <form [formGroup]="formUser" (ngSubmit)="onSubmit()"> -->
+            
+
           <th scope="col">
                 <div class=" ">
                     <input type="text" class="form-control" id="nombre" nombre="nombre"
@@ -49,11 +65,13 @@
                 </div>
             </th>
             <th>
-                <div class="">
+                <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </th> 
+          <!-- </form> -->
           </tr>
+        
         </thead>
         <tbody>
           <tr *ngFor="let u of usuarios">
@@ -61,10 +79,15 @@
             <td>{{u.Username_last}}</td>
             <td>{{u.Departamento.departamento}}</td>
             <td>
-              <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="updateUsuario(u)"><i
+              <div class="d-flex justify-content-center">
+                <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="updateUsuario(u)"><i
                   class="material-icons">create</i></a>
-              <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " (click)="delete(u.id)"><i
+                <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " (click)="delete(u.id)"><i
                   class="material-icons">delete</i></a>
+                <a class="btn" data-toggle="tooltip" data-placement="top" title="Funciones de Usuario" (click)="openFuncionUsu(u)"><i
+                  class="material-icons">assignment</i></a>
+              </div>
+              
             </td>
           </tr>
         </tbody>

@@ -128,6 +128,7 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
       //this.editar = true;
   }
   console.log(this.usuario);
-  }
+  console.log(this.data);
 
+  }
 }
