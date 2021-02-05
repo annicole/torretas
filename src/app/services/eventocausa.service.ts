@@ -12,9 +12,10 @@ export class EventocausaService {
   private url: string = environment.environment.urlEndPoint + '/eventocausa';
   constructor(private http: HttpClient) { }
 
-  get(name: string, token): Observable<any> {
+  get(equipo: string, name: string, token): Observable<any> {
     let params = new HttpParams();
     params = params.append('busqueda', name);
+    params = params.append('equipo', equipo);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.get(this.url + '/get', { headers, params: params });
   }

@@ -20,6 +20,7 @@ export class NuevoEventoCausaComponent extends Dialog implements OnInit {
   number;
   listaevento: [];
   token;
+  idequipo;
 
   constructor(
     private eventocausaService: EventocausaService,
@@ -45,14 +46,15 @@ export class NuevoEventoCausaComponent extends Dialog implements OnInit {
   }
 
   loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode, _eventoc, idevento } = this.data;
+    const { title, btnText, alertErrorText, alertSuccesText, modalMode, _eventoc, idevento, idequipo } = this.data;
     this.title = title;
     this.btnText = btnText;
     this.alertSuccesText = alertSuccesText;
     this.alertErrorText = alertErrorText;
     this.modalMode = modalMode;
     this.number = idevento;
-
+    this.idequipo = idequipo;
+    
     if (_eventoc) {
       const { IDeventofalla, idtipo, Idevento, Codfalla, Descfalla} = _eventoc;
 
@@ -61,8 +63,9 @@ export class NuevoEventoCausaComponent extends Dialog implements OnInit {
   }
 
   async getEventoc() {
+  
     try {
-      let resp = await this.eventocausaService.get(this.number,this.auth.token).toPromise();
+      let resp = await this.eventocausaService.get(this.idequipo, this.number,this.auth.token).toPromise();
       if (resp.code == 200) {
         this.listaevento = resp.response;
         console.log(this.listaevento)
@@ -84,6 +87,7 @@ export class NuevoEventoCausaComponent extends Dialog implements OnInit {
 
   async guardar() {
     this.form.value.Idevento = this.number;
+    this.form.value.idtipo = this.idequipo;
     try {
       let response;
       response = await this.eventocausaService.create(this.form.value, this.token).toPromise();
