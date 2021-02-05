@@ -1,0 +1,53 @@
+<dialog-component [title]="title" (closeEmit)="closeModal()" [alertMessage]="alertMessage">
+    <div class="table-responsive-sm px-4">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <table class="table table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col" style="border-bottom: none; width: 20%">Codigo</th>
+                        <th scope="col" style="border-bottom: none; width: 60%">Descripcion de falla</th>
+                        <th scope="col" style="border-bottom: none; width: 20%"></th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <div>
+                                <input type="text" class="form-control" id="Codfalla" nombre="Codfalla"
+                                    formControlName="Codfalla"
+                                    [ngClass]="{ 'is-invalid': submitted && f.Codfalla.errors }">
+                            </div>
+                            <div *ngIf="submitted && f.Codfalla.errors" class="invalid-feedback">
+                                <div *ngIf="f.Codfalla.errors.required">Codigo es requerido</div>
+                            </div>
+
+                        </th>
+                        <th>
+                            <div>
+                                <input type="text" class="form-control" id="Descfalla" nombre="Descfalla"
+                                    formControlName="Descfalla"
+                                    [ngClass]="{ 'is-invalid': submitted && f.Descfalla.errors }">
+                            </div>
+                            <div *ngIf="submitted && f.Descfalla.errors" class="invalid-feedback">
+                                <div *ngIf="f.Descfalla.errors.required">Descripción es requerida</div>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let evento of listaevento">
+                        <td>{{evento.Codfalla | titlecase}}</td>
+                        <td>{{evento.Descfalla | titlecase}}</td>
+                        <td>
+                            <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar"
+                                (click)="delete(evento)"><i class="material-icons">delete</i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</dialog-component>

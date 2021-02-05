@@ -99,6 +99,7 @@ import { FuncionUsuComponent } from './pages/filtro/funcion-usu/funcion-usu.comp
 import { EditarUsuarioComponent } from './pages/forms/editar-usuario/editar-usuario.component';
 import { CambiarNipComponent } from './pages/forms/cambiar-nip/cambiar-nip.component';
 import { CambiarContrComponent } from './pages/forms/cambiar-contr/cambiar-contr.component';
+import { NuevoEventoCausaComponent } from './pages/forms/nuevo-eventofalla/nuevo-eventofalla.component';
 
 
 registerLocaleData(localeEsMX, 'es-Mx');
@@ -183,6 +184,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     EditarUsuarioComponent,
     CambiarNipComponent,
     CambiarContrComponent,
+    NuevoEventoCausaComponent,
   ],
   imports: [
     BrowserModule,
@@ -210,7 +212,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
     NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, AsignacionEquipoComponent,
     IngresaNipComponent, CatalogoFuncionesComponent,NuevoWoComponent, NuevoStatuswosubComponent, NuevoWosubComponent,EditarProgprodComponent,NuevoTurnosComponent,NuevoDiaTurnoComponent,
-    FuncionUsuComponent, EditarUsuarioComponent, CambiarContrComponent, CambiarNipComponent, EditarStatusComponent,
+    FuncionUsuComponent, EditarUsuarioComponent, CambiarContrComponent, CambiarNipComponent, EditarStatusComponent, NuevoEventoCausaComponent,
   ]
 })
 export class AppModule { }
