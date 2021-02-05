@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '@app/services/auth.service';
 import { NuevoTipoEquipoComponent } from '@app/pages/forms/nuevo-tipo-equipo/nuevo-tipo-equipo.component';
+import { NuevoEventoCausaComponent } from '@app/pages/forms/nuevo-eventofalla/nuevo-eventofalla.component';
 
 @Component({
   selector: 'app-tipo-equipo',
@@ -13,8 +14,15 @@ import { NuevoTipoEquipoComponent } from '@app/pages/forms/nuevo-tipo-equipo/nue
 })
 export class TipoEquipoComponent implements OnInit {
 
+  nombre: string;
   tipos :TipoEquipo[];
-  total:number =0;
+  total: number = 0;
+  urlOperando: string;
+  urlIngenieria: string;
+  urlMantenimiento: string;
+  urlCalidad: string;
+  urlProduccion: string;
+  urlMateriales: string;
   listNav = [
     { "name": "Tipo de equipo", "router": "/tipoEquipo" },
     { "name": "Equipos", "router": "/maquina" },
@@ -24,6 +32,13 @@ export class TipoEquipoComponent implements OnInit {
 
   ngOnInit() {
     this.getTipos("");
+
+    this.urlOperando = "../../../assets/img/OPERANDO.jpg";
+    this.urlIngenieria = "../../../assets/img/INGENIERIA.jpg";
+    this.urlMantenimiento = "../../../assets/img/MANTENIMIENTO.jpg";
+    this.urlProduccion = "../../../assets/img/PRODUCCION.jpg";
+    this.urlCalidad = "../../../assets/img/CALIDAD.jpg";
+    this.urlMateriales = "../../../assets/img/MATERIALES.jpg";
   }
 
   async getTipos(searchValue: string) {
@@ -39,7 +54,6 @@ export class TipoEquipoComponent implements OnInit {
 
   onSearchChange(searchValue: string) {
    // this.getTipos(searchValue);
-    //console.log(searchValue);
   }
 
   add(){
@@ -97,5 +111,34 @@ export class TipoEquipoComponent implements OnInit {
     });
   }
 
+  Eventoc(_eventoc,number) {
+    if(number == 4){
+      this.nombre = 'Mantenimiento'
+    } else if(number == 5){
+       this.nombre = 'Materiales'
+    }else if(number == 6){
+      this.nombre = 'Ingenieria'
+    }else if(number == 7){
+       this.nombre = 'Producción'
+    }else if(number == 8){
+       this.nombre = 'Calidad'
+    }
+    const dialogRef = this.dialog.open(NuevoEventoCausaComponent, {
+      width: '50rem',
+      data: {
+        title: this.nombre +' - Registro de fallas por evento',
+        btnText: 'Guardar',
+        alertSuccesText: 'Evento de causa modificada correctamente',
+        alertErrorText: "No se puedo modificar el evento de causa",
+        modalMode: 'edit',
+        idevento: number,
+        _eventoc
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.getTipos("");
+    });
+  }
 
 }
