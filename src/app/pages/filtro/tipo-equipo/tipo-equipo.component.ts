@@ -123,6 +123,7 @@ export class TipoEquipoComponent implements OnInit {
     }else if(number == 8){
        this.nombre = 'Calidad'
     }
+    
     const dialogRef = this.dialog.open(NuevoEventoCausaComponent, {
       width: '50rem',
       data: {
@@ -132,6 +133,7 @@ export class TipoEquipoComponent implements OnInit {
         alertErrorText: "No se puedo modificar el evento de causa",
         modalMode: 'edit',
         idevento: number,
+        idequipo: _eventoc,
         _eventoc
       }
     });
