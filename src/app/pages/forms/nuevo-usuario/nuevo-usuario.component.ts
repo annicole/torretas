@@ -148,6 +148,11 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       this.usuario.nip = nip;
       this.auxnip2= nip;
       this.usuario.activousr = parseInt(activousr);
+      if(password){
+        this.usuario.password = password;
+      }else{
+        this.usuario.password = "Password123";
+      }
     }
     if(tipousuario){
       this.sistema=true;

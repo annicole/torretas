@@ -70,7 +70,7 @@ export class  PersonalCalidadComponent implements OnInit {
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       departamento: ['', Validators.required],
-      evento: ['', Validators.required],
+      // evento: ['', Validators.required],
     });
     this.getUsuarios2('');
     this.getDepartamentos();
