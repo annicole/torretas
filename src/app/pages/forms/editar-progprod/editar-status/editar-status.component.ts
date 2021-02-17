@@ -25,7 +25,9 @@ export class EditarStatusComponent extends Dialog implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       idstatus: ['', Validators.required],
-      idprogprod: ['']
+      idprogprod: [''],
+      prioridad:[''],
+      idmaquina:['']
     });
     this.token = this.auth.token;
     this.loadModalTexts();
@@ -40,8 +42,8 @@ export class EditarStatusComponent extends Dialog implements OnInit {
 
     console.log(obj)
     if (obj) {
-      const { idstatus,idprogprod} = obj;
-      this.form.patchValue({ idstatus, idprogprod });
+      const { idstatus,idprogprod, prioridad,idmaquina} = obj;
+      this.form.patchValue({ idstatus, idprogprod ,prioridad,idmaquina});
     }
   }
 
@@ -59,8 +61,9 @@ export class EditarStatusComponent extends Dialog implements OnInit {
 
   async guardar() {
     try {
-      let response = await this.progprodService.update(this.form.value, this.token).toPromise();
+      let response = await this.progprodService.updateStatus(this.form.value, this.token).toPromise();
       if (response.code = 200) {
+        this.getprogprodprioridad()
         this.showAlert(this.alertSuccesText, true);
         this.closeModal();
       }
@@ -68,8 +71,19 @@ export class EditarStatusComponent extends Dialog implements OnInit {
         this.showAlert(this.alertErrorText, false);
       }
     } catch (e) {
+      console.log(e.error.message)
       this.showAlert(e.error.message, false);
     }
   }
 
+  get f() { return this.form.controls; }
+
+  async getprogprodprioridad(){
+    try {
+      let response;
+      response = await this.progprodService.getprogprodprioridad( this.auth.token).toPromise();
+    } catch (e) {
+     
+    }
+  }
 }
