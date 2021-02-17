@@ -40,6 +40,11 @@ export class ProgprodService {
     return this.http.get(this.url + '/getprogprodfprod', {headers,params:params});
   }
 
+  getprogprodprioridad(token): Observable<any> {  
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/getprogprodprioridad', {headers});
+  }
+
   create(obj, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url +'/get', obj, { headers });
@@ -72,5 +77,10 @@ export class ProgprodService {
   update(obj, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.put(`${this.url + '/read'}/${obj.idprogprod}`, obj, { headers });
+  }
+
+  updateStatus(obj, token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.put(`${this.url + '/updateStatus'}/${obj.idprogprod}`, obj, { headers });
   }
 }

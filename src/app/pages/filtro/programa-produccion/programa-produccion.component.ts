@@ -59,6 +59,7 @@ export class ProgramaProduccionComponent implements OnInit {
 
   async getWo(){
     try {
+      this.listaWo = [];
       let resp = await this.progprodService.getProgprodfwo(this.auth.token).toPromise();
       if (resp.code == 200) {
         this.listaWo = resp.progprodwo;
@@ -70,6 +71,7 @@ export class ProgramaProduccionComponent implements OnInit {
 
   async getSKU(idwo){
     try {
+      this.listaSKU = [];
       let resp =await this.progprodService.getProgprodfprod(this.auth.token,idwo).toPromise();
       if (resp.code == 200) {
         this.listaSKU = resp.progprod;
@@ -99,6 +101,7 @@ export class ProgramaProduccionComponent implements OnInit {
       if (response.code == 200) {
         Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
         this.submitted = false;
+        this.getWo();
         this.form.reset({});
         this.getProgprodf();
       }
@@ -190,6 +193,8 @@ export class ProgramaProduccionComponent implements OnInit {
         this.progprodService.delete(obj, this.auth.token).subscribe(res => {
           if (res.code == 200) {
             Swal.fire('Eliminado', 'El registro ha sido borrado!', 'success');
+            this.getWo();
+            this.form.reset({});
             this.getProgprodf();
           } else {
             Swal.fire('Error', 'No fue posible borrar el registro!', 'error');
@@ -232,6 +237,7 @@ export class ProgramaProduccionComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(data => {
+      //this.getprogprodprioridad();
       this.getProgprodf();
     });
   }
