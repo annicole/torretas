@@ -7,7 +7,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Maquina } from '@app/models/maquina';
 import { Area } from '@app/models/area';
 import { TipoEquipo } from '@app/models/tipoEquipo';
-import { ModuloInterfaz } from '@app/models/moduloInterfaz';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
@@ -27,7 +26,7 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
   submitted = false;
   areas: Area[];
   tipos: TipoEquipo[];
-  moduloInterfaz: ModuloInterfaz[];
+  moduloInterfaz:[];
   token;
 
   constructor(private maquinaService: MaquinaService, private areaService: AreaService,
@@ -76,9 +75,9 @@ export class NuevoMaquinaComponent extends Dialog implements OnInit {
 
   async getModulo() {
     try {
-      let resp = await this.moduloService.getModuloInterfaz('',this.token).toPromise();
+      let resp = await this.moduloService.getModuloInterfazLista(this.token).toPromise();
       if (resp.code == 200) {
-        this.moduloInterfaz = resp.moduloI;
+        this.moduloInterfaz = resp.modulo;
       }
     } catch (error) {    }
   }

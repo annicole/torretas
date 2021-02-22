@@ -57,7 +57,7 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
       fechaFin: ['', Validators.required],
       area: [''],
       tipo: ['']
-    }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'), this.ValidDate('horaInicio', 'horaFin')] });
+    }, { validators: [this.ValidDate('fechaInicio', 'fechaFin'), this.ValidDateHour('fechaInicio', 'fechaFin','horaInicio', 'horaFin')] });
     this.getSelect();
     this.graficaForm.get('maquina').setValidators([Validators.required]);
     this.maxDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
@@ -98,6 +98,7 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
       let responseDonut = await this.graficaService.getGraficaAnillo(value, fechaI, fechaF, bandera, this.auth.token).toPromise();
       if (responseDonut.code == 200) {
         arreglo = responseDonut.grafica[0];
+        console.log(arreglo)
         Object.keys(arreglo).forEach(key => {
           if (key.substring(0, 2) === 'te') {
             let keyValue = key.substring(2, key.length);
@@ -192,6 +193,24 @@ export class GraficaEventoComponent extends ClassChart implements OnInit {
       }
       if (controlFinal.value < controlInicio.value) {
         controlFinal.setErrors({ mustMatch: true });
+      }
+    }
+  }
+
+  //Valida la hora , toma en cuenta la fecha
+  ValidDateHour(fechainicio: string, fechaFinal: string, horaInicio:string, horaFin:string) {
+    return (formGroup: FormGroup) => {
+      const controlInicio = formGroup.controls[fechainicio];
+      const controlFinal = formGroup.controls[fechaFinal];
+      const controlHoraI = formGroup.controls[horaInicio];
+      const controlHoraF = formGroup.controls[horaFin];
+      if (controlHoraF.errors && !controlHoraF.errors.mustMatch) {
+        return;
+      }
+      if (controlHoraF.value < controlHoraI.value) {
+          if(controlFinal.value < controlInicio.value){
+             controlFinal.setErrors({ mustMatch: true });
+          }
       }
     }
   }
