@@ -19,6 +19,12 @@ export class ModuloInterfazService {
     return this.http.get(this.url + '/get', { headers, params: params });
   }
 
+  //Get modulos de procedimiento
+  getModuloInterfazLista(token): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this.http.get(this.url + '/getModinterfazlista', { headers});
+  }
+
   create(modulo, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url + '/get', modulo, { headers });
