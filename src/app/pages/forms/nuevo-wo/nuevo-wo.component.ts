@@ -64,12 +64,12 @@ export class NuevoWoComponent implements OnInit {
     private dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private titleService: Title
-  ) {  }
+  ) { }
 
   ngOnInit() {
     this.token = this.auth.token;
     this.idwo = this.activate.snapshot.paramMap.get('id');
-    this.titleService.setTitle('Orden ' + this.idwo); 
+    this.titleService.setTitle('Orden ' + this.idwo);
 
     this.getWo();
     this.getStatuswosub('');
@@ -214,7 +214,7 @@ export class NuevoWoComponent implements OnInit {
     }
     else if (tip == '1') {
       this.form.value.tipowosub = 1;
-    } 
+    }
   }
 
   delete(wosub) {

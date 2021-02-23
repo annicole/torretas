@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraficaEventoComponent } from './pages/graficas/grafica-evento/grafica-evento.component';
@@ -8,16 +8,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { registerLocaleData } from '@angular/common';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatTableModule} from '@angular/material/table';
-import {MatSortModule} from '@angular/material/sort';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import localeEsMX from '@angular/common/locales/es-MX';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
@@ -58,7 +58,7 @@ import { NuevoPerfilconfigComponent } from './pages/forms/nuevo-perfilconfig/nue
 import { PerfilConfigComponent } from './pages/filtro/perfil-config/perfil-config.component';
 import { NuevoConfiguracionModuloComponent } from './pages/forms/nuevo-configuracion-modulo/nuevo-configuracion-modulo.component';
 import { RespiradorComponent } from './pages/filtro/respirador/respirador.component';
-import { NuevoProductoComponent} from './pages/forms/nuevo-producto/nuevo-producto.component';
+import { NuevoProductoComponent } from './pages/forms/nuevo-producto/nuevo-producto.component';
 import { ProductosComponent } from './pages/filtro/productos/productos.component';
 import { NuevoSubensambleComponent } from './pages/forms/nuevo-subensamble/nuevo-subensamble.component';
 import { NuevoMateriapComponent } from './pages/forms/nuevo-materiap/nuevo-materiap.component';
@@ -100,7 +100,10 @@ import { EditarUsuarioComponent } from './pages/forms/editar-usuario/editar-usua
 import { CambiarNipComponent } from './pages/forms/cambiar-nip/cambiar-nip.component';
 import { CambiarContrComponent } from './pages/forms/cambiar-contr/cambiar-contr.component';
 import { NuevoEventoCausaComponent } from './pages/forms/nuevo-eventofalla/nuevo-eventofalla.component';
-
+import { RegistroProduccionComponent } from './pages/filtro/registro-produccion/registro-produccion.component';
+import { NuevoRegOrdenComponent } from './pages/forms/nuevo-reg-orden/nuevo-reg-orden.component';
+import { NuevoRegPiezaComponent } from './pages/forms/nuevo-reg-pieza/nuevo-reg-pieza.component';
+import { NuevoRegScrapComponent } from './pages/forms/nuevo-reg-scrap/nuevo-reg-scrap.component';
 
 registerLocaleData(localeEsMX, 'es-Mx');
 
@@ -167,7 +170,7 @@ registerLocaleData(localeEsMX, 'es-Mx');
     OrdenManufacturaComponent,
     IngresaNipComponent,
     CatalogoFuncionesComponent,
-    AsignacionEquipoComponent,    
+    AsignacionEquipoComponent,
     NuevoWoComponent,
     NuevoWosubComponent,
     NuevoStatuswosubComponent,
@@ -185,6 +188,10 @@ registerLocaleData(localeEsMX, 'es-Mx');
     CambiarNipComponent,
     CambiarContrComponent,
     NuevoEventoCausaComponent,
+    RegistroProduccionComponent,
+    NuevoRegOrdenComponent,
+    NuevoRegPiezaComponent,
+    NuevoRegScrapComponent,
   ],
   imports: [
     BrowserModule,
@@ -205,14 +212,15 @@ registerLocaleData(localeEsMX, 'es-Mx');
     MatButtonToggleModule,
     MatSlideToggleModule,
   ],
-  providers: [DatePipe,{ provide: LOCALE_ID, useValue: 'es-Mx' }],
+  providers: [DatePipe, { provide: LOCALE_ID, useValue: 'es-Mx' }],
   bootstrap: [AppComponent],
   entryComponents: [
-    NuevoDepartamentoComponent,NuevoAreaComponent,NuevoMaquinaComponent,NuevoSensorComponent,NuevoUsuarioComponent,
+    NuevoDepartamentoComponent, NuevoAreaComponent, NuevoMaquinaComponent, NuevoSensorComponent, NuevoUsuarioComponent,
     NuevoTipoEquipoComponent, NuevoModuloComponent, NuevoPerfilconfigComponent, NuevoProductoComponent, NuevoMateriapComponent, NuevoSubensambleComponent,
     NuevoUmComponent, NuevoContempComponent, NuevoEmpresaComponent, NuevoRelcompComponent, NuevoCondpagoComponent, NuevoStatuswoComponent, AsignacionEquipoComponent,
-    IngresaNipComponent, CatalogoFuncionesComponent,NuevoWoComponent, NuevoStatuswosubComponent, NuevoWosubComponent,EditarProgprodComponent,NuevoTurnosComponent,NuevoDiaTurnoComponent,
-    FuncionUsuComponent, EditarUsuarioComponent, CambiarContrComponent, CambiarNipComponent, EditarStatusComponent, NuevoEventoCausaComponent,
+    IngresaNipComponent, CatalogoFuncionesComponent, NuevoWoComponent, NuevoStatuswosubComponent, NuevoWosubComponent, EditarProgprodComponent, NuevoTurnosComponent, NuevoDiaTurnoComponent,
+    FuncionUsuComponent, EditarUsuarioComponent, CambiarContrComponent, CambiarNipComponent, EditarStatusComponent, NuevoEventoCausaComponent, RegistroProduccionComponent,
+    NuevoRegOrdenComponent, NuevoRegPiezaComponent, NuevoRegScrapComponent,
   ]
 })
 export class AppModule { }

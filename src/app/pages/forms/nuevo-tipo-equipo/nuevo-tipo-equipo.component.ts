@@ -73,7 +73,7 @@ export class NuevoTipoEquipoComponent extends Dialog implements OnInit {
       }
       if (response.code = 200) {
         this.showAlert(this.alertSuccesText, true);
-        this.closeModal();
+        
       }
       else {
         this.showAlert(this.alertErrorText, false);

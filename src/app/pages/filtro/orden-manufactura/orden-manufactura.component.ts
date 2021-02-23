@@ -300,25 +300,6 @@ export class OrdenManufacturaComponent implements OnInit {
     }
   }
 
-  /*
-  update(wo) {
-    const dialogRef = this.dialog.open(NuevoWoComponent, {
-      width: '40rem',
-      data: {
-        title: 'Editar Orden de Manufactura: ' + wo.idwo,
-        btnText: 'Guardar',
-        alertSuccesText: 'Producto modificado correctamente',
-        alertErrorText: "No se puedo modificar el registro",
-        modalMode: 'edit',
-        _wo: wo
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(data => {
-      this.getOrdenManufactura('');
-    });
-  } */
-
   delete(wo) {
     Swal.fire({
       title: '¿Desea eliminar el registro?', text: "",

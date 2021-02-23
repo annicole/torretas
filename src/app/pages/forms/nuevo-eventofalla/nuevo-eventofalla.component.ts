@@ -6,6 +6,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { Dialog } from '@app/classes/Dialog';
 import { AuthService } from '@app/services/auth.service';
 import Swal from 'sweetalert2';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-nuevo-eventofalla',
@@ -93,7 +94,7 @@ export class NuevoEventoCausaComponent extends Dialog implements OnInit {
       response = await this.eventocausaService.create(this.form.value, this.token).toPromise();
       if (response.code == 200) {
         this.showAlert(this.alertSuccesText, true);
-        this.closeModal();
+       this.getEventoc();
       }
       else {
         this.showAlert(this.alertErrorText, false);
