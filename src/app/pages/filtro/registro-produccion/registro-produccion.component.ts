@@ -17,6 +17,7 @@ import { EditarStatusComponent } from '@app/pages/forms/editar-progprod/editar-s
 import { NuevoRegOrdenComponent } from '@app/pages/forms/nuevo-reg-orden/nuevo-reg-orden.component'
 import { NuevoRegPiezaComponent } from '@app/pages/forms/nuevo-reg-pieza/nuevo-reg-pieza.component'
 import { NuevoRegScrapComponent } from '@app/pages/forms/nuevo-reg-scrap/nuevo-reg-scrap.component'
+import { now } from '@amcharts/amcharts4/.internal/core/utils/Time';
 
 @Component({
   selector: 'app-registro-produccion',

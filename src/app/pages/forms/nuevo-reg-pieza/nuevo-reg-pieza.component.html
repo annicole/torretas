@@ -25,7 +25,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let pz of pieza">
-                        <td>{{pz.acdef}}</td>
+                        <td>{{pz.acdef | number}}</td>
                         <td>
                             <a class="btn icon" data-toggle="tooltip" data-placement="top" title="Eliminar "
                                 (click)="delete(pz)"><i class="material-icons">delete</i></a>

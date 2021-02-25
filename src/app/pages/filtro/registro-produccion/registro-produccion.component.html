@@ -43,7 +43,7 @@
         </div>
         <div class="form-group col-md-2">
           <label for="tcarga">Tiempo carga horas</label>
-          <p> {{obj.tcarga}} </p>
+          <p> {{obj.tcarga | number: '1.0-0' }} </p>
         </div>
         <div class="form-group col-md-2">
           <label for="idprogprod">Lote</label>
@@ -52,17 +52,17 @@
 
         <div class="form-group col-md-3 tot">
           <p for="totpro">Cantidad producida</p>
-          <p> {{obj.totpro}} </p>
+          <p> {{obj.totpro| number: '1.0-0' }} </p>
           <button class="reg btn btn-secondary" (click)="newCantidad(obj)">Registrar</button>
         </div>
         <div class="form-group col-md-3 tot">
           <p for="totdef">Piezas defectuosas</p>
-          <p> {{obj.totdef}} </p>
+          <p> {{obj.totdef| number: '1.0-0' }} </p>
           <button class="reg btn btn-secondary" (click)="newPieza(obj)">Registrar</button>
         </div>
         <div class="form-group col-md-3 tot">
           <p for="totscrap">Scrap generado</p>
-          <p> {{obj.totscrap}} </p>
+          <p> {{obj.totscrap| number: '1.0-0' }} </p>
           <button class="reg btn btn-secondary" (click)="newScrap(obj)">Registrar</button>
         </div>
       </div>

@@ -25,7 +25,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let sr of scrap">
-                        <td>{{sr.acscrap}}</td>
+                        <td>{{sr.acscrap | number}}</td>
                         <td>
                             <a class="btn icon" data-toggle="tooltip" data-placement="top" title="Eliminar "
                                 (click)="delete(sr)"><i class="material-icons">delete</i></a>
