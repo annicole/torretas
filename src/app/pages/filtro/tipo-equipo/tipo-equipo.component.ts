@@ -33,12 +33,12 @@ export class TipoEquipoComponent implements OnInit {
   ngOnInit() {
     this.getTipos("");
 
-    this.urlOperando = "../../../assets/img/OPERANDO.jpg";
-    this.urlIngenieria = "../../../assets/img/INGENIERIA.jpg";
-    this.urlMantenimiento = "../../../assets/img/MANTENIMIENTO.jpg";
-    this.urlProduccion = "../../../assets/img/PRODUCCION.jpg";
-    this.urlCalidad = "../../../assets/img/CALIDAD.jpg";
-    this.urlMateriales = "../../../assets/img/MATERIALES.jpg";
+    this.urlOperando = "../../../assets/img/OPERANDO - FONDO BLANCO.png";
+    this.urlIngenieria = "../../../assets/img/INGENIERIA - FONDO BLANCO.png";
+    this.urlMantenimiento = "../../../assets/img/MANTENIMIENTO - FONDO BLANCO.png";
+    this.urlProduccion = "../../../assets/img/PRODUCCION - FONDO BLANCO.png";
+    this.urlCalidad = "../../../assets/img/CALIDAD - FONDO BLANCO.png";
+    this.urlMateriales = "../../../assets/img/MATERIALES - FONDO BLANCO.png";
   }
 
   async getTipos(searchValue: string) {

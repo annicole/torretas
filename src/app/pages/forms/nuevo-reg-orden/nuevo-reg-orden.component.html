@@ -25,7 +25,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let pro of produccion">
-                        <td>{{pro.Cantidad | titlecase}}</td>
+                        <td>{{pro.Cantidad | number}}</td>
                         <td>
                             <a class="btn icon" data-toggle="tooltip" data-placement="top" title="Eliminar "
                                 (click)="delete(pro)"><i class="material-icons">delete</i></a>
