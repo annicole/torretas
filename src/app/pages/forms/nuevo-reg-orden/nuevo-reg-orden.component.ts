@@ -7,7 +7,7 @@ import { Dialog } from '@app/classes/Dialog';
 import { AuthService } from '@app/services/auth.service';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
-import { truncateWithEllipsis } from '@amcharts/amcharts4/.internal/core/utils/Utils';
+import { get12Hours, truncateWithEllipsis } from '@amcharts/amcharts4/.internal/core/utils/Utils';
 
 @Component({
   selector: 'app-nuevo-reg-orden',

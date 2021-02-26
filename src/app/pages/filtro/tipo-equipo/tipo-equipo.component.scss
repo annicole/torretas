@@ -25,13 +25,15 @@ button {
 }
 
 .alig {
-  text-align: center;
+  text-align: left;
 }
 
 .material-icons {
-  width: 80%;
-  height: 70px;
+  width: 45px;
+  height: 45px;
   padding-bottom: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
   right: 2px;
-  display: inline;
+  display: inline-block;
 }
