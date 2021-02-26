@@ -8,21 +8,19 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th style="width: 40%" scope="col">Tipo Equipo</th>
-          <th style="width: 10%" scope="col">Opciones</th>
-          <th style="width: 50%" scope="col"></th>
+          <th style="width: 60%" scope="col">Tipo Equipo</th>
+          <th style="width: 40%" scope="col">Opciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let t of tipos">
           <td>{{t.tipoequipo | titlecase}}</td>
-          <td>
+          <td class="alig">
             <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar" (click)="update(t)"><i
                 class="material-icons">create</i></a>
             <!--<a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar " (click)="delete(t.idtipo)"><i
                   class="material-icons">delete</i></a>-->
-          </td>
-          <td class="alig">
+          
             <button (click)="Eventoc(t.idtipo,4)" value="4"><img class="material-icons"  [src]="urlMantenimiento" alt="Mantenimiento"></button>
             <button (click)="Eventoc(t.idtipo,5)" value="5"><img class="material-icons"  [src]="urlMateriales" alt="Materiales"></button>
             <button (click)="Eventoc(t.idtipo,6)" value="6"><img class="material-icons"  [src]="urlIngenieria" alt="Ingenieria"></button>
