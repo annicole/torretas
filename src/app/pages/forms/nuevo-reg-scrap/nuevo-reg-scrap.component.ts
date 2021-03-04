@@ -41,7 +41,6 @@ export class NuevoRegScrapComponent extends Dialog implements OnInit {
     this.form = this.formBuilder.group({
       acscrap: ['',Validators.required],
       Idprogprod: [],
-      Feacsc: [],
       Umed: [],
     });
     this.token = this.auth.token;
@@ -87,7 +86,6 @@ export class NuevoRegScrapComponent extends Dialog implements OnInit {
 
   async guardar() {
     this.form.value.Idprogprod = this.idprogprod;
-    this.form.value.Feacsc = this.date;
     try {
       let response;
       response = await this.acumscrapService.create(this.form.value, this.token).toPromise();
