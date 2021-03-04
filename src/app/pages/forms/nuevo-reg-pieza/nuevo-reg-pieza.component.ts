@@ -41,7 +41,6 @@ export class NuevoRegPiezaComponent extends Dialog implements OnInit {
     this.form = this.formBuilder.group({
       acdef: ['',Validators.required],
       idprogprod: [],
-      Feacdef: [],
       Umed: [],
     });
     this.token = this.auth.token;
@@ -88,7 +87,6 @@ export class NuevoRegPiezaComponent extends Dialog implements OnInit {
 
   async guardar() {
     this.form.value.Idprogprod = this.idprogprod;
-    this.form.value.Feacdef = this.date;
     try {
       let response;
       response = await this.acumcalService.create(this.form.value, this.token).toPromise();

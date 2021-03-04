@@ -44,7 +44,6 @@ export class NuevoRegOrdenComponent extends Dialog implements OnInit {
       Cantidad: ['',Validators.required],
       lote: [],
       idmaquina: [],
-      Fecha: [],
     });
     this.token = this.auth.token;
     this.loadModalTexts();
@@ -92,7 +91,6 @@ export class NuevoRegOrdenComponent extends Dialog implements OnInit {
 
   async guardar() {
     this.form.value.idmaquina = this.idmaquina;
-    this.form.value.Fecha = this.date;
     this.form.value.lote = this.lote;
     try {
       let response;
