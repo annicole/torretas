@@ -36,7 +36,14 @@ export class GraficaSensorComponent extends ClassChart implements OnInit {
     "Apagado",
     "Evento",
     "Paro"
-  ]
+  ];
+  urlOperando = "../../../assets/img/Operando_B.jpg";
+  urlEnparo="../../../assets/img/paro.jpg";
+  urlIngenieria = "../../../assets/img/INGENIERIA - FONDO BLANCO.png";
+  urlMantenimiento = "../../../assets/img/MANTENIMIENTO - FONDO BLANCO.png";
+  urlProduccion = "../../../assets/img/PRODUCCION - FONDO BLANCO.png";
+  urlCalidad = "../../../assets/img/CALIDAD - FONDO BLANCO.png";
+  urlMateriales = "../../../assets/img/MATERIALES - FONDO BLANCO.png";
 
   constructor(
     @Inject(MaquinaService) maquinaService: MaquinaService,
@@ -93,8 +100,10 @@ export class GraficaSensorComponent extends ClassChart implements OnInit {
       }
       if (bandera) {
         let response = await this.graficaService.getGraficaEstadoR(id, tipo, this.auth.token).toPromise();
+        console.log(response)
         if (response.code == 200) {
-          arreglo = response.grafica;
+          this.dataChart = response.grafica;
+        /*  arreglo = response.grafica;
           arreglo.forEach((element) => {
             let maquina = element["DESCRIPCION"];
             Object.keys(element).forEach(key => {
@@ -112,14 +121,14 @@ export class GraficaSensorComponent extends ClassChart implements OnInit {
                 }
               }
             });
-          });
-          if (this.chart) {
+          });*/
+          /*if (this.chart) {
             this.chart.data = this.dataChart;
             this.chart.validateData();
           } else {
             this.llenarGrafica();
-          }
-          this.intervalSubs = this.intervalTimer.subscribe(() => this.getDatosGrafica(false));
+          }*/
+         // this.intervalSubs = this.intervalTimer.subscribe(() => this.getDatosGrafica(false));
         } else {
           Swal.fire('Error', 'No existe información para la tabla', 'error');
         }
