@@ -42,7 +42,7 @@ export class RegistroProduccionComponent implements OnInit {
 
   listNav = [
     { "name": "Registro de producción", "router": "/registro-de-produccion" },
-    { "name": "Programa de producción", "router": "/producción" },
+    { "name": "Programa de producción", "router": "/produccion" },
   ]
 
   constructor(

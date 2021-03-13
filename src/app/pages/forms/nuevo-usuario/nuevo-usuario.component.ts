@@ -46,18 +46,18 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
         password2: ['', Validators.required],
         correo: ['', [Validators.required, Validators.email]],
         celular: ['',],
-        activousu: ['', Validators.required],
+        activousr: ['', Validators.required],
       }, 
       { validator: [this.MustMatch('password', 'password2'), this.MustMatch('nip', 'nip2')] });
     }else{
       this.usuarioForm = this.formBuilder.group({
         nip: ['', Validators.required,],
-        nip2:['', Validators.required,],
+        nip2: ['', Validators.required],
         correo: ['', [Validators.required, Validators.email]],
-        celular: ['',],
-        activoemp: ['', Validators.required],
-      }, 
-      { validator: [this.MustMatch('nip', 'nip2')] });
+        celular: [''],
+        activousr: ['', Validators.required],
+      },
+        { validator: [this.MustMatch('nip', 'nip2')] });
     }
     this.token= this.auth.token;
     this.getDeptos();
@@ -88,19 +88,37 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   }
 
   async guardar() {
-    try {
-      let response = await this.usuarioService.create(this.usuario,this.token).toPromise();
-      if (response.code = 200) {
-        this.showAlert(this.alertSuccesText, true);
-        this.closeModal();
+    console.log(this.usuario)
+    if (this.sistema) {
+      try {
+        let response = await this.usuarioService.create(this.usuario, this.token).toPromise();
+        if (response.code = 200) {
+          this.showAlert(this.alertSuccesText, true);
+          this.closeModal();
+        }
+        else {
+          console.log('AlertError');
+          this.showAlert(this.alertErrorText, false);
+        }
+      } catch (e) {
+        console.log('error');
+        this.showAlert(e.error.message, false);
       }
-      else {
-      console.log('AlertError');
-        this.showAlert(this.alertErrorText, false);
+    } else {
+      try {
+        let response = await this.usuarioService.createInf(this.usuario, this.token).toPromise();
+        if (response.code = 200) {
+          this.showAlert(this.alertSuccesText, true);
+          this.closeModal();
+        }
+        else {
+          console.log('AlertError');
+          this.showAlert(this.alertErrorText, false);
+        }
+      } catch (e) {
+        console.log('error');
+        this.showAlert(e.error.message, false);
       }
-    } catch (e) {
-      console.log('error');
-      this.showAlert(e.error.message, false);
     }
   }
 
@@ -160,13 +178,13 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
   }
 
   ToggleStatusUsu() {
-    console.log(this.usuarioForm.value.activousu)
-    if (this.usuarioForm.value.activousu == 1) {
+    console.log(this.usuarioForm.value.activousr)
+    if (this.usuarioForm.value.activousr == 1) {
       this.statusUsu = 'Activo';
       console.log('Activo')
     } else {
       this.statusUsu = 'Inactivo';
-      this.usuarioForm.value.activoemp = 0;
+      this.usuarioForm.value.activousr = 0;
       console.log('Inactivo')
     }
   }

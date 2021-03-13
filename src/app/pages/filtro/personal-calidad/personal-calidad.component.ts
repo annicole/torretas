@@ -40,6 +40,7 @@ export class PersonalCalidadComponent implements OnInit {
   formUser: FormGroup;
   total: number = 0;
   submitted = false;
+  statusUsu: string;
   listNav=[
     {"name":"Usuarios del sistema", "router":"/usuario"}, 
     {"name":"Personal tecnico", "router":"/personal-tecnico"}, 
@@ -69,22 +70,19 @@ export class PersonalCalidadComponent implements OnInit {
 
   async getUsuarios(searchValue: string) {
     try {
-      let resp = await this.usuarioService.getUsuarios(searchValue,'', '8', this.auth.token).toPromise();
+      let resp = await this.usuarioService.getUsuarios(searchValue,'1', '1', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
-
         this.total = this.usuarios.length;
+        console.log(this.usuarios)
       }
     } catch (e) {
     }
   }
 
   async getEventos(){
-    console.log("Antes de try");
     try{
-      console.log("dentro de try");
       let resp = await this.eventousuarioService.get(this.auth.token).toPromise();
-      console.log("paso await");
       if(resp.code == 200){
         // console.log(resp);
         // console.log(resp.code);
@@ -92,9 +90,7 @@ export class PersonalCalidadComponent implements OnInit {
         this.listaEvento = resp.eventos;
         //console.log(this.listaEvento);
       }
-      console.log("hey paso");
     }catch(e){
-      console.log(e);
     }
   }
 
@@ -138,7 +134,7 @@ export class PersonalCalidadComponent implements OnInit {
         btnText: 'Ingresar',
         alertSuccesText: 'Entraste!',
         alertErrorText: "El NIP no coincide",
-        modalMode: 'create',
+        modalMode: 'update',
         username:this.usuario.username,
         Username_last:this.usuario.Username_last,
         iddep:this.usuario.iddep,
@@ -221,6 +217,18 @@ export class PersonalCalidadComponent implements OnInit {
         alertErrorText: "No se puede agregar función",
       }
     });    
+  }
+
+  ToggleStatusUsu() {
+    console.log(this.formUser.value.activousr)
+    if (this.formUser.value.activousr == 1) {
+      this.statusUsu = 'Activo';
+      console.log('Activo')
+    } else {
+      this.statusUsu = 'Inactivo';
+      this.formUser.value.activoemp = 0;
+      console.log('Inactivo')
+    }
   }
 
 }

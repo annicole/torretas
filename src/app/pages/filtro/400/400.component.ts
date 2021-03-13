@@ -26,7 +26,9 @@ export class ProduccionComponent implements OnInit {
 
   ngOnInit() {
     this.getProductos('');
-   
+    var doo = new Date();
+    let dates = new Date(doo.getTime() + Math.abs(doo.getTimezoneOffset() - 60000))
+    console.log(dates)
   }
 
   async getProductos(searchValue: string) {
