@@ -39,6 +39,7 @@ export class PersonalIngenieriaComponent implements OnInit {
     listaDepart:Departamento[];
     formUser: FormGroup;
     total: number = 0;
+    statusUsu: string;
     submitted = false;
     listNav=[
       {"name":"Usuarios del sistema", "router":"/usuario"}, 
@@ -222,6 +223,7 @@ export class PersonalIngenieriaComponent implements OnInit {
         }
       });    
     }
+  
   
   }
   

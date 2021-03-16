@@ -39,6 +39,7 @@ export class PersonalMaterialesComponent implements OnInit {
     listaDepart:Departamento[];
     formUser: FormGroup;
     total: number = 0;
+    statusUsu: string;
     submitted = false;
     listNav=[
       {"name":"Usuarios del sistema", "router":"/usuario"}, 
@@ -223,5 +224,17 @@ export class PersonalMaterialesComponent implements OnInit {
       });    
     }
   
+    ToggleStatusUsu() {
+      console.log(this.formUser.value.activousr)
+      if (this.formUser.value.activousr == 1) {
+        this.statusUsu = 'Activo';
+        console.log('Activo')
+      } else {
+        this.statusUsu = 'Inactivo';
+        this.formUser.value.activoemp = 0;
+        console.log('Inactivo')
+      }
+    }
+
   }
   

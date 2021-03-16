@@ -40,6 +40,7 @@ export class PersonalTecnicoComponent implements OnInit {
   listaDepart:Departamento[];
   formUser: FormGroup;
   total: number = 0;
+  statusUsu: string;
   submitted = false;
   listNav=[
     {"name":"Usuarios del sistema", "router":"/usuario"}, 
@@ -60,6 +61,7 @@ export class PersonalTecnicoComponent implements OnInit {
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       departamento: ['', Validators.required],
+      
     });
     this.getUsuarios('');
     this.getDepartamentos();
@@ -223,5 +225,7 @@ export class PersonalTecnicoComponent implements OnInit {
       }
     });    
   }
+
+
 
 }

@@ -39,11 +39,16 @@ export class NuevoRegOrdenComponent extends Dialog implements OnInit {
   }
 
   ngOnInit() {
-    this.date = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+    //var doo = new Date();
+  //  let dates = new Date(doo.getTime() + Math.abs(doo.getTimezoneOffset() - 60000))
+  
+    this.date = this.datePipe.transform(Date.now(), 'yyyy-MM-dd HH:mm:ss');
+    console.log(this.date)
     this.form = this.formBuilder.group({
       Cantidad: ['',Validators.required],
       lote: [],
       idmaquina: [],
+      date: [],
     });
     this.token = this.auth.token;
     this.loadModalTexts();
@@ -92,6 +97,7 @@ export class NuevoRegOrdenComponent extends Dialog implements OnInit {
   async guardar() {
     this.form.value.idmaquina = this.idmaquina;
     this.form.value.lote = this.lote;
+    this.form.value.Fecha = this.date;
     try {
       let response;
       response = await this.produccionService.create(this.form.value, this.token).toPromise();

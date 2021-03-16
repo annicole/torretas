@@ -44,7 +44,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
         nip2:['', Validators.required,],
         password: ['', [Validators.required,Validators.min(6)]],
         password2: ['', Validators.required],
-        correo: ['', [Validators.required, Validators.email]],
+        email: ['', [Validators.required, Validators.email]],
         celular: ['',],
         activousr: ['', Validators.required],
       }, 
@@ -53,7 +53,7 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
       this.usuarioForm = this.formBuilder.group({
         nip: ['', Validators.required,],
         nip2: ['', Validators.required],
-        correo: ['', [Validators.required, Validators.email]],
+        email: ['', Validators.email],
         celular: [''],
         activousr: ['', Validators.required],
       },
@@ -105,6 +105,8 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
         this.showAlert(e.error.message, false);
       }
     } else {
+      this.usuarioForm.value.email = 'empty@gmail.com';
+      
       try {
         let response = await this.usuarioService.createInf(this.usuario, this.token).toPromise();
         if (response.code = 200) {
