@@ -70,7 +70,7 @@ export class PersonalCalidadComponent implements OnInit {
 
   async getUsuarios(searchValue: string) {
     try {
-      let resp = await this.usuarioService.getUsuarios(searchValue,'1', '1', this.auth.token).toPromise();
+      let resp = await this.usuarioService.getUsuarios(searchValue,'', '8', this.auth.token).toPromise();
       if (resp.code == 200) {
         this.usuarios = resp.usuario;
         this.total = this.usuarios.length;
@@ -219,16 +219,5 @@ export class PersonalCalidadComponent implements OnInit {
     });    
   }
 
-  ToggleStatusUsu() {
-    console.log(this.formUser.value.activousr)
-    if (this.formUser.value.activousr == 1) {
-      this.statusUsu = 'Activo';
-      console.log('Activo')
-    } else {
-      this.statusUsu = 'Inactivo';
-      this.formUser.value.activoemp = 0;
-      console.log('Inactivo')
-    }
-  }
-
+  
 }

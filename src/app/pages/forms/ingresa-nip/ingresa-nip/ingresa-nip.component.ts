@@ -115,7 +115,7 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
     this.dialogRef.close();
   }
 
-  loadModalTexts(): void {
+    loadModalTexts(): void {
   const { title, btnText, alertErrorText, alertSuccesText, modalMode, usuario} = this.data;
   this.title = title;
   this.btnText = btnText;

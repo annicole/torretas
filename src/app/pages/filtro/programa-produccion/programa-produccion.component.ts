@@ -8,9 +8,10 @@ import { AuthService } from '@app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MaquinaService} from '@app/services/maquina.service'
 import { EmpresaService } from '@app/services/empresa.service'
-import {ProductoService} from '@app/services/producto.service'
-import {EditarProgprodComponent} from '@app/pages/forms/editar-progprod/editar-progprod.component'
-import {EditarStatusComponent} from '@app/pages/forms/editar-progprod/editar-status/editar-status.component'
+import { ProductoService } from '@app/services/producto.service'
+import { EditarProgprodComponent } from '@app/pages/forms/editar-progprod/editar-progprod.component'
+import { EditarStatusComponent } from '@app/pages/forms/editar-progprod/editar-status/editar-status.component'
+import { Progprod } from '@app/models/progprod';
 
 @Component({
   selector: 'app-programa-produccion',
@@ -24,8 +25,9 @@ export class ProgramaProduccionComponent implements OnInit {
   maquinas=[];
   empresa=[];
   productos=[];
-  listaProgprod:[];
+  listaProgprod: Progprod = new Progprod;;
   total: number;
+  btnstatus:boolean = false;
   submitted = false;
   form:FormGroup
   formFilter:FormGroup
@@ -146,6 +148,11 @@ export class ProgramaProduccionComponent implements OnInit {
       let resp = await this.progprodService.getProgprodf(this.auth.token,this.formFilter.value).toPromise();
       if (resp.code == 200) {
         this.listaProgprod = resp.progprod;
+        if(this.listaProgprod.idstatus == 0){
+          this.btnstatus = true;
+        } else {
+          this.btnstatus = false;
+        }
       }
     } catch (error) {
       Swal.fire('Error', '', 'error');

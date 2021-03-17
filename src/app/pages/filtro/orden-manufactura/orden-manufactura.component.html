@@ -181,10 +181,10 @@
             <td>{{wo.Statuswo.statuswo | titlecase}}</td>
             <td>{{wo.woasig}}</td>
             <td>{{wo.ocliente | titlecase}}</td>
-
+<!-- target="_blank" -->
             <td>
               <a class="btn" data-toggle="tooltip" data-placement="top" title="Editar"
-                 [routerLink]="['/OrdenManufactura',wo.idwo]" target="_blank"
+                 [routerLink]="['/OrdenManufactura',wo.idwo]" 
                  ><i class="material-icons">create</i></a>
               <a class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar "
                  (click)="delete(wo)"><i class="material-icons">delete</i></a>
