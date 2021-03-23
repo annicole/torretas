@@ -11,7 +11,6 @@ import { EmpresaService } from '@app/services/empresa.service'
 import { ProductoService } from '@app/services/producto.service'
 import { EditarProgprodComponent } from '@app/pages/forms/editar-progprod/editar-progprod.component'
 import { EditarStatusComponent } from '@app/pages/forms/editar-progprod/editar-status/editar-status.component'
-import { Progprod } from '@app/models/progprod';
 
 @Component({
   selector: 'app-programa-produccion',
@@ -25,9 +24,9 @@ export class ProgramaProduccionComponent implements OnInit {
   maquinas=[];
   empresa=[];
   productos=[];
-  listaProgprod: Progprod = new Progprod;;
+  listaProgprod= [];
+  prod;
   total: number;
-  btnstatus:boolean = false;
   submitted = false;
   form:FormGroup
   formFilter:FormGroup
@@ -55,8 +54,8 @@ export class ProgramaProduccionComponent implements OnInit {
     this.getWo();
     this.getMaquinas();
     this.getEmpresa();
-    this.getProductos()
-    this.getProgprodf()
+    this.getProductos();
+    this.getProgprodf();
   }
 
   async getWo(){
@@ -79,6 +78,7 @@ export class ProgramaProduccionComponent implements OnInit {
         this.listaSKU = resp.progprod;
         if(this.listaSKU != null && this.listaSKU.length > 0){
           this.form.controls['idwosub'].setValue(this.listaSKU[0].idwosub);
+          this.form.controls['idProducto'].setValue(this.listaSKU[0].idproducto);
         }
       }
     } catch (error) {
@@ -89,6 +89,8 @@ export class ProgramaProduccionComponent implements OnInit {
   get f() { return this.form.controls; }
 
   onSubmit() {
+    console.log(this.form)
+    console.log(this.form.value)
     this.submitted = true;
     if (this.form.invalid) {
       return;
@@ -148,11 +150,6 @@ export class ProgramaProduccionComponent implements OnInit {
       let resp = await this.progprodService.getProgprodf(this.auth.token,this.formFilter.value).toPromise();
       if (resp.code == 200) {
         this.listaProgprod = resp.progprod;
-        if(this.listaProgprod.idstatus == 0){
-          this.btnstatus = true;
-        } else {
-          this.btnstatus = false;
-        }
       }
     } catch (error) {
       Swal.fire('Error', '', 'error');

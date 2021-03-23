@@ -18,7 +18,7 @@
             <label for="idwosub" class="form-label">Sku del producto</label>
             <select class="form-control" id="idwosub" nombre="idwosub" formControlName="idwosub"
                 [ngClass]="{ 'is-invalid': submitted && f.idwosub.errors }">
-                <option *ngFor="let sku of listaSKU" [value]="sku.idwosub " >{{sku.coment}}
+                <option *ngFor="let sku of listaSKU" [value]="sku.idwosub">{{sku.coment}}
                 </option>
             </select>
             <div *ngIf="submitted && f.idwosub.errors" class="invalid-feedback">
@@ -112,7 +112,7 @@
                             <button type="button" (click)="editStatus(obj)" class="btn btn-primary status-button">Status</button>
                         </td>
                         <td>
-                            <button *ngIf="obj.idstatus == 0"  class="btn btn-primary status-button" data-toggle="tooltip" data-placement="top" title="Registros"
+                            <button *ngIf="obj.idstatus==0" class="btn btn-primary status-button" data-toggle="tooltip" data-placement="top" title="Registros"
                                 [routerLink]="['/registro-de-produccion',obj.idprogprod]" target="_blank">Registro</button>
                         </td>
                     </tr>
