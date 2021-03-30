@@ -105,8 +105,6 @@ export class NuevoUsuarioComponent extends Dialog implements OnInit {
         this.showAlert(e.error.message, false);
       }
     } else {
-      this.usuarioForm.value.email = 'empty@gmail.com';
-      
       try {
         let response = await this.usuarioService.createInf(this.usuario, this.token).toPromise();
         if (response.code = 200) {
