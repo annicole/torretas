@@ -37,7 +37,7 @@
           <label for="desc_producto">Descripción del producto</label>
           <p> {{obj.desc_producto}} </p>
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-3">
           <label for="cant">Cantidad programada</label>
           <p> {{obj.cant}} </p>
         </div>
@@ -45,7 +45,7 @@
           <label for="tcarga">Tiempo carga horas</label>
           <p> {{obj.tcarga | number: '1.0-0' }} </p>
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-1">
           <label for="idprogprod">Lote</label>
           <p> {{obj.idprogprod}} </p>
         </div>
@@ -53,18 +53,25 @@
         <div class="form-group col-md-3 tot">
           <p for="totpro">Cantidad producida</p>
           <p> {{obj.totpro| number: '1.0-0' }} </p>
-          <button class="reg btn btn-secondary" (click)="newCantidad(obj)">Registrar</button>
+          <button class="reg btn btn-primary" (click)="newCantidad(obj)">Registrar</button>
         </div>
         <div class="form-group col-md-3 tot">
           <p for="totdef">Piezas defectuosas</p>
           <p> {{obj.totdef| number: '1.0-0' }} </p>
-          <button class="reg btn btn-secondary" (click)="newPieza(obj)">Registrar</button>
+          <button class="reg btn btn-primary" (click)="newPieza(obj)">Registrar</button>
         </div>
         <div class="form-group col-md-3 tot">
           <p for="totscrap">Scrap generado</p>
           <p> {{obj.totscrap| number: '1.0-0' }} </p>
-          <button class="reg btn btn-secondary" (click)="newScrap(obj)">Registrar</button>
+          <button class="reg btn btn-primary" (click)="newScrap(obj)">Registrar</button>
         </div>
+
+        <div  class="form-group col-md-3 btn-group-vertical tot" role="group" >
+          <button type="button" class="btn btn-primary" (click)="null" >En preparación</button>
+          <button type="button" class="btn btn-primary" (click)="null" >En producción</button>
+          <button type="button" class="btn btn-primary" (click)="null" >Terminado</button>
+      </div>
+
       </div>
     </form>
   </div>

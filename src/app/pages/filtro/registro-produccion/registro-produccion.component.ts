@@ -34,7 +34,7 @@ export class RegistroProduccionComponent implements OnInit {
   empresa = [];
   productos = [];
   progprod = [];
-  prodregisro= [];
+  prodregisro = [];
   form: FormGroup;
   submitted = false;
   token;
@@ -92,7 +92,7 @@ export class RegistroProduccionComponent implements OnInit {
 
   async getProdregisro() {
     try {
-      let resp = await this.prodregisroService.getProdregisro(this.auth.token,this.idprogprod).toPromise();
+      let resp = await this.prodregisroService.getProdregisro(this.auth.token, this.idprogprod).toPromise();
       if (resp.code == 200) {
         this.prodregisro = resp.prodregisro;
         console.log(this.prodregisro)
@@ -101,7 +101,6 @@ export class RegistroProduccionComponent implements OnInit {
       Swal.fire('Error', '', 'error');
     }
   }
-
 
   async getWo() {
     try {
@@ -155,6 +154,22 @@ export class RegistroProduccionComponent implements OnInit {
         this.productos = resp.response;
       }
     } catch (e) {
+    }
+  }
+
+  async save(){
+    try {
+      let response = await this.progprodService.create(this.form.value, this.auth.token).toPromise();
+      if (response.code == 200) {
+        Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
+        this.submitted = false;
+        this.getWo();
+        this.form.reset({});
+        this.getProgprodf();
+      }
+    } catch (error) {
+      console.log(error)
+      Swal.fire('Error', 'No se pudo guardar el registro', error.error);
     }
   }
 
@@ -224,4 +239,3 @@ export class RegistroProduccionComponent implements OnInit {
     this.spinner.show("mySpinner", opt1);
   }
 }
-
