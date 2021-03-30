@@ -26,7 +26,6 @@ export class ProduccionService {
     return this.http.get(this.url + '/buscar', { headers, params: params });
   }
 
-
   create(produccion, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url + '/get', produccion, { headers });

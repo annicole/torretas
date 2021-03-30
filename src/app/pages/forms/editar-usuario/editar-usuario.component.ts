@@ -43,28 +43,26 @@ export class EditarUsuarioComponent extends Dialog implements OnInit {
     this.loadModalTexts();
     if(this.sistema){
       this.usuarioForm = this.formBuilder.group({
-        nip: ['', Validators.required,],
-        nip2:['', Validators.required,],
+        id: [''],
+        nip: ['', Validators.required],
         password: ['', [Validators.required,Validators.min(6)]],
-        password2: ['', Validators.required],
-        correo: ['', [Validators.required, Validators.email]],
-        celular: ['',],
-        activousu: ['', Validators.required],
-      }, 
-      { validator: [this.MustMatch('password', 'password2'), this.MustMatch('nip', 'nip2')] });
+        email: ['', [Validators.required, Validators.email]],
+        celular: [''],
+        activousr: ['', Validators.required],
+      }
+      );
     }else{
       this.usuarioForm = this.formBuilder.group({
-        nip: ['', Validators.required,],
-        nip2:['', Validators.required,],
-        correo: ['', [Validators.required, Validators.email]],
-        celular: ['',],
-        activoemp: ['', Validators.required],
-      }, 
-      { validator: [this.MustMatch('nip', 'nip2')] });
+        id: [''],
+        nip: ['', Validators.required],
+        email: ['', Validators.email],
+        celular: [''],
+        activousr: ['', Validators.required],
+      }
+        );
     }
     this.token= this.auth.token;
     this.getDeptos();
-
   }
 
   async getDeptos() {
@@ -77,25 +75,29 @@ export class EditarUsuarioComponent extends Dialog implements OnInit {
     }
   }
 
-
   get f() { return this.usuarioForm.controls; }
 
   onSubmit() {
-
+    this.usuarioForm.value.id = this.usuario.id;
     this.submitted = true;
+    console.log(this.usuarioForm)
     if (this.usuarioForm.invalid) {
       return;
     } else {
-      this.guardar();
+      console.log('si entra pero no guarda')
+      this.update();
     }
   }
 
-  async guardar() {
+  async update() {
     try {
-      let response = await this.usuarioService.create(this.usuario,this.token).toPromise();
+      let response = await this.usuarioService.update(this.usuarioForm.value,this.token).toPromise();
       if (response.code = 200) {
-        this.showAlert(this.alertSuccesText, true);
-        this.closeModal();
+        this.showAlert('Usuario actualizado', true);
+        console.log(this.usuarioForm)
+        console.log(response)
+       // this.closeModal();
+       
       }
       else {
       console.log('AlertError');
@@ -113,16 +115,11 @@ export class EditarUsuarioComponent extends Dialog implements OnInit {
       data: {
         title: 'Cambiar Contraseña',
         btnText: 'Cambiar',
-        alertSuccesText: 'Entraste!',
+        alertSuccesText: '¡Contraseña actualizada!',
         alertErrorText: "No se puede actualizar el usuario",
         modalMode: 'create',
-        // username:usuario.username,
-        // Username_last:usuario.Username_last,
-        // iddep:usuario.iddep,
-        // idevento:usuario.idevento,
         usuario:this.usuario,
         tipousuario:'sistema',
-        //status: usuario.activousr,
       }
     });
   }
@@ -132,16 +129,11 @@ export class EditarUsuarioComponent extends Dialog implements OnInit {
       data: {
         title: 'Cambiar NIP',
         btnText: 'Cambiar',
-        alertSuccesText: 'Entraste!',
+        alertSuccesText: '¡Nip actualizado!',
         alertErrorText: "No se puede actualizar el usuario",
         modalMode: 'create',
-        // username:usuario.username,
-        // Username_last:usuario.Username_last,
-        // iddep:usuario.iddep,
-        // idevento:usuario.idevento,
         usuario:this.usuario,
         tipousuario:'sistema',
-        //status: usuario.activousr,
       }
     });
   }
@@ -164,7 +156,7 @@ export class EditarUsuarioComponent extends Dialog implements OnInit {
   }
 
   loadModalTexts() {
-    const { title, btnText, alertErrorText, alertSuccesText, modalMode, username, Username_last, iddep, idevento, tipousuario,usuario,idDepto, } = this.data;
+    const { title, btnText, alertErrorText, alertSuccesText, modalMode, id, username, Username_last, iddep, idevento, tipousuario,usuario,idDepto, } = this.data;
     this.title = title;
     this.btnText = btnText;
     this.alertSuccesText = alertSuccesText;
@@ -175,6 +167,7 @@ export class EditarUsuarioComponent extends Dialog implements OnInit {
     this.usuario.iddep = parseInt(iddep);
     this.usuario.idevento = parseInt(idevento);  
     this.tipousuario=tipousuario;
+    this.usuario.id = id;
     this.usuario = usuario;
     if(tipousuario){
       this.sistema=true;
@@ -183,22 +176,20 @@ export class EditarUsuarioComponent extends Dialog implements OnInit {
       this.enabledDepartamento = true;
       this.usuario.iddep = idDepto;
     }
-    console.log(this.usuario)
+    console.log(this.usuario.id)
   }
 
   closeModal() {
     this.dialogRef.close();
   }
   
-
   ToggleStatusUsu() {
-    console.log(this.usuarioForm.value.activousu)
-    if (this.usuarioForm.value.activousu == 1) {
+    if (this.usuarioForm.value.activousr == 1) {
       this.statusUsu = 'Activo';
       console.log('Activo')
     } else {
       this.statusUsu = 'Inactivo';
-      this.usuarioForm.value.activoemp = 0;
+      this.usuarioForm.value.activousr = 0;
       console.log('Inactivo')
     }
   }

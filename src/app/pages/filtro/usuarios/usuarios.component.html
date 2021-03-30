@@ -86,8 +86,8 @@
           </tr>
         
         </thead>
-        <tbody>
-          <tr *ngFor="let u of usuarios">
+        <tbody *ngFor="let u of usuarios">
+          <tr *ngIf="u.password!==null" >
             <td>{{u.username}}</td>
             <td>{{u.Username_last}}</td>
             <td>{{u.Departamento.departamento}}</td>

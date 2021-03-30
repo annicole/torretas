@@ -95,13 +95,8 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
         alertSuccesText: 'Entraste!',
         alertErrorText: "No se puede actualizar el usuario",
         modalMode: 'create',
-        // username:usuario.username,
-        // Username_last:usuario.Username_last,
-        // iddep:usuario.iddep,
-        // idevento:usuario.idevento,
         usuario:this.usuario,
-        tipousuario:'sistema',
-        //status: usuario.activousr,
+        tipousuario:this.data.tipousuario,
       }
     });
 
@@ -127,7 +122,6 @@ export class IngresaNipComponent extends Dialog implements OnInit  {
       this.usuario = usuario;
       //this.editar = true;
   }
-  console.log(this.usuario);
   }
 
 }
