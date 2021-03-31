@@ -5,6 +5,7 @@ import { EmpresaService } from '@app/services/empresa.service'
 import { ProductoService } from '@app/services/producto.service'
 import { ProgprodService } from '@app/services/progprod.service';
 import { ProdregisroService } from '@app/services/prodregisro.service';
+import { ProduccionloteService } from '@app/services/produccionlote.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -36,6 +37,7 @@ export class RegistroProduccionComponent implements OnInit {
   progprod = [];
   prodregisro = [];
   form: FormGroup;
+  formp: FormGroup;
   submitted = false;
   token;
   total = 0;
@@ -49,6 +51,7 @@ export class RegistroProduccionComponent implements OnInit {
     private empresaService: EmpresaService,
     private productoService: ProductoService,
     private progprodService: ProgprodService,
+    private produccionloteService: ProduccionloteService,
     private maquinaService: MaquinaService,
     private prodregisroService: ProdregisroService,
     private formBuilder: FormBuilder,
@@ -83,6 +86,11 @@ export class RegistroProduccionComponent implements OnInit {
       totsgrap: ['', Validators.required],
     });
 
+    this.formp = this.formBuilder.group({
+      tname: [''],
+      tnamep: [''],
+    });
+
     this.getWo();
     this.getMaquinas();
     this.getEmpresa();
@@ -95,7 +103,6 @@ export class RegistroProduccionComponent implements OnInit {
       let resp = await this.prodregisroService.getProdregisro(this.auth.token, this.idprogprod).toPromise();
       if (resp.code == 200) {
         this.prodregisro = resp.prodregisro;
-        console.log(this.prodregisro)
       }
     } catch (error) {
       Swal.fire('Error', '', 'error');
@@ -157,15 +164,17 @@ export class RegistroProduccionComponent implements OnInit {
     }
   }
 
-  async save(){
+  async savepreparacion(){
+    this.formp.value.tname = 'lote' + this.idprogprod;
+    this.formp.value.tnamep = 'lote' + this.idprogprod + 'p';
+    console.log(this.formp.value)
     try {
-      let response = await this.progprodService.create(this.form.value, this.auth.token).toPromise();
+      let response = await this.produccionloteService.getpreparacion(this.formp.value, this.auth.token).toPromise();
       if (response.code == 200) {
         Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
         this.submitted = false;
         this.getWo();
         this.form.reset({});
-        this.getProgprodf();
       }
     } catch (error) {
       console.log(error)

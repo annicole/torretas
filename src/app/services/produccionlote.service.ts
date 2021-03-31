@@ -6,7 +6,7 @@ import * as environment from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ProdregisroService {
+export class ProduccionloteService {
 
   private url: string = environment.environment.urlEndPoint + '/produccionlote';
   constructor(private http: HttpClient) { }
@@ -16,6 +16,14 @@ export class ProdregisroService {
     let params = new HttpParams();
     params = params.append('id',id);
     return this.http.get(this.url + '/produccionlote', {headers,params:params});
+  }
+
+  getpreparacion(formp,token): Observable<any> {  
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    let params = new HttpParams();
+    params = params.append('tname',formp.tname);
+    params = params.append('tnamep',formp.tnamep);
+    return this.http.get(this.url + '/getpro', {headers,params:params});
   }
 
   getProduccionlote(token,id): Observable<any> {  
@@ -34,6 +42,7 @@ export class ProdregisroService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.get(`${this.url + '/read'}/${id}`, { headers });
   }
+  
 /*
   delete(obj, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });

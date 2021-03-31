@@ -43,10 +43,16 @@ label{
     max-width: 150px;
 }
 
-.btn-group{
+.btn-group-toggle{
     min-height: 41px;
-    position:relative;
-    top: 0px;
+    //position: static;
+   // bottom: 15px;
+    text-align: center;
+    position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
 }
 
 .table-td{
