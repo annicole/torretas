@@ -29,6 +29,8 @@ import { now } from '@amcharts/amcharts4/.internal/core/utils/Time';
 export class RegistroProduccionComponent implements OnInit {
 
   idprogprod;
+  idwo;
+  idproducto;
   listaWo = [];
   listaSKU = [];
   maquinas = [];
@@ -38,6 +40,7 @@ export class RegistroProduccionComponent implements OnInit {
   prodregisro = [];
   form: FormGroup;
   formp: FormGroup;
+  formlote: FormGroup;
   submitted = false;
   token;
   total = 0;
@@ -91,11 +94,19 @@ export class RegistroProduccionComponent implements OnInit {
       tnamep: [''],
     });
 
+    this.formlote = this.formBuilder.group({
+      tname: [''],
+      tnamep: [''],
+      product: [''],
+      cantidadpiezas: [''],
+    });
+
     this.getWo();
     this.getMaquinas();
     this.getEmpresa();
     this.getProductos();
     this.getProdregisro();
+    this.getidProducto('');
   }
 
   async getProdregisro() {
@@ -103,6 +114,12 @@ export class RegistroProduccionComponent implements OnInit {
       let resp = await this.prodregisroService.getProdregisro(this.auth.token, this.idprogprod).toPromise();
       if (resp.code == 200) {
         this.prodregisro = resp.prodregisro;
+        if (this.prodregisro != null && this.prodregisro.length > 0) {
+          this.getidProducto(this.prodregisro[0].producto) 
+          this.formlote.value.cantidadpiezas = this.prodregisro[0].cant;
+          this.formlote.controls['cantidadpiezas'].setValue(this.prodregisro[0].cant);
+          this.getSKU(this.prodregisro[0].idwo)
+        }
       }
     } catch (error) {
       Swal.fire('Error', '', 'error');
@@ -154,6 +171,20 @@ export class RegistroProduccionComponent implements OnInit {
     }
   }
 
+  async getidProducto(pro) {
+    try {
+      let resp = await this.productoService.get(pro, this.auth.token).toPromise();
+      if (resp.code == 200) {
+        this.productos = resp.response;
+        if (this.productos != null && this.productos.length > 0) {
+         this.formlote.controls['product'].setValue(this.productos[0].idproducto);
+        }
+        this.idproducto = this.productos[0].idproducto;
+      }
+    } catch (e) {
+    }
+  }
+
   async getProductos() {
     try {
       let resp = await this.productoService.get("", this.auth.token).toPromise();
@@ -171,13 +202,31 @@ export class RegistroProduccionComponent implements OnInit {
     try {
       let response = await this.produccionloteService.getpreparacion(this.formp.value, this.auth.token).toPromise();
       if (response.code == 200) {
+        Swal.fire('Guardado', 'El registro ha sido creado!', 'success');
+        this.submitted = false;
+        this.formp.reset({});
+      }
+    } catch (error) {
+      Swal.fire('Error', 'No se pudo guardar el registro', error.error);
+    }
+  }
+
+  async saveproduccionlote(){
+    this.formlote.value.tname = 'lote' + this.idprogprod;
+    this.formlote.value.tnamep = 'lote' + this.idprogprod + 'p';
+    this.formlote.value.product = this.idproducto;
+     
+    console.log(this.idproducto)
+    console.log(this.formlote.value)
+    try {
+      let response = await this.produccionloteService.getlote(this.formlote.value, this.auth.token).toPromise();
+      if (response.code == 200) {
         Swal.fire('Guardado', 'El registro ha sido guardado!', 'success');
         this.submitted = false;
         this.getWo();
-        this.form.reset({});
+        this.formlote.reset({});
       }
     } catch (error) {
-      console.log(error)
       Swal.fire('Error', 'No se pudo guardar el registro', error.error);
     }
   }

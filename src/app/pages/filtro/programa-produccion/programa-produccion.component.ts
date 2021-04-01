@@ -89,8 +89,6 @@ export class ProgramaProduccionComponent implements OnInit {
   get f() { return this.form.controls; }
 
   onSubmit() {
-    console.log(this.form)
-    console.log(this.form.value)
     this.submitted = true;
     if (this.form.invalid) {
       return;
