@@ -26,14 +26,17 @@ export class ProduccionloteService {
     return this.http.get(this.url + '/getpro', {headers,params:params});
   }
 
-  getProduccionlote(token,id): Observable<any> {  
+  getlote(formp,token): Observable<any> {  
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     let params = new HttpParams();
-    params = params.append('idproduccion',id);
+    params = params.append('tname',formp.tname);
+    params = params.append('tnamep',formp.tnamep);
+    params = params.append('product',formp.product);
+    params = params.append('cantidadpiezas',formp.cantidadpiezas);
     return this.http.get(this.url + '/get', {headers,params:params});
   }
 
-  create(obj, token): Observable<any> {
+  createlote(obj, token): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this.http.post<any>(this.url +'/get', obj, { headers });
   }
